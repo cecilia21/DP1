@@ -44,7 +44,8 @@ public class ButtonEditor3 extends DefaultCellEditor   {
 //            window.setLocationRelativeTo(null);
 //            window.setVisible(true);
             int dialogButton = JOptionPane.YES_NO_OPTION;
-            JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
+            int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
+        
         }
     });
   }

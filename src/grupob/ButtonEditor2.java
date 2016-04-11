@@ -39,9 +39,9 @@ public class ButtonEditor2 extends DefaultCellEditor  {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            AgregaA window = new AgregaA(new javax.swing.JFrame(), true);
-            window.setLocationRelativeTo(null);
-            window.setVisible(true);
+//            AgregaA window = new AgregaA(new javax.swing.JFrame(), true);
+//            window.setLocationRelativeTo(null);
+//            window.setVisible(true);
         }
     });
   }

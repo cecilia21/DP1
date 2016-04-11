@@ -42,9 +42,9 @@ public class ButtonEditor extends DefaultCellEditor {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            InicioV window = new InicioV(new javax.swing.JFrame(), true);
-            window.setLocationRelativeTo(null);
-            window.setVisible(true);
+//            InicioV window = new InicioV(new javax.swing.JFrame(), true);
+//            window.setLocationRelativeTo(null);
+//            window.setVisible(true);
         }
     });
   }
