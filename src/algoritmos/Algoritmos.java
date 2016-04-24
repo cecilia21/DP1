@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 import dyimagefx.*;
 import dyimagefx.morph.Skeletonization;
+import preprocessing.ThinningService;
 
 /**
  *
@@ -31,33 +32,36 @@ public class Algoritmos {
         // TODO code application logic here
         //lectura de imagen
         File file = new File("C:/Users/USUARIO/Documents/dp1/firma1.jpg");
-        BufferedImage originalImage,original,test;
+        File file1 = new File("C:/Users/USUARIO/Documents/dp1/firma1.jpg");
+        BufferedImage compImg,original,test;
         try {
-            originalImage = ImageIO.read(file);
+            original = ImageIO.read(file);
+            compImg = ImageIO.read(file);
             //extraemos altura y ancho inicial
-            imageHeight = originalImage.getHeight();
-            imageWidth = originalImage.getWidth();
+            imageHeight = original.getHeight();
+            imageWidth = original.getWidth();
                     
             // empezamos con la binarizacion
-            BufferedImage blackAndWhiteImg = binarization(originalImage);
+            BufferedImage blackAndWhiteImg = binarization(original);
             
             //empezamos con el croppeado
             BufferedImage cropped = cropper(blackAndWhiteImg, imageHeight, imageWidth);
             ImageIO.write(cropped, "jpg", new File("C:/Users/USUARIO/Documents/dp1/firma1crop.jpg"));
             
             //skeletonization y thinning
+            /*
             MyImage img = new MyImage();
             img.readImage("C:/Users/USUARIO/Documents/dp1/firma1crop.jpg");
             Skeletonization.binaryImage(img);
             img.writeImage("C:/Users/USUARIO/Documents/dp1/firma1skeleton.jpg");
+            */
             
-            /*
             
             int[][] imgbin= new int[50][50];
             int pix;
             for(int i=0;i<50;i++)
                 for(int j=0;j<50;j++){
-                    pix=originalImage.getRGB(i, j);
+                    pix=original.getRGB(i, j);
                     if(pix==-1)
                     imgbin[i][j]=0; 
                     else {
@@ -67,7 +71,7 @@ public class Algoritmos {
                 }
             ThinningService ut = new ThinningService();
             ut.doZhangSuenThinning(imgbin, true);
-            */
+            
             
             //metodo de pixeles
             File or_file = new File("C:/Users/USUARIO/Documents/dp1/firma1.jpg");
@@ -75,6 +79,7 @@ public class Algoritmos {
             File test_file = new File("C:/Users/USUARIO/Documents/dp1/firma1.jpg");
             test = ImageIO.read(test_file);
             int percentage = pixel_comparison(original,test);
+            System.out.println("resultado: "+percentage);
             
         } catch (IOException ex) {
              System.out.println("fuelavida");
