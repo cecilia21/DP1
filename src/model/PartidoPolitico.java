@@ -14,20 +14,22 @@ import java.util.Date;
  */
 public class PartidoPolitico {
     private int id;
+    private String idUsuario;
     private String nombre;
     private int cantidadRegistrosValidos;
     private String nombreRepresentante;
     private String apellidoRepresentante;
-    private int dniRepresentante;
+    private String dniRepresentante;
     private String correoRepresentante;
     private String correoPartido;
     private Date fechaRegistro;
     private String estado;    
 
     
-    public PartidoPolitico(int id,String nombre,int cantidadR,String nombreR,String apellidoR,
-            int dniR,String correoR,String correo){
+    public PartidoPolitico(int id,String idU,String nombre,int cantidadR,String nombreR,String apellidoR,
+            String dniR,String correoR,String correo){
         this.id=id;
+        this.idUsuario=idU;
         this.nombre=nombre;
         this.nombreRepresentante=nombreR;
         this.apellidoRepresentante=apellidoR;
@@ -111,14 +113,14 @@ public class PartidoPolitico {
     /**
      * @return the dniRepresentante
      */
-    public int getDniRepresentante() {
+    public String getDniRepresentante() {
         return dniRepresentante;
     }
 
     /**
      * @param dniRepresentante the dniRepresentante to set
      */
-    public void setDniRepresentante(int dniRepresentante) {
+    public void setDniRepresentante(String dniRepresentante) {
         this.dniRepresentante = dniRepresentante;
     }
 
@@ -176,6 +178,20 @@ public class PartidoPolitico {
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the idUsuario
+     */
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
     

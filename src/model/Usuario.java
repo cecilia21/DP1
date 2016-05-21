@@ -13,18 +13,18 @@ import java.util.Date;
  * @author RAMON
  */
 public class Usuario {
-        private int id;
+        private String id;
         private String nombre;
         private String apellido;
         private String telefono;
-        private int dni;
+        private String dni;
         private String correo;
         private String contraseña;
         private int numeroIntentosAcceso;
         private Date fechaRegistro;
         private String estado;
 
-    public Usuario(int id,String nombre,String apellido,String telefono,int dni,String correo,String contraseña){
+    public Usuario(String id,String nombre,String apellido,String telefono,String dni,String correo,String contraseña){
         this.id=id;
         this.nombre=nombre;
         this.apellido=apellido;
@@ -40,14 +40,14 @@ public class Usuario {
     /**
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -96,14 +96,14 @@ public class Usuario {
     /**
      * @return the dni
      */
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
     /**
      * @param dni the dni to set
      */
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

@@ -13,11 +13,17 @@ import java.util.Date;
  */
 public class Institucion {
     private int id;
+    private int idLocal;
+    private int idDistrito;
+    private int idRegion;
     private String nombre;
     private int CantidadVotantesRegistrados;
 
-    public Institucion(int id,String nombre,int cantidad){
+    public Institucion(int id,int idL,int idD,int idR,String nombre,int cantidad){
         this.id=id;
+        this.idDistrito=idD;
+        this.idLocal=idL;
+        this.idRegion=idR;
         this.nombre=nombre;
         this.CantidadVotantesRegistrados=cantidad;
     }
@@ -62,6 +68,48 @@ public class Institucion {
      */
     public void setCantidadVotantesRegistrados(int CantidadVotantesRegistrados) {
         this.CantidadVotantesRegistrados = CantidadVotantesRegistrados;
+    }
+
+    /**
+     * @return the idLocal
+     */
+    public int getIdLocal() {
+        return idLocal;
+    }
+
+    /**
+     * @param idLocal the idLocal to set
+     */
+    public void setIdLocal(int idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    /**
+     * @return the idDistrito
+     */
+    public int getIdDistrito() {
+        return idDistrito;
+    }
+
+    /**
+     * @param idDistrito the idDistrito to set
+     */
+    public void setIdDistrito(int idDistrito) {
+        this.idDistrito = idDistrito;
+    }
+
+    /**
+     * @return the idRegion
+     */
+    public int getIdRegion() {
+        return idRegion;
+    }
+
+    /**
+     * @param idRegion the idRegion to set
+     */
+    public void setIdRegion(int idRegion) {
+        this.idRegion = idRegion;
     }
     
     

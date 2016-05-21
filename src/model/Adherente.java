@@ -15,7 +15,7 @@ public class Adherente {
 
     public Adherente(int dni){
         this.dni=dni;
-        this.estado="Pendiente";
+        this.estado="NoInscrito";
     }
     /**
      * @return the dni

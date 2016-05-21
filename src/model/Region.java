@@ -13,6 +13,7 @@ public class Region {
     private int id;
     private String nombre;
     private int CantidadVotantesRegistrados;
+    
 
     public Region(int id,String nombre,int cantidad){
         this.id=id;

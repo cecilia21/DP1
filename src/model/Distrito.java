@@ -11,11 +11,13 @@ package model;
  */
 public class Distrito {
     private int id;
-    private String nombre;
+    private int idRegion;
+    private String nombre;    
     private int CantidadVotantesRegistrados;
 
-    public Distrito(int id,String nombre,int cantidad){
+    public Distrito(int id,int idR,String nombre,int cantidad){
         this.id=id;
+        this.idRegion=idR;
         this.nombre=nombre;
         this.CantidadVotantesRegistrados=cantidad;
     }
@@ -60,6 +62,20 @@ public class Distrito {
      */
     public void setCantidadVotantesRegistrados(int CantidadVotantesRegistrados) {
         this.CantidadVotantesRegistrados = CantidadVotantesRegistrados;
+    }
+
+    /**
+     * @return the idRegion
+     */
+    public int getIdRegion() {
+        return idRegion;
+    }
+
+    /**
+     * @param idRegion the idRegion to set
+     */
+    public void setIdRegion(int idRegion) {
+        this.idRegion = idRegion;
     }
         
 }
