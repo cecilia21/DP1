@@ -13,4 +13,9 @@ public class MySQLDAOFactory extends DAOFactory{
 		return new MySQLDAOInstitucion();
 	}
 
+        @Override
+	public DAORegion getDAORegion() {
+		// TODO Auto-generated method stub
+		return new MySQLDAORegion();
+	}
 }
