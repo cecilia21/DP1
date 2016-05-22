@@ -14,6 +14,9 @@ public class Region {
     private String nombre;
     private int CantidadVotantesRegistrados;
     
+    public Region(){
+        
+    }
 
     public Region(int id,String nombre,int cantidad){
         this.id=id;

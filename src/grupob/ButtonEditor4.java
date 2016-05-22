@@ -35,7 +35,7 @@ public class ButtonEditor4 extends DefaultCellEditor {
 	  public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		    bListener.setRow(row);
 		    bListener.setTable(table);
-		    button.setText( (value == null) ? "" : value.toString() );
+//		    button.setText( (value == null) ? "" : value.toString() );
 		    return button;
 		  }
  
@@ -52,8 +52,9 @@ public class ButtonEditor4 extends DefaultCellEditor {
                             int dialogButton = JOptionPane.YES_NO_OPTION;
                             int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
                             if(n==JOptionPane.YES_OPTION){
-                            ((DefaultTableModel)table.getModel()).removeRow(this.row);
-                            ((DefaultTableModel)table.getModel()).fireTableDataChanged();
+                                Inicio.listaRegiones.remove(this.row);
+                                ((DefaultTableModel)table.getModel()).removeRow(this.row);
+                                ((DefaultTableModel)table.getModel()).fireTableDataChanged();
                             }     
                         }
 	      }

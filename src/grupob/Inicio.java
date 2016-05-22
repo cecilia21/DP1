@@ -11,6 +11,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -30,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Region;
 import model.TipoProcesoVotacion;
 
 
@@ -43,10 +45,16 @@ public class Inicio extends javax.swing.JDialog {
      * Creates new form Inicio
      */
     private String fileName;
+    public static ArrayList<Region> listaRegiones=new ArrayList<Region>();
+    
     
     public Inicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listaRegiones.add(new Region(1,"Lima",15000));
+        listaRegiones.add(new Region(1,"Arequipa",10000));
+        listaRegiones.add(new Region(1,"Junin",12000));
+        agregarDatos();
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);        
@@ -469,15 +477,17 @@ public class Inicio extends javax.swing.JDialog {
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Cantidad de Votantes", "Eliminar"
             }
         ));
+        jTable6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTable6KeyTyped(evt);
+            }
+        });
         jScrollPane6.setViewportView(jTable6);
 
         jLabel9.setText("Porcentaje: ");
@@ -2216,15 +2226,43 @@ public class Inicio extends javax.swing.JDialog {
                     jXDatePicker4.setDate(null);            
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"Los valores de la fecha deben ser superiores a hoy");
+                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+                return;
             }
         }else{
-            JOptionPane.showMessageDialog(null,"Falta ingresar todos los campos");
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
+            return;
         }
     }//GEN-LAST:event_jButton50ActionPerformed
 
+    private void agregarDatos(){
+        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        modelo.setRowCount(0);
+        String datos[] = new String[3];
+        for (int i = 0; i < listaRegiones.size(); i++) {
+            datos[0] = listaRegiones.get(i).getNombre();
+            if(listaRegiones.get(i).getCantidadVotantesRegistrados() == 0){
+                datos[1] ="";
+            }else{
+                datos[1] = Long.toString(listaRegiones.get(i).getCantidadVotantesRegistrados());
+            }
+            modelo.addRow(datos);
+        }
+        TableColumn colum1 = null;
+        colum1 = jTable6.getColumnModel().getColumn(0);
+        colum1.setPreferredWidth(60);
+        TableColumn colum2 = null;
+        colum2 = jTable6.getColumnModel().getColumn(1);
+        colum2.setPreferredWidth(5);
+        TableColumn colum3 = null;
+        colum3 = jTable6.getColumnModel().getColumn(2);
+        colum3.setPreferredWidth(40);
+        colum3.setPreferredWidth(10);        
+    } 
+    
     private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
-        
+        ArrayList<Region> listaRegionesPas = null;
+        TipoProcesoVotacion proceso=null;
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker6.getEditor();
@@ -2233,17 +2271,66 @@ public class Inicio extends javax.swing.JDialog {
         Date datef1 = (Date) fechaf1.getValue();
         JFormattedTextField fechaf2 = jXDatePicker8.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
-        double por=Double.parseDouble(jTextField6.getText());
-        TipoProcesoVotacion proceso=new TipoProcesoVotacion();
-        proceso.setFechaInicio1(datei1);
-        proceso.setFechaInicio2(datei2);
-        proceso.setFechaFin1(datef1);
-        proceso.setFechaFin2(datef2);
-        proceso.setPorcentajeMinimo(por);
-//        proceso.setIdUsuario(fileName);
-//        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
-        
-//        Manager.addProcesoNacional(proceso);
+        double por;
+        Calendar cal = Calendar.getInstance(); 
+        Date dateActual =cal.getTime();
+        try{
+            por=Double.parseDouble(jTextField6.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
+            return;
+        }
+        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
+            if(datei1.compareTo(dateActual)>0 && datei2.compareTo(dateActual)>0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
+                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                proceso=new TipoProcesoVotacion();
+                proceso.setFechaInicio1(datei1);
+                proceso.setFechaInicio2(datei2);
+                proceso.setFechaFin1(datef1);
+                proceso.setFechaFin2(datef2);
+                proceso.setPorcentajeMinimo(por);
+                DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+                listaRegionesPas=listaRegiones;
+                for(int i=0;i<listaRegiones.size();i++){
+                    String a=modelo.getValueAt(i,1).toString();
+                    String n=modelo.getValueAt(i,0).toString();
+                    int num=-1;
+                    try {
+                        num=Integer.parseInt(a);
+                    } catch (NumberFormatException e) {
+                           JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
+                           return;
+                    }
+                    if(num<0){
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
+                        return;                
+                    }
+                    Region s=listaRegionesPas.get(i);
+                    Region r=new Region(s.getId(),n,num);
+                    listaRegionesPas.set(i,r);            
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos de las fechas");
+            return;
+        }
+        listaRegiones=listaRegionesPas;        
+        Manager.updateProcesoRegional(proceso,listaRegiones);
+        JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
     }//GEN-LAST:event_jButton46ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
@@ -2253,8 +2340,17 @@ public class Inicio extends javax.swing.JDialog {
         row.add("");
         row.add("");
         model.addRow(row);
-        
+        Region r=new Region();
+        r.setNombre("");
+        listaRegiones.add(r);
+//        r.setCantidadVotantesRegistrados();
+//        agregarDatos();
     }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jTable6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable6KeyTyped
+        
+        
+    }//GEN-LAST:event_jTable6KeyTyped
 
     /**
      * @param args the command line arguments
