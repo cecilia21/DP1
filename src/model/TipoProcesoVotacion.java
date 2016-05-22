@@ -20,6 +20,7 @@ public class TipoProcesoVotacion {
     private int idLocal;
     private int idDistrito;
     private int idRegion;
+    private int cantidadVotantes;
     private String nombre;
     private Date fechaInicio1;
     private Date fechaFin1;
@@ -27,7 +28,11 @@ public class TipoProcesoVotacion {
     private Date fechaFin2;
     private double porcentajeMinimo;
 
-    public TipoProcesoVotacion(int id,String idU,int idP,int idI,int idL,int idD,int idR
+    public TipoProcesoVotacion(){
+        
+    }
+    
+    public TipoProcesoVotacion(int id,String idU,int idP,int idI,int idL,int idD,int idR,int cant
             ,String nombre,Date fechaInicio1,Date fechaFin1,Date fechaInicio2,Date fechaFin2,double porcentajeMinimo){
         this.id=id;
         this.idDistrito=idD;
@@ -35,6 +40,7 @@ public class TipoProcesoVotacion {
         this.idLocal=idL;
         this.idRegion=idR;
         this.idInstitucion=idI;
+        this.cantidadVotantes=cant;
         this.idUsuario=idU;
         this.nombre=nombre;
         this.fechaInicio1=fechaInicio1;
@@ -224,6 +230,20 @@ public class TipoProcesoVotacion {
      */
     public void setFechaFin2(Date fechaFin2) {
         this.fechaFin2 = fechaFin2;
+    }
+
+    /**
+     * @return the cantidadVotantes
+     */
+    public int getCantidadVotantes() {
+        return cantidadVotantes;
+    }
+
+    /**
+     * @param cantidadVotantes the cantidadVotantes to set
+     */
+    public void setCantidadVotantes(int cantidadVotantes) {
+        this.cantidadVotantes = cantidadVotantes;
     }
     
     
