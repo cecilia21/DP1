@@ -33,7 +33,7 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                                                         DBConnection.password);
                 //Paso 3: Preparar la sentencia
                 String sql = "INSERT INTO Institucion "
-                                + "(idDistrito, idLocal, idRegion, nombre,CantidadVotantesRegistrados)"
+                                + "(idDistrito, idLocal, idRegion, nombre,cantidadVotantesRegistrados)"
                                 + "VALUES (?,?,?,?,?)";
                 
                 pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -61,7 +61,36 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
 
     @Override
     public void update(Institucion i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            //Paso 1: Registrar el Driver
+            DriverManager.registerDriver(new Driver());;
+            //Paso 2: Obtener la conexión
+            conn = (Connection) DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                            DBConnection.user,
+                            DBConnection.password);
+            //Paso 3: Preparar la sentencia
+            String sql = "UPDATE Product_2015_1 "
+                            + "SET nombre=?,cantidadVotantesRegistrados=?"
+                            + "WHERE id=?";
+            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt.setString(1, i.getNombre());
+            pstmt.setInt(2, i.getCantidadVotantesRegistrados());
+            pstmt.setInt(3, i.getId());			
+            //Paso 4: Ejecutar la sentencia
+            pstmt.executeUpdate();
+            //Paso 5(opc.): Procesar los resultados			
+            } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            } finally {
+                    //Paso 6(OJO): Cerrar la conexión
+                    try { if (pstmt!= null) pstmt.close();} 
+                            catch (Exception e){e.printStackTrace();};
+                    try { if (conn!= null) conn.close();} 
+                            catch (Exception e){e.printStackTrace();};						
+            }
     }
 
     @Override
