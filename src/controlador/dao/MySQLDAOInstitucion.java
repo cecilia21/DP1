@@ -15,12 +15,12 @@ import model.Institucion;
 public class MySQLDAOInstitucion implements DAOInstitucion {
 
     @Override
-    public void add(Institucion p) {
+    public void add(Institucion i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Institucion p) {
+    public void update(Institucion i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

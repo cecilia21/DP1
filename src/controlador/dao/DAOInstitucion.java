@@ -13,8 +13,8 @@ import model.Institucion;
  * @author Raul
  */
 public interface DAOInstitucion {
-    void add(Institucion p);
-    void update(Institucion p);
+    void add(Institucion i);
+    void update(Institucion i);
     void delete (int idInstitucion);
     ArrayList<Institucion> queryAll();
     Institucion queryById(int idInstitucion);
