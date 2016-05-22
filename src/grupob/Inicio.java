@@ -10,10 +10,13 @@ import java.awt.Component;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.print.attribute.Size2DSyntax.MM;
 import javax.swing.DefaultCellEditor;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -132,6 +135,8 @@ public class Inicio extends javax.swing.JDialog {
         jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker3 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker4 = new org.jdesktop.swingx.JXDatePicker();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
@@ -396,39 +401,47 @@ public class Inicio extends javax.swing.JDialog {
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addComponent(jLabel53)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel54)
-                        .addGap(3, 3, 3)
-                        .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel56)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addComponent(jButton50, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jLabel52)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel51)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel55)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))))
+                    .addComponent(jLabel58)
+                    .addComponent(jLabel57)
+                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                            .addComponent(jButton50, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(98, 98, 98))
+                        .addGroup(jPanel19Layout.createSequentialGroup()
+                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                                    .addComponent(jLabel53)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel54)
+                                    .addGap(10, 10, 10))
+                                .addGroup(jPanel19Layout.createSequentialGroup()
+                                    .addComponent(jLabel52)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel51)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                                .addComponent(jXDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel19Layout.createSequentialGroup()
+                                    .addGap(9, 9, 9)
+                                    .addComponent(jLabel56)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                                    .addGap(7, 7, 7)
+                                    .addComponent(jLabel55)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(55, 55, 55)))))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel51)
                     .addComponent(jLabel52)
@@ -441,11 +454,15 @@ public class Inicio extends javax.swing.JDialog {
                         .addComponent(jLabel53)
                         .addComponent(jLabel54)
                         .addComponent(jLabel56))
-                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jLabel57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel58)
+                .addGap(68, 68, 68)
                 .addComponent(jButton50)
-                .addGap(107, 107, 107))
+                .addGap(78, 78, 78))
         );
 
         jTabbedPane4.addTab("Nacional", jPanel19);
@@ -2151,12 +2168,59 @@ public class Inicio extends javax.swing.JDialog {
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker2.getEditor();
         Date datei2 = (Date) fechai2.getValue();
-        JFormattedTextField fechaf1 = jXDatePicker1.getEditor();
+        JFormattedTextField fechaf1 = jXDatePicker3.getEditor();
         Date datef1 = (Date) fechaf1.getValue();
-        JFormattedTextField fechaf2 = jXDatePicker1.getEditor();
+        JFormattedTextField fechaf2 = jXDatePicker4.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
-        
-        
+        TipoProcesoVotacion proceso=new TipoProcesoVotacion();
+        proceso.setFechaInicio1(datei1);
+        proceso.setFechaInicio2(datei2);
+        proceso.setFechaFin1(datef1);
+        proceso.setFechaFin2(datef2);
+        proceso.setPorcentajeMinimo(10);
+        Calendar cal = Calendar.getInstance(); 
+        Date dateActual =cal.getTime();
+//        System.out.println(""+dateActual);
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
+        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
+            if(datei1.compareTo(dateActual)>0 && datei2.compareTo(dateActual)>0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
+                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+                    return;
+                }
+                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+                    return;
+                }
+                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+                    return;
+                }
+                if(jLabel57.getText()!=""&&jLabel57.getText()!=null){
+                    Manager.addProcesoNacional(proceso);
+                    jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
+                    jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
+                    JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
+                    jXDatePicker1.setDate(null);
+                    jXDatePicker2.setDate(null);
+                    jXDatePicker3.setDate(null);
+                    jXDatePicker4.setDate(null);
+                }else{
+                    Manager.updateProcesoNacional(proceso);
+                    jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
+                    jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
+                    JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
+                    jXDatePicker1.setDate(null);
+                    jXDatePicker2.setDate(null);
+                    jXDatePicker3.setDate(null);
+                    jXDatePicker4.setDate(null);            
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Los valores de la fecha deben ser superiores a hoy");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Falta ingresar todos los campos");
+        }
     }//GEN-LAST:event_jButton50ActionPerformed
 
     private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
@@ -2179,7 +2243,7 @@ public class Inicio extends javax.swing.JDialog {
 //        proceso.setIdUsuario(fileName);
 //        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
         
-        Manager.addProcesoNacional(proceso);
+//        Manager.addProcesoNacional(proceso);
     }//GEN-LAST:event_jButton46ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
@@ -2349,6 +2413,8 @@ public class Inicio extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

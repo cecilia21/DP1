@@ -18,8 +18,16 @@ public class Manager {
     
     public static void addProcesoNacional(TipoProcesoVotacion proceso)
     {
+        
         procesoNacionalDB.add(proceso);
-        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
+//        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
+    }
+    
+    public static void updateProcesoNacional(TipoProcesoVotacion proceso)
+    {
+        
+        procesoNacionalDB.update(proceso);
+//        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
     }
     
     public static void addProcesoTableRegions()

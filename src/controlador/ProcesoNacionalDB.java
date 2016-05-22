@@ -21,8 +21,10 @@ public class ProcesoNacionalDB {
     }
     
     public void add(TipoProcesoVotacion p) {
-    	   System.out.println("base de datos");
-        
+    	   System.out.println("base de datos");        
     }
     
+    public void update(TipoProcesoVotacion p) {
+    	   System.out.println("base de datos");        
+    }
 }
