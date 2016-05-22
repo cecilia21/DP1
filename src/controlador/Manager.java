@@ -5,6 +5,8 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import model.Region;
 import model.TipoProcesoVotacion;
 
 /**
@@ -30,8 +32,9 @@ public class Manager {
 //        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
     }
     
-    public static void addProcesoTableRegions()
+    public static void updateProcesoRegional(TipoProcesoVotacion proceso,ArrayList<Region> lista)
     {
+        
         
     }
     
