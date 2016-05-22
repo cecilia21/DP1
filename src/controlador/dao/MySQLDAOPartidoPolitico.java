@@ -36,16 +36,12 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO Person "
+			String sql = "INSERT INTO PartidoPolicito "
 					+ "(id, name, lastName, dni, email, birthday)"
 					+ "VALUES (?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p.getId());
-			pstmt.setString(2, p.getName());
-			pstmt.setString(3, p.getLastName());
-			pstmt.setString(4, p.getDni());
-			pstmt.setString(5, p.getEmail());
-			pstmt.setDate(6, Date.valueOf(p.getBirthday()));
+			//pstmt.setString(2, p.getName());
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();			
 			//Paso 5(opc.): Procesar los resultados			

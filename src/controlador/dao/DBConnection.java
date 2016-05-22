@@ -8,6 +8,8 @@ public class DBConnection {
 	
 	public static String URL_JDBC_SQLServer = 
 	"jdbc:sqlserver://inti.lab.inf.pucp.edu.pe:1433;databaseName=inf282";
+        public static String URL_JDBC_MySQL = 
+	"jdbc:sqlserver://inti.lab.inf.pucp.edu.pe:1433;databaseName=inf282";
 	public static String user = "inf282";
 	public static String password = "inf282db";
 	public static int dbType = SQL_SERVER;
