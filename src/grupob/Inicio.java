@@ -11,6 +11,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -30,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Region;
 import model.TipoProcesoVotacion;
 
 
@@ -43,10 +45,16 @@ public class Inicio extends javax.swing.JDialog {
      * Creates new form Inicio
      */
     private String fileName;
+    public static ArrayList<Region> listaRegiones=new ArrayList<Region>();
+    
     
     public Inicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listaRegiones.add(new Region(1,"Lima",15000));
+        listaRegiones.add(new Region(1,"Arequipa",10000));
+        listaRegiones.add(new Region(1,"Junin",12000));
+        agregarDatos();
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);        
@@ -469,10 +477,7 @@ public class Inicio extends javax.swing.JDialog {
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Cantidad de Votantes", "Eliminar"
@@ -2223,6 +2228,31 @@ public class Inicio extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton50ActionPerformed
 
+    private void agregarDatos(){
+        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        modelo.setRowCount(0);
+        String datos[] = new String[3];
+        for (int i = 0; i < listaRegiones.size(); i++) {
+            datos[0] = listaRegiones.get(i).getNombre();
+            if(listaRegiones.get(i).getCantidadVotantesRegistrados() == 0){
+                datos[1] ="";
+            }else{
+                datos[1] = Long.toString(listaRegiones.get(i).getCantidadVotantesRegistrados());
+            }
+            modelo.addRow(datos);
+        }
+        TableColumn colum1 = null;
+        colum1 = jTable6.getColumnModel().getColumn(0);
+        colum1.setPreferredWidth(60);
+        TableColumn colum2 = null;
+        colum2 = jTable6.getColumnModel().getColumn(1);
+        colum2.setPreferredWidth(5);
+        TableColumn colum3 = null;
+        colum3 = jTable6.getColumnModel().getColumn(2);
+        colum3.setPreferredWidth(40);
+        colum3.setPreferredWidth(10);        
+    } 
+    
     private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
         
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
@@ -2253,7 +2283,11 @@ public class Inicio extends javax.swing.JDialog {
         row.add("");
         row.add("");
         model.addRow(row);
-        
+        Region r=new Region();
+        r.setNombre("");
+        listaRegiones.add(r);
+//        r.setCantidadVotantesRegistrados();
+//        agregarDatos();
     }//GEN-LAST:event_jButton27ActionPerformed
 
     /**
