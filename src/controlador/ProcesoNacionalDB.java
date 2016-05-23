@@ -31,4 +31,8 @@ public class ProcesoNacionalDB {
 //    	   System.out.println("base de datos");        
     }
     
+    public TipoProcesoVotacion queryById(int id) {
+        return daoTipoProcesoVotacion.queryById(id);
+    }    
+    
 }
