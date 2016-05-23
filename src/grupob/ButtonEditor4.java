@@ -14,6 +14,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.Region;
 
 /**
  *
@@ -52,7 +53,10 @@ public class ButtonEditor4 extends DefaultCellEditor {
                             int dialogButton = JOptionPane.YES_NO_OPTION;
                             int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
                             if(n==JOptionPane.YES_OPTION){
-                                Inicio.listaRegiones.remove(this.row);
+                                Region re=Inicio.listaRegiones.get(this.row);
+                                re.setNombre("*******");
+                                Inicio.listaRegiones.set(this.row,re);
+//                                Inicio.listaRegiones.remove(this.row);
                                 ((DefaultTableModel)table.getModel()).removeRow(this.row);
                                 ((DefaultTableModel)table.getModel()).fireTableDataChanged();
                             }     
