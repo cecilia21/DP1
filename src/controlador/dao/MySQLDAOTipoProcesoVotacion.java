@@ -5,16 +5,18 @@
  */
 package controlador.dao;
 
-import java.util.ArrayList;
-import model.Region;
+import model.TipoProcesoVotacion;
 
 /**
  *
  * @author RAMON
  */
-public interface DAORegion {
-    void add(Region p);
-    void update(Region p);
-    void delete (int idRegion);
-    ArrayList<Region> queryAll();   
+public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
+
+    @Override
+    public void update(TipoProcesoVotacion p) {
+        
+        
+    }
+    
 }

@@ -49,24 +49,37 @@ public class Manager {
     }
     
     /////////FIN INSTITUCIONAL
-    public static void addProcesoNacional(TipoProcesoVotacion proceso)
-    {
-        
-        procesoNacionalDB.add(proceso);
-//        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
-    }
-    
-    public static void updateProcesoNacional(TipoProcesoVotacion proceso)
-    {
-        
+   
+    public static void updateProceso(TipoProcesoVotacion proceso)
+    {        
         procesoNacionalDB.update(proceso);
 //        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
     }
     
-    public static void updateProcesoRegional(TipoProcesoVotacion proceso,ArrayList<Region> lista)
+//    public static void updateProcesoRegional(TipoProcesoVotacion proceso,ArrayList<Region> lista)
+//    {        
+//        
+//    }
+    
+    /////////REGIONAL
+    
+     public static void addRegion(Region i)
     {
-        
-        
+        procesoRegionDB.add(i);
     }
+    public static void updateRegion(Region i)
+    {
+        procesoRegionDB.updateRegion(i);
+    }
+    public static void deleteRegion (int idRegion)
+    {
+        procesoRegionDB.deleteRegion(idRegion);
+    }
+    public static ArrayList<Region> queryAllRegion()
+    {
+        return procesoRegionDB.queryAllRegions();
+    }
+    
+    /////////FIN REGIONAL
     
 }
