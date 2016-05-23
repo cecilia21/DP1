@@ -6,6 +6,7 @@
 package controlador.dao;
 
 import com.mysql.jdbc.Driver;
+import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -57,17 +58,113 @@ public class MySQLDAORegion implements DAORegion {
 
     @Override
     public void update(Region p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        // TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
+								DBConnection.user,
+								DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "UPDATE Region "
+					+ "SET name=?, cantidadDeVotantes=? "
+					+ "WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			//
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getNombre());
+                        pstmt.setInt(2, p.getCantidadVotantesRegistrados());			
+			pstmt.setInt(3, p.getId());
+			//Paso 4: Ejecutar la sentencia
+			pstmt.executeUpdate();
+			//Paso 5(opc.): Procesar los resultados			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
     }
 
     @Override
     public void delete(int idRegion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        	Connection conn = null;
+		PreparedStatement pstmt = null;		
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
+								DBConnection.user,
+								DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "DELETE FROM Region "
+					+ "WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			//
+			pstmt.setInt(1, idRegion);
+			//Paso 4: Ejecutar la sentencia
+			pstmt.executeUpdate();
+			//Paso 5(opc.): Procesar los resultados			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
     }
 
     @Override
     public ArrayList<Region> queryAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        	Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Region> arr = new ArrayList<Region>();
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
+								DBConnection.user,
+								DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "SELECT * FROM Region";
+			pstmt = conn.prepareStatement(sql);
+			//Paso 4: Ejecutar la sentencia
+			rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+			while (rs.next()){
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int cant = rs.getInt("cantidadDeVotantes");
+				Region p=new Region(id,name,cant);
+				arr.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
+		return arr;
+        
     }
     
 }
