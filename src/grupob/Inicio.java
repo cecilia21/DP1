@@ -2191,7 +2191,7 @@ public class Inicio extends javax.swing.JDialog {
                     return;
                 }
                 if(jLabel57.getText()!=""&&jLabel57.getText()!=null){
-                    Manager.updateProcesoNacional(proceso);
+                    Manager.updateProceso(proceso);
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
@@ -2200,7 +2200,7 @@ public class Inicio extends javax.swing.JDialog {
                     jXDatePicker3.setDate(null);
                     jXDatePicker4.setDate(null);
                 }else{
-                    Manager.updateProcesoNacional(proceso);
+                    Manager.updateProceso(proceso);
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
@@ -2313,7 +2313,8 @@ public class Inicio extends javax.swing.JDialog {
             return;
         }
         listaRegiones=listaRegionesPas;        
-        Manager.updateProcesoRegional(proceso,listaRegiones);
+        Manager.updateProceso(proceso);
+        
         JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
     }//GEN-LAST:event_jButton46ActionPerformed
 

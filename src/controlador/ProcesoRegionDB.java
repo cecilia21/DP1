@@ -20,5 +20,24 @@ public class ProcesoRegionDB {
     DAOFactory daoFactory = DAOFactory.getDAOFactory(DBConnection.dbType);
     DAORegion daoRegion = daoFactory.getDAORegion();    
     
+    public ProcesoRegionDB(){
+        
+    }
     
+    public void add(Region r)
+    {
+        daoRegion.add(r);
+    }
+    public void updateRegion(Region p)
+    {
+        daoRegion.update(p);
+    }
+    public void deleteRegion(int idRegion)
+    {
+        daoRegion.delete(idRegion);
+    }
+    public ArrayList<Region> queryAllRegions()
+    {
+        return daoRegion.queryAll();
+    }
 }
