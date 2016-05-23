@@ -25,6 +25,7 @@ public class PartidoPolitico {
     private Date fechaRegistro;
     private String estado;    
 
+    public PartidoPolitico(){};
     
     public PartidoPolitico(int id,String idU,String nombre,int cantidadR,String nombreR,String apellidoR,
             String dniR,String correoR,String correo){

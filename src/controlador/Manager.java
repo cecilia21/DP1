@@ -7,6 +7,7 @@ package controlador;
 
 import java.util.ArrayList;
 import model.Region;
+import model.PartidoPolitico;
 import model.TipoProcesoVotacion;
 
 /**
@@ -17,6 +18,11 @@ public class Manager {
     
     private static ProcesoRegionDB procesoRegionDB = new ProcesoRegionDB();
     private static ProcesoNacionalDB procesoNacionalDB = new ProcesoNacionalDB(); 
+    private static PartidoPoliticoDB partidoDB = new PartidoPoliticoDB(); 
+    
+    public static void addPartido(PartidoPolitico p){
+        partidoDB.add(p);
+    }
     
     public static void addProcesoNacional(TipoProcesoVotacion proceso)
     {

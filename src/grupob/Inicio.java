@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.PartidoPolitico;
 import model.Region;
 import model.TipoProcesoVotacion;
 
@@ -58,7 +59,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);        
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
         TableColumn sColumn = jTable7.getColumnModel().getColumn(2);
         JComboBox comboBox = new JComboBox();
@@ -123,6 +124,30 @@ public class Inicio extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel20 = new javax.swing.JLabel();
+        panelRegistroPartidos = new javax.swing.JPanel();
+        imP6 = new gui.ImagePanel();
+        jButton31 = new javax.swing.JButton();
+        jButton32 = new javax.swing.JButton();
+        jButton33 = new javax.swing.JButton();
+        jButton34 = new javax.swing.JButton();
+        jButton35 = new javax.swing.JButton();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        apellidos_rep = new javax.swing.JTextField();
+        nombre_partido = new javax.swing.JTextField();
+        jButton36 = new javax.swing.JButton();
+        jButton37 = new javax.swing.JButton();
+        jLabel59 = new javax.swing.JLabel();
+        nombres_rep = new javax.swing.JTextField();
+        jLabel60 = new javax.swing.JLabel();
+        correo = new javax.swing.JTextField();
+        dni = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
         imP4 = new gui.ImagePanel();
         jButton22 = new javax.swing.JButton();
@@ -254,26 +279,6 @@ public class Inicio extends javax.swing.JDialog {
         jButton43 = new javax.swing.JButton();
         jButton44 = new javax.swing.JButton();
         jButton45 = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        imP6 = new gui.ImagePanel();
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jButton33 = new javax.swing.JButton();
-        jButton34 = new javax.swing.JButton();
-        jButton35 = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jButton36 = new javax.swing.JButton();
-        jButton37 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         imP3 = new gui.ImagePanel();
         jButton14 = new javax.swing.JButton();
@@ -324,6 +329,129 @@ public class Inicio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelRegistroPartidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        imP6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imP6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout imP6Layout = new javax.swing.GroupLayout(imP6);
+        imP6.setLayout(imP6Layout);
+        imP6Layout.setHorizontalGroup(
+            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+        );
+        imP6Layout.setVerticalGroup(
+            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+        );
+
+        panelRegistroPartidos.add(imP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        jButton31.setText("Registrar Nuevo Partido");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 160, -1));
+
+        jButton32.setText("Regiones");
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton32ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, -1));
+
+        jButton33.setText("Distritos");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 110, -1));
+
+        jButton34.setText("Locales");
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton34ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 110, -1));
+
+        jButton35.setText("Instituciones");
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton35ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 110, -1));
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setText("Nombre del Partido:");
+        jPanel17.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+
+        jLabel18.setText("Correo de contacto");
+        jPanel17.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+
+        jLabel19.setText("DNI:");
+        jPanel17.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+
+        jLabel21.setText("Tipo de Proceso:");
+        jPanel17.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
+
+        jLabel22.setText("Seleccione:");
+        jPanel17.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Distrito", "Region", "Local", "Instituciones" }));
+        jPanel17.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 129, -1));
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
+        jPanel17.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 129, -1));
+        jPanel17.add(apellidos_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 129, -1));
+
+        nombre_partido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombre_partidoActionPerformed(evt);
+            }
+        });
+        jPanel17.add(nombre_partido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 129, -1));
+        nombre_partido.getAccessibleContext().setAccessibleName("nombre_partido");
+
+        jButton36.setText("Guardar");
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 278, -1, -1));
+
+        jButton37.setText("Cancelar");
+        jButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton37ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 278, -1, -1));
+
+        jLabel59.setText("Nombre del Representante:");
+        jPanel17.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
+        jPanel17.add(nombres_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 129, -1));
+
+        jLabel60.setText("Apellidos del Representante:");
+        jPanel17.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        jPanel17.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 129, -1));
+        jPanel17.add(dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 129, -1));
+
+        panelRegistroPartidos.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 420, 360));
+
+        getContentPane().add(panelRegistroPartidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 460));
 
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1216,160 +1344,6 @@ public class Inicio extends javax.swing.JDialog {
 
         getContentPane().add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 460));
 
-        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        imP6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imP6MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout imP6Layout = new javax.swing.GroupLayout(imP6);
-        imP6.setLayout(imP6Layout);
-        imP6Layout.setHorizontalGroup(
-            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
-        );
-        imP6Layout.setVerticalGroup(
-            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
-        );
-
-        jPanel12.add(imP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
-
-        jButton31.setText("Registrar Nuevo Partido");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 160, -1));
-
-        jButton32.setText("Regiones");
-        jButton32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton32ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, -1));
-
-        jButton33.setText("Distritos");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 110, -1));
-
-        jButton34.setText("Locales");
-        jButton34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton34ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 110, -1));
-
-        jButton35.setText("Instituciones");
-        jButton35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton35ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 110, -1));
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel17.setText("Nombre del Partido:");
-
-        jLabel18.setText("Nombre del Representante:");
-
-        jLabel19.setText("DNI:");
-
-        jLabel21.setText("Tipo de Proceso:");
-
-        jLabel22.setText("Seleccione:");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Distrito", "Region", "Local", "Instituciones" }));
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
-
-        jButton36.setText("Guardar");
-        jButton36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton36ActionPerformed(evt);
-            }
-        });
-
-        jButton37.setText("Cancelar");
-        jButton37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton37ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17)
-                    .addComponent(jButton36))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, 129, Short.MAX_VALUE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton37)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 32, Short.MAX_VALUE))))
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton36)
-                    .addComponent(jButton37))
-                .addGap(57, 57, 57))
-        );
-
-        jPanel12.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 420, 360));
-
-        getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 460));
-
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         imP3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1750,7 +1724,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
+        panelRegistroPartidos.setVisible(true);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1759,7 +1733,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
+        panelRegistroPartidos.setVisible(true);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton13ActionPerformed
 
@@ -1798,7 +1772,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
+        panelRegistroPartidos.setVisible(true);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton14ActionPerformed
 
@@ -1808,7 +1782,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(true);
         
     }//GEN-LAST:event_jButton19ActionPerformed
@@ -1844,7 +1818,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_imP4MouseClicked
 
@@ -1853,7 +1827,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
+        panelRegistroPartidos.setVisible(true);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton22ActionPerformed
 
@@ -1862,7 +1836,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -1871,7 +1845,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1880,7 +1854,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -1889,7 +1863,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1898,7 +1872,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton15ActionPerformed
 
@@ -1907,7 +1881,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton16ActionPerformed
 
@@ -1916,7 +1890,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton17ActionPerformed
 
@@ -1925,7 +1899,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton18ActionPerformed
 
@@ -1934,7 +1908,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -1943,7 +1917,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -1952,7 +1926,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -1961,7 +1935,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -1970,7 +1944,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton23ActionPerformed
 
@@ -1979,7 +1953,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton24ActionPerformed
 
@@ -1988,7 +1962,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton25ActionPerformed
 
@@ -1997,7 +1971,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton26ActionPerformed
 
@@ -2006,7 +1980,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_imP6MouseClicked
 
@@ -2015,7 +1989,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
+        panelRegistroPartidos.setVisible(true);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton31ActionPerformed
 
@@ -2024,7 +1998,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton32ActionPerformed
 
@@ -2033,7 +2007,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton33ActionPerformed
 
@@ -2042,7 +2016,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton34ActionPerformed
 
@@ -2051,7 +2025,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton35ActionPerformed
 
@@ -2060,16 +2034,26 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        String nombre, correoPartido, correoRep, nombreRep, dni_text, apellidosRep;
+        nombreRep= nombres_rep.getText();
+        apellidosRep = apellidos_rep.getText();
+        nombre = nombre_partido.getText();
+        dni_text = dni.getText();
+        PartidoPolitico part = new PartidoPolitico();
+        part.setNombre(nombre);
+        part.setApellidoRepresentante(apellidosRep);
+        part.setNombreRepresentante(nombreRep);
+        part.setDniRepresentante(dni_text);
         jPanel2.setVisible(false);
         jPanel3.setVisible(false);
         jPanel4.setVisible(true);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton36ActionPerformed
 
@@ -2078,7 +2062,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_imP7MouseClicked
 
@@ -2087,7 +2071,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
+        panelRegistroPartidos.setVisible(true);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton38ActionPerformed
 
@@ -2096,7 +2080,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton39ActionPerformed
 
@@ -2105,7 +2089,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton40ActionPerformed
 
@@ -2114,7 +2098,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton41ActionPerformed
 
@@ -2123,7 +2107,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(true);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton42ActionPerformed
 
@@ -2132,7 +2116,7 @@ public class Inicio extends javax.swing.JDialog {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
-        jPanel12.setVisible(false);
+        panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton45ActionPerformed
 
@@ -2149,7 +2133,7 @@ public class Inicio extends javax.swing.JDialog {
             jPanel3.setVisible(false);
             jPanel4.setVisible(true);
             jPanel11.setVisible(false);
-            jPanel12.setVisible(false);
+            panelRegistroPartidos.setVisible(false);
             jPanel18.setVisible(false);
         }
         else {
@@ -2165,7 +2149,7 @@ public class Inicio extends javax.swing.JDialog {
             jPanel3.setVisible(false);
             jPanel4.setVisible(true);
             jPanel11.setVisible(false);
-            jPanel12.setVisible(false);
+            panelRegistroPartidos.setVisible(false);
             jPanel18.setVisible(false);
         }
         else {
@@ -2352,6 +2336,10 @@ public class Inicio extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jTable6KeyTyped
 
+    private void nombre_partidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_partidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombre_partidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2395,6 +2383,9 @@ public class Inicio extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellidos_rep;
+    private javax.swing.JTextField correo;
+    private javax.swing.JTextField dni;
     private gui.ImagePanel imP1;
     private gui.ImagePanel imP2;
     private gui.ImagePanel imP3;
@@ -2511,14 +2502,15 @@ public class Inicio extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -2559,9 +2551,6 @@ public class Inicio extends javax.swing.JDialog {
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField2;
@@ -2592,5 +2581,8 @@ public class Inicio extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker7;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker8;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker9;
+    private javax.swing.JTextField nombre_partido;
+    private javax.swing.JTextField nombres_rep;
+    private javax.swing.JPanel panelRegistroPartidos;
     // End of variables declaration//GEN-END:variables
 }
