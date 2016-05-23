@@ -5,16 +5,12 @@
  */
 package controlador.dao;
 
-import java.util.ArrayList;
-import model.Region;
+import model.TipoProcesoVotacion;
 
 /**
  *
  * @author RAMON
  */
-public interface DAORegion {
-    void add(Region p);
-    void update(Region p);
-    void delete (int idRegion);
-    ArrayList<Region> queryAll();   
+public interface DAOTipoProcesoVotacion {
+    void update(TipoProcesoVotacion p);
 }

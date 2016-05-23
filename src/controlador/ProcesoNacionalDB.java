@@ -5,6 +5,10 @@
  */
 package controlador;
 
+import controlador.dao.DAOFactory;
+import controlador.dao.DAORegion;
+import controlador.dao.DAOTipoProcesoVotacion;
+import controlador.dao.DBConnection;
 import java.util.ArrayList;
 import model.TipoProcesoVotacion;
 
@@ -15,16 +19,16 @@ import model.TipoProcesoVotacion;
 public class ProcesoNacionalDB {
     
     private ArrayList<TipoProcesoVotacion> tipoProcesoList = new ArrayList<TipoProcesoVotacion>();
+    DAOFactory daoFactory = DAOFactory.getDAOFactory(DBConnection.dbType);
+    DAOTipoProcesoVotacion daoTipoProcesoVotacion = daoFactory.getDAOTipoProcesoVotacion();   
     
     public ProcesoNacionalDB(){
         
     }
     
-    public void add(TipoProcesoVotacion p) {
-    	   System.out.println("base de datos");        
+    public void update(TipoProcesoVotacion p) {
+        daoTipoProcesoVotacion.update(p);
+//    	   System.out.println("base de datos");        
     }
     
-    public void update(TipoProcesoVotacion p) {
-    	   System.out.println("base de datos");        
-    }
 }

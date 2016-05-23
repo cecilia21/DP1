@@ -124,30 +124,6 @@ public class Inicio extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel20 = new javax.swing.JLabel();
-        panelRegistroPartidos = new javax.swing.JPanel();
-        imP6 = new gui.ImagePanel();
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jButton33 = new javax.swing.JButton();
-        jButton34 = new javax.swing.JButton();
-        jButton35 = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        apellidos_rep = new javax.swing.JTextField();
-        nombre_partido = new javax.swing.JTextField();
-        jButton36 = new javax.swing.JButton();
-        jButton37 = new javax.swing.JButton();
-        jLabel59 = new javax.swing.JLabel();
-        nombres_rep = new javax.swing.JTextField();
-        jLabel60 = new javax.swing.JLabel();
-        correo = new javax.swing.JTextField();
-        dni = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
         imP4 = new gui.ImagePanel();
         jButton22 = new javax.swing.JButton();
@@ -242,6 +218,30 @@ public class Inicio extends javax.swing.JDialog {
         jXDatePicker18 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker19 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker20 = new org.jdesktop.swingx.JXDatePicker();
+        panelRegistroPartidos = new javax.swing.JPanel();
+        imP6 = new gui.ImagePanel();
+        jButton31 = new javax.swing.JButton();
+        jButton32 = new javax.swing.JButton();
+        jButton33 = new javax.swing.JButton();
+        jButton34 = new javax.swing.JButton();
+        jButton35 = new javax.swing.JButton();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        apellidos_rep = new javax.swing.JTextField();
+        nombre_partido = new javax.swing.JTextField();
+        jButton36 = new javax.swing.JButton();
+        jButton37 = new javax.swing.JButton();
+        jLabel59 = new javax.swing.JLabel();
+        nombres_rep = new javax.swing.JTextField();
+        jLabel60 = new javax.swing.JLabel();
+        correo = new javax.swing.JTextField();
+        dni = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -329,129 +329,6 @@ public class Inicio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelRegistroPartidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        imP6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imP6MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout imP6Layout = new javax.swing.GroupLayout(imP6);
-        imP6.setLayout(imP6Layout);
-        imP6Layout.setHorizontalGroup(
-            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
-        );
-        imP6Layout.setVerticalGroup(
-            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
-        );
-
-        panelRegistroPartidos.add(imP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
-
-        jButton31.setText("Registrar Nuevo Partido");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
-            }
-        });
-        panelRegistroPartidos.add(jButton31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 160, -1));
-
-        jButton32.setText("Regiones");
-        jButton32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton32ActionPerformed(evt);
-            }
-        });
-        panelRegistroPartidos.add(jButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, -1));
-
-        jButton33.setText("Distritos");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
-            }
-        });
-        panelRegistroPartidos.add(jButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 110, -1));
-
-        jButton34.setText("Locales");
-        jButton34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton34ActionPerformed(evt);
-            }
-        });
-        panelRegistroPartidos.add(jButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 110, -1));
-
-        jButton35.setText("Instituciones");
-        jButton35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton35ActionPerformed(evt);
-            }
-        });
-        panelRegistroPartidos.add(jButton35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 110, -1));
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel17.setText("Nombre del Partido:");
-        jPanel17.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
-
-        jLabel18.setText("Correo de contacto");
-        jPanel17.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
-
-        jLabel19.setText("DNI:");
-        jPanel17.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
-
-        jLabel21.setText("Tipo de Proceso:");
-        jPanel17.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
-
-        jLabel22.setText("Seleccione:");
-        jPanel17.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Distrito", "Region", "Local", "Instituciones" }));
-        jPanel17.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 129, -1));
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
-        jPanel17.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 129, -1));
-        jPanel17.add(apellidos_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 129, -1));
-
-        nombre_partido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombre_partidoActionPerformed(evt);
-            }
-        });
-        jPanel17.add(nombre_partido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 129, -1));
-        nombre_partido.getAccessibleContext().setAccessibleName("nombre_partido");
-
-        jButton36.setText("Guardar");
-        jButton36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton36ActionPerformed(evt);
-            }
-        });
-        jPanel17.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 278, -1, -1));
-
-        jButton37.setText("Cancelar");
-        jButton37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton37ActionPerformed(evt);
-            }
-        });
-        jPanel17.add(jButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 278, -1, -1));
-
-        jLabel59.setText("Nombre del Representante:");
-        jPanel17.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
-        jPanel17.add(nombres_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 129, -1));
-
-        jLabel60.setText("Apellidos del Representante:");
-        jPanel17.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
-        jPanel17.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 129, -1));
-        jPanel17.add(dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 129, -1));
-
-        panelRegistroPartidos.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 420, 360));
-
-        getContentPane().add(panelRegistroPartidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 460));
 
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1058,6 +935,129 @@ public class Inicio extends javax.swing.JDialog {
         jPanel11.add(jTabbedPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 500, 350));
 
         getContentPane().add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 460));
+
+        panelRegistroPartidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        imP6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imP6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout imP6Layout = new javax.swing.GroupLayout(imP6);
+        imP6.setLayout(imP6Layout);
+        imP6Layout.setHorizontalGroup(
+            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+        );
+        imP6Layout.setVerticalGroup(
+            imP6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+        );
+
+        panelRegistroPartidos.add(imP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        jButton31.setText("Registrar Nuevo Partido");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 160, -1));
+
+        jButton32.setText("Regiones");
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton32ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, -1));
+
+        jButton33.setText("Distritos");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 110, -1));
+
+        jButton34.setText("Locales");
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton34ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 110, -1));
+
+        jButton35.setText("Instituciones");
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton35ActionPerformed(evt);
+            }
+        });
+        panelRegistroPartidos.add(jButton35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 110, -1));
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setText("Nombre del Partido:");
+        jPanel17.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+
+        jLabel18.setText("Correo de contacto");
+        jPanel17.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+
+        jLabel19.setText("DNI:");
+        jPanel17.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+
+        jLabel21.setText("Tipo de Proceso:");
+        jPanel17.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
+
+        jLabel22.setText("Seleccione:");
+        jPanel17.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Distrito", "Region", "Local", "Instituciones" }));
+        jPanel17.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 129, -1));
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
+        jPanel17.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 129, -1));
+        jPanel17.add(apellidos_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 129, -1));
+
+        nombre_partido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombre_partidoActionPerformed(evt);
+            }
+        });
+        jPanel17.add(nombre_partido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 129, -1));
+        nombre_partido.getAccessibleContext().setAccessibleName("nombre_partido");
+
+        jButton36.setText("Guardar");
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 278, -1, -1));
+
+        jButton37.setText("Cancelar");
+        jButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton37ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 278, -1, -1));
+
+        jLabel59.setText("Nombre del Representante:");
+        jPanel17.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
+        jPanel17.add(nombres_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 129, -1));
+
+        jLabel60.setText("Apellidos del Representante:");
+        jPanel17.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        jPanel17.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 129, -1));
+        jPanel17.add(dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 129, -1));
+
+        panelRegistroPartidos.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 420, 360));
+
+        getContentPane().add(panelRegistroPartidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 460));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -2191,7 +2191,7 @@ public class Inicio extends javax.swing.JDialog {
                     return;
                 }
                 if(jLabel57.getText()!=""&&jLabel57.getText()!=null){
-                    Manager.addProcesoNacional(proceso);
+                    Manager.updateProcesoNacional(proceso);
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");

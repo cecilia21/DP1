@@ -69,10 +69,5 @@ public class MySQLDAORegion implements DAORegion {
     public ArrayList<Region> queryAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public Region queryById(int idRegion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

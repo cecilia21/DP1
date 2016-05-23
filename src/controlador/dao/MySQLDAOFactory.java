@@ -18,4 +18,11 @@ public class MySQLDAOFactory extends DAOFactory{
 		// TODO Auto-generated method stub
 		return new MySQLDAORegion();
 	}
+
+    @Override
+    public DAOTipoProcesoVotacion getDAOTipoProcesoVotacion() {
+        return new MySQLDAOTipoProcesoVotacion();
+    }
+
+        
 }
