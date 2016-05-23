@@ -2476,24 +2476,26 @@ public class Inicio extends javax.swing.JDialog {
         }
         listaRegiones=listaRegionesPas;        
         Manager.updateProceso(proceso);
+//        for(int i=0;i<listaRegiones.size();i++){
+//            Region rd=listaRegiones.get(i);
+//            if(rd.getNombre()=="*******" && rd.getId()!=0){
+//                Manager.deleteRegion(rd.getId());
+//            }
+//        }
         for(int i=0;i<listaRegiones.size();i++){
             Region rd=listaRegiones.get(i);
-            if(rd.getNombre()=="*******" && rd.getId()!=0){
-                Manager.deleteRegion(rd.getId());
-            }
-        }
-        for(int i=0;i<listaRegiones.size();i++){
-            Region rd=listaRegiones.get(i);
-            if(rd.getNombre()!="*******" && rd.getId()==0){
+            if(rd.getId()==0){
                 Manager.addRegion(rd);
-            }
-        }
-        for(int i=0;i<listaRegiones.size();i++){
-            Region rd=listaRegiones.get(i);
-            if(rd.getNombre()!="*******" && rd.getId()!=0){
+            }else{
                 Manager.updateRegion(rd);
             }
         }
+//        for(int i=0;i<listaRegiones.size();i++){
+//            Region rd=listaRegiones.get(i);
+//            if(rd.getNombre()!="*******" && rd.getId()!=0){
+//                Manager.updateRegion(rd);
+//            }
+//        }
         JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
     }//GEN-LAST:event_jButton46ActionPerformed
 
