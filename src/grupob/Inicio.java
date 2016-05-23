@@ -46,20 +46,21 @@ public class Inicio extends javax.swing.JDialog {
      * Creates new form Inicio
      */
     private String fileName;
-    public static ArrayList<Region> listaRegiones=new ArrayList<Region>();
-    
+//    public static ArrayList<Region> listaRegiones=new ArrayList<Region>();
+    public static ArrayList<Region> listaRegiones=Manager.queryAllRegion();
     
     public Inicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        listaRegiones.add(new Region(1,"Lima",15000));
-        listaRegiones.add(new Region(1,"Arequipa",10000));
-        listaRegiones.add(new Region(1,"Junin",12000));
+//        listaRegiones.add(new Region(1,"Lima",15000));
+//        listaRegiones.add(new Region(1,"Arequipa",10000));
+//        listaRegiones.add(new Region(1,"Junin",12000));
         agregarDatos();
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);        
         panelRegistroPartidos.setVisible(false);
+        panelRegistroPartidos1.setVisible(false);
         jPanel18.setVisible(false);
         TableColumn sColumn = jTable7.getColumnModel().getColumn(2);
         JComboBox comboBox = new JComboBox();
@@ -2439,6 +2440,7 @@ public class Inicio extends javax.swing.JDialog {
                     return;
                 }
                 proceso=new TipoProcesoVotacion();
+                proceso.setId(2);
                 proceso.setFechaInicio1(datei1);
                 proceso.setFechaInicio2(datei2);
                 proceso.setFechaFin1(datef1);

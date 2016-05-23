@@ -52,8 +52,8 @@ public class Manager {
    
     public static void updateProceso(TipoProcesoVotacion proceso)
     {        
-        procesoNacionalDB.update(proceso);
-//        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
+//        procesoNacionalDB.update(proceso);
+        System.out.println("se actualizo el proceso de votacion con id igual a "+proceso.getId()+" y los siguientes datos "+proceso.getFechaInicio1()+" "+proceso.getFechaFin1()+" "+proceso.getPorcentajeMinimo());
     }
     
     public static TipoProcesoVotacion queryProcesoById(int idProceso)
@@ -65,19 +65,27 @@ public class Manager {
     
      public static void addRegion(Region i)
     {
-        procesoRegionDB.add(i);
+//        procesoRegionDB.add(i);
+        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateRegion(Region i)
     {
-        procesoRegionDB.updateRegion(i);
+//        procesoRegionDB.updateRegion(i);
+        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteRegion (int idRegion)
     {
-        procesoRegionDB.deleteRegion(idRegion);
+//        procesoRegionDB.deleteRegion(idRegion);
+        System.out.println("Se borro la region con id igual a "+idRegion);
     }
     public static ArrayList<Region> queryAllRegion()
     {
-        return procesoRegionDB.queryAllRegions();
+        ArrayList<Region> listaRegiones=new ArrayList<Region>();
+        listaRegiones.add(new Region(1,"Lima",15000));
+        listaRegiones.add(new Region(2,"Arequipa",10000));
+        listaRegiones.add(new Region(3,"Junin",12000));
+        return listaRegiones;
+//        return procesoRegionDB.queryAllRegions();
     }
     
     public static Region queryByIdRegion(int id)
