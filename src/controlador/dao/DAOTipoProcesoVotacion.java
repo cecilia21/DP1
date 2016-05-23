@@ -13,4 +13,5 @@ import model.TipoProcesoVotacion;
  */
 public interface DAOTipoProcesoVotacion {
     void update(TipoProcesoVotacion p);
+    TipoProcesoVotacion queryById(int idTipoProcesoVotacion);
 }

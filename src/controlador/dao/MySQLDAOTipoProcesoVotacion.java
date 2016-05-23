@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import model.TipoProcesoVotacion;
 
 /**
@@ -68,6 +69,60 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
                     try { if (conn!= null) conn.close();} 
                             catch (Exception e){e.printStackTrace();};						
             }        
+    }
+
+    @Override
+    public TipoProcesoVotacion queryById(int idTipoProcesoVotacion) {
+        Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		TipoProcesoVotacion p=null;
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
+								DBConnection.user,
+								DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "SELECT * FROM TipoProcesoVotacion "
+					+ "WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idTipoProcesoVotacion);
+			//Paso 4: Ejecutar la sentencia
+			rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+			if (rs.next()){
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+                                String idUsuario = rs.getString("idUsuario");
+				int cant = rs.getInt("cantidadDeVotantes");
+                                Date fechaInicio1= rs.getDate("fechaInicio1");
+                                Date fechaFin1= rs.getDate("fechaFin1");
+                                Date fechaInicio2= rs.getDate("fechaInicio2");
+                                Date fechaFin2= rs.getDate("fechaFin2");
+                                double porcentajeMinimo= rs.getDouble("porcentajeMinimo");
+				p=new TipoProcesoVotacion();
+                                p.setId(id);
+                                p.setCantidadVotantes(cant);
+                                p.setFechaFin1(fechaFin1);
+                                p.setFechaFin2(fechaFin2);
+                                p.setFechaInicio1(fechaInicio1);
+                                p.setFechaInicio2(fechaInicio2);
+                                p.setPorcentajeMinimo(porcentajeMinimo);
+                                p.setIdUsuario(idUsuario);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
+		return p;          
     }
     
 }

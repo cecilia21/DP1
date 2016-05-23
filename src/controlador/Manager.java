@@ -56,10 +56,10 @@ public class Manager {
 //        System.out.println(proceso.getFechaInicio1()+" "+proceso.getFechaInicio2()+" "+proceso.getPorcentajeMinimo());
     }
     
-//    public static void updateProcesoRegional(TipoProcesoVotacion proceso,ArrayList<Region> lista)
-//    {        
-//        
-//    }
+    public static TipoProcesoVotacion queryProcesoById(int idProceso)
+    {        
+        return procesoNacionalDB.queryById(idProceso);
+    }
     
     /////////REGIONAL
     
