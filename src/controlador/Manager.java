@@ -6,6 +6,7 @@
 package controlador;
 
 import java.util.ArrayList;
+import model.Institucion;
 import model.Region;
 import model.PartidoPolitico;
 import model.TipoProcesoVotacion;
@@ -23,7 +24,31 @@ public class Manager {
     public static void addPartido(PartidoPolitico p){
         partidoDB.add(p);
     }
+    private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
     
+    /////////INSTITUCIONAL
+    
+     public static void addInstitucion(Institucion i)
+    {
+        procesoInstitucionalDB.add(i);
+    }
+    public static void updateInstitucion(Institucion i)
+    {
+        procesoInstitucionalDB.update(i);
+    }
+    public static void deleteInstitucion(int idProduct)
+    {
+        procesoInstitucionalDB.delete(idProduct);
+    }
+    public static ArrayList<Institucion> queryAllInstitucion()
+    {
+        return procesoInstitucionalDB.queryAll();
+    }
+    public static Institucion queryInstitucionById(int institucionId) {
+        return procesoInstitucionalDB.queryById(institucionId);
+    }
+    
+    /////////FIN INSTITUCIONAL
     public static void addProcesoNacional(TipoProcesoVotacion proceso)
     {
         

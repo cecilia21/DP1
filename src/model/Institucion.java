@@ -28,6 +28,10 @@ public class Institucion {
         this.CantidadVotantesRegistrados=cantidad;
     }
     
+    public Institucion(){
+        
+    }
+    
     /**
      * @return the id
      */

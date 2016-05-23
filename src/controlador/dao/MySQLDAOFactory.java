@@ -7,5 +7,15 @@ public class MySQLDAOFactory extends DAOFactory{
 		// TODO Auto-generated method stub
 		return new MySQLDAOPartidoPolitico();
 	}
+        
+	public DAOInstitucion getDAOInstitucion() {
+		// TODO Auto-generated method stub
+		return new MySQLDAOInstitucion();
+	}
 
+        @Override
+	public DAORegion getDAORegion() {
+		// TODO Auto-generated method stub
+		return new MySQLDAORegion();
+	}
 }

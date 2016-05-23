@@ -11,4 +11,6 @@ public abstract class DAOFactory {
 		return null;
 	}
 	public abstract DAOPartidoPolitico getDAOPartidoPolitico();
+        public abstract DAOInstitucion getDAOInstitucion();
+        public abstract DAORegion getDAORegion();
 }
