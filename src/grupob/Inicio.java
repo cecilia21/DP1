@@ -136,9 +136,9 @@ public class Inicio extends javax.swing.JDialog {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        registro_seleccione_lugar = new javax.swing.JLabel();
+        registro_tipo_proceso = new javax.swing.JComboBox<>();
+        registro_lugar = new javax.swing.JComboBox<>();
         apellidos_rep = new javax.swing.JTextField();
         nombre_partido = new javax.swing.JTextField();
         jButton36 = new javax.swing.JButton();
@@ -406,14 +406,19 @@ public class Inicio extends javax.swing.JDialog {
         jLabel21.setText("Tipo de Proceso:");
         jPanel17.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
-        jLabel22.setText("Seleccione:");
-        jPanel17.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        registro_seleccione_lugar.setText("Seleccione:");
+        jPanel17.add(registro_seleccione_lugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Distrito", "Region", "Local", "Instituciones" }));
-        jPanel17.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 129, -1));
+        registro_tipo_proceso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nacional", "Distrital", "Regional", "Local", "Institucional" }));
+        registro_tipo_proceso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registro_tipo_procesoActionPerformed(evt);
+            }
+        });
+        jPanel17.add(registro_tipo_proceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 129, -1));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
-        jPanel17.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 129, -1));
+        registro_lugar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
+        jPanel17.add(registro_lugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 129, -1));
         jPanel17.add(apellidos_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 129, -1));
 
         nombre_partido.addActionListener(new java.awt.event.ActionListener() {
@@ -1725,6 +1730,8 @@ public class Inicio extends javax.swing.JDialog {
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
         panelRegistroPartidos.setVisible(true);
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1734,6 +1741,8 @@ public class Inicio extends javax.swing.JDialog {
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
         panelRegistroPartidos.setVisible(true);
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton13ActionPerformed
 
@@ -1828,6 +1837,8 @@ public class Inicio extends javax.swing.JDialog {
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
         panelRegistroPartidos.setVisible(true);
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton22ActionPerformed
 
@@ -1990,6 +2001,8 @@ public class Inicio extends javax.swing.JDialog {
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
         panelRegistroPartidos.setVisible(true);
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton31ActionPerformed
 
@@ -2044,11 +2057,19 @@ public class Inicio extends javax.swing.JDialog {
         apellidosRep = apellidos_rep.getText();
         nombre = nombre_partido.getText();
         dni_text = dni.getText();
+        correoPartido = correo.getText();
+        int tipo_proc = registro_tipo_proceso.getSelectedIndex();
+        int idLug = registro_lugar.getSelectedIndex();
         PartidoPolitico part = new PartidoPolitico();
         part.setNombre(nombre);
         part.setApellidoRepresentante(apellidosRep);
         part.setNombreRepresentante(nombreRep);
         part.setDniRepresentante(dni_text);
+        part.setIdTipoProceso(tipo_proc);
+        part.setFechaRegistro(Calendar.getInstance());
+        part.setEstado("Activo");
+        part.setCantidadRegistrosValidos(0);
+        Manager.addPartido(part);
         jPanel2.setVisible(false);
         jPanel3.setVisible(false);
         jPanel4.setVisible(true);
@@ -2072,6 +2093,8 @@ public class Inicio extends javax.swing.JDialog {
         jPanel4.setVisible(false);
         jPanel11.setVisible(false);
         panelRegistroPartidos.setVisible(true);
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
         jPanel18.setVisible(false);
     }//GEN-LAST:event_jButton38ActionPerformed
 
@@ -2340,6 +2363,18 @@ public class Inicio extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombre_partidoActionPerformed
 
+    private void registro_tipo_procesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registro_tipo_procesoActionPerformed
+        // TODO add your handling code here:
+        if(registro_tipo_proceso.getSelectedIndex()!=0){
+            registro_lugar.setVisible(true);
+            registro_seleccione_lugar.setVisible(true);
+        }
+        else{
+            registro_lugar.setVisible(false);
+            registro_seleccione_lugar.setVisible(false);
+        }
+    }//GEN-LAST:event_registro_tipo_procesoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2445,8 +2480,6 @@ public class Inicio extends javax.swing.JDialog {
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2462,7 +2495,6 @@ public class Inicio extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -2584,5 +2616,8 @@ public class Inicio extends javax.swing.JDialog {
     private javax.swing.JTextField nombre_partido;
     private javax.swing.JTextField nombres_rep;
     private javax.swing.JPanel panelRegistroPartidos;
+    private javax.swing.JComboBox<String> registro_lugar;
+    private javax.swing.JLabel registro_seleccione_lugar;
+    private javax.swing.JComboBox<String> registro_tipo_proceso;
     // End of variables declaration//GEN-END:variables
 }

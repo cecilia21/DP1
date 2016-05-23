@@ -189,7 +189,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel22">
+            <Component class="javax.swing.JLabel" name="registro_seleccione_lugar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seleccione:"/>
               </Properties>
@@ -199,17 +199,21 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox3">
+            <Component class="javax.swing.JComboBox" name="registro_tipo_proceso">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Distrito"/>
-                    <StringItem index="1" value="Region"/>
-                    <StringItem index="2" value="Local"/>
-                    <StringItem index="3" value="Instituciones"/>
+                  <StringArray count="5">
+                    <StringItem index="0" value="Nacional"/>
+                    <StringItem index="1" value="Distrital"/>
+                    <StringItem index="2" value="Regional"/>
+                    <StringItem index="3" value="Local"/>
+                    <StringItem index="4" value="Institucional"/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registro_tipo_procesoActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -219,7 +223,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox4">
+            <Component class="javax.swing.JComboBox" name="registro_lugar">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">

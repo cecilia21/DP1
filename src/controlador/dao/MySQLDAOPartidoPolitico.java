@@ -81,7 +81,8 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                     //Paso 3: Preparar la sentencia
                     String sql = "UPDATE PartidoPolitico SET nombre=?, cantidadRegistrosValidos=?, "
                                 + "nombreRepresentante=?, apellidoRepresentante=?, dniRepresentante=?"
-                                + ", correoRepresentante=?, correoPartido=?, fechaRegistro=?, estado=?"
+                                + ", correo=?, fechaRegistro=?, estado=?, idTipoProceso=?, idRegion=?,"
+                                + "idLocal=?, idInstitucion=?, idDistrito=?"
                                 + "WHERE id=?";
                     pstmt = conn.prepareStatement(sql);
                     //Paso 4: Ejecutar la sentencia
@@ -93,11 +94,15 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                     pstmt.setString(3, p.getNombreRepresentante());
                     pstmt.setString(4, p.getApellidoRepresentante());
                     pstmt.setString(5, p.getDniRepresentante());
-                    pstmt.setString(6, p.getCorreoRepresentante());
-                    pstmt.setString(7, p.getCorreoPartido());
-                    //pstmt.setDate(8, p.getFechaRegistro());
-                    pstmt.setString(9, p.getEstado());
-                    pstmt.setInt(10, p.getId());
+                    pstmt.setString(6, p.getCorreoPartido());
+                    //pstmt.setDate(7, p.getFechaRegistro());
+                    pstmt.setString(8, p.getEstado());
+                    pstmt.setInt(10, p.getIdTipoProceso());
+                    pstmt.setInt(11, p.getIdRegion());
+                    pstmt.setInt(12, p.getIdLocal());
+                    pstmt.setInt(13, p.getIdInstitucion());
+                    pstmt.setInt(14, p.getIdDistrito());
+                    pstmt.setInt(15, p.getId());
                     //Paso 4: Ejecutar la sentencia
                     pstmt.executeUpdate();
             } catch (SQLException e) {

@@ -6,7 +6,7 @@
 package model;
 
 import java.time.Instant;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -22,8 +22,13 @@ public class PartidoPolitico {
     private String dniRepresentante;
     private String correoRepresentante;
     private String correoPartido;
-    private Date fechaRegistro;
+    private Calendar fechaRegistro;
     private String estado;    
+    private int idTipoProceso;
+    private int idRegion;
+    private int idLocal;
+    private int idInstitucion;
+    private int idDistrito;
 
     public PartidoPolitico(){};
     
@@ -39,7 +44,7 @@ public class PartidoPolitico {
         this.correoPartido=correoR;
         this.correoPartido=correo;
         this.estado="Activo";
-        this.fechaRegistro=Date.from(Instant.MIN);
+        this.fechaRegistro= Calendar.getInstance();
     }
     /**
      * @return the id
@@ -156,14 +161,14 @@ public class PartidoPolitico {
     /**
      * @return the fechaRegistro
      */
-    public Date getFechaRegistro() {
+    public Calendar getFechaRegistro() {
         return fechaRegistro;
     }
 
     /**
      * @param fechaRegistro the fechaRegistro to set
      */
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(Calendar fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -193,6 +198,76 @@ public class PartidoPolitico {
      */
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    /**
+     * @return the idTipoProceso
+     */
+    public int getIdTipoProceso() {
+        return idTipoProceso;
+    }
+
+    /**
+     * @param idTipoProceso the idTipoProceso to set
+     */
+    public void setIdTipoProceso(int idTipoProceso) {
+        this.idTipoProceso = idTipoProceso;
+    }
+
+    /**
+     * @return the idLugar
+     */
+    public int getIdRegion() {
+        return idRegion;
+    }
+
+    /**
+     * @param idLugar the idLugar to set
+     */
+    public void setIdRegion(int idRegion) {
+        this.idRegion = idRegion;
+    }
+
+    /**
+     * @return the idLocal
+     */
+    public int getIdLocal() {
+        return idLocal;
+    }
+
+    /**
+     * @param idLocal the idLocal to set
+     */
+    public void setIdLocal(int idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    /**
+     * @return the idInstitucion
+     */
+    public int getIdInstitucion() {
+        return idInstitucion;
+    }
+
+    /**
+     * @param idInstitucion the idInstitucion to set
+     */
+    public void setIdInstitucion(int idInstitucion) {
+        this.idInstitucion = idInstitucion;
+    }
+
+    /**
+     * @return the idDistrito
+     */
+    public int getIdDistrito() {
+        return idDistrito;
+    }
+
+    /**
+     * @param idDistrito the idDistrito to set
+     */
+    public void setIdDistrito(int idDistrito) {
+        this.idDistrito = idDistrito;
     }
     
     
