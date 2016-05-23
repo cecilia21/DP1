@@ -40,4 +40,14 @@ public class ProcesoRegionDB {
     {
         return daoRegion.queryAll();
     }
+    
+    public Region queryById(int id)
+    {
+        return daoRegion.queryById(id);
+    }
+    
+    public Region queryByName(String name)
+    {
+        return daoRegion.queryByName(name);
+    }
 }

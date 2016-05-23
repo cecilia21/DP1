@@ -17,4 +17,6 @@ public interface DAORegion {
     void update(Region p);
     void delete (int idRegion);
     ArrayList<Region> queryAll();   
+    Region queryById(int idRegion);
+    Region queryByName(String name);
 }

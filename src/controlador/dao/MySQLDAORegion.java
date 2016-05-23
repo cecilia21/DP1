@@ -166,5 +166,85 @@ public class MySQLDAORegion implements DAORegion {
 		return arr;
         
     }
+
+    @Override
+    public Region queryById(int idRegion) {
+                Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Region p=null;
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
+								DBConnection.user,
+								DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "SELECT * FROM Region "
+					+ "WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idRegion);
+			//Paso 4: Ejecutar la sentencia
+			rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+			if (rs.next()){
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int cant = rs.getInt("cantidadDeVotantes");
+				p=new Region(id,name,cant);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
+		return p;    
+    }
+
+    @Override
+    public Region queryByName(String nameb) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Region p=null;
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
+								DBConnection.user,
+								DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "SELECT * FROM Region "
+					+ "WHERE name LIKE ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nameb);
+			//Paso 4: Ejecutar la sentencia
+			rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+			if (rs.next()){
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int cant = rs.getInt("cantidadDeVotantes");
+				p=new Region(id,name,cant);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
+		return p;      
+    }
     
 }

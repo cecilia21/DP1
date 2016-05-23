@@ -80,6 +80,16 @@ public class Manager {
         return procesoRegionDB.queryAllRegions();
     }
     
+    public static Region queryByIdRegion(int id)
+    {
+        return procesoRegionDB.queryById(id);
+    }
+    
+    public static Region queryByNameRegion(String name)
+    {
+        return procesoRegionDB.queryByName(name);
+    }
+    
     /////////FIN REGIONAL
     
 }
