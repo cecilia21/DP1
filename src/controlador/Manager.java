@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Distrito;
 import model.Institucion;
+import model.Local;
 import model.Region;
 import model.PartidoPolitico;
 import model.TipoProcesoVotacion;
@@ -27,6 +28,7 @@ public class Manager {
     private static TipoProcesoDB tipoprocesoDB = new TipoProcesoDB(); 
     private static PartidoPoliticoDB partidoDB = new PartidoPoliticoDB(); 
     private static ProcesoDistritoDB procesoDistritoDB = new ProcesoDistritoDB(); 
+    private static ProcesosLocalDB procesoLocalDB = new ProcesosLocalDB();
     
     public static void addPartido(PartidoPolitico p){
         partidoDB.add(p);
@@ -151,5 +153,35 @@ public class Manager {
     }
     
     /////FIN DISTRITAL
+    
+    ///LOCALES
+    
+      public static void addLocal(Local l)
+     {
+         procesoLocalDB.add(l);
+       
+    }
+    public static void updateLocal(Local l)
+    {
+        procesoLocalDB.update(l);
+    }
+    public static void deleteLocal(int idLocal)
+    {
+        procesoLocalDB.delete(idLocal);
+    }
+    public static ArrayList<Local> queryAllLocales()
+    {
+        return    procesoLocalDB.queryAll();
+    }
+    public static Local queryLocalById(int localId) {
+        
+        return    procesoLocalDB.queryById(localId);
+       
+    }
+    
+    
+    //fIN LOCALES
+    
+    
     
 }
