@@ -128,11 +128,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btSActionPerformed
 
     private void btLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLActionPerformed
+       FramePrincipal fp = new FramePrincipal();
+       fp.setVisible(true);
+       this.setVisible(false);
+        /*
         Inicio window = new Inicio(new javax.swing.JFrame(), true);
         window.setLocationRelativeTo(null);
         this.setVisible(false);
         window.setVisible(true);
-        
+        */
 //        btL.setVisible(false);
 //        btS.setVisible(false);
 //        tf1.setVisible(false);
