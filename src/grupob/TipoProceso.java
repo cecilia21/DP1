@@ -43,6 +43,8 @@ public class TipoProceso extends javax.swing.JPanel {
         TipoProcesoVotacion tipoRegional=Manager.queryProcesoById(2);
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
+
+        
         if(tipoNacional.getFechaFin2().after(dateActual)){
             jXDatePicker1.setDate(tipoNacional.getFechaInicio1().getTime());
             jXDatePicker2.setDate(tipoNacional.getFechaInicio2().getTime());
