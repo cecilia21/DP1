@@ -526,13 +526,13 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cantidad de Votantes", "Distritos", "Eliminar"
+                "Nombre", "Cantidad de Votantes", "Distritos", "Proceso", "Eliminar"
             }
         ));
         jScrollPane8.setViewportView(jTable8);
@@ -1049,18 +1049,18 @@ public class TipoProceso extends javax.swing.JPanel {
                 DefaultTableModel modelo = (DefaultTableModel)jTable8.getModel();
                 listaLocalesPas= listaLocales;
                 for(int i=0;i<listaLocales.size();i++){
-                    String a=modelo.getValueAt(i,1).toString();
-                    String n=modelo.getValueAt(i,0).toString();
-                    String dist = modelo.getValueAt(i, 2).toString();
-                    String reg = modelo.getValueAt(i, 3).toString();
+                    String a=modelo.getValueAt(i,1).toString(); //Cantidad
+                    String n=modelo.getValueAt(i,0).toString(); // nombre
+                    String dist = modelo.getValueAt(i, 2).toString(); // distrito
+                    String pro = modelo.getValueAt(i, 3).toString(); //Proceso
                     
                     int num=-1;
                     int numDist = -1;
-                    int numReg = -1;
+                    int numPro = -1;
                     try {
                         num=Integer.parseInt(a);
                         numDist  = Integer.parseInt(dist);
-                        numReg = Integer.parseInt(reg);
+                        numPro = Integer.parseInt(pro);
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
                         return;
@@ -1074,6 +1074,7 @@ public class TipoProceso extends javax.swing.JPanel {
                       r.setNombre(n);
                       r.setCantidadVotantesRegistrados(num);
                       r.setIdDistrito(numDist);
+                      r.setIdProceso(numPro);
                      
                     
                     //listaLocalesPas.set(i, r);
