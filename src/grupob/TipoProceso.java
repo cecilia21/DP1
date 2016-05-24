@@ -34,6 +34,37 @@ public class TipoProceso extends javax.swing.JPanel {
 //        listaRegiones.add(new Region(1,"Lima",15000));
 //        listaRegiones.add(new Region(1,"Arequipa",10000));
 //        listaRegiones.add(new Region(1,"Junin",12000));
+        TipoProcesoVotacion tipoNacional=Manager.queryProcesoById(1);
+        TipoProcesoVotacion tipoRegional=Manager.queryProcesoById(2);
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        if(tipoNacional.getFechaFin2().compareTo(dateActual)>0){
+            jXDatePicker1.setDate(tipoNacional.getFechaInicio1());
+            jXDatePicker2.setDate(tipoNacional.getFechaInicio2());
+            jXDatePicker3.setDate(tipoNacional.getFechaFin1());
+            jXDatePicker4.setDate(tipoNacional.getFechaFin2());
+        }
+        if((tipoNacional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoNacional.getFechaFin2()))){
+            botonGuardarNacional.setEnabled(false);
+        }
+        if(tipoNacional.getFechaFin2().before(dateActual)){
+            botonGuardarNacional.setEnabled(true);
+        }
+        if(tipoRegional.getFechaFin2().compareTo(dateActual)>0){
+            jXDatePicker5.setDate(tipoRegional.getFechaInicio1());
+            jXDatePicker6.setDate(tipoRegional.getFechaInicio2());
+            jXDatePicker7.setDate(tipoRegional.getFechaFin1());
+            jXDatePicker8.setDate(tipoRegional.getFechaFin2());
+            porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo());
+        }
+        if((tipoRegional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoRegional.getFechaFin2()))){
+            botonGuardarRegional.setEnabled(false);
+            addRowRegional.setEnabled(false);
+        }
+        if(tipoRegional.getFechaFin2().before(dateActual)){
+            botonGuardarRegional.setEnabled(true);
+            addRowRegional.setEnabled(true);
+        }
         agregarDatos();
         if(listaRegiones!=null){
             jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
@@ -56,7 +87,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel52 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
-        jButton50 = new javax.swing.JButton();
+        botonGuardarNacional = new javax.swing.JButton();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
@@ -69,16 +100,16 @@ public class TipoProceso extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        porcentajeRegional = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButton27 = new javax.swing.JButton();
+        addRowRegional = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jButton46 = new javax.swing.JButton();
+        botonGuardarRegional = new javax.swing.JButton();
         jXDatePicker5 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker6 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker7 = new org.jdesktop.swingx.JXDatePicker();
@@ -149,10 +180,10 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel54.setText("Fecha Inicio:");
 
-        jButton50.setText("Guardar");
-        jButton50.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardarNacional.setText("Guardar");
+        botonGuardarNacional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton50ActionPerformed(evt);
+                botonGuardarNacionalActionPerformed(evt);
             }
         });
 
@@ -171,7 +202,7 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel57)
                     .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                            .addComponent(jButton50, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonGuardarNacional, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(98, 98, 98))
                         .addGroup(jPanel19Layout.createSequentialGroup()
                             .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +255,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel58)
                 .addGap(68, 68, 68)
-                .addComponent(jButton50)
+                .addComponent(botonGuardarNacional)
                 .addGap(78, 78, 78))
         );
 
@@ -249,10 +280,10 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel10.setText("%");
 
-        jButton27.setText("+");
-        jButton27.addActionListener(new java.awt.event.ActionListener() {
+        addRowRegional.setText("+");
+        addRowRegional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton27ActionPerformed(evt);
+                addRowRegionalActionPerformed(evt);
             }
         });
 
@@ -268,10 +299,10 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel32.setText("Fecha Fin:");
 
-        jButton46.setText("Guardar");
-        jButton46.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardarRegional.setText("Guardar");
+        botonGuardarRegional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton46ActionPerformed(evt);
+                botonGuardarRegionalActionPerformed(evt);
             }
         });
 
@@ -304,13 +335,13 @@ public class TipoProceso extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(porcentajeRegional, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel10)
                                 .addGap(46, 46, 46)
-                                .addComponent(jButton27)
+                                .addComponent(addRowRegional)
                                 .addGap(33, 33, 33)
-                                .addComponent(jButton46))
+                                .addComponent(botonGuardarRegional))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel27)
                                 .addGap(9, 9, 9)
@@ -327,10 +358,10 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porcentajeRegional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jButton27)
-                    .addComponent(jButton46))
+                    .addComponent(addRowRegional)
+                    .addComponent(botonGuardarRegional))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -698,7 +729,7 @@ public class TipoProceso extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
+    private void botonGuardarNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarNacionalActionPerformed
 
         JFormattedTextField fechai1 = jXDatePicker1.getEditor();
         Date datei1 = (Date) fechai1.getValue();
@@ -738,19 +769,19 @@ public class TipoProceso extends javax.swing.JPanel {
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
-                    jXDatePicker1.setDate(null);
-                    jXDatePicker2.setDate(null);
-                    jXDatePicker3.setDate(null);
-                    jXDatePicker4.setDate(null);
+//                    jXDatePicker1.setDate(null);
+//                    jXDatePicker2.setDate(null);
+//                    jXDatePicker3.setDate(null);
+//                    jXDatePicker4.setDate(null);
                 }else{
                     Manager.updateProceso(proceso);
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
-                    jXDatePicker1.setDate(null);
-                    jXDatePicker2.setDate(null);
-                    jXDatePicker3.setDate(null);
-                    jXDatePicker4.setDate(null);
+//                    jXDatePicker1.setDate(null);
+//                    jXDatePicker2.setDate(null);
+//                    jXDatePicker3.setDate(null);
+//                    jXDatePicker4.setDate(null);
                 }
             }else{
                 JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
@@ -760,13 +791,13 @@ public class TipoProceso extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
             return;
         }
-    }//GEN-LAST:event_jButton50ActionPerformed
+    }//GEN-LAST:event_botonGuardarNacionalActionPerformed
 
     private void jTable6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable6KeyTyped
 
     }//GEN-LAST:event_jTable6KeyTyped
 
-    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+    private void addRowRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowRegionalActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
         Vector row = new Vector();
         row.add("");
@@ -778,9 +809,9 @@ public class TipoProceso extends javax.swing.JPanel {
         listaRegiones.add(r);
         //        r.setCantidadVotantesRegistrados();
         //        agregarDatos();
-    }//GEN-LAST:event_jButton27ActionPerformed
+    }//GEN-LAST:event_addRowRegionalActionPerformed
 
-    private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
+    private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
         ArrayList<Region> listaRegionesPas = null;
         TipoProcesoVotacion proceso=null;
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
@@ -795,7 +826,7 @@ public class TipoProceso extends javax.swing.JPanel {
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
         try{
-            por=Double.parseDouble(jTextField6.getText());
+            por=Double.parseDouble(porcentajeRegional.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
             return;
@@ -869,7 +900,7 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         }
         JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
-    }//GEN-LAST:event_jButton46ActionPerformed
+    }//GEN-LAST:event_botonGuardarRegionalActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);
@@ -896,15 +927,15 @@ public class TipoProceso extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton27;
+    private javax.swing.JButton addRowRegional;
+    private javax.swing.JButton botonGuardarNacional;
+    private javax.swing.JButton botonGuardarRegional;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton46;
     private javax.swing.JButton jButton47;
     private javax.swing.JButton jButton48;
     private javax.swing.JButton jButton49;
-    private javax.swing.JButton jButton50;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -959,7 +990,6 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
@@ -983,5 +1013,6 @@ public class TipoProceso extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker7;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker8;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker9;
+    private javax.swing.JTextField porcentajeRegional;
     // End of variables declaration//GEN-END:variables
 }

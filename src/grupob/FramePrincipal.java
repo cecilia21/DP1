@@ -77,6 +77,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         panelPrincipal.getAccessibleContext().setAccessibleName("");
 
         regiones.setText("Regiones");
+        regiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regionesActionPerformed(evt);
+            }
+        });
         getContentPane().add(regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
         buscarPartido.setText("Buscar Partido");
@@ -123,6 +128,15 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_distritosActionPerformed
+
+    private void regionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regionesActionPerformed
+        // TODO add your handling code here:
+        panelPrincipal.removeAll();
+        TipoProceso part = new TipoProceso();
+        panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
+    }//GEN-LAST:event_regionesActionPerformed
 
     /**
      * @param args the command line arguments

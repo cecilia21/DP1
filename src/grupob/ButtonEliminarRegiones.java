@@ -35,7 +35,7 @@ public class ButtonEliminarRegiones extends DefaultCellEditor {
 	}
  
 	  public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		    bListener.setRow(row);
+                    bListener.setRow(row);
 		    bListener.setTable(table);
 //		    button.setText( (value == null) ? "" : value.toString() );
 		    return button;
@@ -55,12 +55,10 @@ public class ButtonEliminarRegiones extends DefaultCellEditor {
                             int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
                             if(n==JOptionPane.YES_OPTION){
                                 Region re=TipoProceso.listaRegiones.get(this.row);
+//                                TipoProceso.listaRegiones.remove(this.row);
                                 if(re.getId()!=0){
                                     Manager.deleteRegion(re.getId());
                                 }
-//                                re.setNombre("*******");
-//                                TipoProceso.listaRegiones.set(this.row,re);
-//                                Inicio.listaRegiones.remove(this.row);
                                 ((DefaultTableModel)table.getModel()).removeRow(this.row);
                                 ((DefaultTableModel)table.getModel()).fireTableDataChanged();
                             }     
