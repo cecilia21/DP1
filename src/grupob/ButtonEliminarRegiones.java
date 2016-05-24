@@ -55,7 +55,7 @@ public class ButtonEliminarRegiones extends DefaultCellEditor {
                             int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
                             if(n==JOptionPane.YES_OPTION){
                                 Region re=TipoProceso.listaRegiones.get(this.row);
-//                                TipoProceso.listaRegiones.remove(this.row);
+                                TipoProceso.listaRegiones.remove(this.row);
                                 if(re.getId()!=0){
                                     Manager.deleteRegion(re.getId());
                                 }
