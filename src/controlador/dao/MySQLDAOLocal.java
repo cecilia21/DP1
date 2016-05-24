@@ -35,13 +35,13 @@ public class MySQLDAOLocal implements DAOLocal{
                                                         DBConnection.password);
                 //Paso 3: Preparar la sentencia
                 String sql = "INSERT INTO Local "
-                                + "(idDistrito, idRegion, nombre,cantidadVotantes)"
+                                + "(idDistrito, idTipoProceso, nombre,cantidadVotantes)"
                                 + "VALUES (?,?,?,?)";
                 
                 pstmt = (PreparedStatement) conn.prepareStatement(sql);
                 //pstmt.setInt(1, p.getId());
                 pstmt.setInt(1, i.getIdDistrito());
-                pstmt.setInt(2, i.getIdRegion());
+                pstmt.setInt(2, i.getIdProceso());
                 pstmt.setString(3, i.getNombre());
                 pstmt.setInt(4, i.getCantidadVotantesRegistrados());
                 //Paso 4: Ejecutar la sentencia
@@ -160,7 +160,7 @@ public class MySQLDAOLocal implements DAOLocal{
                    // int id = rs.getInt("id");
                     int idLocal = rs.getInt("idLocal");
                     int idDistrito = rs.getInt("idDistrito");
-                    int idRegion = rs.getInt("idRegion");
+                    int idProceso = rs.getInt("idTipoProceso");
                     String nombre = rs.getString("nombre");
                     int CantidadVotantesRegistrados = rs.getInt("cantidadVotantesRegistrados");
                                        
@@ -169,7 +169,7 @@ public class MySQLDAOLocal implements DAOLocal{
                    
                     i.setId(idLocal);
                     i.setIdDistrito(idDistrito);
-                    i.setIdRegion(idRegion);
+                    i.setIdProceso(idProceso);
                     i.setNombre(nombre);
                     i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
                     arr.add(i);
@@ -214,7 +214,7 @@ public class MySQLDAOLocal implements DAOLocal{
             
             int id = rs.getInt("idLocal");
             int idDistrito = rs.getInt("idDistrito");
-            int idRegion = rs.getInt("idRegion");
+            int idProceso = rs.getInt("idTipoProceso");
             String nombre = rs.getString("nombre");
             int CantidadVotantesRegistrados = rs.getInt("cantidadVotantesRegistrados");
 
@@ -224,7 +224,7 @@ public class MySQLDAOLocal implements DAOLocal{
             i = new Local();
             i.setId(id);
             i.setIdDistrito(idDistrito);
-            i.setIdRegion(idRegion);
+            i.setIdProceso(idProceso);
             i.setNombre(nombre);
             i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
             
