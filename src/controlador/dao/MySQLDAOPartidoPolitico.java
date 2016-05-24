@@ -19,6 +19,8 @@ import java.time.LocalDate;
 
 import com.mysql.jdbc.Driver;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import model.PartidoPolitico;
 
 public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
@@ -150,7 +152,61 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
 
 	@Override
 	public ArrayList<PartidoPolitico> queryAll() {
-		return null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            ArrayList<PartidoPolitico> resultados= new ArrayList<PartidoPolitico>();
+            try {
+                    //Paso 1: Registrar el Driver
+                    DriverManager.registerDriver(new Driver());
+                    //Paso 2: Obtener la conexión
+                    conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,
+                                                            DBConnection.password);
+                    //Paso 3: Preparar la sentencia
+                    String sql = "SELECT * FROM PartidoPolitico";
+                    pstmt = conn.prepareStatement(sql);
+                    //Paso 4: Ejecutar la sentencia
+                    rs = pstmt.executeQuery();
+                    //Paso 5(opc.): Procesar los resultados
+                    while (rs.next()){
+                        int id = rs.getInt("idPartido");
+
+                        String name = rs.getString("nombre");
+                        String nombreRep = rs.getString("nombreRep");
+                        String apellidoRep = rs.getString("apellidoRep");
+                        String correo = rs.getString("correo");
+                        String dni = rs.getString("dniRep");
+                        int reg = rs.getInt("cantidadRegistrosValidos");
+                        String estado = rs.getString("estado");
+                        Calendar fecha = Calendar.getInstance();
+                        fecha.setTime(rs.getDate("fechaReg"));
+                        PartidoPolitico p = new PartidoPolitico();
+                        p.setNombre(name);
+                        p.setNombreRepresentante(nombreRep);
+                        p.setApellidoRepresentante(apellidoRep);
+                        p.setCorreoPartido(correo);
+                        p.setDniRepresentante(dni);
+                        p.setCantidadRegistrosValidos(reg);
+                        p.setEstado(estado);
+                        p.setFechaRegistro(fecha);
+                        resultados.add(p);                       
+                    }
+                    pstmt.close();
+                    conn.close();
+                    return resultados;
+            } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            } finally {
+                    //Paso 6(OJO): Cerrar la conexión
+                    try { if (pstmt!= null) pstmt.close();} 
+                            catch (Exception e){e.printStackTrace();};
+                    try { if (conn!= null) conn.close();} 
+                            catch (Exception e){e.printStackTrace();};	
+            }
+
+            return null;
 	}
 
 	@Override

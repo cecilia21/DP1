@@ -66,58 +66,6 @@ public class Manager {
     public static TipoProcesoVotacion queryProcesoById(int idProceso)
     {
         TipoProcesoVotacion tipo=new TipoProcesoVotacion();        
-        if(idProceso==1){
-            tipo.setId(1);
-            tipo.setPorcentajeMinimo(10);
-            String f1 = "22/08/2016";
-            String f3 = "30/08/2016";
-            String f2 = "02/09/2016";
-            String f4 = "10/09/2016";
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date fechai1 = null;
-            Date fechai2=null;
-            Date fechaf1=null;
-            Date fechaf2=null;
-            try {
-                fechai1 = formatter.parse(f1);
-                fechai2 = formatter.parse(f2);
-                fechaf1 = formatter.parse(f3);
-                fechaf2 = formatter.parse(f4);
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            tipo.setFechaInicio1(fechai1);
-            tipo.setFechaInicio2(fechai2);
-            tipo.setFechaFin1(fechaf1);
-            tipo.setFechaFin2(fechaf2);            
-        }
-        if(idProceso==2){
-            tipo.setId(2);
-            tipo.setPorcentajeMinimo(6);
-            String f1 = "22/08/2016";
-            String f2 = "30/08/2016";
-            String f3 = "02/09/2016";
-            String f4 = "10/09/2016";
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date fechai1 = null;
-            Date fechai2=null;
-            Date fechaf1=null;
-            Date fechaf2=null;
-            try {
-                fechai1 = formatter.parse(f1);
-                fechai2 = formatter.parse(f2);
-                fechaf1 = formatter.parse(f3);
-                fechaf2 = formatter.parse(f4);
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            tipo.setFechaInicio1(fechai1);
-            tipo.setFechaInicio2(fechai2);
-            tipo.setFechaFin1(fechaf1);
-            tipo.setFechaFin2(fechaf2);            
-        }
         return tipo;
 //        return tipoprocesoDB.queryById(idProceso);
     }
@@ -157,6 +105,10 @@ public class Manager {
     public static Region queryByNameRegion(String name)
     {
         return procesoRegionDB.queryByName(name);
+    }
+    
+    public static ArrayList<TipoProcesoVotacion> queryAllTipoProceso(){
+        return tipoprocesoDB.queryAll();
     }
     
     /////////FIN REGIONAL

@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -15,25 +15,26 @@ public class TipoProcesoVotacion {
     
     private int id;
     private String nombre;
-    private Date fechaInicio1;
-    private Date fechaFin1;
-    private Date fechaInicio2;
-    private Date fechaFin2;
-    private double porcentajeMinimo;
+    private Calendar fechaInicio1;
+    private Calendar fechaFin1;
+    private Calendar fechaInicio2;
+    private Calendar fechaFin2;
+    private float porcentaje;
 
     public TipoProcesoVotacion(){
         
     }
     
-    public TipoProcesoVotacion(int id
-            ,String nombre,Date fechaInicio1,Date fechaFin1,Date fechaInicio2,Date fechaFin2,double porcentajeMinimo){
+    public TipoProcesoVotacion(int id, String nombre,Calendar fechaInicio1,
+            Calendar fechaFin1,Calendar fechaInicio2,Calendar fechaFin2,
+            float porcentajeMinimo){
         this.id=id;
         this.nombre=nombre;
         this.fechaInicio1=fechaInicio1;
         this.fechaFin1=fechaFin1;
         this.fechaInicio2=fechaInicio2;
         this.fechaFin2=fechaFin2;
-        this.porcentajeMinimo=porcentajeMinimo;
+        this.porcentaje=porcentajeMinimo;
     }
     
     /**
@@ -67,70 +68,74 @@ public class TipoProcesoVotacion {
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio1() {
+    public Calendar getFechaInicio1() {
         return fechaInicio1;
     }
 
     /**
-     * @param fechaInicio the fechaInicio to set
+     * @param fechaIni1 the fechaInicio1 to set
      */
-    public void setFechaInicio1(Date fechaInicio1) {
-        this.fechaInicio1 = fechaInicio1;
+    public void setFechaInicio1(Calendar fechaIni1) {
+        this.fechaInicio1 = fechaIni1;
     }
 
     /**
      * @return the fechaFin
      */
-    public Date getFechaFin1() {
+    public Calendar getFechaFin1() {
         return fechaFin1;
     }
 
     /**
-     * @param fechaFin the fechaFin to set
+     * @param fechaFin1 the fechaFin to set
      */
-    public void setFechaFin1(Date fechaFin1) {
+    public void setFechaFin1(Calendar fechaFin1) {
         this.fechaFin1 = fechaFin1;
     }
 
     /**
      * @return the porcentajeMinimo
      */
-    public double getPorcentajeMinimo() {
-        return porcentajeMinimo;
+    public float getPorcentajeMinimo() {
+        return porcentaje;
     }
 
     /**
      * @param porcentajeMinimo the porcentajeMinimo to set
      */
-    public void setPorcentajeMinimo(double porcentajeMinimo) {
-        this.porcentajeMinimo = porcentajeMinimo;
+    public void setPorcentajeMinimo(float porcentajeMinimo) {
+        this.porcentaje = porcentajeMinimo;
     }
+
+    /**
+     * @return the idPartido
+     */
     
     /**
      * @return the fechaInicio2
      */
-    public Date getFechaInicio2() {
+    public Calendar getFechaInicio2() {
         return fechaInicio2;
     }
 
     /**
      * @param fechaInicio2 the fechaInicio2 to set
      */
-    public void setFechaInicio2(Date fechaInicio2) {
+    public void setFechaInicio2(Calendar fechaInicio2) {
         this.fechaInicio2 = fechaInicio2;
     }
 
     /**
      * @return the fechaFin2
      */
-    public Date getFechaFin2() {
+    public Calendar getFechaFin2() {
         return fechaFin2;
     }
 
     /**
      * @param fechaFin2 the fechaFin2 to set
      */
-    public void setFechaFin2(Date fechaFin2) {
+    public void setFechaFin2(Calendar fechaFin2) {
         this.fechaFin2 = fechaFin2;
     }
 

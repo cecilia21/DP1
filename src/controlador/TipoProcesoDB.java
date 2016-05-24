@@ -33,6 +33,10 @@ public class TipoProcesoDB {
     
     public TipoProcesoVotacion queryById(int id) {
         return daoTipoProcesoVotacion.queryById(id);
-    }    
+    }   
+    
+    public ArrayList<TipoProcesoVotacion> queryAll(){
+        return daoTipoProcesoVotacion.queryAll();
+    }
     
 }

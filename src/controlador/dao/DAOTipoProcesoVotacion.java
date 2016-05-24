@@ -5,6 +5,7 @@
  */
 package controlador.dao;
 
+import java.util.ArrayList;
 import model.TipoProcesoVotacion;
 
 /**
@@ -14,4 +15,5 @@ import model.TipoProcesoVotacion;
 public interface DAOTipoProcesoVotacion {
     void update(TipoProcesoVotacion p);
     TipoProcesoVotacion queryById(int idTipoProcesoVotacion);
+    ArrayList<TipoProcesoVotacion> queryAll();
 }

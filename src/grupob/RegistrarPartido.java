@@ -6,9 +6,13 @@
 package grupob;
 
 import controlador.Manager;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import model.Distrito;
 import model.PartidoPolitico;
+import model.Region;
+import model.TipoProcesoVotacion;
 
 /**
  *
@@ -21,6 +25,15 @@ public class RegistrarPartido extends javax.swing.JPanel {
      */
     public RegistrarPartido() {
         initComponents();
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
+        ArrayList<TipoProcesoVotacion> procs = Manager.queryAllTipoProceso();
+        registro_tipo_proceso.removeAllItems();
+        for(int i=0; i<procs.size();i++){
+            registro_tipo_proceso.addItem(procs.get(i).getNombre());
+            System.out.println("" + procs.get(i).getNombre());
+        }
+        
     }
 
     /**
@@ -73,7 +86,6 @@ public class RegistrarPartido extends javax.swing.JPanel {
         registro_seleccione_lugar.setText("Seleccione:");
         jPanel17.add(registro_seleccione_lugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        registro_tipo_proceso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nacional", "Distrital", "Regional", "Local", "Institucional" }));
         registro_tipo_proceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registro_tipo_procesoActionPerformed(evt);
@@ -98,7 +110,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
                 jButton36ActionPerformed(evt);
             }
         });
-        jPanel17.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 278, -1, -1));
+        jPanel17.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
 
         jButton37.setText("Cancelar");
         jButton37.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +118,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
                 jButton37ActionPerformed(evt);
             }
         });
-        jPanel17.add(jButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 278, -1, -1));
+        jPanel17.add(jButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
 
         jLabel59.setText("Nombre del Representante:");
         jPanel17.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
@@ -117,7 +129,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
         jPanel17.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 129, -1));
         jPanel17.add(dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 129, -1));
 
-        add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 486, 345));
+        add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 300));
     }// </editor-fold>//GEN-END:initComponents
 
     private void registro_tipo_procesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registro_tipo_procesoActionPerformed
@@ -125,6 +137,15 @@ public class RegistrarPartido extends javax.swing.JPanel {
         if(registro_tipo_proceso.getSelectedIndex()!=0){
             registro_lugar.setVisible(true);
             registro_seleccione_lugar.setVisible(true);
+            int indice = registro_tipo_proceso.getSelectedIndex();
+            if(indice == 1){
+                ArrayList<Region> regiones = Manager.queryAllRegion();
+                registro_lugar.removeAllItems();
+                for(int i = 0; i<regiones.size(); i++){
+                    registro_lugar.addItem(regiones.get(i).getNombre());
+                    //System.out.println("" + regiones.get(i).getNombre());
+                }
+            }
         }
         else{
             registro_lugar.setVisible(false);
@@ -143,8 +164,8 @@ public class RegistrarPartido extends javax.swing.JPanel {
         nombre = nombre_partido.getText();
         dni_text = dni.getText();
         correoPartido = correo.getText();
-        int tipo_proc = registro_tipo_proceso.getSelectedIndex();
-        int idLug = registro_lugar.getSelectedIndex();
+        int tipo_proc = registro_tipo_proceso.getSelectedIndex()+1;
+        int idLug = registro_lugar.getSelectedIndex()+1;
         PartidoPolitico part = new PartidoPolitico();
         part.setNombre(nombre);
         part.setApellidoRepresentante(apellidosRep);
@@ -155,7 +176,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
         part.setEstado("Activo");
         part.setCantidadRegistrosValidos(0);
         part.setCorreoPartido(correoPartido);
-        //Manager.addPartido(part);
+        Manager.addPartido(part);
         JOptionPane.showMessageDialog(null, "Registro guardado exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
         cleanForm();
     }//GEN-LAST:event_jButton36ActionPerformed

@@ -815,6 +815,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
         ArrayList<Region> listaRegionesPas = null;
         TipoProcesoVotacion proceso=null;
+        jXDatePicker5.get
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker6.getEditor();
