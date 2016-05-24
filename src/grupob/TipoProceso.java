@@ -37,7 +37,7 @@ public class TipoProceso extends javax.swing.JPanel {
         agregarDatos();
         if(listaRegiones!=null){
             jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
-            jTable6.getColumn("Eliminar").setCellEditor(new ButtonEditor4(new JCheckBox()));
+            jTable6.getColumn("Eliminar").setCellEditor(new ButtonEliminarRegiones(new JCheckBox()));
         }
     }
 

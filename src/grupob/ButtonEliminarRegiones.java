@@ -21,12 +21,12 @@ import model.Region;
  *
  * @author RAMON
  */
-public class ButtonEditor4 extends DefaultCellEditor {
+public class ButtonEliminarRegiones extends DefaultCellEditor {
 	protected JButton button;
 	private DeleteButtonListener bListener = new DeleteButtonListener();
 
 	@SuppressWarnings("deprecation")
-	public ButtonEditor4(JCheckBox checkBox) {
+	public ButtonEliminarRegiones(JCheckBox checkBox) {
 		super(checkBox);
             button = new JButton();
 	    button.setOpaque(true);
