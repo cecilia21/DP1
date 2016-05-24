@@ -10,16 +10,16 @@ package model;
  * @author RAMON
  */
 public class Local {
-    private int id;
+    private int idLocal;
     private int idDistrito;
-    private int idRegion;
     private String nombre;
+    private int tipoProceso;
     private int CantidadVotantesRegistrados;
 
-    public Local(int id,int idD,int idR,String nombre,int cantidad){
-        this.id=id;
+    public Local(int id,int idD,int idTipo,String nombre,int cantidad){
+        this.idLocal=id;
         this.idDistrito=idD;
-        this.idRegion=idR;
+        this.tipoProceso=idTipo;
         this.nombre=nombre;
         this.CantidadVotantesRegistrados=cantidad;
     }
@@ -32,14 +32,14 @@ public class Local {
     }
     
     public int getId() {
-        return id;
+        return idLocal;
     }
 
     /**
      * @param id the id to set
      */
     public void setId(int id) {
-        this.id = id;
+        this.idLocal = id;
     }
 
     /**
@@ -88,14 +88,14 @@ public class Local {
      * @return the idRegion
      */
     public int getIdRegion() {
-        return idRegion;
+        return tipoProceso;
     }
 
     /**
      * @param idRegion the idRegion to set
      */
-    public void setIdRegion(int idRegion) {
-        this.idRegion = idRegion;
+    public void setIdRegion(int idTipo) {
+        this.tipoProceso = idTipo;
     }
         
 }
