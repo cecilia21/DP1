@@ -7,6 +7,7 @@ package grupob;
 
 import controlador.Manager;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import model.PartidoPolitico;
 
 /**
@@ -153,14 +154,23 @@ public class RegistrarPartido extends javax.swing.JPanel {
         part.setFechaRegistro(Calendar.getInstance());
         part.setEstado("Activo");
         part.setCantidadRegistrosValidos(0);
-        Manager.addPartido(part);
-
+        part.setCorreoPartido(correoPartido);
+        //Manager.addPartido(part);
+        JOptionPane.showMessageDialog(null, "Registro guardado exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        cleanForm();
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
 
     }//GEN-LAST:event_jButton37ActionPerformed
-
+    private void cleanForm(){
+        nombres_rep.setText("");
+        apellidos_rep.setText("");
+        nombre_partido.setText("");
+        dni.setText("");
+        correo.setText("");
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidos_rep;

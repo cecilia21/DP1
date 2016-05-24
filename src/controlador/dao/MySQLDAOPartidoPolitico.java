@@ -33,24 +33,24 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                     DriverManager.registerDriver(new Driver());
                     //Paso 2: Obtener la conexión
                     conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,
-                                                            DBConnection.password);
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
                     //Paso 3: Preparar la sentencia
-                    String sql = "INSERT INTO PartidoPolicito "
+                    String sql = "INSERT INTO PartidoPolitico "
                                     + "(nombre, cantidadRegistrosValidos, nombreRepresentante, "
-                                    + "apellidoRepresentante, dniRepresentante, correoRepresentante, "
-                                    + "correoPartido, fechaRegistro, estado)"
-                                    + "VALUES (?,?,?,?,?,?,?,?,?)";
+                                    + "apellidoRepresentante, dniRepresentante, correo, "
+                                    + "fechaRegistro, estado)"
+                                    + "VALUES (?,?,?,?,?,?,?,?)";
                     pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, p.getNombre());
-                    pstmt.setString(2, "0");
+                    pstmt.setInt(2, 0);
                     pstmt.setString(3, p.getNombreRepresentante());
                     pstmt.setString(4, p.getApellidoRepresentante());
                     pstmt.setString(5, p.getDniRepresentante());
-                    pstmt.setString(6, p.getCorreoRepresentante());
-                    pstmt.setString(7, p.getCorreoPartido());
-                    //pstmt.setDate(8, p.getFechaRegistro());
-                    pstmt.setString(9, p.getEstado());
+                    //pstmt.setString(6, p.getCorreoRepresentante());
+                    pstmt.setString(6, p.getCorreoPartido());
+                    pstmt.setDate(7, new java.sql.Date(p.getFechaRegistro().getTimeInMillis()));
+                    pstmt.setString(8, p.getEstado());
                     //Paso 4: Ejecutar la sentencia
                     pstmt.executeUpdate();			
                     //Paso 5(opc.): Procesar los resultados			
