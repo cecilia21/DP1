@@ -23,7 +23,7 @@ import model.TipoProcesoVotacion;
 public class Manager {
     
     private static ProcesoRegionDB procesoRegionDB = new ProcesoRegionDB();
-    private static ProcesoNacionalDB procesoNacionalDB = new ProcesoNacionalDB(); 
+    private static TipoProcesoDB tipoprocesoDB = new TipoProcesoDB(); 
     private static PartidoPoliticoDB partidoDB = new PartidoPoliticoDB(); 
     
     public static void addPartido(PartidoPolitico p){
@@ -57,7 +57,7 @@ public class Manager {
    
     public static void updateProceso(TipoProcesoVotacion proceso)
     {        
-//        procesoNacionalDB.update(proceso);
+//        tipoprocesoDB.update(proceso);
         System.out.println("se actualizo el proceso de votacion con id igual a "+proceso.getId()+" y los siguientes datos "+proceso.getFechaInicio1()+" "+proceso.getFechaFin1()+" "+proceso.getPorcentajeMinimo());
     }
     
@@ -117,7 +117,7 @@ public class Manager {
             tipo.setFechaFin2(fechaf2);            
         }
         return tipo;
-//        return procesoNacionalDB.queryById(idProceso);
+//        return tipoprocesoDB.queryById(idProceso);
     }
     
     /////////REGIONAL

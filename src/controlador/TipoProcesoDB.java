@@ -16,13 +16,13 @@ import model.TipoProcesoVotacion;
  *
  * @author RAMON
  */
-public class ProcesoNacionalDB {
+public class TipoProcesoDB {
     
     private ArrayList<TipoProcesoVotacion> tipoProcesoList = new ArrayList<TipoProcesoVotacion>();
     DAOFactory daoFactory = DAOFactory.getDAOFactory(DBConnection.dbType);
     DAOTipoProcesoVotacion daoTipoProcesoVotacion = daoFactory.getDAOTipoProcesoVotacion();   
     
-    public ProcesoNacionalDB(){
+    public TipoProcesoDB(){
         
     }
     
