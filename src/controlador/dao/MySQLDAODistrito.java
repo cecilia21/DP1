@@ -5,6 +5,9 @@
  */
 package controlador.dao;
 
+import java.util.ArrayList;
+import model.Distrito;
+
 import com.mysql.jdbc.Driver;
 import java.sql.ResultSet;
 import java.sql.Connection;
@@ -12,16 +15,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Region;
+import model.Distrito;
 
-/**
- *
- * @author RAMON
- */
-public class MySQLDAORegion implements DAORegion {
+public class MySQLDAODistrito implements DAODistrito {
 
     @Override
-    public void add(Region p) {
+    public void add(Distrito p) {
         Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -33,13 +32,14 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO dp1.Region "
-					+ "(idRegion, nombre, cantidadVotantes)"
-					+ "VALUES (?,?,?)";
+			String sql = "INSERT INTO dp1.Distrito "
+					+ "(idDistrito, nombre, cantidadDeVotantes, idRegion)"
+					+ "VALUES (?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p.getId());
 			pstmt.setString(2, p.getNombre());
                         pstmt.setInt(3, p.getCantidadVotantesRegistrados());
+                        pstmt.setInt(4, p.getIdRegion());
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();			
 			//Paso 5(opc.): Procesar los resultados			
@@ -52,11 +52,11 @@ public class MySQLDAORegion implements DAORegion {
 				catch (Exception e){e.printStackTrace();};
 			try { if (conn!= null) conn.close();} 
 				catch (Exception e){e.printStackTrace();};						
-		}        
+		}
     }
 
     @Override
-    public void update(Region p) {
+    public void update(Distrito p) {       
         
         // TODO Auto-generated method stub
 		Connection conn = null;
@@ -70,15 +70,16 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "UPDATE dp1.Region "
-					+ "SET nombre=?, cantidadVotantes=? "
-					+ "WHERE idRegion=?";
+			String sql = "UPDATE dp1.Distrito "
+					+ "SET name=?, cantidadDeVotantes=?,idRegion=? "
+					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
 			//
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, p.getNombre());
-                        pstmt.setInt(2, p.getCantidadVotantesRegistrados());			
-			pstmt.setInt(3, p.getId());
+                        pstmt.setInt(2, p.getCantidadVotantesRegistrados());
+                        pstmt.setInt(3, p.getIdRegion());
+			pstmt.setInt(4, p.getId());
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();
 			//Paso 5(opc.): Procesar los resultados			
@@ -95,8 +96,8 @@ public class MySQLDAORegion implements DAORegion {
     }
 
     @Override
-    public void delete(int idRegion) {
-        	Connection conn = null;
+    public void delete(int idDistrito) {        
+        Connection conn = null;
 		PreparedStatement pstmt = null;		
 		try {
 			//Paso 1: Registrar el Driver
@@ -106,11 +107,11 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "DELETE FROM dp1.Region "
-					+ "WHERE idRegion=?";
+			String sql = "DELETE FROM dp1.Distrito "
+					+ "WHERE id=?";
 			pstmt = conn.prepareStatement(sql);
 			//
-			pstmt.setInt(1, idRegion);
+			pstmt.setInt(1, idDistrito);
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();
 			//Paso 5(opc.): Procesar los resultados			
@@ -127,11 +128,12 @@ public class MySQLDAORegion implements DAORegion {
     }
 
     @Override
-    public ArrayList<Region> queryAll() {
-        	Connection conn = null;
+    public ArrayList<Distrito> queryAll() {
+        
+        Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<Region> arr = new ArrayList<Region>();
+		ArrayList<Distrito> arr = new ArrayList<Distrito>();
 		try {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
@@ -140,16 +142,17 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Region";
+			String sql = "SELECT * FROM dp1.Distrito";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
 			while (rs.next()){
-				int id = rs.getInt("idRegion");
+				int id = rs.getInt("idDistrito");
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
-				Region p=new Region(id,name,cant);
+                                int idReg = rs.getInt("idRegion");
+				Distrito p=new Distrito(id,idReg,name,cant);
 				arr.add(p);
 			}
 		} catch (SQLException e) {
@@ -163,15 +166,14 @@ public class MySQLDAORegion implements DAORegion {
 				catch (Exception e){e.printStackTrace();};						
 		}
 		return arr;
-        
     }
 
     @Override
-    public Region queryById(int idRegion) {
-                Connection conn = null;
+    public Distrito queryById(int idDistrito) {
+        Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Region p=null;
+		Distrito p=null;
 		try {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
@@ -180,18 +182,19 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Region "
-					+ "WHERE idRegion=?";
+			String sql = "SELECT * FROM dp1.Distrito "
+					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, idRegion);
+			pstmt.setInt(1, idDistrito);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
 			if (rs.next()){
-				int id = rs.getInt("idRegion");
+				int id = rs.getInt("idDistrito");
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
-				p=new Region(id,name,cant);
+                                int idReg = rs.getInt("idRegion");
+				p=new Distrito(id,idReg,name,cant);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -203,15 +206,15 @@ public class MySQLDAORegion implements DAORegion {
 			try { if (conn!= null) conn.close();} 
 				catch (Exception e){e.printStackTrace();};						
 		}
-		return p;    
+		return p;        
     }
 
     @Override
-    public Region queryByName(String nameb) {
-		Connection conn = null;
+    public Distrito queryByName(String name) {
+        Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Region p=null;
+		Distrito p=null;
 		try {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
@@ -220,18 +223,19 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Region "
+			String sql = "SELECT * FROM dp1.Distrito "
 					+ "WHERE name LIKE ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, nameb);
+			pstmt.setString(1, name);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
 			if (rs.next()){
-				int id = rs.getInt("idRegion");
-				String name = rs.getString("nombre");
+				int id = rs.getInt("idDistrito");
+				String named = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
-				p=new Region(id,name,cant);
+                                int idReg = rs.getInt("idRegion");
+				p=new Distrito(id,idReg,named,cant);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -243,7 +247,7 @@ public class MySQLDAORegion implements DAORegion {
 			try { if (conn!= null) conn.close();} 
 				catch (Exception e){e.printStackTrace();};						
 		}
-		return p;      
+		return p; 
     }
     
 }

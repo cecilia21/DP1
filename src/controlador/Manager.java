@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Distrito;
 import model.Institucion;
 import model.Region;
 import model.PartidoPolitico;
@@ -25,6 +26,7 @@ public class Manager {
     private static ProcesoRegionDB procesoRegionDB = new ProcesoRegionDB();
     private static TipoProcesoDB tipoprocesoDB = new TipoProcesoDB(); 
     private static PartidoPoliticoDB partidoDB = new PartidoPoliticoDB(); 
+    private static ProcesoDistritoDB procesoDistritoDB = new ProcesoDistritoDB(); 
     
     public static void addPartido(PartidoPolitico p){
         partidoDB.add(p);
@@ -158,5 +160,44 @@ public class Manager {
     }
     
     /////////FIN REGIONAL
+    
+    ///////DISTRITAL
+    
+    public static void addDistrito(Distrito i)
+    {
+//        procesoDistritoDB.add(i);
+        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+    }
+    public static void updateDistrito(Distrito i)
+    {
+//        procesoDistritoDB.updateDistrito(i);
+        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+    }
+    public static void deleteDistrito (int idDistrito)
+    {
+//        procesoDistritoDB.deleteDistrito(idDistrito);
+        System.out.println("Se borro la distrito con id igual a "+idDistrito);
+    }
+    public static ArrayList<Distrito> queryAllDistrito()
+    {
+        ArrayList<Distrito> listaDistrito=new ArrayList<Distrito>();
+        listaDistrito.add(new Distrito(1,1,"San Borja",15000));
+        listaDistrito.add(new Distrito(2,1,"Surco",10000));
+        listaDistrito.add(new Distrito(3,1,"San Miguel",12000));
+        return listaDistrito;
+//        return procesoDistritoDB.queryAllDistritos();
+    }
+    
+    public static Distrito queryByIdDistrito(int id)
+    {
+        return procesoDistritoDB.queryById(id);
+    }
+    
+    public static Distrito queryByNameDistrito(String name)
+    {
+        return procesoDistritoDB.queryByName(name);
+    }
+    
+    /////FIN DISTRITAL
     
 }

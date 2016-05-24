@@ -31,5 +31,10 @@ public class MySQLDAOFactory extends DAOFactory{
     
     }
 
+    @Override
+    public DAODistrito getDAODistrito() {
+        return new MySQLDAODistrito();
+    }
+
         
 }
