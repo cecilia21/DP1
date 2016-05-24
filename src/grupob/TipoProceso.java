@@ -1005,13 +1005,13 @@ public class TipoProceso extends javax.swing.JPanel {
               ArrayList<Local> listaLocalesPas = null;
         TipoProcesoVotacion proceso=null;
         JFormattedTextField fechai1 = jXDatePicker13.getEditor();
-        Calendar datei1 = (Calendar) fechai1.getValue();
+        Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker14.getEditor();
-        Calendar datei2 = (Calendar) fechai2.getValue();
+        Date datei2 = (Date) fechai2.getValue();
         JFormattedTextField fechaf1 = jXDatePicker15.getEditor();
-        Calendar datef1 = (Calendar) fechaf1.getValue();
+        Date datef1 = (Date) fechaf1.getValue();
         JFormattedTextField fechaf2 = jXDatePicker16.getEditor();
-        Calendar datef2 = (Calendar) fechaf2.getValue();
+        Date datef2 = (Date) fechaf2.getValue();
         double por;
         
         Calendar cal = Calendar.getInstance();
@@ -1025,7 +1025,7 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
             
-            if(datei1.after(cal) && datei2.after(cal) && datef1.after(cal)  && datef2.after(cal)){
+            if(datei1.compareTo(dateActual) > 0 && datei2.compareTo(dateActual) > 0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
                 if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
                     JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
                     return;
@@ -1039,10 +1039,12 @@ public class TipoProceso extends javax.swing.JPanel {
                     return;
                 }
                 proceso=new TipoProcesoVotacion();
-                proceso.setFechaInicio1(datei1);
-                proceso.setFechaInicio2(datei2);
-                proceso.setFechaFin1(datef1);
-                proceso.setFechaFin2(datef2);
+                
+                
+                proceso.setFechaInicio1(dateToCalendar(datei1));
+                proceso.setFechaInicio2(dateToCalendar(datei2));
+                proceso.setFechaFin1(dateToCalendar(datef1));
+                proceso.setFechaFin2(dateToCalendar(datef2));
                 proceso.setPorcentajeMinimo((float)por);
                 DefaultTableModel modelo = (DefaultTableModel)jTable8.getModel();
                 listaLocalesPas= listaLocales;
@@ -1188,6 +1190,14 @@ public class TipoProceso extends javax.swing.JPanel {
         }
     
     }
+     
+     private Calendar dateToCalendar(Date date){
+     
+         Calendar cal =  Calendar.getInstance();
+         cal.setTime(date);
+         return cal;
+     
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRowRegional;
