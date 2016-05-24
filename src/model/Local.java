@@ -87,14 +87,14 @@ public class Local {
     /**
      * @return the idRegion
      */
-    public int getIdRegion() {
+    public int getIdProceso() {
         return tipoProceso;
     }
 
     /**
      * @param idRegion the idRegion to set
      */
-    public void setIdRegion(int idTipo) {
+    public void setIdProceso(int idTipo) {
         this.tipoProceso = idTipo;
     }
         
