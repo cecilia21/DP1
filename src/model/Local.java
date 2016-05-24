@@ -27,6 +27,10 @@ public class Local {
     /**
      * @return the id
      */
+    public Local(){
+    
+    }
+    
     public int getId() {
         return id;
     }

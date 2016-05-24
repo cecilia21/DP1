@@ -14,4 +14,5 @@ public abstract class DAOFactory {
         public abstract DAOInstitucion getDAOInstitucion();
         public abstract DAORegion getDAORegion();
         public abstract DAOTipoProcesoVotacion getDAOTipoProcesoVotacion();
+           public abstract DAOLocal getDAOLocal();
 }

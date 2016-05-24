@@ -24,5 +24,12 @@ public class MySQLDAOFactory extends DAOFactory{
         return new MySQLDAOTipoProcesoVotacion();
     }
 
+    @Override
+    public DAOLocal getDAOLocal() {
+        
+     return new MySQLDAOLocal();
+    
+    }
+
         
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,13 +28,17 @@ public class TipoProceso extends javax.swing.JPanel {
     /**
      * Creates new form TipoProceso
      */
-    public static ArrayList<Region> listaRegiones=new ArrayList<Region>();
+    public static ArrayList<Region> listaRegiones=Manager.queryAllRegion();
     public TipoProceso() {
         initComponents();
-        listaRegiones.add(new Region(1,"Lima",15000));
-        listaRegiones.add(new Region(1,"Arequipa",10000));
-        listaRegiones.add(new Region(1,"Junin",12000));
+//        listaRegiones.add(new Region(1,"Lima",15000));
+//        listaRegiones.add(new Region(1,"Arequipa",10000));
+//        listaRegiones.add(new Region(1,"Junin",12000));
         agregarDatos();
+        if(listaRegiones!=null){
+            jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTable6.getColumn("Eliminar").setCellEditor(new ButtonEliminarRegiones(new JCheckBox()));
+        }
     }
 
     /**
