@@ -5,6 +5,7 @@
  */
 package grupob;
 
+import controlador.Manager;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,8 +55,11 @@ public class ButtonEditor4 extends DefaultCellEditor {
                             int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
                             if(n==JOptionPane.YES_OPTION){
                                 Region re=TipoProceso.listaRegiones.get(this.row);
-                                re.setNombre("*******");
-                                TipoProceso.listaRegiones.set(this.row,re);
+                                if(re.getId()!=0){
+                                    Manager.deleteRegion(re.getId());
+                                }
+//                                re.setNombre("*******");
+//                                TipoProceso.listaRegiones.set(this.row,re);
 //                                Inicio.listaRegiones.remove(this.row);
                                 ((DefaultTableModel)table.getModel()).removeRow(this.row);
                                 ((DefaultTableModel)table.getModel()).fireTableDataChanged();
