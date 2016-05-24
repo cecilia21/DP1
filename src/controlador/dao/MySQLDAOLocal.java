@@ -75,7 +75,7 @@ public class MySQLDAOLocal implements DAOLocal{
                             DBConnection.password);
             //Paso 3: Preparar la sentencia
             String sql = "UPDATE Local "
-                            + "SET nombre=?,cantidadVotantesRegistrados=?"
+                            + "SET nombre=?,cantidadVotantes=?"
                             + "WHERE id=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setString(1, i.getNombre());
@@ -162,7 +162,7 @@ public class MySQLDAOLocal implements DAOLocal{
                     int idDistrito = rs.getInt("idDistrito");
                     int idProceso = rs.getInt("idTipoProceso");
                     String nombre = rs.getString("nombre");
-                    int CantidadVotantesRegistrados = rs.getInt("cantidadVotantesRegistrados");
+                    int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
                                        
                   
                     Local i = new Local();
@@ -216,7 +216,7 @@ public class MySQLDAOLocal implements DAOLocal{
             int idDistrito = rs.getInt("idDistrito");
             int idProceso = rs.getInt("idTipoProceso");
             String nombre = rs.getString("nombre");
-            int CantidadVotantesRegistrados = rs.getInt("cantidadVotantesRegistrados");
+            int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
 
            
             
