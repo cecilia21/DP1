@@ -60,6 +60,7 @@ public class TipoProceso extends javax.swing.JPanel {
         if((tipoRegional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoRegional.getFechaFin2()))){
             botonGuardarRegional.setEnabled(false);
             addRowRegional.setEnabled(false);
+            jTable6.setEnabled(false);
         }
         if(tipoRegional.getFechaFin2().before(dateActual)){
             botonGuardarRegional.setEnabled(true);
