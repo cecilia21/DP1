@@ -50,29 +50,29 @@ public class TipoProceso extends javax.swing.JPanel {
             jXDatePicker2.setDate(tipoNacional.getFechaInicio2().getTime());
             jXDatePicker3.setDate(tipoNacional.getFechaFin1().getTime());
             jXDatePicker4.setDate(tipoNacional.getFechaFin2().getTime());
-        }
-        if((tipoNacional.getFechaInicio1().before(dateActual)) && (cal.before(tipoNacional.getFechaFin2()))){
-            botonGuardarNacional.setEnabled(false);
-        }
-        if(tipoNacional.getFechaFin2().before(dateActual)){
-            botonGuardarNacional.setEnabled(true);
-        }
-        if(tipoRegional.getFechaFin2().after(dateActual)){
-            jXDatePicker5.setDate(tipoRegional.getFechaInicio1().getTime());
-            jXDatePicker6.setDate(tipoRegional.getFechaInicio2().getTime());
-            jXDatePicker7.setDate(tipoRegional.getFechaFin1().getTime());
-            jXDatePicker8.setDate(tipoRegional.getFechaFin2().getTime());
-            porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo());
-        }
-        if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
-            botonGuardarRegional.setEnabled(false);
-            addRowRegional.setEnabled(false);
-            jTable6.setEnabled(false);
-        }
-        if(tipoRegional.getFechaFin2().before(dateActual)){
-            botonGuardarRegional.setEnabled(true);
-            addRowRegional.setEnabled(true);
-        }
+            }
+            if((tipoNacional.getFechaInicio1().before(dateActual)) && (cal.before(tipoNacional.getFechaFin2()))){
+                botonGuardarNacional.setEnabled(false);
+            }
+            if(tipoNacional.getFechaFin2().before(dateActual)){
+                botonGuardarNacional.setEnabled(true);
+            }
+            if(tipoRegional.getFechaFin2().after(dateActual)){
+                jXDatePicker5.setDate(tipoRegional.getFechaInicio1().getTime());
+                jXDatePicker6.setDate(tipoRegional.getFechaInicio2().getTime());
+                jXDatePicker7.setDate(tipoRegional.getFechaFin1().getTime());
+                jXDatePicker8.setDate(tipoRegional.getFechaFin2().getTime());
+                porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo());
+            }
+            if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
+                botonGuardarRegional.setEnabled(false);
+                addRowRegional.setEnabled(false);
+                jTable6.setEnabled(false);
+            }
+            if(tipoRegional.getFechaFin2().before(dateActual)){
+                botonGuardarRegional.setEnabled(true);
+                addRowRegional.setEnabled(true);
+            }
         agregarDatos();
         if(listaRegiones!=null){
             jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
@@ -1140,6 +1140,8 @@ public class TipoProceso extends javax.swing.JPanel {
         TableColumn colum3 = null;
         colum3 = jTable6.getColumnModel().getColumn(2);
         colum3.setPreferredWidth(40);
+        
+        
         colum3.setPreferredWidth(10);        
     }
     
