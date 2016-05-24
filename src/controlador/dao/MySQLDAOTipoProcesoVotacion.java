@@ -44,10 +44,10 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
 			//
                     pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, p.getNombre());
-//                    pstmt.setDate(2, p.getFechaInicio1());
-//                    pstmt.setDate(3, p.getFechaFin1());
-//                    pstmt.setDate(4, p.getFechaInicio2());
-//                    pstmt.setDate(5, p.getFechaFin2());
+                    pstmt.setDate(2, new java.sql.Date(p.getFechaInicio1().getTime()));
+                    pstmt.setDate(3, new java.sql.Date(p.getFechaFin1().getTime()));
+                    pstmt.setDate(4, new java.sql.Date(p.getFechaInicio2().getTime()));
+                    pstmt.setDate(5, new java.sql.Date(p.getFechaFin2().getTime()));
                     pstmt.setString(6, ""+p.getPorcentajeMinimo());
                     pstmt.setString(7, ""+p.getCantidadVotantes());
                     pstmt.setString(8, ""+p.getIdUsuario());
