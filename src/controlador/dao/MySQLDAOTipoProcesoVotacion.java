@@ -85,7 +85,7 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
 			if (rs.next()){
-				int id = rs.getInt("id");
+				int id = rs.getInt("idProceso");
 				String nombre = rs.getString("nombre");
                             Calendar fechaInicio1 = Calendar.getInstance();
                             fechaInicio1.setTime(rs.getDate("fechaInicio1"));
@@ -172,7 +172,6 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
                     try { if (conn!= null) conn.close();} 
                             catch (Exception e){e.printStackTrace();};	
             }
-
             return null;
     }
 }

@@ -106,10 +106,6 @@ public class TipoProcesoVotacion {
     public void setPorcentajeMinimo(float porcentajeMinimo) {
         this.porcentaje = porcentajeMinimo;
     }
-
-    /**
-     * @return the idPartido
-     */
     
     /**
      * @return the fechaInicio2
