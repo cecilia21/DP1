@@ -33,7 +33,7 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO dp1.Region "
+			String sql = "INSERT INTO region "
 					+ "(idRegion, nombre, cantidadVotantes)"
 					+ "VALUES (?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -66,11 +66,11 @@ public class MySQLDAORegion implements DAORegion {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "UPDATE dp1.Region "
+			String sql = "UPDATE region "
 					+ "SET nombre=?, cantidadVotantes=? "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
@@ -102,11 +102,11 @@ public class MySQLDAORegion implements DAORegion {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "DELETE FROM dp1.Region "
+			String sql = "DELETE FROM region "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
 			//
@@ -136,11 +136,11 @@ public class MySQLDAORegion implements DAORegion {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Region";
+			String sql = "SELECT * FROM region";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
@@ -176,11 +176,11 @@ public class MySQLDAORegion implements DAORegion {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Region "
+			String sql = "SELECT * FROM region "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idRegion);
@@ -216,11 +216,11 @@ public class MySQLDAORegion implements DAORegion {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Region "
+			String sql = "SELECT * FROM region "
 					+ "WHERE name LIKE ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nameb);

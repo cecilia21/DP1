@@ -66,9 +66,9 @@ public class MySQLDAODistrito implements DAODistrito {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "UPDATE dp1.Distrito "
 					+ "SET name=?, cantidadDeVotantes=?,idRegion=? "
@@ -103,9 +103,9 @@ public class MySQLDAODistrito implements DAODistrito {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "DELETE FROM dp1.Distrito "
 					+ "WHERE id=?";
@@ -138,9 +138,9 @@ public class MySQLDAODistrito implements DAODistrito {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM dp1.Distrito";
 			pstmt = conn.prepareStatement(sql);
@@ -178,9 +178,9 @@ public class MySQLDAODistrito implements DAODistrito {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM dp1.Distrito "
 					+ "WHERE idDistrito=?";
@@ -219,9 +219,9 @@ public class MySQLDAODistrito implements DAODistrito {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM dp1.Distrito "
 					+ "WHERE name LIKE ?";

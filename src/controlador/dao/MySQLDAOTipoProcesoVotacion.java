@@ -72,9 +72,9 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
-			conn = DriverManager.getConnection(DBConnection.URL_JDBC_SQLServer,
-								DBConnection.user,
-								DBConnection.password);
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM dp1.TipoProceso "
 					+ "WHERE idProceso=?";
