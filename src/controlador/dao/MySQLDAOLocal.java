@@ -111,7 +111,7 @@ public class MySQLDAOLocal implements DAOLocal{
                                 DBConnection.user,
                                 DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "DELETE FROM Local WHERE id=?";
+                String sql = "DELETE FROM Local WHERE idLocal=?";
                 pstmt = (PreparedStatement) conn.prepareStatement(sql);
                 //pstmt.setInt(1, p.getId());
                 pstmt.setInt(1, idLocal);
@@ -205,7 +205,7 @@ public class MySQLDAOLocal implements DAOLocal{
                                                     DBConnection.user,
                                                     DBConnection.password);
             //Paso 3: Preparar la sentencia
-            String sql = "SELECT * FROM Institucion WHERE id=?";
+            String sql = "SELECT * FROM Institucion WHERE idLocal=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setInt(1,idLocal);
             //Paso 4: Ejecutar la sentencia

@@ -1143,6 +1143,9 @@ public class TipoProceso extends javax.swing.JPanel {
         colum3 = jTable6.getColumnModel().getColumn(2);
         colum3.setPreferredWidth(40);
         
+     
+        
+     
         
         colum3.setPreferredWidth(10);        
     }
@@ -1164,7 +1167,7 @@ public class TipoProceso extends javax.swing.JPanel {
             }
             
             datos[2] = Integer.toString(listaLocales.get(i).getIdDistrito());
-         //   datos[3] = Integer.toString(listaLocales.get(i).getIdTipo());
+            datos[3] = Integer.toString(listaLocales.get(i).getIdProceso());
             
              
             modelo.addRow(datos);
@@ -1184,6 +1187,9 @@ public class TipoProceso extends javax.swing.JPanel {
         TableColumn colum4 = null;
         colum4 = jTable8.getColumnModel().getColumn(3);
         colum4.setPreferredWidth(40);
+        
+   
+        
         
         
         colum3.setPreferredWidth(10);     
