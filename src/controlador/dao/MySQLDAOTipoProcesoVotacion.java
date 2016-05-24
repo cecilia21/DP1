@@ -33,11 +33,9 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
                                                             DBConnection.user,
                                                             DBConnection.password);
                     //Paso 3: Preparar la sentencia
-                    String sql = "UPDATE TipoProcesoVotacion SET nombre=?, fechaInicio1=?, "
-                                + "fechaFin1=?, fechaInicio2=?, fechaFin2=?, porcentajeMinimo=?"
-                                + ", cantidadVotantes=?, idUsuario=?, idDistrito=?, idPartido=?"
-                                + ", idLocal=?, idRegion=?, idInstitucion=? "
-                                + "WHERE id=?";
+                    String sql = "UPDATE dp1.TipoProceso SET nombre=?, fechaInicio1=?, "
+                                + "fechaFin1=?, fechaInicio2=?, fechaFin2=?, porcentaje=? "
+                                + "WHERE idProceso=?";
                     pstmt = conn.prepareStatement(sql);
                     //Paso 4: Ejecutar la sentencia
                     pstmt = conn.prepareStatement(sql);
@@ -49,14 +47,7 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
                     pstmt.setDate(4, new java.sql.Date(p.getFechaInicio2().getTime()));
                     pstmt.setDate(5, new java.sql.Date(p.getFechaFin2().getTime()));
                     pstmt.setString(6, ""+p.getPorcentajeMinimo());
-                    pstmt.setString(7, ""+p.getCantidadVotantes());
-                    pstmt.setString(8, ""+p.getIdUsuario());
-                    pstmt.setInt(9, p.getIdDistrito());
-                    pstmt.setInt(10, p.getIdPartido());
-                    pstmt.setInt(11, p.getIdLocal());
-                    pstmt.setInt(12, p.getIdRegion());
-                    pstmt.setInt(13, p.getIdInstitucion());
-                    pstmt.setInt(14, p.getId());
+                    pstmt.setInt(7, p.getId());
                     //Paso 4: Ejecutar la sentencia
                     pstmt.executeUpdate();
             } catch (SQLException e) {
@@ -85,32 +76,28 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM TipoProcesoVotacion "
-					+ "WHERE id=?";
+			String sql = "SELECT * FROM dp1.TipoProceso "
+					+ "WHERE idProceso=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idTipoProcesoVotacion);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
 			if (rs.next()){
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-                                String idUsuario = rs.getString("idUsuario");
-				int cant = rs.getInt("cantidadDeVotantes");
+				int id = rs.getInt("idProceso");
+				String name = rs.getString("nombre");
                                 Date fechaInicio1= rs.getDate("fechaInicio1");
                                 Date fechaFin1= rs.getDate("fechaFin1");
                                 Date fechaInicio2= rs.getDate("fechaInicio2");
                                 Date fechaFin2= rs.getDate("fechaFin2");
-                                double porcentajeMinimo= rs.getDouble("porcentajeMinimo");
+                                double porcentajeMinimo= rs.getDouble("porcentaje");
 				p=new TipoProcesoVotacion();
                                 p.setId(id);
-                                p.setCantidadVotantes(cant);
                                 p.setFechaFin1(fechaFin1);
                                 p.setFechaFin2(fechaFin2);
                                 p.setFechaInicio1(fechaInicio1);
                                 p.setFechaInicio2(fechaInicio2);
                                 p.setPorcentajeMinimo(porcentajeMinimo);
-                                p.setIdUsuario(idUsuario);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
