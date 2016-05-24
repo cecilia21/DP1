@@ -43,26 +43,26 @@ public class TipoProceso extends javax.swing.JPanel {
         TipoProcesoVotacion tipoRegional=Manager.queryProcesoById(2);
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
-        if(tipoNacional.getFechaFin2().compareTo(dateActual)>0){
-            jXDatePicker1.setDate(tipoNacional.getFechaInicio1());
-            jXDatePicker2.setDate(tipoNacional.getFechaInicio2());
-            jXDatePicker3.setDate(tipoNacional.getFechaFin1());
-            jXDatePicker4.setDate(tipoNacional.getFechaFin2());
+        if(tipoNacional.getFechaFin2().after(dateActual)){
+            jXDatePicker1.setDate(tipoNacional.getFechaInicio1().getTime());
+            jXDatePicker2.setDate(tipoNacional.getFechaInicio2().getTime());
+            jXDatePicker3.setDate(tipoNacional.getFechaFin1().getTime());
+            jXDatePicker4.setDate(tipoNacional.getFechaFin2().getTime());
         }
-        if((tipoNacional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoNacional.getFechaFin2()))){
+        if((tipoNacional.getFechaInicio1().before(dateActual)) && (cal.before(tipoNacional.getFechaFin2()))){
             botonGuardarNacional.setEnabled(false);
         }
         if(tipoNacional.getFechaFin2().before(dateActual)){
             botonGuardarNacional.setEnabled(true);
         }
-        if(tipoRegional.getFechaFin2().compareTo(dateActual)>0){
-            jXDatePicker5.setDate(tipoRegional.getFechaInicio1());
-            jXDatePicker6.setDate(tipoRegional.getFechaInicio2());
-            jXDatePicker7.setDate(tipoRegional.getFechaFin1());
-            jXDatePicker8.setDate(tipoRegional.getFechaFin2());
+        if(tipoRegional.getFechaFin2().after(dateActual)){
+            jXDatePicker5.setDate(tipoRegional.getFechaInicio1().getTime());
+            jXDatePicker6.setDate(tipoRegional.getFechaInicio2().getTime());
+            jXDatePicker7.setDate(tipoRegional.getFechaFin1().getTime());
+            jXDatePicker8.setDate(tipoRegional.getFechaFin2().getTime());
             porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo());
         }
-        if((tipoRegional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoRegional.getFechaFin2()))){
+        if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
             botonGuardarRegional.setEnabled(false);
             addRowRegional.setEnabled(false);
             jTable6.setEnabled(false);
@@ -781,10 +781,28 @@ public class TipoProceso extends javax.swing.JPanel {
         Date datef2 = (Date) fechaf2.getValue();
         TipoProcesoVotacion proceso=new TipoProcesoVotacion();
         proceso.setId(1);
-        proceso.setFechaInicio1(datei1);
-        proceso.setFechaInicio2(datei2);
-        proceso.setFechaFin1(datef1);
-        proceso.setFechaFin2(datef2);
+        
+        Calendar calA = Calendar.getInstance();
+        calA.setTime(datei1);
+        proceso.setFechaInicio1(calA);
+        
+        
+        Calendar calB = Calendar.getInstance();
+        calA.setTime(datei2);
+        
+        proceso.setFechaInicio2(calB);
+        
+         
+        Calendar calC = Calendar.getInstance();
+        calC.setTime(datef1);
+        
+        proceso.setFechaFin1(calC);
+        
+           
+        Calendar calD = Calendar.getInstance();
+        calD.setTime(datef2);
+        
+        proceso.setFechaFin2(calD);
         proceso.setPorcentajeMinimo(10);
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
@@ -854,7 +872,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
         ArrayList<Region> listaRegionesPas = null;
         TipoProcesoVotacion proceso=null;
-        jXDatePicker5.get
+       // jXDatePicker5.get
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker6.getEditor();
@@ -886,12 +904,31 @@ public class TipoProceso extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
                     return;
                 }
+                
+                Calendar calA = Calendar.getInstance();
+                
                 proceso=new TipoProcesoVotacion();
-                proceso.setFechaInicio1(datei1);
-                proceso.setFechaInicio2(datei2);
-                proceso.setFechaFin1(datef1);
-                proceso.setFechaFin2(datef2);
-                proceso.setPorcentajeMinimo(por);
+                calA.setTime(datei1);
+                proceso.setFechaInicio1(calA);
+                
+                Calendar calB = Calendar.getInstance();
+                 
+                calB.setTime(datei2);
+                
+                proceso.setFechaInicio2(calB);
+                
+                 Calendar calC = Calendar.getInstance();
+                 
+                calC.setTime(datei2);
+                
+                proceso.setFechaFin1(calC);
+                
+                 Calendar calD = Calendar.getInstance();
+                 
+                calD.setTime(datei2);
+                
+                proceso.setFechaFin2(calD);
+                proceso.setPorcentajeMinimo((float)por);
                 DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
                 listaRegionesPas=listaRegiones;
                 for(int i=0;i<listaRegiones.size();i++){
