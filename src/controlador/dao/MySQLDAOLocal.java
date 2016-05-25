@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Local;
+import model.Region;
 
 /**
  *
@@ -212,21 +213,32 @@ public class MySQLDAOLocal implements DAOLocal{
             rs = pstmt.executeQuery();
             //Paso 5(opc.): Procesar los resultados
             
-            int id = rs.getInt("idLocal");
-            int idDistrito = rs.getInt("idDistrito");
-            int idProceso = rs.getInt("idTipoProceso");
-            String nombre = rs.getString("nombre");
-            int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
-
-           
-            
-            
-            i = new Local();
+            rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+                if (rs.next()){
+                            
+                        int id = rs.getInt("idLocal");
+                        int idDistrito = rs.getInt("idDistrito");
+                        int idProceso = rs.getInt("idTipoProceso");
+                        String nombre = rs.getString("nombre");
+                        int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
+                         i = new Local();
             i.setId(id);
             i.setIdDistrito(idDistrito);
             i.setIdProceso(idProceso);
             i.setNombre(nombre);
             i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
+				
+				
+                }
+            
+            
+         
+
+           
+            
+            
+           
             
         } catch (SQLException e) {
                 // TODO Auto-generated catch block
