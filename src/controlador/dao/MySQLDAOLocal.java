@@ -77,7 +77,7 @@ public class MySQLDAOLocal implements DAOLocal{
             //Paso 3: Preparar la sentencia
             String sql = "UPDATE Local "
                             + "SET nombre=?,cantidadVotantes=?," 
-                            + " idDistrito=?"
+                            + " idDistrito=? "
                     
                             + "WHERE id=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
