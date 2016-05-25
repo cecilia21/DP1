@@ -179,6 +179,14 @@ public class Manager {
        
     }
     
+    public static ArrayList<Local> queryLocalByName(String nombre){
+    
+        
+        
+        return procesoLocalDB.queryByName(nombre);        
+    
+    }
+    
     
     //fIN LOCALES
     

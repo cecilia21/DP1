@@ -259,6 +259,74 @@ public class MySQLDAOLocal implements DAOLocal{
     
     
     }
+
+    @Override
+    public ArrayList<Local> queryByName(String name) {
+    
+        
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Local> arr = new ArrayList<Local>();
+        try {
+            //Paso 1: Registrar el Driver
+            DriverManager.registerDriver(new Driver());
+            //Paso 2: Obtener la conexión
+            conn = (Connection) DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                    DBConnection.user,
+                                                    DBConnection.password);
+            //Paso 3: Preparar la sentencia
+            String sql = "SELECT * FROM Local WHERE nombre LIKE '%" + name + "%'";
+            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            
+            //Paso 4: Ejecutar la sentencia
+            rs = pstmt.executeQuery();
+            //Paso 5(opc.): Procesar los resultados
+            
+         
+			//Paso 5(opc.): Procesar los resultados
+                while(rs.next()){
+                            
+                        int id = rs.getInt("idLocal");
+                        int idDistrito = rs.getInt("idDistrito");
+                        int idProceso = rs.getInt("idTipoProceso");
+                        String nombre = rs.getString("nombre");
+                        int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
+                        Local i = new Local();
+                        i.setId(id);
+                        i.setIdDistrito(idDistrito);
+                        i.setIdProceso(idProceso);
+                        i.setNombre(nombre);
+                        i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
+                        arr.add(i);
+				
+				
+                }
+            
+            
+         
+
+           
+            
+            
+           
+            
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally {
+                //Paso 6(OJO): Cerrar la conexión
+                try { if (pstmt!= null) pstmt.close();} 
+                        catch (Exception e){e.printStackTrace();};
+                try { if (conn!= null) conn.close();} 
+                        catch (Exception e){e.printStackTrace();};						
+        }
+        return arr;		
+        
+        
+        
+        
+    }
  
     
 }
