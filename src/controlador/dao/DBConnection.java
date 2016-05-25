@@ -11,7 +11,7 @@ public class DBConnection {
         public static String URL_JDBC_MySQL = 
 	"jdbc:mysql://127.0.0.1:3306/dp1";
 	public static String user = "root";
-	public static String password = null;
+	public static String password = "";
 	public static int dbType = MYSQL;
 	
 }
