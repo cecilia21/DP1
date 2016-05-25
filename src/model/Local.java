@@ -28,7 +28,7 @@ public class Local {
      * @return the id
      */
     public Local(){
-    
+            this.tipoProceso=4;
     }
     
     public int getId() {
