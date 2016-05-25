@@ -57,7 +57,7 @@ public class ButtonEliminarLocales extends DefaultCellEditor {
                             if(n==JOptionPane.YES_OPTION){
                                 Local re=TipoProceso.listaLocales.get(this.row);
                                 if(re.getId()!=0){
-                                    Manager.deleteRegion(re.getId());
+                                    Manager.deleteLocal(re.getId());
                                     TipoProceso.listaLocales.remove(this.row);
                                 }
 //                                re.setNombre("*******");

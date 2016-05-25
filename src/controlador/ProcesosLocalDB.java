@@ -47,5 +47,11 @@ public class ProcesosLocalDB {
         return daoLocal.queryById(idLocal);
     }
     
+      public ArrayList<Local> queryByName(String name){
+      
+      
+          return daoLocal.queryByName(name);
+      }
+    
     
 }
