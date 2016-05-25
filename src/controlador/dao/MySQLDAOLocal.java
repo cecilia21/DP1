@@ -206,14 +206,14 @@ public class MySQLDAOLocal implements DAOLocal{
                                                     DBConnection.user,
                                                     DBConnection.password);
             //Paso 3: Preparar la sentencia
-            String sql = "SELECT * FROM Institucion WHERE idLocal=?";
+            String sql = "SELECT * FROM Local WHERE idLocal=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setInt(1,idLocal);
             //Paso 4: Ejecutar la sentencia
             rs = pstmt.executeQuery();
             //Paso 5(opc.): Procesar los resultados
             
-            rs = pstmt.executeQuery();
+         
 			//Paso 5(opc.): Procesar los resultados
                 if (rs.next()){
                             
