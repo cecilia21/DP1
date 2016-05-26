@@ -39,10 +39,11 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                                                             /*DBConnection.password*/);
                     //Paso 3: Preparar la sentencia
                     String sql = "INSERT INTO PartidoPolitico "
-                                    + "(nombre, cantidadRegistrosValidos, nombreRepresentante, "
-                                    + "apellidoRepresentante, dniRepresentante, correo, "
-                                    + "fechaRegistro, estado)"
-                                    + "VALUES (?,?,?,?,?,?,?,?)";
+                                    + "(nombre, cantRegistrosValidos, nombreRep, "
+                                    + "apellidoRep, dniRep, correo, "
+                                    + "fechaReg, estado, idTipoProceso, idRegion, "
+                                    + " idLocal, idDistrito, idInstitucion)"
+                                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, p.getNombre());
                     pstmt.setInt(2, 0);
@@ -53,6 +54,19 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                     pstmt.setString(6, p.getCorreoPartido());
                     pstmt.setDate(7, new java.sql.Date(p.getFechaRegistro().getTimeInMillis()));
                     pstmt.setString(8, p.getEstado());
+                    pstmt.setInt(9, p.getIdTipoProceso());
+                    if(p.getIdRegion()>0)
+                        pstmt.setInt(10, p.getIdRegion());
+                    else pstmt.setString(10, null);
+                    if(p.getIdLocal()>0)
+                        pstmt.setInt(11, p.getIdLocal());
+                    else pstmt.setString(11, null);
+                    if(p.getIdDistrito()>0)
+                        pstmt.setInt(12, p.getIdDistrito());
+                    else pstmt.setString(12,null);
+                    if(p.getIdInstitucion()>0)
+                        pstmt.setInt(13, p.getIdInstitucion());
+                    else pstmt.setString(13, null);
                     //Paso 4: Ejecutar la sentencia
                     pstmt.executeUpdate();			
                     //Paso 5(opc.): Procesar los resultados			
@@ -213,6 +227,80 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
 	public PartidoPolitico queryById(int idProduct) {
 		
 		return null;	
+	}
+        
+        @Override
+	public ArrayList<PartidoPolitico> queryByNombTipoLug(String nombre, int tipo, int lugar) {
+		
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            ArrayList<PartidoPolitico> resultados= new ArrayList<PartidoPolitico>();
+            try {
+                    //Paso 1: Registrar el Driver
+                    DriverManager.registerDriver(new Driver());
+                    //Paso 2: Obtener la conexión
+                    conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,
+                                                            DBConnection.password);
+                    //Paso 3: Preparar la sentencia
+                    String sql = "SELECT DISTINCT * FROM PartidoPolitico WHERE nombre like '%"+nombre+"%'";
+                    if(tipo>0){
+                        sql += " AND idTipoProceso=" + tipo;
+                        if(lugar>0){
+                            if(tipo==2)
+                                sql += " AND idRegion="+lugar;
+                            if(tipo==3)
+                                sql +=" AND idDistrito="+lugar;
+                            if(tipo==4)
+                                sql +=" AND idLocal="+lugar;
+                            if(tipo==5)
+                                sql +=" AND idInstitucion="+lugar+";";
+                        }
+                    }
+      
+                    pstmt = conn.prepareStatement(sql);
+                    //Paso 4: Ejecutar la sentencia
+                    rs = pstmt.executeQuery();
+                    //Paso 5(opc.): Procesar los resultados
+                    while (rs.next()){
+                        int id = rs.getInt("idPartido");
+
+                        String name = rs.getString("nombre");
+                        String nombreRep = rs.getString("nombreRep");
+                        String apellidoRep = rs.getString("apellidoRep");
+                        String correo = rs.getString("correo");
+                        String dni = rs.getString("dniRep");
+                        int reg = rs.getInt("cantRegistrosValidos");
+                        String estado = rs.getString("estado");
+                        Calendar fecha = Calendar.getInstance();
+                        fecha.setTime(rs.getDate("fechaReg"));
+                        PartidoPolitico p = new PartidoPolitico();
+                        p.setNombre(name);
+                        p.setNombreRepresentante(nombreRep);
+                        p.setApellidoRepresentante(apellidoRep);
+                        p.setCorreoPartido(correo);
+                        p.setDniRepresentante(dni);
+                        p.setCantidadRegistrosValidos(reg);
+                        p.setEstado(estado);
+                        p.setFechaRegistro(fecha);
+                        resultados.add(p);                       
+                    }
+                    pstmt.close();
+                    conn.close();
+                    return resultados;
+            } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            } finally {
+                    //Paso 6(OJO): Cerrar la conexión
+                    try { if (pstmt!= null) pstmt.close();} 
+                            catch (Exception e){e.printStackTrace();};
+                    try { if (conn!= null) conn.close();} 
+                            catch (Exception e){e.printStackTrace();};	
+            }
+
+            return null;
 	}
 
 }

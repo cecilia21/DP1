@@ -34,12 +34,13 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "INSERT INTO region "
-					+ "(idRegion, nombre, cantidadVotantes)"
-					+ "VALUES (?,?,?)";
+					+ "(idRegion, nombre,cantidadVotantes,idTipoProceso)"
+					+ "VALUES (?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p.getId());
 			pstmt.setString(2, p.getNombre());
                         pstmt.setInt(3, p.getCantidadVotantesRegistrados());
+                        pstmt.setInt(4,2);
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();			
 			//Paso 5(opc.): Procesar los resultados			
@@ -149,7 +150,9 @@ public class MySQLDAORegion implements DAORegion {
 				int id = rs.getInt("idRegion");
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
+                                int t = rs.getInt("idTipoProceso");
 				Region p=new Region(id,name,cant);
+                                p.setTipoProceso(t);
 				arr.add(p);
 			}
 		} catch (SQLException e) {
@@ -191,6 +194,8 @@ public class MySQLDAORegion implements DAORegion {
 				int id = rs.getInt("idRegion");
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
+                                int t = rs.getInt("idTipoProceso");
+                                p.setTipoProceso(t);
 				p=new Region(id,name,cant);
 			}
 		} catch (SQLException e) {
@@ -231,6 +236,8 @@ public class MySQLDAORegion implements DAORegion {
 				int id = rs.getInt("idRegion");
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
+                                int t = rs.getInt("idTipoProceso");
+                                p.setTipoProceso(t);
 				p=new Region(id,name,cant);
 			}
 		} catch (SQLException e) {

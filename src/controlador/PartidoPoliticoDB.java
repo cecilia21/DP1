@@ -12,6 +12,7 @@ package controlador;
 import controlador.dao.DAOFactory;
 import controlador.dao.DAOPartidoPolitico;
 import controlador.dao.DBConnection;
+import java.util.ArrayList;
 import model.PartidoPolitico;
 public class PartidoPoliticoDB {
     DAOFactory daoFactory = DAOFactory.getDAOFactory(DBConnection.dbType);
@@ -24,5 +25,13 @@ public class PartidoPoliticoDB {
     }
     public void delete(int p) {
     	daoPartidos.delete(p);
+    }
+    
+    public void queryAll(){
+        daoPartidos.queryAll();
+    }
+    
+    public ArrayList<PartidoPolitico> queryByNombTipoLug(String nombre, int ind1, int ind2){
+        return daoPartidos.queryByNombTipoLug(nombre, ind1, ind2);
     }
 }

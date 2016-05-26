@@ -5,7 +5,13 @@
  */
 package grupob;
 
+import controlador.Manager;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import model.Distrito;
+import model.Institucion;
+import model.Region;
+import model.TipoProcesoVotacion;
 
 /**
  *
@@ -20,6 +26,13 @@ public class BusquedaPartidos extends javax.swing.JPanel {
     public BusquedaPartidos(FramePrincipal parent) {
         padre = parent;
         initComponents();
+        busq_selecc_lugar.setVisible(false);
+        busq_lugar.setVisible(false);
+        busq_tipo.removeAllItems();
+        ArrayList<TipoProcesoVotacion> procs = Manager.queryAllTipoProceso();
+        busq_tipo.addItem("Todos");
+        for(int i=0;i<procs.size();i++)
+            busq_tipo.addItem(procs.get(i).getNombre());
     }
 
     /**
@@ -33,13 +46,13 @@ public class BusquedaPartidos extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        busq_nombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        busq_tipo = new javax.swing.JComboBox<>();
+        boton_buscar = new javax.swing.JButton();
+        boton_limpiar = new javax.swing.JButton();
+        busq_selecc_lugar = new javax.swing.JLabel();
+        busq_lugar = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
 
@@ -51,23 +64,33 @@ public class BusquedaPartidos extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel2.setText("Tipo  de Proceso:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Nacional", "Distrital", "Regional", "Local", "Instituciones" }));
-
-        jButton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        busq_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Nacional", "Distrital", "Regional", "Local", "Instituciones" }));
+        busq_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                busq_tipoActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton4.setText("Limpiar");
+        boton_buscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        boton_buscar.setText("Buscar");
+        boton_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_buscarActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel3.setText("Seleccione:");
+        boton_limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        boton_limpiar.setText("Limpiar");
+        boton_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_limpiarActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Villa Maria del Triunfo", "Nuevo Chimbote" }));
+        busq_selecc_lugar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        busq_selecc_lugar.setText("Seleccione:");
+
+        busq_lugar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Villa Maria del Triunfo", "Nuevo Chimbote" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,20 +105,20 @@ public class BusquedaPartidos extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(51, 51, 51)
-                                .addComponent(jButton4)
+                                .addComponent(boton_limpiar)
                                 .addGap(133, 133, 133)
-                                .addComponent(jButton3))
+                                .addComponent(boton_buscar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
+                                    .addComponent(busq_selecc_lugar)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jComboBox1, 0, 129, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(busq_nombre)
+                                    .addComponent(busq_tipo, 0, 129, Short.MAX_VALUE)
+                                    .addComponent(busq_lugar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 100, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -106,19 +129,19 @@ public class BusquedaPartidos extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(busq_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(busq_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(busq_selecc_lugar)
+                    .addComponent(busq_lugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(boton_buscar)
+                    .addComponent(boton_limpiar))
                 .addGap(37, 37, 37))
         );
 
@@ -130,23 +153,74 @@ public class BusquedaPartidos extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 190, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void boton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_buscarActionPerformed
 
-        padre.mostrarResultadoBusqueda();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        String nombre = busq_nombre.getText();
+        int indiceTipo = busq_tipo.getSelectedIndex();
+        int indiceLugar = -1;
+        if(busq_lugar.isVisible()){
+            indiceLugar = busq_lugar.getSelectedIndex();
+        }
+        padre.mostrarResultadoBusqueda(nombre, indiceTipo, indiceLugar);
+    }//GEN-LAST:event_boton_buscarActionPerformed
+
+    private void busq_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busq_tipoActionPerformed
+        // TODO add your handling code here:
+        if(busq_tipo.getSelectedIndex()>1){
+            busq_lugar.setVisible(true);
+            busq_selecc_lugar.setVisible(true);
+            int indice = busq_tipo.getSelectedIndex();
+            busq_lugar.removeAllItems();
+            busq_lugar.addItem("Todos");
+            if(indice == 2){
+                ArrayList<Region> regiones = Manager.queryAllRegion();
+                for(int i = 0; i<regiones.size(); i++){
+                    busq_lugar.addItem(regiones.get(i).getNombre());
+                    //System.out.println("" + regiones.get(i).getNombre());
+                }
+            }
+            if(indice == 3){
+                ArrayList<Distrito> distritos = Manager.queryAllDistrito();
+                for(int i=0; i<distritos.size();i++)
+                    busq_lugar.addItem(distritos.get(i).getNombre());
+            }
+            if(indice == 4){
+                busq_lugar.addItem("Local1");
+                busq_lugar.addItem("Local2");
+                busq_lugar.addItem("Local3");
+            }
+            if(indice == 5){
+                ArrayList<Institucion> locales = Manager.queryAllInstitucion();
+                for(int i=0; i<locales.size();i++)
+                    busq_lugar.addItem(locales.get(i).getNombre());
+            }
+        }
+        else{
+            busq_lugar.setVisible(false);
+            busq_selecc_lugar.setVisible(false);
+        }
+    }//GEN-LAST:event_busq_tipoActionPerformed
+
+    private void boton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_limpiarActionPerformed
+        // TODO add your handling code here:
+        busq_nombre.setText("");
+        busq_tipo.setSelectedIndex(0);
+        busq_lugar.setVisible(false);
+        busq_selecc_lugar.setVisible(false);
+    }//GEN-LAST:event_boton_limpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton boton_buscar;
+    private javax.swing.JButton boton_limpiar;
+    private javax.swing.JComboBox<String> busq_lugar;
+    private javax.swing.JTextField busq_nombre;
+    private javax.swing.JLabel busq_selecc_lugar;
+    private javax.swing.JComboBox<String> busq_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

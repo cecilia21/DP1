@@ -36,14 +36,15 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
                                                             DBConnection.password);
                     //Paso 3: Preparar la sentencia
                     String sql = "UPDATE TipoProceso SET nombre=?, fechaInicio1=?, "
-                                + "fechaFin1=?, fechaInicio2=?, fechaFin2=?, porcentaje=?"
-                                + "WHERE id=?";
-                    pstmt = conn.prepareStatement(sql);
+                                + "fechaFin1=?, fechaInicio2=?, fechaFin2=?, porcentaje=? "
+                                + "WHERE idProceso=?";
                     //Paso 4: Ejecutar la sentencia
                     pstmt = conn.prepareStatement(sql);
-			//
-                    pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, p.getNombre());
+//                    Date d=p.getFechaInicio1().getTime();
+//                    Date d2=p.getFechaInicio2().getTime();
+//                    Date d3=p.getFechaFin1().getTime();
+//                    Date d4=p.getFechaFin2().getTime();
                     pstmt.setDate(2, new java.sql.Date(p.getFechaInicio1().getTimeInMillis()));
                     pstmt.setDate(3, new java.sql.Date(p.getFechaFin1().getTimeInMillis()));
                     pstmt.setDate(4, new java.sql.Date(p.getFechaInicio2().getTimeInMillis()));
@@ -78,7 +79,7 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM TipoProceso "
-					+ "WHERE id=?";
+					+ "WHERE idProceso=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idTipoProcesoVotacion);
 			//Paso 4: Ejecutar la sentencia

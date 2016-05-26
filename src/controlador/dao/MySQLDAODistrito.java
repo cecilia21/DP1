@@ -32,7 +32,7 @@ public class MySQLDAODistrito implements DAODistrito {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO dp1.Distrito "
+			String sql = "INSERT INTO distrito "
 					+ "(idDistrito, nombre, cantidadDeVotantes, idRegion)"
 					+ "VALUES (?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "UPDATE dp1.Distrito "
+			String sql = "UPDATE distrito "
 					+ "SET name=?, cantidadDeVotantes=?,idRegion=? "
 					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "DELETE FROM dp1.Distrito "
+			String sql = "DELETE FROM distrito "
 					+ "WHERE id=?";
 			pstmt = conn.prepareStatement(sql);
 			//
@@ -142,7 +142,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Distrito";
+			String sql = "SELECT * FROM distrito";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
@@ -182,7 +182,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Distrito "
+			String sql = "SELECT * FROM distrito "
 					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idDistrito);
@@ -223,7 +223,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM dp1.Distrito "
+			String sql = "SELECT * FROM distrito "
 					+ "WHERE name LIKE ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);

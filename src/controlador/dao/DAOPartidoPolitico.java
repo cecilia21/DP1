@@ -17,5 +17,6 @@ public interface DAOPartidoPolitico {
     void update(PartidoPolitico p);
     void delete (int idPartido);
     ArrayList<PartidoPolitico> queryAll();
+    ArrayList<PartidoPolitico> queryByNombTipoLug(String nombre, int tipo, int lugar);
     PartidoPolitico queryById(int idProduct);
 }

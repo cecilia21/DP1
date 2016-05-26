@@ -12,6 +12,7 @@ package model;
 public class Region {
     private int id;
     private String nombre;
+    private int tipoProceso;
     private int CantidadVotantesRegistrados;
     
     public Region(){
@@ -64,6 +65,20 @@ public class Region {
      */
     public void setCantidadVotantesRegistrados(int CantidadVotantesRegistrados) {
         this.CantidadVotantesRegistrados = CantidadVotantesRegistrados;
+    }
+
+    /**
+     * @return the tipoProceso
+     */
+    public int getTipoProceso() {
+        return tipoProceso;
+    }
+
+    /**
+     * @param tipoProceso the tipoProceso to set
+     */
+    public void setTipoProceso(int tipoProceso) {
+        this.tipoProceso = tipoProceso;
     }
         
 }

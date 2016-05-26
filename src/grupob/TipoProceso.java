@@ -14,8 +14,13 @@ import java.util.Vector;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Distrito;
+import model.Local;
 import model.Region;
 import model.TipoProcesoVotacion;
 
@@ -29,6 +34,8 @@ public class TipoProceso extends javax.swing.JPanel {
      * Creates new form TipoProceso
      */
     public static ArrayList<Region> listaRegiones=Manager.queryAllRegion();
+    public static ArrayList<Distrito> listaDistritos=Manager.queryAllDistrito();
+     public static ArrayList<Local> listaLocales;
     public TipoProceso() {
         initComponents();
 //        listaRegiones.add(new Region(1,"Lima",15000));
@@ -36,41 +43,74 @@ public class TipoProceso extends javax.swing.JPanel {
 //        listaRegiones.add(new Region(1,"Junin",12000));
         TipoProcesoVotacion tipoNacional=Manager.queryProcesoById(1);
         TipoProcesoVotacion tipoRegional=Manager.queryProcesoById(2);
+        TipoProcesoVotacion tipoDistrital=Manager.queryProcesoById(3);
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
-        if(tipoNacional.getFechaFin2().compareTo(dateActual)>0){
-            jXDatePicker1.setDate(tipoNacional.getFechaInicio1());
-            jXDatePicker2.setDate(tipoNacional.getFechaInicio2());
-            jXDatePicker3.setDate(tipoNacional.getFechaFin1());
-            jXDatePicker4.setDate(tipoNacional.getFechaFin2());
+        if(tipoNacional!=null && tipoNacional.getId()!=0){
+            if(!tipoNacional.getFechaInicio2().after(dateActual)){
+                jXDatePicker1.setDate(tipoNacional.getFechaInicio1().getTime());
+                jXDatePicker2.setDate(tipoNacional.getFechaInicio2().getTime());
+                jXDatePicker3.setDate(tipoNacional.getFechaFin1().getTime());
+                jXDatePicker4.setDate(tipoNacional.getFechaFin2().getTime());
+            }
+            if((tipoNacional.getFechaInicio1().before(dateActual)) && (cal.before(tipoNacional.getFechaFin2()))){
+                botonGuardarNacional.setEnabled(false);
+            }
+            if(tipoNacional.getFechaFin2().before(dateActual)){
+                botonGuardarNacional.setEnabled(true);
+            }
         }
-        if((tipoNacional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoNacional.getFechaFin2()))){
-            botonGuardarNacional.setEnabled(false);
-        }
-        if(tipoNacional.getFechaFin2().before(dateActual)){
-            botonGuardarNacional.setEnabled(true);
-        }
-        if(tipoRegional.getFechaFin2().compareTo(dateActual)>0){
-            jXDatePicker5.setDate(tipoRegional.getFechaInicio1());
-            jXDatePicker6.setDate(tipoRegional.getFechaInicio2());
-            jXDatePicker7.setDate(tipoRegional.getFechaFin1());
-            jXDatePicker8.setDate(tipoRegional.getFechaFin2());
-            porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo());
-        }
-        if((tipoRegional.getFechaInicio1().before(dateActual)) && (dateActual.before(tipoRegional.getFechaFin2()))){
-            botonGuardarRegional.setEnabled(false);
-            addRowRegional.setEnabled(false);
-            jTable6.setEnabled(false);
-        }
-        if(tipoRegional.getFechaFin2().before(dateActual)){
-            botonGuardarRegional.setEnabled(true);
-            addRowRegional.setEnabled(true);
+        if(tipoRegional!=null && tipoRegional.getId()!=0){
+            if(!tipoRegional.getFechaInicio2().after(dateActual)){
+                jXDatePicker5.setDate(tipoRegional.getFechaInicio1().getTime());
+                jXDatePicker6.setDate(tipoRegional.getFechaInicio2().getTime());
+                jXDatePicker7.setDate(tipoRegional.getFechaFin1().getTime());
+                jXDatePicker8.setDate(tipoRegional.getFechaFin2().getTime());
+                porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo()*100);
+            }
+            if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
+                botonGuardarRegional.setEnabled(false);
+                addRowRegional.setEnabled(false);
+                jTable6.setEnabled(false);
+            }
+            if(tipoRegional.getFechaFin2().before(dateActual)){
+                botonGuardarRegional.setEnabled(true);
+                addRowRegional.setEnabled(true);
+            }
         }
         agregarDatos();
+        agregarDatosDistritos();
         if(listaRegiones!=null){
             jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
             jTable6.getColumn("Eliminar").setCellEditor(new ButtonEliminarRegiones(new JCheckBox()));
         }
+        if(listaDistritos!=null){
+            jTable7.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTable7.getColumn("Eliminar").setCellEditor(new ButtonEliminarDistritos(new JCheckBox()));
+        }
+        
+        
+        
+          ChangeListener changeListener = new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+          
+                 JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+                 int index = sourceTabbedPane.getSelectedIndex();
+                switch(index){
+                case 3: cargarDatosLocal();
+                        return;
+                default:
+                        return;
+                 }
+                
+            }
+        };
+        
+        jTabbedPane4.addChangeListener(changeListener);
+        
+        
     }
 
     /**
@@ -120,7 +160,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jTable7 = new javax.swing.JTable();
         jButton28 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        porcentajeDistrital = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
@@ -197,7 +237,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel58)
                     .addComponent(jLabel57)
@@ -218,7 +258,7 @@ public class TipoProceso extends javax.swing.JPanel {
                                     .addComponent(jLabel51)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jXDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel19Layout.createSequentialGroup()
@@ -401,6 +441,11 @@ public class TipoProceso extends javax.swing.JPanel {
         jScrollPane7.setViewportView(jTable7);
 
         jButton28.setText("+");
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("%");
 
@@ -419,6 +464,11 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel38.setText("Fecha Fin:");
 
         jButton47.setText("Guardar");
+        jButton47.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton47ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -426,7 +476,7 @@ public class TipoProceso extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addComponent(jScrollPane7)
                 .addContainerGap())
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -434,7 +484,7 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(porcentajeDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
                         .addGap(46, 46, 46)
@@ -462,7 +512,7 @@ public class TipoProceso extends javax.swing.JPanel {
                             .addComponent(jLabel37)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jXDatePicker11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,7 +520,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porcentajeDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(jButton28)
                     .addComponent(jButton47))
@@ -497,18 +547,23 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cantidad de Votantes", "Distritos", "Eliminar"
+                "Nombre", "Cantidad de Votantes", "Distritos", "Proceso", "Eliminar"
             }
         ));
         jScrollPane8.setViewportView(jTable8);
 
         jButton29.setText("+");
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton29ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("%");
 
@@ -527,6 +582,11 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel44.setText("Fecha Fin:");
 
         jButton48.setText("Guardar");
+        jButton48.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton48ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -534,7 +594,7 @@ public class TipoProceso extends javax.swing.JPanel {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addComponent(jScrollPane8)
                 .addContainerGap())
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
@@ -569,7 +629,7 @@ public class TipoProceso extends javax.swing.JPanel {
                         .addComponent(jButton29)
                         .addGap(48, 48, 48)
                         .addComponent(jButton48)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -643,7 +703,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel16Layout.createSequentialGroup()
@@ -680,7 +740,7 @@ public class TipoProceso extends javax.swing.JPanel {
                                         .addComponent(jLabel50)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jXDatePicker20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 64, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
@@ -742,11 +802,30 @@ public class TipoProceso extends javax.swing.JPanel {
         Date datef2 = (Date) fechaf2.getValue();
         TipoProcesoVotacion proceso=new TipoProcesoVotacion();
         proceso.setId(1);
-        proceso.setFechaInicio1(datei1);
-        proceso.setFechaInicio2(datei2);
-        proceso.setFechaFin1(datef1);
-        proceso.setFechaFin2(datef2);
-        proceso.setPorcentajeMinimo(10);
+        
+        Calendar calA = Calendar.getInstance();
+        calA.setTime(datei1);
+        proceso.setFechaInicio1(calA);
+        Date d=proceso.getFechaInicio1().getTime();
+        
+        Calendar calB = Calendar.getInstance();
+        calB.setTime(datei2);
+        proceso.setFechaInicio2(calB);
+        Date d2=proceso.getFechaInicio2().getTime();
+         
+        Calendar calC = Calendar.getInstance();
+        calC.setTime(datef1);        
+        proceso.setFechaFin1(calC);
+        
+        Date d3=proceso.getFechaFin1().getTime();
+           
+        Calendar calD = Calendar.getInstance();
+        calD.setTime(datef2);        
+        proceso.setFechaFin2(calD);
+        Date d4=proceso.getFechaFin2().getTime();
+        
+        proceso.setId(1);
+        proceso.setNombre("Nacional");
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
         //        System.out.println(""+dateActual);
@@ -765,7 +844,16 @@ public class TipoProceso extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
                     return;
                 }
-                if(jLabel57.getText()!=""&&jLabel57.getText()!=null){
+//                if(jLabel57.getText()!=""&&jLabel57.getText()!=null){
+//                    Manager.updateProceso(proceso);
+//                    jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
+//                    jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
+//                    JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
+////                    jXDatePicker1.setDate(null);
+////                    jXDatePicker2.setDate(null);
+////                    jXDatePicker3.setDate(null);
+////                    jXDatePicker4.setDate(null);
+//                }else{
                     Manager.updateProceso(proceso);
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
@@ -774,16 +862,7 @@ public class TipoProceso extends javax.swing.JPanel {
 //                    jXDatePicker2.setDate(null);
 //                    jXDatePicker3.setDate(null);
 //                    jXDatePicker4.setDate(null);
-                }else{
-                    Manager.updateProceso(proceso);
-                    jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
-                    jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
-                    JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
-//                    jXDatePicker1.setDate(null);
-//                    jXDatePicker2.setDate(null);
-//                    jXDatePicker3.setDate(null);
-//                    jXDatePicker4.setDate(null);
-                }
+//                }
             }else{
                 JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
                 return;
@@ -815,7 +894,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
         ArrayList<Region> listaRegionesPas = null;
         TipoProcesoVotacion proceso=null;
-        jXDatePicker5.get
+       // jXDatePicker5.get
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker6.getEditor();
@@ -847,12 +926,31 @@ public class TipoProceso extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
                     return;
                 }
+                
+                Calendar calA = Calendar.getInstance();
+                
                 proceso=new TipoProcesoVotacion();
-                proceso.setFechaInicio1(datei1);
-                proceso.setFechaInicio2(datei2);
-                proceso.setFechaFin1(datef1);
-                proceso.setFechaFin2(datef2);
-                proceso.setPorcentajeMinimo(por);
+                calA.setTime(datei1);
+                proceso.setFechaInicio1(calA);
+                
+                Calendar calB = Calendar.getInstance();
+                 
+                calB.setTime(datei2);
+                
+                proceso.setFechaInicio2(calB);
+                
+                 Calendar calC = Calendar.getInstance();
+                 
+                calC.setTime(datei2);
+                
+                proceso.setFechaFin1(calC);
+                
+                 Calendar calD = Calendar.getInstance();
+                 
+                calD.setTime(datei2);
+                
+                proceso.setFechaFin2(calD);
+                proceso.setPorcentajeMinimo((float)por);
                 DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
                 listaRegionesPas=listaRegiones;
                 for(int i=0;i<listaRegiones.size();i++){
@@ -903,6 +1001,267 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
     }//GEN-LAST:event_botonGuardarRegionalActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+
+        
+        
+         DefaultTableModel model = (DefaultTableModel) jTable8.getModel();
+        Vector row = new Vector();
+        row.add("");
+        row.add("");
+        row.add("");
+        row.add("");
+        model.addRow(row);
+        Local r=new Local();
+        r.setNombre("");
+        listaLocales.add(r);
+        
+        
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
+      
+              ArrayList<Local> listaLocalesPas = null;
+        TipoProcesoVotacion proceso=null;
+        JFormattedTextField fechai1 = jXDatePicker13.getEditor();
+        Date datei1 = (Date) fechai1.getValue();
+        JFormattedTextField fechai2 = jXDatePicker14.getEditor();
+        Date datei2 = (Date) fechai2.getValue();
+        JFormattedTextField fechaf1 = jXDatePicker15.getEditor();
+        Date datef1 = (Date) fechaf1.getValue();
+        JFormattedTextField fechaf2 = jXDatePicker16.getEditor();
+        Date datef2 = (Date) fechaf2.getValue();
+        double por;
+        
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        
+        try{
+            por=Double.parseDouble(jTextField8.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
+            return;
+        }
+        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
+            
+            if(datei1.compareTo(dateActual) > 0 && datei2.compareTo(dateActual) > 0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
+                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                proceso=new TipoProcesoVotacion();
+                
+                
+                proceso.setFechaInicio1(dateToCalendar(datei1));
+                proceso.setFechaInicio2(dateToCalendar(datei2));
+                proceso.setFechaFin1(dateToCalendar(datef1));
+                proceso.setFechaFin2(dateToCalendar(datef2));
+                proceso.setPorcentajeMinimo((float)por);
+                DefaultTableModel modelo = (DefaultTableModel)jTable8.getModel();
+                listaLocalesPas= listaLocales;
+                for(int i=0;i<listaLocales.size();i++){
+                    String a=modelo.getValueAt(i,1).toString(); //Cantidad
+                    String n=modelo.getValueAt(i,0).toString(); // nombre
+                    String dist = modelo.getValueAt(i, 2).toString(); // distrito
+                    String pro = modelo.getValueAt(i, 3).toString(); //Proceso
+                    
+                    int num=-1;
+                    int numDist = -1;
+                    int numPro = -1;
+                    try {
+                        num=Integer.parseInt(a);
+                        numDist  = Integer.parseInt(dist);
+                        numPro = Integer.parseInt(pro);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
+                        return;
+                    }
+                    if(num<0){
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
+                        return;
+                    }
+                   // Local s= listaLocales.get(i);
+                      Local r= listaLocales.get(i);
+                      r.setNombre(n);
+                      r.setCantidadVotantesRegistrados(num);
+                      r.setIdDistrito(numDist);
+                      r.setIdProceso(numPro);
+                     
+                    
+                    //listaLocalesPas.set(i, r);
+                   
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos de las fechas");
+            return;
+        }
+      //  listaRegiones=listaRegionesPas;
+        Manager.updateProceso(proceso);
+        /*for(int i=0;i<listaLocales.size();i++){
+            Local rd=listaLocales.get(i);
+            if(rd.getNombre()=="*******" && rd.getId()!=0){
+                Manager.deleteRegion(rd.getId());
+            }
+        }*/
+        for(int i=0;i<listaLocales.size();i++){
+            Local rd=listaLocales.get(i);
+            if(rd.getId()==0){
+                Manager.addLocal(rd);
+            }
+        }
+        
+       
+        for(int i=0;i<listaLocales.size();i++){
+            Local rd=listaLocales.get(i);
+            if( rd.getId()!=0){
+                Manager.updateLocal(rd);
+            }
+        }
+        JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
+  
+        
+        
+        
+    }//GEN-LAST:event_jButton48ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable7.getModel();
+        Vector row = new Vector();
+        row.add("");
+        row.add("");
+        row.add("");
+        model.addRow(row);
+        Distrito di=new Distrito();
+        di.setNombre("");
+        listaDistritos.add(di);
+    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+        
+        ArrayList<Distrito> listaDistritosPas = null;
+        TipoProcesoVotacion proceso=null;
+       // jXDatePicker5.get
+        JFormattedTextField fechai1 = jXDatePicker9.getEditor();
+        Date datei1 = (Date) fechai1.getValue();
+        JFormattedTextField fechai2 = jXDatePicker10.getEditor();
+        Date datei2 = (Date) fechai2.getValue();
+        JFormattedTextField fechaf1 = jXDatePicker11.getEditor();
+        Date datef1 = (Date) fechaf1.getValue();
+        JFormattedTextField fechaf2 = jXDatePicker12.getEditor();
+        Date datef2 = (Date) fechaf2.getValue();
+        double por;
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        try{
+            por=Double.parseDouble(porcentajeDistrital.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
+            return;
+        }
+        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
+            if(datei1.compareTo(dateActual)>0 && datei2.compareTo(dateActual)>0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
+                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
+                    return;
+                }
+                
+                Calendar calA = Calendar.getInstance();
+                
+                proceso=new TipoProcesoVotacion();
+                calA.setTime(datei1);
+                proceso.setFechaInicio1(calA);
+                
+                Calendar calB = Calendar.getInstance();
+                 
+                calB.setTime(datei2);
+                
+                proceso.setFechaInicio2(calB);
+                
+                 Calendar calC = Calendar.getInstance();
+                 
+                calC.setTime(datei2);
+                
+                proceso.setFechaFin1(calC);
+                
+                 Calendar calD = Calendar.getInstance();
+                 
+                calD.setTime(datei2);
+                
+                proceso.setFechaFin2(calD);
+                proceso.setPorcentajeMinimo((float)por);
+                DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+                listaDistritosPas=listaDistritos;
+                for(int i=0;i<listaRegiones.size();i++){
+                    String a=modelo.getValueAt(i,1).toString();
+                    String n=modelo.getValueAt(i,0).toString();
+                    int num=-1;
+                    try {
+                        num=Integer.parseInt(a);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
+                        return;
+                    }
+                    if(num<0){
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
+                        return;
+                    }
+//                    Region s=listaRegionesPas.get(i);
+//                    Region r=new Region(s.getId(),n,num);
+//                    listaRegionesPas.set(i,r);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos de las fechas");
+            return;
+        }
+//        listaRegiones=listaRegionesPas;
+        Manager.updateProceso(proceso);
+//        for(int i=0;i<listaRegiones.size();i++){
+//            Region rd=listaRegiones.get(i);
+//            if(rd.getNombre()=="*******" && rd.getId()!=0){
+//                Manager.deleteRegion(rd.getId());
+//            }
+//        }
+        for(int i=0;i<listaRegiones.size();i++){
+            Region rd=listaRegiones.get(i);
+            if(rd.getId()==0){
+                Manager.addRegion(rd);
+            }
+        }
+        for(int i=0;i<listaRegiones.size();i++){
+            Region rd=listaRegiones.get(i);
+            if(rd.getId()!=0){
+                Manager.updateRegion(rd);
+            }
+        }
+        JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
+    }//GEN-LAST:event_jButton47ActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);
@@ -927,6 +1286,93 @@ public class TipoProceso extends javax.swing.JPanel {
         colum3.setPreferredWidth(40);
         colum3.setPreferredWidth(10);        
     }
+    
+    private void agregarDatosDistritos(){
+        DefaultTableModel modelo = (DefaultTableModel)jTable7.getModel();
+        modelo.setRowCount(0);
+        String datos[] = new String[3];
+        for (int i = 0; i < listaDistritos.size(); i++) {
+            datos[0] = listaDistritos.get(i).getNombre();
+            if(listaDistritos.get(i).getCantidadVotantesRegistrados() == 0){
+                datos[1] ="";
+            }else{
+                datos[1] = Long.toString(listaDistritos.get(i).getCantidadVotantesRegistrados());
+            }
+            modelo.addRow(datos);
+        }
+        TableColumn colum1 = null;
+        colum1 = jTable7.getColumnModel().getColumn(0);
+        colum1.setPreferredWidth(60);
+        TableColumn colum2 = null;
+        colum2 = jTable7.getColumnModel().getColumn(1);
+        colum2.setPreferredWidth(5);
+        TableColumn colum3 = null;
+        colum2 = jTable7.getColumnModel().getColumn(2);
+        colum2.setPreferredWidth(5);
+        TableColumn colum4 = null;
+        colum4 = jTable7.getColumnModel().getColumn(3);
+        colum4.setPreferredWidth(40);
+        colum4.setPreferredWidth(10);        
+    }
+    
+     private void cargarDatosLocal(){
+    
+        DefaultTableModel modelo = (DefaultTableModel)jTable8.getModel();
+        
+        listaLocales = Manager.queryAllLocales();
+        modelo.setRowCount(0);
+        
+        String datos[] = new String[4];
+        for (int i = 0; i < listaLocales.size(); i++) {
+            datos[0] = listaLocales.get(i).getNombre();
+            if(listaLocales.get(i).getCantidadVotantesRegistrados() == 0){
+                datos[1] ="";
+            }else{
+                datos[1] = Long.toString(listaLocales.get(i).getCantidadVotantesRegistrados());
+            }
+            
+            datos[2] = Integer.toString(listaLocales.get(i).getIdDistrito());
+         //   datos[3] = Integer.toString(listaLocales.get(i).getIdTipo());
+            
+             
+            modelo.addRow(datos);
+        }
+        TableColumn colum1 = null;
+        colum1 = jTable8.getColumnModel().getColumn(0);
+        colum1.setPreferredWidth(40);
+        TableColumn colum2 = null;
+        colum2 = jTable8.getColumnModel().getColumn(1);
+        colum2.setPreferredWidth(5);
+        
+        TableColumn colum3 = null;
+        colum3 = jTable8.getColumnModel().getColumn(2);
+        colum3.setPreferredWidth(40);
+
+        
+        TableColumn colum4 = null;
+        colum4 = jTable8.getColumnModel().getColumn(3);
+        colum4.setPreferredWidth(40);
+        
+        
+        colum3.setPreferredWidth(10);     
+    
+      //  jTable8.getColumn("Region").setCellEditor(new ComboBoxEditor());
+        
+        
+        if(listaLocales!=null){
+            jTable8.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTable8.getColumn("Eliminar").setCellEditor(new ButtonEliminarLocales(new JCheckBox()));
+        }
+    
+    }
+     
+     private Calendar dateToCalendar(Date date){
+     
+         Calendar cal =  Calendar.getInstance();
+         cal.setTime(date);
+         return cal;
+     
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRowRegional;
@@ -992,7 +1438,6 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
@@ -1015,6 +1460,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker7;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker8;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker9;
+    private javax.swing.JTextField porcentajeDistrital;
     private javax.swing.JTextField porcentajeRegional;
     // End of variables declaration//GEN-END:variables
 }

@@ -145,18 +145,18 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                 rs = pstmt.executeQuery();
                 //Paso 5(opc.): Procesar los resultados
                 while (rs.next()){
-                    int id = rs.getInt("id");
+                    int id = rs.getInt("idInstitucion");
                     int idLocal = rs.getInt("idLocal");
-                    int idDistrito = rs.getInt("idDistrito");
-                    int idRegion = rs.getInt("idRegion");
+                    //int idDistrito = rs.getInt("idDistrito");
+                    int idRegion = rs.getInt("idTipoProceso");
                     String nombre = rs.getString("nombre");
-                    int CantidadVotantesRegistrados = rs.getInt("cantidadVotantesRegistrados");
+                    int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
                                        
                     Institucion i = new Institucion();
                     i.setId(id);
                     i.setIdLocal(idLocal);
-                    i.setIdDistrito(idDistrito);
-                    i.setIdRegion(idRegion);
+                    //i.setIdDistrito(idDistrito);
+                    //i.setIdRegion(idRegion);
                     i.setNombre(nombre);
                     i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
                     arr.add(i);

@@ -8,6 +8,7 @@ package grupob;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import model.PartidoPolitico;
 
 /**
  *
@@ -19,6 +20,7 @@ public class DetallePartido extends javax.swing.JPanel {
      * Creates new form DetallePartido
      */
     public static FramePrincipal padre;
+    public static PartidoPolitico partidoPolitico;
     
     public DetallePartido(FramePrincipal parent) {
         padre = parent;
@@ -57,9 +59,10 @@ public class DetallePartido extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        inNombreRep = new javax.swing.JTextField();
-        inDniRep = new javax.swing.JTextField();
+        nombre_rep = new javax.swing.JTextField();
+        dni_rep = new javax.swing.JTextField();
         adherentesRevision = new javax.swing.JButton();
+        nombre_partido = new javax.swing.JTextField();
 
         pestNacional.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -224,10 +227,21 @@ public class DetallePartido extends javax.swing.JPanel {
 
         jLabel6.setText("Dni del Representante:");
 
+        nombre_rep.setEditable(false);
+
+        dni_rep.setEditable(false);
+
         adherentesRevision.setText("Adherentes en Revision");
         adherentesRevision.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adherentesRevisionActionPerformed(evt);
+            }
+        });
+
+        nombre_partido.setEditable(false);
+        nombre_partido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombre_partidoActionPerformed(evt);
             }
         });
 
@@ -242,17 +256,21 @@ public class DetallePartido extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombre_partido, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(inDniRep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(inNombreRep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dni_rep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(nombre_rep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(adherentesRevision)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -261,15 +279,17 @@ public class DetallePartido extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombre_partido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(inNombreRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombre_rep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(adherentesRevision))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inDniRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dni_rep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,14 +335,22 @@ public class DetallePartido extends javax.swing.JPanel {
         panelRegistroPartidos.setVisible(false);
         jPanel18.setVisible(true);
 */
-        padre.mostrarAdherentes();
+        padre.mostrarAdherentes(partidoPolitico);
     }//GEN-LAST:event_adherentesRevisionActionPerformed
 
+    private void nombre_partidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_partidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombre_partidoActionPerformed
+    public void showDetail(PartidoPolitico p){
+        nombre_partido.setText(p.getNombre());
+        nombre_rep.setText(p.getNombreRepresentante()+" "+p.getApellidoRepresentante());
+        dni_rep.setText(p.getDniRepresentante());
+        partidoPolitico = p;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adherentesRevision;
-    private javax.swing.JTextField inDniRep;
-    private javax.swing.JTextField inNombreRep;
+    private javax.swing.JTextField dni_rep;
     private javax.swing.JButton jButton21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -340,6 +368,8 @@ public class DetallePartido extends javax.swing.JPanel {
     private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField nombre_partido;
+    private javax.swing.JTextField nombre_rep;
     private javax.swing.JPanel pestDistrital;
     private javax.swing.JPanel pestInstitucion;
     private javax.swing.JPanel pestLocal;

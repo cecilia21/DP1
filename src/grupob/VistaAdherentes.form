@@ -23,17 +23,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
-                      <Component id="jTextField13" min="-2" pref="130" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
-                      <Component id="jComboBox5" min="-2" pref="90" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="59" pref="59" max="-2" attributes="0"/>
-                      <Component id="jTextField15" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="nombre_partido" min="-2" pref="130" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane10" min="-2" pref="440" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -55,21 +45,11 @@
               <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField13" min="-2" max="-2" attributes="0"/>
+                  <Component id="nombre_partido" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox5" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField15" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-              <Component id="jScrollPane10" min="-2" pref="170" max="-2" attributes="0"/>
-              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane10" min="-2" pref="232" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jButton43" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton44" min="-2" max="-2" attributes="0"/>
@@ -94,40 +74,10 @@
         <Property name="text" type="java.lang.String" value="Partido:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel25">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Tipo de Proceso:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel26">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Lugar:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField13">
+    <Component class="javax.swing.JTextField" name="nombre_partido">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField15">
-      <Properties>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox5">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Nacional"/>
-            <StringItem index="1" value="Regional"/>
-            <StringItem index="2" value=" "/>
-          </StringArray>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane10">
       <AuxValues>
@@ -139,10 +89,12 @@
         <Component class="javax.swing.JTable" name="jTable10">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
+              <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="DNI" type="java.lang.Object"/>
                 <Column editable="true" title="Nombre" type="java.lang.Object"/>
-                <Column editable="true" title="Nombre del JPG" type="java.lang.Object"/>
+                <Column editable="true" title="Nombre JPG" type="java.lang.Object"/>
+                <Column editable="true" title="Tipo Proceso" type="java.lang.Object"/>
+                <Column editable="true" title="Lugar" type="java.lang.Object"/>
                 <Column editable="true" title="Marcar" type="java.lang.Boolean"/>
               </Table>
             </Property>

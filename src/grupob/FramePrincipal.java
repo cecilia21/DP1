@@ -5,6 +5,11 @@
  */
 package grupob;
 
+import controlador.Manager;
+import java.awt.Frame;
+import java.util.ArrayList;
+import model.PartidoPolitico;
+
 /**
  *
  * @author USUARIO
@@ -42,7 +47,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 450));
-        setPreferredSize(new java.awt.Dimension(750, 450));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         registrarPartido.setText("Registrar Partido");
@@ -73,7 +77,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         panelPrincipal.setName(""); // NOI18N
         panelPrincipal.setPreferredSize(new java.awt.Dimension(580, 400));
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 580, 380));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 590, 380));
         panelPrincipal.getAccessibleContext().setAccessibleName("");
 
         regiones.setText("Regiones");
@@ -105,8 +109,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void registrarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarPartidoActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
         RegistrarPartido part = new RegistrarPartido();
         panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_registrarPartidoActionPerformed
@@ -114,8 +121,13 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void buscarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPartidoActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
         BusquedaPartidos part = new BusquedaPartidos(this);
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
         panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_buscarPartidoActionPerformed
@@ -123,8 +135,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void distritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_distritosActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
         TipoProceso part = new TipoProceso();
         panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_distritosActionPerformed
@@ -132,8 +147,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void regionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regionesActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
         TipoProceso part = new TipoProceso();
         panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_regionesActionPerformed
@@ -173,26 +191,45 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
     }
     
-    public void mostrarResultadoBusqueda(){
+    public void mostrarResultadoBusqueda(String name, int indiceTipo, int indiceLugar){
+        ArrayList<PartidoPolitico> resultados = Manager.queryPartidoByNombTipoLug(name, indiceTipo, indiceLugar);
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
         ResultadosBusqueda part = new ResultadosBusqueda(this);
+        part.listarResultados(resultados);
         panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }
     
-    public void mostrarDetallePartido(){
+    public void mostrarDetallePartido(PartidoPolitico partido){
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
         DetallePartido part = new DetallePartido(this);
+        part.showDetail(partido);
         panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }
     
-    public void mostrarAdherentes(){
+    public void mostrarAdherentes(PartidoPolitico p){
         panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
         VistaAdherentes part = new VistaAdherentes(this);
+        part.showDetail(p);
         panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }

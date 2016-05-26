@@ -30,7 +30,13 @@ public class PartidoPolitico {
     private int idInstitucion;
     private int idDistrito;
 
-    public PartidoPolitico(){};
+    public PartidoPolitico(){
+        idTipoProceso = -1;
+        idRegion = -1;
+        idLocal = -1;
+        idInstitucion = -1;
+        idDistrito =-1;
+    };
     
     public PartidoPolitico(int id,String idU,String nombre,int cantidadR,String nombreR,String apellidoR,
             String dniR,String correoR,String correo){

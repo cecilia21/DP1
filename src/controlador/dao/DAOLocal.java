@@ -20,6 +20,7 @@ public interface DAOLocal {
     void delete (int idLocal);
     ArrayList<Local> queryAll();
     Local queryById(int idLocal);
+    ArrayList<Local> queryByName(String name);
     
     
     

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Distrito;
 import model.Institucion;
+import model.Local;
 import model.Region;
 import model.PartidoPolitico;
 import model.TipoProcesoVotacion;
@@ -27,6 +28,7 @@ public class Manager {
     private static TipoProcesoDB tipoprocesoDB = new TipoProcesoDB(); 
     private static PartidoPoliticoDB partidoDB = new PartidoPoliticoDB(); 
     private static ProcesoDistritoDB procesoDistritoDB = new ProcesoDistritoDB(); 
+    private static ProcesosLocalDB procesoLocalDB = new ProcesosLocalDB();
     
     public static void addPartido(PartidoPolitico p){
         partidoDB.add(p);
@@ -63,15 +65,15 @@ public class Manager {
    
     public static void updateProceso(TipoProcesoVotacion proceso)
     {        
-//        tipoprocesoDB.update(proceso);
-        System.out.println("se actualizo el proceso de votacion con id igual a "+proceso.getId()+" y los siguientes datos "+proceso.getFechaInicio1()+" "+proceso.getFechaFin1()+" "+proceso.getPorcentajeMinimo());
+        tipoprocesoDB.update(proceso);
+//        System.out.println("se actualizo el proceso de votacion con id igual a "+proceso.getId()+" y los siguientes datos "+proceso.getFechaInicio1()+" "+proceso.getFechaFin1()+" "+proceso.getPorcentajeMinimo());
     }
     
     public static TipoProcesoVotacion queryProcesoById(int idProceso)
     {
-        TipoProcesoVotacion tipo=new TipoProcesoVotacion();        
-        return tipo;
-//        return tipoprocesoDB.queryById(idProceso);
+//        TipoProcesoVotacion tipo=new TipoProcesoVotacion();        
+//        return tipo;
+        return tipoprocesoDB.queryById(idProceso);
     }
     
     /////////REGIONAL
@@ -93,12 +95,11 @@ public class Manager {
     }
     public static ArrayList<Region> queryAllRegion()
     {
-        /*ArrayList<Region> listaRegiones=new ArrayList<Region>();
-        listaRegiones.add(new Region(1,"Lima",15000));
-        listaRegiones.add(new Region(2,"Arequipa",10000));
-        listaRegiones.add(new Region(3,"Junin",12000));
-        return listaRegiones;
-*/
+//        ArrayList<Region> listaRegiones=new ArrayList<Region>();
+//        listaRegiones.add(new Region(1,"Lima",15000));
+//        listaRegiones.add(new Region(2,"Arequipa",10000));
+//        listaRegiones.add(new Region(3,"Junin",12000));
+//        return listaRegiones;
         return procesoRegionDB.queryAllRegions();
     }
     
@@ -151,5 +152,43 @@ public class Manager {
     }
     
     /////FIN DISTRITAL
+    
+    ///LOCALES
+    
+      public static void addLocal(Local l)
+     {
+         procesoLocalDB.add(l);
+       
+    }
+    public static void updateLocal(Local l)
+    {
+        procesoLocalDB.update(l);
+    }
+    public static void deleteLocal(int idLocal)
+    {
+        procesoLocalDB.delete(idLocal);
+    }
+    public static ArrayList<Local> queryAllLocales()
+    {
+        return    procesoLocalDB.queryAll();
+    }
+    public static Local queryLocalById(int localId) {
+        
+        return    procesoLocalDB.queryById(localId);
+       
+    }
+    
+    public static ArrayList<Local> queryLocalByName(String nombre){
+    
+        
+        
+        return procesoLocalDB.queryByName(nombre);        
+    
+    }
+    
+    
+    //fIN LOCALES
+    
+    
     
 }

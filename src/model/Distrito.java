@@ -15,6 +15,10 @@ public class Distrito {
     private String nombre;    
     private int CantidadVotantesRegistrados;
 
+    public Distrito(){
+        
+    }
+    
     public Distrito(int id,int idR,String nombre,int cantidad){
         this.id=id;
         this.idRegion=idR;

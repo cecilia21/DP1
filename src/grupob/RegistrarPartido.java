@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import model.Distrito;
+import model.Institucion;
 import model.PartidoPolitico;
 import model.Region;
 import model.TipoProcesoVotacion;
@@ -138,13 +139,29 @@ public class RegistrarPartido extends javax.swing.JPanel {
             registro_lugar.setVisible(true);
             registro_seleccione_lugar.setVisible(true);
             int indice = registro_tipo_proceso.getSelectedIndex();
+            registro_lugar.removeAllItems();
             if(indice == 1){
                 ArrayList<Region> regiones = Manager.queryAllRegion();
-                registro_lugar.removeAllItems();
                 for(int i = 0; i<regiones.size(); i++){
                     registro_lugar.addItem(regiones.get(i).getNombre());
                     //System.out.println("" + regiones.get(i).getNombre());
                 }
+            }
+            if(indice == 2){
+                ArrayList<Distrito> distritos = Manager.queryAllDistrito();                
+                for(int i=0; i<distritos.size(); i++)
+                    registro_lugar.addItem(distritos.get(i).getNombre());
+            }
+            if(indice==3){
+                //ArrayList<Local> locales = Manager.queryAllLocales();
+                registro_lugar.addItem("Local1");
+                registro_lugar.addItem("Local2");
+                registro_lugar.addItem("Local3");
+            }
+            if(indice == 4){
+                ArrayList<Institucion> inst = Manager.queryAllInstitucion();
+                for(int i=0;i<inst.size();i++)
+                    registro_lugar.addItem(inst.get(i).getNombre());
             }
         }
         else{
@@ -176,6 +193,15 @@ public class RegistrarPartido extends javax.swing.JPanel {
         part.setEstado("Activo");
         part.setCantidadRegistrosValidos(0);
         part.setCorreoPartido(correoPartido);
+        if(tipo_proc==2)
+            part.setIdRegion(idLug);
+        if(tipo_proc==3)
+            part.setIdDistrito(idLug);
+        if(tipo_proc==4)
+            part.setIdLocal(idLug);
+        if(tipo_proc==5)
+            part.setIdInstitucion(idLug);
+        
         Manager.addPartido(part);
         JOptionPane.showMessageDialog(null, "Registro guardado exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
         cleanForm();
@@ -190,7 +216,9 @@ public class RegistrarPartido extends javax.swing.JPanel {
         nombre_partido.setText("");
         dni.setText("");
         correo.setText("");
-        
+        registro_tipo_proceso.setSelectedIndex(0);
+        registro_lugar.setVisible(false);
+        registro_seleccione_lugar.setVisible(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
