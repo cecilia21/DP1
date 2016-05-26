@@ -31,6 +31,10 @@ public class Manager {
     public static void addPartido(PartidoPolitico p){
         partidoDB.add(p);
     }
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLug(String nombre, int ind1, int ind2){
+        return partidoDB.queryByNombTipoLug(nombre, ind1, ind2);
+    }
     private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
     
     /////////INSTITUCIONAL
@@ -89,12 +93,13 @@ public class Manager {
     }
     public static ArrayList<Region> queryAllRegion()
     {
-        ArrayList<Region> listaRegiones=new ArrayList<Region>();
+        /*ArrayList<Region> listaRegiones=new ArrayList<Region>();
         listaRegiones.add(new Region(1,"Lima",15000));
         listaRegiones.add(new Region(2,"Arequipa",10000));
         listaRegiones.add(new Region(3,"Junin",12000));
         return listaRegiones;
-//        return procesoRegionDB.queryAllRegions();
+*/
+        return procesoRegionDB.queryAllRegions();
     }
     
     public static Region queryByIdRegion(int id)
@@ -132,12 +137,7 @@ public class Manager {
     }
     public static ArrayList<Distrito> queryAllDistrito()
     {
-        ArrayList<Distrito> listaDistrito=new ArrayList<Distrito>();
-        listaDistrito.add(new Distrito(1,1,"San Borja",15000));
-        listaDistrito.add(new Distrito(2,1,"Surco",10000));
-        listaDistrito.add(new Distrito(3,1,"San Miguel",12000));
-        return listaDistrito;
-//        return procesoDistritoDB.queryAllDistritos();
+        return procesoDistritoDB.queryAllDistritos();
     }
     
     public static Distrito queryByIdDistrito(int id)
