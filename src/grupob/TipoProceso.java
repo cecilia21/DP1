@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -89,7 +91,13 @@ public class TipoProceso extends javax.swing.JPanel {
             jTable7.getColumn("Eliminar").setCellEditor(new ButtonEliminarDistritos(new JCheckBox()));
         }
         
-        
+        TableColumn sColumn = jTable7.getColumnModel().getColumn(2);
+        ArrayList<Region> lReg=Manager.queryAllRegion();
+        JComboBox comboBox = new JComboBox();
+        for(int i=0;i<lReg.size();i++){
+            comboBox.addItem(lReg.get(i).getNombre());
+        }
+        sColumn.setCellEditor(new DefaultCellEditor(comboBox));
         
           ChangeListener changeListener = new ChangeListener() {
 
@@ -155,6 +163,12 @@ public class TipoProceso extends javax.swing.JPanel {
         jXDatePicker6 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker7 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker8 = new org.jdesktop.swingx.JXDatePicker();
+        btnGuardarR = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        textRegiones = new javax.swing.JTextField();
+        buscarRegiones = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable7 = new javax.swing.JTable();
@@ -173,6 +187,12 @@ public class TipoProceso extends javax.swing.JPanel {
         jXDatePicker10 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker11 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker12 = new org.jdesktop.swingx.JXDatePicker();
+        jButton1 = new javax.swing.JButton();
+        buscarDistritos = new javax.swing.JButton();
+        textDistrito = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
@@ -191,6 +211,8 @@ public class TipoProceso extends javax.swing.JPanel {
         jXDatePicker14 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker15 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker16 = new org.jdesktop.swingx.JXDatePicker();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTable9 = new javax.swing.JTable();
@@ -347,6 +369,26 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         });
 
+        btnGuardarR.setText("Guardar");
+        btnGuardarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Buscar");
+
+        jLabel3.setText("Nombre:");
+
+        buscarRegiones.setText("Buscar");
+        buscarRegiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarRegionesActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Proceso de Votacion Regional");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -355,20 +397,25 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addRowRegional)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardarR)
+                .addGap(62, 62, 62))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(buscarRegiones)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jLabel29)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel30)
-                        .addGap(9, 9, 9)
-                        .addComponent(jXDatePicker6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel32)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jXDatePicker8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9)
@@ -379,9 +426,7 @@ public class TipoProceso extends javax.swing.JPanel {
                                 .addComponent(porcentajeRegional, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel10)
-                                .addGap(46, 46, 46)
-                                .addComponent(addRowRegional)
-                                .addGap(33, 33, 33)
+                                .addGap(120, 120, 120)
                                 .addComponent(botonGuardarRegional))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel27)
@@ -391,17 +436,32 @@ public class TipoProceso extends javax.swing.JPanel {
                                 .addComponent(jLabel31)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jXDatePicker7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(65, Short.MAX_VALUE))))
+                        .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jLabel29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel30)
+                                .addGap(9, 9, 9)
+                                .addComponent(jXDatePicker6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel32)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jXDatePicker8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(porcentajeRegional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(addRowRegional)
                     .addComponent(botonGuardarRegional))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,19 +480,26 @@ public class TipoProceso extends javax.swing.JPanel {
                         .addComponent(jXDatePicker8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel30)
                     .addComponent(jLabel29))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(buscarRegiones))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarR)
+                    .addComponent(addRowRegional))
+                .addContainerGap())
         );
 
         jTabbedPane4.addTab("Regional", jPanel13);
 
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Cantidad de Votantes", "Regiones", "Eliminar"
@@ -470,6 +537,21 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Guardar");
+
+        buscarDistritos.setText("Buscar");
+        buscarDistritos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarDistritosActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Nombre:");
+
+        jLabel4.setText("Buscar");
+
+        jLabel6.setText("Proceso de Votacion Distrital");
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -478,53 +560,72 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane7)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(63, 63, 63))
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel4)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(porcentajeDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11)
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton28)
-                        .addGap(48, 48, 48)
-                        .addComponent(jButton47))
-                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
-                            .addComponent(jLabel35)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel36)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jXDatePicker10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(9, 9, 9)
-                            .addComponent(jLabel38)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jXDatePicker12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
-                            .addComponent(jLabel33)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel34)
-                            .addGap(9, 9, 9)
-                            .addComponent(jXDatePicker9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel37)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jXDatePicker11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(textDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(buscarDistritos))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(porcentajeDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel11)
+                                .addGap(135, 135, 135)
+                                .addComponent(jButton47))
+                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
+                                    .addComponent(jLabel35)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel36)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jXDatePicker10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(9, 9, 9)
+                                    .addComponent(jLabel38)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jXDatePicker12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
+                                    .addComponent(jLabel33)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel34)
+                                    .addGap(9, 9, 9)
+                                    .addComponent(jXDatePicker9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel37)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jXDatePicker11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel6)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(porcentajeDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jButton28)
                     .addComponent(jButton47))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
                     .addComponent(jLabel33)
@@ -538,8 +639,18 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel38)
                     .addComponent(jXDatePicker10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jXDatePicker12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(buscarDistritos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton28))
                 .addContainerGap())
         );
 
@@ -547,13 +658,13 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cantidad de Votantes", "Distritos", "Proceso", "Eliminar"
+                "Nombre", "Cantidad de Votantes", "Distritos", "Eliminar"
             }
         ));
         jScrollPane8.setViewportView(jTable8);
@@ -588,6 +699,13 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         });
 
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -600,48 +718,59 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel41)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel42)
-                        .addGap(9, 9, 9)
-                        .addComponent(jXDatePicker14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel44)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jXDatePicker16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel39)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel40)
-                        .addGap(9, 9, 9)
-                        .addComponent(jXDatePicker13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel43)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jXDatePicker15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jLabel41)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel42)
+                                .addGap(9, 9, 9)
+                                .addComponent(jXDatePicker14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel44)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXDatePicker16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel40)
+                                .addGap(9, 9, 9)
+                                .addComponent(jXDatePicker13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel43)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXDatePicker15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton29)
-                        .addGap(48, 48, 48)
-                        .addComponent(jButton48)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton29)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31))))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton48)
                     .addComponent(jLabel14)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(jButton29)
-                    .addComponent(jButton48))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
                     .addComponent(jLabel39)
@@ -655,8 +784,8 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel44)
                     .addComponent(jXDatePicker14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jXDatePicker16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -785,13 +914,12 @@ public class TipoProceso extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonGuardarNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarNacionalActionPerformed
-
         JFormattedTextField fechai1 = jXDatePicker1.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker2.getEditor();
@@ -800,77 +928,38 @@ public class TipoProceso extends javax.swing.JPanel {
         Date datef1 = (Date) fechaf1.getValue();
         JFormattedTextField fechaf2 = jXDatePicker4.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
+        if(datei1==null||datei2==null||datef1==null||datef2==null){
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
+            return;
+        }  
         TipoProcesoVotacion proceso=new TipoProcesoVotacion();
         proceso.setId(1);
-        
         Calendar calA = Calendar.getInstance();
         calA.setTime(datei1);
         proceso.setFechaInicio1(calA);
         Date d=proceso.getFechaInicio1().getTime();
-        
         Calendar calB = Calendar.getInstance();
         calB.setTime(datei2);
         proceso.setFechaInicio2(calB);
         Date d2=proceso.getFechaInicio2().getTime();
-         
         Calendar calC = Calendar.getInstance();
         calC.setTime(datef1);        
         proceso.setFechaFin1(calC);
-        
         Date d3=proceso.getFechaFin1().getTime();
-           
         Calendar calD = Calendar.getInstance();
         calD.setTime(datef2);        
         proceso.setFechaFin2(calD);
         Date d4=proceso.getFechaFin2().getTime();
-        
         proceso.setId(1);
         proceso.setNombre("Nacional");
-        Calendar cal = Calendar.getInstance();
-        Date dateActual =cal.getTime();
-        //        System.out.println(""+dateActual);
-        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
-        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
-            if(datei1.compareTo(dateActual)>0 && datei2.compareTo(dateActual)>0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
-                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
-                    return;
-                }
-                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
-                    return;
-                }
-                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
-                    return;
-                }
-//                if(jLabel57.getText()!=""&&jLabel57.getText()!=null){
-//                    Manager.updateProceso(proceso);
-//                    jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
-//                    jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
-//                    JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
-////                    jXDatePicker1.setDate(null);
-////                    jXDatePicker2.setDate(null);
-////                    jXDatePicker3.setDate(null);
-////                    jXDatePicker4.setDate(null);
-//                }else{
+        proceso.setPorcentajeMinimo((float) 0.10);
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");        
+        if(verificaFechas(datei1,datei2,datef1,datef2)){
                     Manager.updateProceso(proceso);
                     jLabel57.setText("1era Revision - Fecha Inicio: "+formatoDeFecha.format(datei1)+" Fecha Fin: "+formatoDeFecha.format(datef1));
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
-//                    jXDatePicker1.setDate(null);
-//                    jXDatePicker2.setDate(null);
-//                    jXDatePicker3.setDate(null);
-//                    jXDatePicker4.setDate(null);
-//                }
-            }else{
-                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
-                return;
-            }
-        }else{
-            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
-            return;
-        }
+         }
     }//GEN-LAST:event_botonGuardarNacionalActionPerformed
 
     private void jTable6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable6KeyTyped
@@ -892,9 +981,7 @@ public class TipoProceso extends javax.swing.JPanel {
     }//GEN-LAST:event_addRowRegionalActionPerformed
 
     private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
-        ArrayList<Region> listaRegionesPas = null;
-        TipoProcesoVotacion proceso=null;
-       // jXDatePicker5.get
+        TipoProcesoVotacion proceso=null;   
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker6.getEditor();
@@ -903,105 +990,64 @@ public class TipoProceso extends javax.swing.JPanel {
         Date datef1 = (Date) fechaf1.getValue();
         JFormattedTextField fechaf2 = jXDatePicker8.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
+        if(datei1==null||datei2==null||datef1==null||datef2==null){
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
+            return;
+        }
         double por;
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
         try{
-            por=Double.parseDouble(porcentajeRegional.getText());
+            por=Double.parseDouble(porcentajeRegional.getText())/100;
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
             return;
         }
-        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
-            if(datei1.compareTo(dateActual)>0 && datei2.compareTo(dateActual)>0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
-                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
-                    return;
-                }
-                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
-                    return;
-                }
-                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
-                    return;
-                }
-                
-                Calendar calA = Calendar.getInstance();
-                
-                proceso=new TipoProcesoVotacion();
-                calA.setTime(datei1);
-                proceso.setFechaInicio1(calA);
-                
-                Calendar calB = Calendar.getInstance();
-                 
-                calB.setTime(datei2);
-                
-                proceso.setFechaInicio2(calB);
-                
-                 Calendar calC = Calendar.getInstance();
-                 
-                calC.setTime(datei2);
-                
-                proceso.setFechaFin1(calC);
-                
-                 Calendar calD = Calendar.getInstance();
-                 
-                calD.setTime(datei2);
-                
-                proceso.setFechaFin2(calD);
-                proceso.setPorcentajeMinimo((float)por);
-                DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
-                listaRegionesPas=listaRegiones;
-                for(int i=0;i<listaRegiones.size();i++){
-                    String a=modelo.getValueAt(i,1).toString();
-                    String n=modelo.getValueAt(i,0).toString();
-                    int num=-1;
-                    try {
-                        num=Integer.parseInt(a);
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
-                        return;
-                    }
-                    if(num<0){
-                        JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
-                        return;
-                    }
-                    Region s=listaRegionesPas.get(i);
-                    Region r=new Region(s.getId(),n,num);
-                    listaRegionesPas.set(i,r);
-                }
-            }else{
-                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
-                return;
-            }
-        }else{
-            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos de las fechas");
-            return;
+        Calendar calA = Calendar.getInstance();                
+        proceso=new TipoProcesoVotacion();
+        proceso.setId(2);
+        calA.setTime(datei1);
+        proceso.setFechaInicio1(calA);                
+        Calendar calB = Calendar.getInstance();                 
+        calB.setTime(datei2);                
+        proceso.setFechaInicio2(calB);                
+        Calendar calC = Calendar.getInstance();                 
+        calC.setTime(datef1);                
+        proceso.setFechaFin1(calC);                
+        Calendar calD = Calendar.getInstance();                 
+        calD.setTime(datef2);                
+        proceso.setFechaFin2(calD);
+        proceso.setPorcentajeMinimo((float)por);
+        proceso.setNombre("Regional"); 
+        if(verificaFechas(datei1,datei2,datef1,datef2))                
+        {                    
+            Manager.updateProceso(proceso);                    
+            JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");                
         }
-        listaRegiones=listaRegionesPas;
-        Manager.updateProceso(proceso);
-//        for(int i=0;i<listaRegiones.size();i++){
-//            Region rd=listaRegiones.get(i);
-//            if(rd.getNombre()=="*******" && rd.getId()!=0){
-//                Manager.deleteRegion(rd.getId());
-//            }
-//        }
-        for(int i=0;i<listaRegiones.size();i++){
-            Region rd=listaRegiones.get(i);
-            if(rd.getId()==0){
-                Manager.addRegion(rd);
-            }
-        }
-        for(int i=0;i<listaRegiones.size();i++){
-            Region rd=listaRegiones.get(i);
-            if(rd.getId()!=0){
-                Manager.updateRegion(rd);
-            }
-        }
-        JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
     }//GEN-LAST:event_botonGuardarRegionalActionPerformed
 
+    private boolean verificaFechas(Date datei1,Date datei2,Date datef1,Date datef2){
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        if(datei1.compareTo(dateActual)<0 || datei2.compareTo(dateActual)<0 || datef1.compareTo(dateActual)<0  || datef2.compareTo(dateActual)<0){
+            JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+            return false;
+        }                      
+        if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        }
+        if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        } 
+        if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        }
+        return true;
+    }
+    
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
 
         
@@ -1151,11 +1197,12 @@ public class TipoProceso extends javax.swing.JPanel {
         listaDistritos.add(di);
     }//GEN-LAST:event_jButton28ActionPerformed
 
-    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt){
         
-        ArrayList<Distrito> listaDistritosPas = null;
+    }
+    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+                
         TipoProcesoVotacion proceso=null;
-       // jXDatePicker5.get
         JFormattedTextField fechai1 = jXDatePicker9.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker10.getEditor();
@@ -1164,104 +1211,145 @@ public class TipoProceso extends javax.swing.JPanel {
         Date datef1 = (Date) fechaf1.getValue();
         JFormattedTextField fechaf2 = jXDatePicker12.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
+        if(datei1==null||datei2==null||datef1==null||datef2==null){
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
+            return;
+        }
         double por;
-        Calendar cal = Calendar.getInstance();
-        Date dateActual =cal.getTime();
         try{
-            por=Double.parseDouble(porcentajeDistrital.getText());
+            por=Double.parseDouble(porcentajeDistrital.getText())/100;
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
             return;
         }
-        if(datei1!=null&&datei2!=null&&datef1!=null&&datef2!=null){
-            if(datei1.compareTo(dateActual)>0 && datei2.compareTo(dateActual)>0 && datef1.compareTo(dateActual)>0  && datef2.compareTo(dateActual)>0){
-                if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
-                    return;
-                }
-                if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
-                    return;
-                }
-                if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
-                    JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados en las fechas");
-                    return;
-                }
-                
-                Calendar calA = Calendar.getInstance();
-                
-                proceso=new TipoProcesoVotacion();
+        Calendar calA = Calendar.getInstance();                
+        proceso=new TipoProcesoVotacion();
+                proceso.setId(3);
+                proceso.setNombre("Distrital");
                 calA.setTime(datei1);
-                proceso.setFechaInicio1(calA);
-                
-                Calendar calB = Calendar.getInstance();
-                 
-                calB.setTime(datei2);
-                
-                proceso.setFechaInicio2(calB);
-                
-                 Calendar calC = Calendar.getInstance();
-                 
-                calC.setTime(datei2);
-                
-                proceso.setFechaFin1(calC);
-                
-                 Calendar calD = Calendar.getInstance();
-                 
-                calD.setTime(datei2);
-                
+                proceso.setFechaInicio1(calA);                
+                Calendar calB = Calendar.getInstance();                 
+                calB.setTime(datei2);                
+                proceso.setFechaInicio2(calB);                
+                 Calendar calC = Calendar.getInstance();                 
+                calC.setTime(datef1);                
+                proceso.setFechaFin1(calC);                
+                 Calendar calD = Calendar.getInstance();                 
+                calD.setTime(datef2);                
                 proceso.setFechaFin2(calD);
                 proceso.setPorcentajeMinimo((float)por);
-                DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
-                listaDistritosPas=listaDistritos;
-                for(int i=0;i<listaRegiones.size();i++){
-                    String a=modelo.getValueAt(i,1).toString();
-                    String n=modelo.getValueAt(i,0).toString();
-                    int num=-1;
-                    try {
-                        num=Integer.parseInt(a);
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
-                        return;
-                    }
-                    if(num<0){
-                        JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
-                        return;
-                    }
-//                    Region s=listaRegionesPas.get(i);
-//                    Region r=new Region(s.getId(),n,num);
-//                    listaRegionesPas.set(i,r);
-                }
-            }else{
-                JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
-                return;
-            }
+        if(verificaFechas(datei1,datei2,datef1,datef2))
+        {
+            Manager.updateProceso(proceso);
+            JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Distrital");
+        }
+    }//GEN-LAST:event_jButton47ActionPerformed
+
+    private void buscarRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarRegionesActionPerformed
+        ArrayList<Region> listaBuscada=new ArrayList<Region>();
+        String busc=textRegiones.getText();
+        if(busc.compareTo("")==0){
+            listaBuscada=Manager.queryAllRegion();
         }else{
-            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos de las fechas");
-            return;
+            listaBuscada=Manager.queryByNameRegion(busc);
         }
-//        listaRegiones=listaRegionesPas;
-        Manager.updateProceso(proceso);
-//        for(int i=0;i<listaRegiones.size();i++){
-//            Region rd=listaRegiones.get(i);
-//            if(rd.getNombre()=="*******" && rd.getId()!=0){
-//                Manager.deleteRegion(rd.getId());
-//            }
-//        }
-        for(int i=0;i<listaRegiones.size();i++){
-            Region rd=listaRegiones.get(i);
-            if(rd.getId()==0){
-                Manager.addRegion(rd);
+
+        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        modelo.setRowCount(0);
+        String datos[] = new String[3];
+        for (int i = 0; i < listaBuscada.size(); i++) {
+            datos[0] = listaBuscada.get(i).getNombre();
+            if(listaBuscada.get(i).getCantidadVotantesRegistrados() == 0){
+                datos[1] ="";
+            }else{
+                datos[1] = Long.toString(listaBuscada.get(i).getCantidadVotantesRegistrados());
             }
+            modelo.addRow(datos);
         }
-        for(int i=0;i<listaRegiones.size();i++){
-            Region rd=listaRegiones.get(i);
+        TableColumn colum1 = null;
+        colum1 = jTable6.getColumnModel().getColumn(0);
+        colum1.setPreferredWidth(60);
+        TableColumn colum2 = null;
+        colum2 = jTable6.getColumnModel().getColumn(1);
+        colum2.setPreferredWidth(5);
+        TableColumn colum3 = null;
+        colum3 = jTable6.getColumnModel().getColumn(2);
+        colum3.setPreferredWidth(40);
+        colum3.setPreferredWidth(10);
+        listaRegiones=listaBuscada;
+    }//GEN-LAST:event_buscarRegionesActionPerformed
+
+    private void buscarDistritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarDistritosActionPerformed
+
+        ArrayList<Distrito> listaBuscada=new ArrayList<Distrito>();
+        String busc=textDistrito.getText();
+        if(busc.compareTo("")==0){
+            listaBuscada=Manager.queryAllDistrito();
+        }else{
+            listaBuscada=Manager.queryByNameDistrito(busc);
+        }
+        DefaultTableModel modelo2 = (DefaultTableModel)jTable7.getModel();
+        modelo2.setRowCount(0);
+        String datos[] = new String[3];
+        for (int i = 0; i < listaBuscada.size(); i++) {
+            datos[0] = listaBuscada.get(i).getNombre();
+            if(listaBuscada.get(i).getCantidadVotantesRegistrados() == 0){
+                datos[1] ="";
+            }else{
+                datos[1] = Long.toString(listaBuscada.get(i).getCantidadVotantesRegistrados());
+            }
+            Distrito s=listaBuscada.get(i);
+            //            String co=modelo2.getValueAt(i,2).toString();
+            //            ArrayList<Distrito> reg=Manager.queryByNameDistrito(co);
+            datos[2]=s.getNombre()+"";
+            modelo2.addRow(datos);
+        }
+        TableColumn colum1 = null;
+        colum1 = jTable7.getColumnModel().getColumn(0);
+        colum1.setPreferredWidth(60);
+        TableColumn colum2 = null;
+        colum2 = jTable7.getColumnModel().getColumn(1);
+        colum2.setPreferredWidth(5);
+        TableColumn colum3 = null;
+        colum3 = jTable7.getColumnModel().getColumn(2);
+        colum3.setPreferredWidth(40);
+        TableColumn colum4 = null;
+        colum4 = jTable7.getColumnModel().getColumn(3);
+        colum4.setPreferredWidth(40);
+        colum4.setPreferredWidth(10);
+        listaDistritos=listaBuscada;
+    }//GEN-LAST:event_buscarDistritosActionPerformed
+
+    private void btnGuardarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRActionPerformed
+        
+        ArrayList<Region> listaRegionesPas = listaRegiones;
+        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        for(int i=0;i<listaRegionesPas.size();i++){                    
+            String a=modelo.getValueAt(i,1).toString();                    
+            String n=modelo.getValueAt(i,0).toString();                    
+            int num=-1;                    
+            try {                        
+                num=Integer.parseInt(a);                    
+            } catch (NumberFormatException e) {                        
+                JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");                        
+                return;                    
+            }                    
+            if(num<0){                        
+                JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");                        
+                return;                    
+            }                    
+            Region s=listaRegionesPas.get(i);                    
+            Region r=new Region(s.getId(),n,num);                    
+            listaRegionesPas.set(i,r);
+        }  
+        for(int i=0;i<listaRegionesPas.size();i++){
+            Region rd=listaRegionesPas.get(i);
             if(rd.getId()!=0){
                 Manager.updateRegion(rd);
             }
         }
-        JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
-    }//GEN-LAST:event_jButton47ActionPerformed
+        JOptionPane.showMessageDialog(null,"Se completo de actualizar las regiones");
+    }//GEN-LAST:event_btnGuardarRActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);
@@ -1378,12 +1466,18 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JButton addRowRegional;
     private javax.swing.JButton botonGuardarNacional;
     private javax.swing.JButton botonGuardarRegional;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGuardarR;
+    private javax.swing.JButton buscarDistritos;
+    private javax.swing.JButton buscarRegiones;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton47;
     private javax.swing.JButton jButton48;
     private javax.swing.JButton jButton49;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1391,9 +1485,11 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -1404,6 +1500,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -1414,6 +1511,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -1423,6 +1521,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -1462,5 +1561,8 @@ public class TipoProceso extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker9;
     private javax.swing.JTextField porcentajeDistrital;
     private javax.swing.JTextField porcentajeRegional;
+    private javax.swing.JTextField textDistrito;
+    private javax.swing.JTextField textRegiones;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
