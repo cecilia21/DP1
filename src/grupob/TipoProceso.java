@@ -56,10 +56,10 @@ public class TipoProceso extends javax.swing.JPanel {
                 jXDatePicker4.setDate(tipoNacional.getFechaFin2().getTime());
             }
             if((tipoNacional.getFechaInicio1().before(dateActual)) && (cal.before(tipoNacional.getFechaFin2()))){
-                botonGuardarNacional.setEnabled(false);
+                btnGuardarNacional.setEnabled(false);
             }
             if(tipoNacional.getFechaFin2().before(dateActual)){
-                botonGuardarNacional.setEnabled(true);
+                btnGuardarNacional.setEnabled(true);
             }
         }
         if(tipoRegional!=null && tipoRegional.getId()!=0){
@@ -71,12 +71,12 @@ public class TipoProceso extends javax.swing.JPanel {
                 porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo()*100);
             }
             if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
-                botonGuardarRegional.setEnabled(false);
+                btnGuardarProcesoR.setEnabled(false);
                 addRowRegional.setEnabled(false);
                 jTable6.setEnabled(false);
             }
             if(tipoRegional.getFechaFin2().before(dateActual)){
-                botonGuardarRegional.setEnabled(true);
+                btnGuardarProcesoR.setEnabled(true);
                 addRowRegional.setEnabled(true);
             }
         }
@@ -136,7 +136,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel52 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
-        botonGuardarNacional = new javax.swing.JButton();
+        btnGuardarNacional = new javax.swing.JButton();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
@@ -158,12 +158,12 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        botonGuardarRegional = new javax.swing.JButton();
+        btnGuardarProcesoR = new javax.swing.JButton();
         jXDatePicker5 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker6 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker7 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker8 = new org.jdesktop.swingx.JXDatePicker();
-        btnGuardarR = new javax.swing.JButton();
+        btnGuardarRegiones = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textRegiones = new javax.swing.JTextField();
@@ -243,10 +243,10 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel54.setText("Fecha Inicio:");
 
-        botonGuardarNacional.setText("Guardar");
-        botonGuardarNacional.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarNacional.setText("Guardar");
+        btnGuardarNacional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGuardarNacionalActionPerformed(evt);
+                btnGuardarNacionalActionPerformed(evt);
             }
         });
 
@@ -265,7 +265,7 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel57)
                     .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                            .addComponent(botonGuardarNacional, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardarNacional, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(98, 98, 98))
                         .addGroup(jPanel19Layout.createSequentialGroup()
                             .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +318,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel58)
                 .addGap(68, 68, 68)
-                .addComponent(botonGuardarNacional)
+                .addComponent(btnGuardarNacional)
                 .addGap(78, 78, 78))
         );
 
@@ -362,17 +362,17 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel32.setText("Fecha Fin:");
 
-        botonGuardarRegional.setText("Guardar");
-        botonGuardarRegional.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarProcesoR.setText("Guardar");
+        btnGuardarProcesoR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGuardarRegionalActionPerformed(evt);
+                btnGuardarProcesoRActionPerformed(evt);
             }
         });
 
-        btnGuardarR.setText("Guardar");
-        btnGuardarR.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarRegiones.setText("Guardar");
+        btnGuardarRegiones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarRActionPerformed(evt);
+                btnGuardarRegionesActionPerformed(evt);
             }
         });
 
@@ -401,7 +401,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addRowRegional)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardarR)
+                .addComponent(btnGuardarRegiones)
                 .addGap(62, 62, 62))
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -427,7 +427,7 @@ public class TipoProceso extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel10)
                                 .addGap(120, 120, 120)
-                                .addComponent(botonGuardarRegional))
+                                .addComponent(btnGuardarProcesoR))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel27)
                                 .addGap(9, 9, 9)
@@ -462,7 +462,7 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel9)
                     .addComponent(porcentajeRegional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(botonGuardarRegional))
+                    .addComponent(btnGuardarProcesoR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -490,7 +490,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardarR)
+                    .addComponent(btnGuardarRegiones)
                     .addComponent(addRowRegional))
                 .addContainerGap())
         );
@@ -919,7 +919,7 @@ public class TipoProceso extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonGuardarNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarNacionalActionPerformed
+    private void btnGuardarNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNacionalActionPerformed
         JFormattedTextField fechai1 = jXDatePicker1.getEditor();
         Date datei1 = (Date) fechai1.getValue();
         JFormattedTextField fechai2 = jXDatePicker2.getEditor();
@@ -960,7 +960,7 @@ public class TipoProceso extends javax.swing.JPanel {
                     jLabel58.setText("2da Revision - Fecha Inicio: "+formatoDeFecha.format(datei2)+" Fecha Fin: "+formatoDeFecha.format(datef2));
                     JOptionPane.showMessageDialog(null,"Se atualizo los datos del proceso nacional");
          }
-    }//GEN-LAST:event_botonGuardarNacionalActionPerformed
+    }//GEN-LAST:event_btnGuardarNacionalActionPerformed
 
     private void jTable6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable6KeyTyped
 
@@ -982,7 +982,7 @@ public class TipoProceso extends javax.swing.JPanel {
         //        agregarDatos();
     }//GEN-LAST:event_addRowRegionalActionPerformed
 
-    private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
+    private void btnGuardarProcesoRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProcesoRActionPerformed
         TipoProcesoVotacion proceso=null;   
         JFormattedTextField fechai1 = jXDatePicker5.getEditor();
         Date datei1 = (Date) fechai1.getValue();
@@ -1026,7 +1026,7 @@ public class TipoProceso extends javax.swing.JPanel {
             Manager.updateProceso(proceso);                    
             JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");                
         }
-    }//GEN-LAST:event_botonGuardarRegionalActionPerformed
+    }//GEN-LAST:event_btnGuardarProcesoRActionPerformed
 
     private boolean verificaFechas(Date datei1,Date datei2,Date datef1,Date datef2){
         Calendar cal = Calendar.getInstance();
@@ -1322,7 +1322,7 @@ public class TipoProceso extends javax.swing.JPanel {
         listaDistritos=listaBuscada;
     }//GEN-LAST:event_buscarDistritosActionPerformed
 
-    private void btnGuardarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRActionPerformed
+    private void btnGuardarRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegionesActionPerformed
         
         ArrayList<Region> listaRegionesPas = listaRegiones;
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
@@ -1351,7 +1351,7 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         }
         JOptionPane.showMessageDialog(null,"Se completo de actualizar las regiones");
-    }//GEN-LAST:event_btnGuardarRActionPerformed
+    }//GEN-LAST:event_btnGuardarRegionesActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);
@@ -1403,6 +1403,10 @@ public class TipoProceso extends javax.swing.JPanel {
         colum4 = jTable7.getColumnModel().getColumn(3);
         colum4.setPreferredWidth(40);
         colum4.setPreferredWidth(10);        
+    }
+    
+    public void paneSelect(int n){
+        jTabbedPane4.setSelectedIndex(n);
     }
     
      private void cargarDatosLocal(){
@@ -1466,10 +1470,10 @@ public class TipoProceso extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRowRegional;
-    private javax.swing.JButton botonGuardarNacional;
-    private javax.swing.JButton botonGuardarRegional;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnGuardarR;
+    private javax.swing.JButton btnGuardarNacional;
+    private javax.swing.JButton btnGuardarProcesoR;
+    private javax.swing.JButton btnGuardarRegiones;
     private javax.swing.JButton buscarDistritos;
     private javax.swing.JButton buscarRegiones;
     private javax.swing.JButton jButton1;
@@ -1534,7 +1538,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane4;
+    private static javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;

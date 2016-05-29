@@ -39,6 +39,9 @@
         </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -61,7 +64,7 @@
                           <Component id="jLabel57" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="botonGuardarNacional" min="-2" pref="272" max="-2" attributes="0"/>
+                                  <Component id="btnGuardarNacional" min="-2" pref="272" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -130,7 +133,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel58" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="botonGuardarNacional" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGuardarNacional" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -157,12 +160,12 @@
                 <Property name="text" type="java.lang.String" value="Fecha Inicio:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="botonGuardarNacional">
+            <Component class="javax.swing.JButton" name="btnGuardarNacional">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGuardarNacionalActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarNacionalActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel55">
@@ -210,7 +213,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="addRowRegional" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnGuardarR" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGuardarRegiones" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -239,7 +242,7 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                                      <Component id="botonGuardarRegional" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnGuardarProcesoR" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
@@ -284,7 +287,7 @@
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="porcentajeRegional" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botonGuardarRegional" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGuardarProcesoR" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -319,7 +322,7 @@
                       <Component id="jScrollPane6" min="-2" pref="142" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnGuardarR" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGuardarRegiones" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="addRowRegional" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -401,12 +404,12 @@
                 <Property name="text" type="java.lang.String" value="Fecha Fin:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="botonGuardarRegional">
+            <Component class="javax.swing.JButton" name="btnGuardarProcesoR">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGuardarRegionalActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarProcesoRActionPerformed"/>
               </Events>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker5">
@@ -417,12 +420,12 @@
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker8">
             </Component>
-            <Component class="javax.swing.JButton" name="btnGuardarR">
+            <Component class="javax.swing.JButton" name="btnGuardarRegiones">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarRActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarRegionesActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">

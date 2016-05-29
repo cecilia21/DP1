@@ -39,6 +39,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         regiones = new javax.swing.JButton();
         buscarPartido = new javax.swing.JButton();
         locales = new javax.swing.JButton();
+        nacional = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 450));
@@ -67,7 +68,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 distritosActionPerformed(evt);
             }
         });
-        getContentPane().add(distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        getContentPane().add(distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
         panelPrincipal.setMinimumSize(new java.awt.Dimension(580, 400));
         panelPrincipal.setName(""); // NOI18N
@@ -82,7 +83,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 regionesActionPerformed(evt);
             }
         });
-        getContentPane().add(regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+        getContentPane().add(regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         buscarPartido.setText("Buscar Partido");
         buscarPartido.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +95,14 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         locales.setText("Locales");
         getContentPane().add(locales, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+
+        nacional.setText("Nacional");
+        nacional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nacionalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -124,6 +133,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelPrincipal.removeAll();
         TipoProceso part = new TipoProceso();
+        part.paneSelect(2);
         panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
@@ -133,10 +143,20 @@ public class FramePrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelPrincipal.removeAll();
         TipoProceso part = new TipoProceso();
+        part.paneSelect(1);
         panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_regionesActionPerformed
+
+    private void nacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacionalActionPerformed
+        panelPrincipal.removeAll();
+        TipoProceso part = new TipoProceso();
+        part.paneSelect(0);
+        panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
+    }//GEN-LAST:event_nacionalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,6 +222,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton distritos;
     private javax.swing.JButton instituciones;
     private javax.swing.JButton locales;
+    private javax.swing.JButton nacional;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JButton regiones;
     private javax.swing.JButton registrarPartido;
