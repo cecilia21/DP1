@@ -76,18 +76,18 @@ public class Manager {
     
      public static void addRegion(Region i)
     {
-//        procesoRegionDB.add(i);
-        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoRegionDB.add(i);
+//        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateRegion(Region i)
     {
-//        procesoRegionDB.updateRegion(i);
-        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoRegionDB.updateRegion(i);
+//        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteRegion (int idRegion)
     {
-//        procesoRegionDB.deleteRegion(idRegion);
-        System.out.println("Se borro la region con id igual a "+idRegion);
+        procesoRegionDB.deleteRegion(idRegion);
+//        System.out.println("Se borro la region con id igual a "+idRegion);
     }
     public static ArrayList<Region> queryAllRegion()
     {

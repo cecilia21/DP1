@@ -967,15 +967,17 @@ public class TipoProceso extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable6KeyTyped
 
     private void addRowRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowRegionalActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
-        Vector row = new Vector();
-        row.add("");
-        row.add("");
-        row.add("");
-        model.addRow(row);
-        Region r=new Region();
-        r.setNombre("");
-        listaRegiones.add(r);
+        RegistraRegion window=new RegistraRegion();
+        window.setVisible(true);
+//        DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
+//        Vector row = new Vector();
+//        row.add("");
+//        row.add("");
+//        row.add("");
+//        model.addRow(row);
+//        Region r=new Region();
+//        r.setNombre("");
+//        listaRegiones.add(r);
         //        r.setCantidadVotantesRegistrados();
         //        agregarDatos();
     }//GEN-LAST:event_addRowRegionalActionPerformed
