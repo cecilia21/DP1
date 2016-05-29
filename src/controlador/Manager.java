@@ -104,7 +104,7 @@ public class Manager {
         return procesoRegionDB.queryById(id);
     }
     
-    public static Region queryByNameRegion(String name)
+    public static ArrayList<Region> queryByNameRegion(String name)
     {
         return procesoRegionDB.queryByName(name);
     }
@@ -147,7 +147,7 @@ public class Manager {
         return procesoDistritoDB.queryById(id);
     }
     
-    public static Distrito queryByNameDistrito(String name)
+    public static ArrayList<Distrito> queryByNameDistrito(String name)
     {
         return procesoDistritoDB.queryByName(name);
     }

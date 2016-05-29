@@ -18,5 +18,5 @@ public interface DAODistrito {
     void delete (int idDistrito);
     ArrayList<Distrito> queryAll();   
     Distrito queryById(int idRegion);
-    Distrito queryByName(String name);
+    ArrayList<Distrito> queryByName(String name);
 }
