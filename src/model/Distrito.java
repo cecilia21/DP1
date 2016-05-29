@@ -14,7 +14,8 @@ public class Distrito {
     private int idRegion;
     private String nombre;    
     private int CantidadVotantesRegistrados;
-
+    private int tipoProceso;
+    
     public Distrito(){
         
     }
@@ -82,4 +83,17 @@ public class Distrito {
         this.idRegion = idRegion;
     }
         
+    /**
+     * @return the tipoProceso
+     */
+    public int getTipoProceso() {
+        return tipoProceso;
+}
+
+    /**
+     * @param tipoProceso the tipoProceso to set
+     */
+    public void setTipoProceso(int tipoProceso) {
+        this.tipoProceso = tipoProceso;
+    }
 }
