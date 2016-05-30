@@ -35,6 +35,7 @@ public class TipoProceso extends javax.swing.JPanel {
      */
     public static ArrayList<Region> listaRegiones=Manager.queryAllRegion();
     public static ArrayList<Distrito> listaDistritos=Manager.queryAllDistrito();
+    LocalTableModel tableModel = null;
      public static ArrayList<Local> listaLocales;
     public TipoProceso() {
         initComponents();
@@ -1317,6 +1318,9 @@ public class TipoProceso extends javax.swing.JPanel {
     
      private void cargarDatosLocal(){
     
+         tableModel = new LocalTableModel();
+         jTable8.setModel(tableModel);
+         /*
         DefaultTableModel modelo = (DefaultTableModel)jTable8.getModel();
         
         listaLocales = Manager.queryAllLocales();
@@ -1355,13 +1359,19 @@ public class TipoProceso extends javax.swing.JPanel {
         
         
         colum3.setPreferredWidth(10);     
-    
+    */
       //  jTable8.getColumn("Region").setCellEditor(new ComboBoxEditor());
         
+           TableColumn column =  jTable8.getColumnModel().getColumn(2);
+           
+           DistritoComboBox dist = new DistritoComboBox();
+           column.setCellEditor(dist );
         
         if(listaLocales!=null){
-            jTable8.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
-            jTable8.getColumn("Eliminar").setCellEditor(new ButtonEliminarLocales(new JCheckBox()));
+         //   TableColumn column =  jTable8.getColumnModel().getColumn(2);
+         //  column.setCellEditor(new DistritoComboBox());
+           /* jTable8.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTable8.getColumn("Eliminar").setCellEditor(new ButtonEliminarLocales(new JCheckBox()));*/
         }
     
     }

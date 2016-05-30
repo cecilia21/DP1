@@ -81,5 +81,12 @@ public class Distrito {
     public void setIdRegion(int idRegion) {
         this.idRegion = idRegion;
     }
+    
+    @Override
+    public String toString(){
+    
+    
+       return this.nombre;
+    }
         
 }

@@ -104,8 +104,8 @@ public class MySQLDAODistrito implements DAODistrito {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,null
-                                                            /*DBConnection.password*/);
+                                                            DBConnection.user,
+                                                            DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "DELETE FROM distrito "
 					+ "WHERE id=?";
@@ -139,8 +139,8 @@ public class MySQLDAODistrito implements DAODistrito {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,null
-                                                            /*DBConnection.password*/);
+                                                            DBConnection.user,
+                                                            DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM distrito";
 			pstmt = conn.prepareStatement(sql);
@@ -179,8 +179,8 @@ public class MySQLDAODistrito implements DAODistrito {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,null
-                                                            /*DBConnection.password*/);
+                                                            DBConnection.user,
+                                                            DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM distrito "
 					+ "WHERE idDistrito=?";

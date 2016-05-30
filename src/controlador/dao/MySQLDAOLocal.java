@@ -79,7 +79,7 @@ public class MySQLDAOLocal implements DAOLocal{
                             + "SET nombre=?,cantidadVotantes=?," 
                             + " idDistrito=? "
                     
-                            + "WHERE id=?";
+                            + "WHERE idLocal=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setString(1, i.getNombre());
             pstmt.setInt(2, i.getCantidadVotantesRegistrados());
