@@ -58,13 +58,13 @@ public class ButtonEliminarLocales extends DefaultCellEditor {
                                 Local re=TipoProceso.listaLocales.get(this.row);
                                 if(re.getId()!=0){
                                     Manager.deleteLocal(re.getId());
-                                    TipoProceso.listaLocales.remove(this.row);
+//                                    TipoProceso.listaLocales.remove(this.row);
                                 }
 //                                re.setNombre("*******");
 //                                TipoProceso.listaRegiones.set(this.row,re);
 //                                Inicio.listaRegiones.remove(this.row);
                                 ((DefaultTableModel)table.getModel()).removeRow(this.row);
-                                ((DefaultTableModel)table.getModel()).fireTableDataChanged();
+//                                ((DefaultTableModel)table.getModel()).fireTableDataChanged();
                             }     
                         }
 	      }

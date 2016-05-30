@@ -119,18 +119,18 @@ public class Manager {
     
     public static void addDistrito(Distrito i)
     {
-//        procesoDistritoDB.add(i);
-        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoDistritoDB.add(i);
+//        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateDistrito(Distrito i)
     {
-//        procesoDistritoDB.updateDistrito(i);
-        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoDistritoDB.updateDistrito(i);
+//        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteDistrito (int idDistrito)
     {
-//        procesoDistritoDB.deleteDistrito(idDistrito);
-        System.out.println("Se borro la distrito con id igual a "+idDistrito);
+        procesoDistritoDB.deleteDistrito(idDistrito);
+//        System.out.println("Se borro la distrito con id igual a "+idDistrito);
     }
     public static ArrayList<Distrito> queryAllDistrito()
     {

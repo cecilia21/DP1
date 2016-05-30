@@ -72,23 +72,41 @@ public class TipoProceso extends javax.swing.JPanel {
             }
             if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
                 btnGuardarProcesoR.setEnabled(false);
-                addRowRegional.setEnabled(false);
-                jTable6.setEnabled(false);
+//                addRowRegional.setEnabled(false);
+//                jTable6.setEnabled(false);
             }
             if(tipoRegional.getFechaFin2().before(dateActual)){
                 btnGuardarProcesoR.setEnabled(true);
-                addRowRegional.setEnabled(true);
+//                addRowRegional.setEnabled(true);
+            }
+        }
+        if(tipoDistrital!=null && tipoDistrital.getId()!=0){
+            if(!tipoRegional.getFechaInicio2().after(dateActual)){
+                jXDatePicker9.setDate(tipoDistrital.getFechaInicio1().getTime());
+                jXDatePicker10.setDate(tipoDistrital.getFechaInicio2().getTime());
+                jXDatePicker11.setDate(tipoDistrital.getFechaFin1().getTime());
+                jXDatePicker12.setDate(tipoDistrital.getFechaFin2().getTime());
+                porcentajeDistrital.setText(""+tipoDistrital.getPorcentajeMinimo()*100);
+            }
+            if((tipoDistrital.getFechaInicio1().before(dateActual)) && (cal.before(tipoDistrital.getFechaFin2()))){
+                btnGuardarProcesoD.setEnabled(false);
+//                addRowRegional.setEnabled(false);
+//                jTable6.setEnabled(false);
+            }
+            if(tipoRegional.getFechaFin2().before(dateActual)){
+                btnGuardarProcesoD.setEnabled(true);
+//                addRowRegional.setEnabled(true);
             }
         }
         agregarDatos();
         agregarDatosDistritos();
         if(listaRegiones!=null){
             jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
-            jTable6.getColumn("Eliminar").setCellEditor(new ButtonEliminarRegiones(new JCheckBox()));
+            jTable6.getColumn("Eliminar").setCellEditor(new botonEliminarRegiones());
         }
         if(listaDistritos!=null){
             jTable7.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
-            jTable7.getColumn("Eliminar").setCellEditor(new ButtonEliminarDistritos(new JCheckBox()));
+            jTable7.getColumn("Eliminar").setCellEditor(new botonEliminarDistritos());
         }
         
         TableColumn sColumn = jTable7.getColumnModel().getColumn(2);
@@ -182,7 +200,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jButton47 = new javax.swing.JButton();
+        btnGuardarProcesoD = new javax.swing.JButton();
         jXDatePicker9 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker10 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker11 = new org.jdesktop.swingx.JXDatePicker();
@@ -332,6 +350,11 @@ public class TipoProceso extends javax.swing.JPanel {
                 "Nombre", "Cantidad de Votantes", "Eliminar"
             }
         ));
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+        });
         jTable6.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTable6KeyTyped(evt);
@@ -530,14 +553,19 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel38.setText("Fecha Fin:");
 
-        jButton47.setText("Guardar");
-        jButton47.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarProcesoD.setText("Guardar");
+        btnGuardarProcesoD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton47ActionPerformed(evt);
+                btnGuardarProcesoDActionPerformed(evt);
             }
         });
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         buscarDistritos.setText("Buscar");
         buscarDistritos.addActionListener(new java.awt.event.ActionListener() {
@@ -587,7 +615,7 @@ public class TipoProceso extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel11)
                                 .addGap(135, 135, 135)
-                                .addComponent(jButton47))
+                                .addComponent(btnGuardarProcesoD))
                             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                     .addComponent(jLabel35)
@@ -624,7 +652,7 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addComponent(porcentajeDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jButton47))
+                    .addComponent(btnGuardarProcesoD))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
@@ -1188,21 +1216,23 @@ public class TipoProceso extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton48ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable7.getModel();
-        Vector row = new Vector();
-        row.add("");
-        row.add("");
-        row.add("");
-        model.addRow(row);
-        Distrito di=new Distrito();
-        di.setNombre("");
-        listaDistritos.add(di);
+        RegistrarDistrito window=new RegistrarDistrito();
+        window.setVisible(true);        
+//        DefaultTableModel model = (DefaultTableModel) jTable7.getModel();
+//        Vector row = new Vector();
+//        row.add("");
+//        row.add("");
+//        row.add("");
+//        model.addRow(row);
+//        Distrito di=new Distrito();
+//        di.setNombre("");
+//        listaDistritos.add(di);
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt){
         
     }
-    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+    private void btnGuardarProcesoDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProcesoDActionPerformed
                 
         TipoProcesoVotacion proceso=null;
         JFormattedTextField fechai1 = jXDatePicker9.getEditor();
@@ -1245,7 +1275,7 @@ public class TipoProceso extends javax.swing.JPanel {
             Manager.updateProceso(proceso);
             JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Distrital");
         }
-    }//GEN-LAST:event_jButton47ActionPerformed
+    }//GEN-LAST:event_btnGuardarProcesoDActionPerformed
 
     private void buscarRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarRegionesActionPerformed
         ArrayList<Region> listaBuscada=new ArrayList<Region>();
@@ -1301,9 +1331,8 @@ public class TipoProceso extends javax.swing.JPanel {
                 datos[1] = Long.toString(listaBuscada.get(i).getCantidadVotantesRegistrados());
             }
             Distrito s=listaBuscada.get(i);
-            //            String co=modelo2.getValueAt(i,2).toString();
-            //            ArrayList<Distrito> reg=Manager.queryByNameDistrito(co);
-            datos[2]=s.getNombre()+"";
+            String n=Manager.queryByIdRegion(s.getIdRegion()).getNombre();
+            datos[2]=""+n;
             modelo2.addRow(datos);
         }
         TableColumn colum1 = null;
@@ -1314,7 +1343,7 @@ public class TipoProceso extends javax.swing.JPanel {
         colum2.setPreferredWidth(5);
         TableColumn colum3 = null;
         colum3 = jTable7.getColumnModel().getColumn(2);
-        colum3.setPreferredWidth(40);
+        colum3.setPreferredWidth(5);
         TableColumn colum4 = null;
         colum4 = jTable7.getColumnModel().getColumn(3);
         colum4.setPreferredWidth(40);
@@ -1352,6 +1381,50 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         JOptionPane.showMessageDialog(null,"Se completo de actualizar las regiones");
     }//GEN-LAST:event_btnGuardarRegionesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        DefaultTableModel modelo = (DefaultTableModel)jTable7.getModel();
+        ArrayList<Distrito> listaDistritosPas = listaDistritos;                
+        for(int i=0;i<listaDistritosPas.size();i++){                    
+            String a=modelo.getValueAt(i,1).toString();                    
+            String n=modelo.getValueAt(i,0).toString();                    
+            int num=-1;
+                    try {
+                        num=Integer.parseInt(a);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
+                        return;
+                    }
+                    if(num<0){
+                        JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
+                        return;
+                    }                    
+                    Distrito s=listaDistritosPas.get(i);
+                    String co=modelo.getValueAt(i,2).toString();
+                    ArrayList<Region> reg=Manager.queryByNameRegion(co);
+                    Distrito r=new Distrito(s.getId(),reg.get(0).getId(),n,num);                    
+                    listaDistritosPas.set(i,r);
+                
+        } 
+        for(int i=0;i<listaDistritosPas.size();i++){
+            Distrito rd=listaDistritosPas.get(i);
+            if(rd.getId()!=0){
+                Manager.updateDistrito(rd);
+            }
+        }
+        JOptionPane.showMessageDialog(null,"Se Completo de actualizar los distritos");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        
+//        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+//        if (jTable6.getSelectedRow() != -1) {
+//            // remove selected row from the model
+//            modelo.removeRow(jTable6.getSelectedRow());
+//            ((DefaultTableModel)jTable6.getModel()).fireTableDataChanged();
+//        } 
+    }//GEN-LAST:event_jTable6MouseClicked
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);
@@ -1380,7 +1453,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private void agregarDatosDistritos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable7.getModel();
         modelo.setRowCount(0);
-        String datos[] = new String[3];
+        String datos[] = new String[4];
         for (int i = 0; i < listaDistritos.size(); i++) {
             datos[0] = listaDistritos.get(i).getNombre();
             if(listaDistritos.get(i).getCantidadVotantesRegistrados() == 0){
@@ -1388,6 +1461,8 @@ public class TipoProceso extends javax.swing.JPanel {
             }else{
                 datos[1] = Long.toString(listaDistritos.get(i).getCantidadVotantesRegistrados());
             }
+            String n=Manager.queryByIdRegion(listaDistritos.get(i).getIdRegion()).getNombre();
+            datos[2]=""+n;
             modelo.addRow(datos);
         }
         TableColumn colum1 = null;
@@ -1397,12 +1472,12 @@ public class TipoProceso extends javax.swing.JPanel {
         colum2 = jTable7.getColumnModel().getColumn(1);
         colum2.setPreferredWidth(5);
         TableColumn colum3 = null;
-        colum2 = jTable7.getColumnModel().getColumn(2);
-        colum2.setPreferredWidth(5);
+        colum3 = jTable7.getColumnModel().getColumn(2);
+        colum3.setPreferredWidth(5);
         TableColumn colum4 = null;
         colum4 = jTable7.getColumnModel().getColumn(3);
         colum4.setPreferredWidth(40);
-        colum4.setPreferredWidth(10);        
+        colum4.setPreferredWidth(10);       
     }
     
     public void paneSelect(int n){
@@ -1472,6 +1547,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JButton addRowRegional;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardarNacional;
+    private javax.swing.JButton btnGuardarProcesoD;
     private javax.swing.JButton btnGuardarProcesoR;
     private javax.swing.JButton btnGuardarRegiones;
     private javax.swing.JButton buscarDistritos;
@@ -1480,7 +1556,6 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton47;
     private javax.swing.JButton jButton48;
     private javax.swing.JButton jButton49;
     private javax.swing.JLabel jLabel1;

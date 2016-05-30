@@ -349,6 +349,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable6MouseClicked"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTable6KeyTyped"/>
                   </Events>
                 </Component>
@@ -501,7 +502,7 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
-                                      <Component id="jButton47" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnGuardarProcesoD" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
@@ -548,7 +549,7 @@
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="porcentajeDistrital" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton47" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGuardarProcesoD" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="10" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -657,12 +658,12 @@
                 <Property name="text" type="java.lang.String" value="Fecha Fin:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton47">
+            <Component class="javax.swing.JButton" name="btnGuardarProcesoD">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton47ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarProcesoDActionPerformed"/>
               </Events>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker9">
@@ -677,6 +678,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buscarDistritos">
               <Properties>
