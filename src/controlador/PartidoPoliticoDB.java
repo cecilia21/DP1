@@ -34,4 +34,16 @@ public class PartidoPoliticoDB {
     public ArrayList<PartidoPolitico> queryByNombTipoLug(String nombre, int ind1, int ind2){
         return daoPartidos.queryByNombTipoLug(nombre, ind1, ind2);
     }
+    
+    public ArrayList<PartidoPolitico> queryByNombTipo(String nombre, int ind1){
+        return daoPartidos.queryByNombTipo(nombre, ind1);
+    }
+    
+    public ArrayList<PartidoPolitico> queryByName(String nombre){
+        return daoPartidos.queryByName(nombre);
+    }
+    
+    public int[] queryTipoProcesoNombrePartido(String nombre){
+        return daoPartidos.queryTipoProcesoNombrePartido(nombre);
+    }
 }

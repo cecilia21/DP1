@@ -37,7 +37,20 @@ public class Manager {
     public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLug(String nombre, int ind1, int ind2){
         return partidoDB.queryByNombTipoLug(nombre, ind1, ind2);
     }
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByNombTipo(String nombre, int ind1){
+        return partidoDB.queryByNombTipo(nombre, ind1);
+    }
+    
     private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByName(String nombre){
+        return partidoDB.queryByName(nombre);
+    }
+    
+    public static int[] queryTipoProcesoNombrePartido(String nombre){
+        return partidoDB.queryTipoProcesoNombrePartido(nombre);
+    }
     
     /////////INSTITUCIONAL
     

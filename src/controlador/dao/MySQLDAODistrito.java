@@ -142,7 +142,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,
                                                             DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM distrito";
+			String sql = "SELECT * FROM Distrito";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
