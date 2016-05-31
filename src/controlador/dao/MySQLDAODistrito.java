@@ -249,5 +249,51 @@ public class MySQLDAODistrito implements DAODistrito {
 		}
 		return p; 
     }
+
+    @Override
+    public ArrayList<Distrito> queryAllByRegion(int idRegion) {
+        
+          
+                 Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Distrito> arr = new ArrayList<Distrito>();
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,
+                                                            DBConnection.password);
+			//Paso 3: Preparar la sentencia
+			String sql = "SELECT * FROM distrito "
+                                + "Where idRegion = ?";
+			pstmt = conn.prepareStatement(sql);
+                        pstmt.setInt(1, idRegion);
+			//Paso 4: Ejecutar la sentencia
+			rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+			while (rs.next()){
+				int id = rs.getInt("idDistrito");
+				String name = rs.getString("nombre");
+				int cant = rs.getInt("cantidadVotantes");
+                                int idReg = rs.getInt("idRegion");
+				Distrito p=new Distrito(id,idReg,name,cant);
+				arr.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
+		return arr;
+        
+        
+   }
     
 }

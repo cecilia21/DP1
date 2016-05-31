@@ -5,13 +5,21 @@
  */
 package grupob;
 
+import controlador.Manager;
 import java.awt.Component;
+import java.awt.ItemSelectable;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import javax.swing.AbstractCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
+import model.Distrito;
+import model.Local;
 
 
 
@@ -24,12 +32,19 @@ public class CellListenerEditor extends AbstractCellEditor implements TableCellE
     private String oldValue;
     private String newValue;
     private JComponent component  = new JTextField();
+    Local local = null;
+    String colName;
+
     
+     
 
     @Override
     public Object getCellEditorValue() {
+
+            //This is TextField
+        
              return  ((JTextField)component).getText();
-    
+           
           
     }
 
@@ -37,7 +52,11 @@ public class CellListenerEditor extends AbstractCellEditor implements TableCellE
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
     
          oldValue = value.toString();//Toma valor de celda antes de cualquier modificación
-         
+        
+            LocalTableModel model =     ( LocalTableModel)  table.getModel();
+            colName = model.getColumnName(column);
+            local = model.getRow(row);
+                /*
          switch(column){
          
              case 1:
@@ -51,12 +70,16 @@ public class CellListenerEditor extends AbstractCellEditor implements TableCellE
                         ((JTextField)component).setText(oldValue);//coloca valor de la celda al JTextField
                          
                       }
+             
+                   
                       
          }
-       // ID = table.getValueAt(row,0).toString();//obtiene el ID unico del registro
+       */
+         
+             
        
         return component;
-    
+         
     
     }
     
@@ -65,19 +88,27 @@ public class CellListenerEditor extends AbstractCellEditor implements TableCellE
     
         newValue = (String)getCellEditorValue();
         
-        if(!newValue.equals(oldValue)){
+        if(colName.equals("Nombre"))
+            local.setNombre(newValue);
+        if(colName.equals("Cantidad de Votantes")){
         
-         JOptionPane.showMessageDialog(null,"Error: No se puede actualizar");
-         ((JTextField)component).setText(oldValue);
+            try{
+                int val = Integer.parseInt(newValue);
+                local.setCantidadVotantesRegistrados(val);
+                
+            }catch(Exception ex){
+            
+                   JOptionPane.showMessageDialog(null,"Incorrecto");
+                   ((JTextField)component).setText(oldValue);
+                
+            }
             
         
         }
+
     
+        
         return super.stopCellEditing();
     }
-    
-    
-    
-   
-    
+
 }

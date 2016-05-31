@@ -13,7 +13,9 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 import model.Distrito;
 import model.Local;
@@ -27,6 +29,8 @@ public class DistritoComboBox extends AbstractCellEditor implements TableCellEdi
     
     ArrayList<Distrito> distritos  = null;
     JComboBox jcb = new JComboBox();
+    String oldValue;
+    JComponent component  = new JTextField();
     Object valorActual;
     Local local = null;
     

@@ -80,5 +80,12 @@ public class Region {
     public void setTipoProceso(int tipoProceso) {
         this.tipoProceso = tipoProceso;
     }
+    
+    @Override
+    public String toString(){
+        
+        return nombre;
+    
+    }
         
 }

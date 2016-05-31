@@ -97,6 +97,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(buscarPartido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         locales.setText("Locales");
+        locales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                localesActionPerformed(evt);
+            }
+        });
         getContentPane().add(locales, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         pack();
@@ -155,6 +160,18 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_regionesActionPerformed
+
+    private void localesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localesActionPerformed
+
+        panelPrincipal.removeAll();
+        TipoProceso part = new TipoProceso();
+       // part.paneSelect(2);
+        panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_localesActionPerformed
 
     /**
      * @param args the command line arguments

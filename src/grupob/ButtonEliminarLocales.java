@@ -9,12 +9,17 @@ import controlador.Manager;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EventObject;
+import javax.swing.AbstractCellEditor;
 import javax.swing.DefaultCellEditor;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import model.Local;
 
 
@@ -22,25 +27,49 @@ import model.Local;
  *
  * @author Franz
  */
-public class ButtonEliminarLocales extends DefaultCellEditor {
+public class ButtonEliminarLocales extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
     protected JButton button;
+    Object value;
 	private DeleteButtonListener bListener = new DeleteButtonListener();
 
-	@SuppressWarnings("deprecation")
-	public ButtonEliminarLocales(JCheckBox checkBox) {
-		super(checkBox);
-            button = new JButton();
+	
+	public ButtonEliminarLocales() {
+	    button = new JButton();
 	    button.setOpaque(true);
+            button.setIcon(new ImageIcon(getClass().getResource("/Imagenes/cancelar.png")));
 	    button.addActionListener(bListener);
+            
  
 	}
  
 	  public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		    bListener.setRow(row);
 		    bListener.setTable(table);
+                    this.value = value;
+                    
+                    button.setIcon(new ImageIcon(getClass().getResource("/Imagenes/cancelar.png")));
 //		    button.setText( (value == null) ? "" : value.toString() );
 		    return button;
 		  }
+
+    @Override
+    public Object getCellEditorValue() {
+        return null;
+    
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+       
+        if(value instanceof Icon){
+            button.setIcon((Icon) value);
+        }else
+            button.setIcon(null);
+                    
+        return button;
+    
+    }
+
  
 	  class DeleteButtonListener implements ActionListener {
  
@@ -53,18 +82,21 @@ public class ButtonEliminarLocales extends DefaultCellEditor {
 	        public void actionPerformed(ActionEvent event) {
 	        	if(table.getRowCount() > 0){
                             int dialogButton = JOptionPane.YES_NO_OPTION;
+                            
                             int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
                             if(n==JOptionPane.YES_OPTION){
-                                Local re=TipoProceso.listaLocales.get(this.row);
+                            
+                                    LocalTableModel model = (LocalTableModel) table.getModel();
+                                    Local re  = model.localList.get(this.row);
+
+                             
                                 if(re.getId()!=0){
                                     Manager.deleteLocal(re.getId());
-                                    TipoProceso.listaLocales.remove(this.row);
+                                   // TipoProceso.listaLocales.remove(this.row);
                                 }
-//                                re.setNombre("*******");
-//                                TipoProceso.listaRegiones.set(this.row,re);
-//                                Inicio.listaRegiones.remove(this.row);
-                                ((DefaultTableModel)table.getModel()).removeRow(this.row);
-                                ((DefaultTableModel)table.getModel()).fireTableDataChanged();
+//                             
+                                ((LocalTableModel)table.getModel()).localList.remove(row);
+                                ((LocalTableModel)table.getModel()).fireTableDataChanged();
                             }     
                         }
 	      }

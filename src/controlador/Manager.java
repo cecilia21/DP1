@@ -151,6 +151,13 @@ public class Manager {
         return procesoDistritoDB.queryByName(name);
     }
     
+    public static ArrayList<Distrito> queryAllDistritoByRegion(int idRegion)
+    {
+        return procesoDistritoDB.queryAllDistritosByRegion(idRegion);
+    }
+    
+    
+    
     /////FIN DISTRITAL
     
     ///LOCALES

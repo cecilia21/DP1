@@ -19,4 +19,6 @@ public interface DAODistrito {
     ArrayList<Distrito> queryAll();   
     Distrito queryById(int idRegion);
     Distrito queryByName(String name);
+    ArrayList<Distrito> queryAllByRegion(int idRegion);   
+    
 }
