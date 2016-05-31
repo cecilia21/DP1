@@ -65,6 +65,10 @@ public class Manager {
         return tipoprocesoDB.queryByName(nombre);
     }
     
+    public static void deletePartidoById(int id){
+        partidoDB.delete(id);
+    }
+    
     /////////INSTITUCIONAL
     
      public static void addInstitucion(Institucion i)

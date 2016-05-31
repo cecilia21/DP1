@@ -147,7 +147,7 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                                                 DBConnection.password);
             //Paso 3: Preparar la sentencia
                 String sql = "DELETE FROM PartidoPolitico "
-                                + "WHERE id = ?";
+                                + "WHERE idPartido=?";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1, idPartido);
                 //Paso 4: Ejecutar la sentencia

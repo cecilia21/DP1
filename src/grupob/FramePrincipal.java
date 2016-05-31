@@ -37,56 +37,30 @@ public class FramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        registrarPartido = new javax.swing.JButton();
-        instituciones = new javax.swing.JButton();
-        distritos = new javax.swing.JButton();
         panelPrincipal = new javax.swing.JPanel();
-        regiones = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         buscarPartido = new javax.swing.JButton();
+        registrarPartido = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        instituciones = new javax.swing.JButton();
+        regiones = new javax.swing.JButton();
         locales = new javax.swing.JButton();
+        distritos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(750, 450));
+        setMinimumSize(new java.awt.Dimension(900, 600));
+        setPreferredSize(new java.awt.Dimension(980, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        registrarPartido.setText("Registrar Partido");
-        registrarPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarPartidoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(registrarPartido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-
-        instituciones.setText("Instituciones");
-        instituciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                institucionesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(instituciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
-
-        distritos.setText("Distritos");
-        distritos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                distritosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
-
-        panelPrincipal.setMinimumSize(new java.awt.Dimension(580, 400));
+        panelPrincipal.setMinimumSize(new java.awt.Dimension(580, 500));
         panelPrincipal.setName(""); // NOI18N
-        panelPrincipal.setPreferredSize(new java.awt.Dimension(580, 400));
+        panelPrincipal.setPreferredSize(new java.awt.Dimension(680, 500));
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 590, 380));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 700, 500));
         panelPrincipal.getAccessibleContext().setAccessibleName("");
 
-        regiones.setText("Regiones");
-        regiones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regionesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Partidos Políticos"));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buscarPartido.setText("Buscar Partido");
         buscarPartido.addActionListener(new java.awt.event.ActionListener() {
@@ -94,10 +68,49 @@ public class FramePrincipal extends javax.swing.JFrame {
                 buscarPartidoActionPerformed(evt);
             }
         });
-        getContentPane().add(buscarPartido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jPanel1.add(buscarPartido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        registrarPartido.setText("Registrar Partido");
+        registrarPartido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarPartidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(registrarPartido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 170, 110));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuración de procesos"));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        instituciones.setText("Instituciones");
+        instituciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                institucionesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(instituciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+
+        regiones.setText("Regiones");
+        regiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regionesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         locales.setText("Locales");
-        getContentPane().add(locales, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jPanel2.add(locales, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        distritos.setText("Distritos");
+        distritos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                distritosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 170, 190));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -111,7 +124,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         panelPrincipal.removeAll();
         repaint();
         panelPrincipal.setVisible(false);
-        RegistrarPartido part = new RegistrarPartido();
+        RegistrarPartido part = new RegistrarPartido(this);
         panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
         panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
@@ -233,11 +246,26 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }
+    
+    public void mostrarBusqueda(){
+        panelPrincipal.removeAll();
+        repaint();
+        panelPrincipal.setVisible(false);
+        BusquedaPartidos part = new BusquedaPartidos(this);
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
+        panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelPrincipal.setVisible(true);
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarPartido;
     private javax.swing.JButton distritos;
     private javax.swing.JButton instituciones;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton locales;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JButton regiones;

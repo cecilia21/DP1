@@ -23,6 +23,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
      * Creates new form VistaAdherentes
      */
     public static FramePrincipal padre;
+    private PartidoPolitico partidoAdherente;
     public VistaAdherentes(FramePrincipal parent) {
         padre = parent;
         initComponents();
@@ -44,7 +45,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
         tabla_adherentes = new javax.swing.JTable();
         jButton43 = new javax.swing.JButton();
         jButton44 = new javax.swing.JButton();
-        jButton45 = new javax.swing.JButton();
+        boton_cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         tipo_proceso = new javax.swing.JTextField();
 
@@ -90,10 +91,10 @@ public class VistaAdherentes extends javax.swing.JPanel {
             }
         });
 
-        jButton45.setText("Cancelar");
-        jButton45.addActionListener(new java.awt.event.ActionListener() {
+        boton_cancelar.setText("Cancelar");
+        boton_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton45ActionPerformed(evt);
+                boton_cancelarActionPerformed(evt);
             }
         });
 
@@ -116,7 +117,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
                         .addGap(55, 55, 55)
                         .addComponent(jButton44)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton45))
+                        .addComponent(boton_cancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +149,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton43)
                     .addComponent(jButton44)
-                    .addComponent(jButton45))
+                    .addComponent(boton_cancelar))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -176,12 +177,14 @@ public class VistaAdherentes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton44ActionPerformed
 
-    private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
+    private void boton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cancelarActionPerformed
 
         //el cancelar te debe llevar a la pantalla principal de busqueda
-    }//GEN-LAST:event_jButton45ActionPerformed
+        padre.mostrarDetallePartido(partidoAdherente);
+    }//GEN-LAST:event_boton_cancelarActionPerformed
 
     public void showDetail(PartidoPolitico p, int tipoProc){
+        partidoAdherente = p;
         nombre_partido.setText(p.getNombre());
         ArrayList<PartidoPolitico> partidos = Manager.queryPartidoByNombTipo(p.getNombre(), tipoProc);
         TipoProcesoVotacion proceso = Manager.queryProcesoById(tipoProc);
@@ -204,7 +207,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
         adherentesModel.adherentes = ads;
         adherentesModel.valores = new Boolean[ads.size()];
         for(int i=0;i<ads.size();i++)
-            adherentesModel.valores[i]=false;
+            adherentesModel.valores[i]=Boolean.FALSE;
         tabla_adherentes.setModel(adherentesModel);
         
     }
@@ -259,22 +262,38 @@ public class VistaAdherentes extends javax.swing.JPanel {
                     case 1:
                         return String.class;
                     case 2:
-                        return String.class;
-                    case 3:
                         if(titles.length>3)
                             return String.class;
                         else return Boolean.class;
+                    case 3:
+                        return Boolean.class;
                     default:
                         return Boolean.class;
                 }
             }
+            
+            @Override
+            public void setValueAt(Object value, int row, int column) {
+                if(titles.length>3 && column ==3){
+                    valores[row]=!valores[row];
+                }
+                if(titles.length==3 && column==2 )
+                    valores[row]=!valores[row];
+                return;
+              }
+            
+            public boolean isCellEditable(int row, int column) {
+                if(titles.length>3 && column == 3) return true;
+                if(titles.length==3 && column==2) return true;
+                return false;
+              }
 		
 	}
     private MyTableModel adherentesModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton_cancelar;
     private javax.swing.JButton jButton43;
     private javax.swing.JButton jButton44;
-    private javax.swing.JButton jButton45;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
