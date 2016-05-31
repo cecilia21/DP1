@@ -138,10 +138,10 @@ public class MySQLDAORegion implements DAORegion {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,null
-                                                            /*DBConnection.password*/);
+                                                            DBConnection.user,
+                                                            DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region";
+			String sql = "SELECT * FROM Region";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
@@ -195,8 +195,8 @@ public class MySQLDAORegion implements DAORegion {
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int t = rs.getInt("idTipoProceso");
+                                p=new Region(id,name,cant);
                                 p.setTipoProceso(t);
-				p=new Region(id,name,cant);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

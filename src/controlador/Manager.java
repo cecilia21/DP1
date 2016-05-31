@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Adherente;
 import model.Distrito;
 import model.Institucion;
 import model.Local;
@@ -37,7 +38,36 @@ public class Manager {
     public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLug(String nombre, int ind1, int ind2){
         return partidoDB.queryByNombTipoLug(nombre, ind1, ind2);
     }
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByNombTipo(String nombre, int ind1){
+        return partidoDB.queryByNombTipo(nombre, ind1);
+    }
+    
     private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByName(String nombre){
+        return partidoDB.queryByName(nombre);
+    }
+    
+    public static int[] queryTipoProcesoNombrePartido(String nombre){
+        return partidoDB.queryTipoProcesoNombrePartido(nombre);
+    }
+    
+    public static PartidoPolitico queryPartidoById(int id){
+        return partidoDB.queryPartidoById(id);
+    }
+    
+    public static ArrayList<Adherente> queryAdherentesByPartidoId(int idPartido) {
+        return partidoDB.queryAdherentesById(idPartido);
+    }
+    
+    public static TipoProcesoVotacion queryTipoProcesoByName(String nombre){
+        return tipoprocesoDB.queryByName(nombre);
+    }
+    
+    public static void deletePartidoById(int id){
+        partidoDB.delete(id);
+    }
     
     /////////INSTITUCIONAL
     

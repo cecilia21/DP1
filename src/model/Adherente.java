@@ -10,24 +10,26 @@ package model;
  * @author RAMON
  */
 public class Adherente {
-    private int dni;
+    private String dni;
     private String estado;
+    private String jpg;
+    private int idPartido;
 
-    public Adherente(int dni){
+    public Adherente(String dni){
         this.dni=dni;
         this.estado="NoInscrito";
     }
     /**
      * @return the dni
      */
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
     /**
      * @param dni the dni to set
      */
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -43,6 +45,34 @@ public class Adherente {
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the jpg
+     */
+    public String getJpg() {
+        return jpg;
+    }
+
+    /**
+     * @param jpg the jpg to set
+     */
+    public void setJpg(String jpg) {
+        this.jpg = jpg;
+    }
+
+    /**
+     * @return the idPartido
+     */
+    public int getIdPartido() {
+        return idPartido;
+    }
+
+    /**
+     * @param idPartido the idPartido to set
+     */
+    public void setIdPartido(int idPartido) {
+        this.idPartido = idPartido;
     }
     
 }

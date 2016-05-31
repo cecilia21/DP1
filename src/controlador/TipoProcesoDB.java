@@ -39,4 +39,8 @@ public class TipoProcesoDB {
         return daoTipoProcesoVotacion.queryAll();
     }
     
+    public TipoProcesoVotacion queryByName(String nombre){
+        return daoTipoProcesoVotacion.queryByName(nombre);
+    }
+    
 }
