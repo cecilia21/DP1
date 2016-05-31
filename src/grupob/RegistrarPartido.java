@@ -6,15 +6,18 @@
 package grupob;
 
 import controlador.Manager;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import model.Distrito;
 import model.Institucion;
 import model.PartidoPolitico;
 import model.Region;
 import model.TipoProcesoVotacion;
-
 /**
  *
  * @author USUARIO
@@ -35,7 +38,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
         for(int i=0; i<procs.size();i++){
             registro_tipo_proceso.addItem(procs.get(i).getNombre());
         }
-        
+        nombre_partido.setInputVerifier(new MyInputVerifier());
     }
 
     /**
@@ -182,9 +185,23 @@ public class RegistrarPartido extends javax.swing.JPanel {
 
     private void nombre_partidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_partidoActionPerformed
         // TODO add your handling code here:
+        MyInputVerifier inputVerifier = new MyInputVerifier();
+
+            if (inputVerifier.verify(nombre_partido)){
+                JOptionPane.showMessageDialog(null, "True Value");
+            }
+            else JOptionPane.showMessageDialog(null, "False Value");
     }//GEN-LAST:event_nombre_partidoActionPerformed
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        
+        MyInputVerifier inputVerifier = new MyInputVerifier();
+
+            if (!inputVerifier.verify(nombre_partido)){
+                JOptionPane.showMessageDialog(null, "El nombre es un campo obligatorio");
+                return;
+            }
+        
         String nombre, correoPartido, correoRep, nombreRep, dni_text, apellidosRep;
         nombreRep= nombres_rep.getText();
         apellidosRep = apellidos_rep.getText();
@@ -229,6 +246,17 @@ public class RegistrarPartido extends javax.swing.JPanel {
         registro_tipo_proceso.setSelectedIndex(0);
         registro_lugar.setVisible(false);
         registro_seleccione_lugar.setVisible(false);
+    }
+    
+    public class MyInputVerifier extends InputVerifier {
+        @Override
+        public boolean verify(JComponent input) {
+            String text = ((JTextField) input).getText().trim();
+            if (text.isEmpty()) return false;
+            if (text.matches(".*\\d.*")) return false;
+            if (text.contains("1")) return false;
+            return true;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
