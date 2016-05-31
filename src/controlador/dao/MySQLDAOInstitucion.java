@@ -34,16 +34,15 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                                                         DBConnection.password);
                 //Paso 3: Preparar la sentencia
                 String sql = "INSERT INTO Institucion "
-                                + "(idDistrito, idLocal, idRegion, nombre,cantidadVotantesRegistrados)"
-                                + "VALUES (?,?,?,?,?)";
+                                + "(idLocal,nombre,cantidadVotantes,idTipoProceso)"
+                                + "VALUES (?,?,?,?)";
                 
                 pstmt = (PreparedStatement) conn.prepareStatement(sql);
                 //pstmt.setInt(1, p.getId());
-                pstmt.setInt(1, i.getIdDistrito());
-                pstmt.setInt(2, i.getIdLocal());
-                pstmt.setInt(3, i.getIdRegion());
-                pstmt.setString(4, i.getNombre());
-                pstmt.setInt(5, i.getCantidadVotantesRegistrados());
+                pstmt.setInt(1, i.getIdLocal());
+                pstmt.setString(2, i.getNombre());
+                pstmt.setInt(3, i.getCantidadVotantesRegistrados());
+                pstmt.setInt(4, i.getTipoProceso());
                 //Paso 4: Ejecutar la sentencia
                 pstmt.executeUpdate();
                 //Paso 5(opc.): Procesar los resultados			
@@ -73,12 +72,13 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                             DBConnection.password);
             //Paso 3: Preparar la sentencia
             String sql = "UPDATE Institucion "
-                            + "SET nombre=?,cantidadVotantesRegistrados=?"
-                            + "WHERE id=?";
+                            + "SET nombre=?,cantidadVotantes=?,idlocal=? "
+                            + "WHERE idInstitucion=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setString(1, i.getNombre());
             pstmt.setInt(2, i.getCantidadVotantesRegistrados());
-            pstmt.setInt(3, i.getId());			
+            pstmt.setInt(3, i.getIdLocal());
+            pstmt.setInt(4, i.getId());			
             //Paso 4: Ejecutar la sentencia
             pstmt.executeUpdate();
             //Paso 5(opc.): Procesar los resultados			
@@ -106,7 +106,7 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                                 DBConnection.user,
                                 DBConnection.password);
                 //Paso 3: Preparar la sentencia
-                String sql = "DELETE FROM Institucion WHERE id=?";
+                String sql = "DELETE FROM Institucion WHERE idInstitucion=?";
                 pstmt = (PreparedStatement) conn.prepareStatement(sql);
                 //pstmt.setInt(1, p.getId());
                 pstmt.setInt(1, idInstitucion);
@@ -147,18 +147,16 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                 while (rs.next()){
                     int id = rs.getInt("idInstitucion");
                     int idLocal = rs.getInt("idLocal");
-                    //int idDistrito = rs.getInt("idDistrito");
-                    int idRegion = rs.getInt("idTipoProceso");
                     String nombre = rs.getString("nombre");
-                    int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
+                    int cantidadVotantes = rs.getInt("cantidadVotantes");
+                    int tipoProceso=rs.getInt("idTipoProceso");
                                        
                     Institucion i = new Institucion();
                     i.setId(id);
                     i.setIdLocal(idLocal);
-                    //i.setIdDistrito(idDistrito);
-                    //i.setIdRegion(idRegion);
                     i.setNombre(nombre);
-                    i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
+                    i.setCantidadVotantesRegistrados(cantidadVotantes);
+                    i.setTipoProceso(tipoProceso);
                     arr.add(i);
                 }
         } catch (SQLException e) {
@@ -194,19 +192,17 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
             //Paso 4: Ejecutar la sentencia
             rs = pstmt.executeQuery();
             //Paso 5(opc.): Procesar los resultados
-            int id = rs.getInt("id");
+            rs.next();
+            int id = rs.getInt("idInstitucion");
             int idLocal = rs.getInt("idLocal");
-            int idDistrito = rs.getInt("idDistrito");
-            int idRegion = rs.getInt("idRegion");
             String nombre = rs.getString("nombre");
-            int CantidadVotantesRegistrados = rs.getInt("cantidadVotantesRegistrados");
-
+            int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
+            int tipoProceso=rs.getInt("idTipoProceso");  
             i.setId(id);
             i.setIdLocal(idLocal);
-            i.setIdDistrito(idDistrito);
-            i.setIdRegion(idRegion);
             i.setNombre(nombre);
             i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
+            i.setTipoProceso(tipoProceso);
         } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -218,6 +214,54 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                         catch (Exception e){e.printStackTrace();};						
         }
         return i;		
+    }
+
+    @Override
+    public ArrayList<Institucion> queryByName(String nombre) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Institucion> arr = new ArrayList<Institucion>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new Driver());
+                //Paso 2: Obtener la conexión
+                conn = (Connection) DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                DBConnection.user,
+                                DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "SELECT * FROM Institucion WHERE NOMBRE LIKE ?";
+                pstmt = (PreparedStatement) conn.prepareStatement(sql);
+                pstmt.setString(1,"%"+nombre+"%");
+                //Paso 4: Ejecutar la sentencia
+                rs = pstmt.executeQuery();
+                //Paso 5(opc.): Procesar los resultados
+                while (rs.next()){
+                    int id = rs.getInt("idInstitucion");
+                    int idLocal = rs.getInt("idLocal");
+                    String nombreQ = rs.getString("nombre");
+                    int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
+                    int tipoProceso=rs.getInt("idTipoProceso");                   
+                    Institucion i = new Institucion();
+                    i.setId(id);
+                    i.setIdLocal(idLocal);
+                    i.setNombre(nombreQ);
+                    i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
+                    i.setTipoProceso(tipoProceso);
+                    arr.add(i);
+                }
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally {
+                //Paso 6(OJO): Cerrar la conexión
+                try { if (pstmt!= null) pstmt.close();} 
+                        catch (Exception e){e.printStackTrace();};
+                try { if (conn!= null) conn.close();} 
+                        catch (Exception e){e.printStackTrace();};						
+        }
+        return arr;    
+
     }
     
 }

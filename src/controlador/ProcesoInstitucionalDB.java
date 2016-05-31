@@ -40,5 +40,10 @@ public class ProcesoInstitucionalDB {
     public Institucion queryById(int idInstitucion) {
         return daoInstitucion.queryById(idInstitucion);
     }
+    public ArrayList<Institucion> queryByName(String nombre)
+    {
+    	institucionList = daoInstitucion.queryByName(nombre);
+        return institucionList;
+    }
     
 }

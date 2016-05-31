@@ -79,9 +79,9 @@ public class Manager {
     {
         procesoInstitucionalDB.update(i);
     }
-    public static void deleteInstitucion(int idProduct)
+    public static void deleteInstitucion(int idInstitucion)
     {
-        procesoInstitucionalDB.delete(idProduct);
+        procesoInstitucionalDB.delete(idInstitucion);
     }
     public static ArrayList<Institucion> queryAllInstitucion()
     {
@@ -89,6 +89,10 @@ public class Manager {
     }
     public static Institucion queryInstitucionById(int institucionId) {
         return procesoInstitucionalDB.queryById(institucionId);
+    }
+    public static ArrayList<Institucion> queryByNameInstitucion(String nombre)
+    {
+        return procesoInstitucionalDB.queryByName(nombre);
     }
     
     /////////FIN INSTITUCIONAL
