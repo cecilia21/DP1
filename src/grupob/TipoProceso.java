@@ -42,6 +42,7 @@ public class TipoProceso extends javax.swing.JPanel {
     public static ArrayList<Local> listaLocales;
     public TipoProceso() {
         initComponents();
+        initInstitucional();
 //        listaRegiones.add(new Region(1,"Lima",15000));
 //        listaRegiones.add(new Region(1,"Arequipa",10000));
 //        listaRegiones.add(new Region(1,"Junin",12000));
@@ -114,6 +115,28 @@ public class TipoProceso extends javax.swing.JPanel {
         
         jTabbedPane4.addChangeListener(changeListener);
         
+        
+    }
+    
+    void initInstitucional(){
+        TipoProcesoVotacion tipoInstitucional=Manager.queryProcesoById(5);
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        if(tipoInstitucional!=null && tipoInstitucional.getId()!=0){
+            if(!tipoInstitucional.getFechaInicio2().after(dateActual)){
+                btn1FIInstitucional.setDate(tipoInstitucional.getFechaInicio1().getTime());
+                btn2FIInstitucional.setDate(tipoInstitucional.getFechaInicio2().getTime());
+                btn1FFInstitucional.setDate(tipoInstitucional.getFechaFin1().getTime());
+                btn2FFInstitucional.setDate(tipoInstitucional.getFechaFin2().getTime());
+                txtPorInstitucional.setText(""+tipoInstitucional.getPorcentajeMinimo()*100);
+            }
+            if((tipoInstitucional.getFechaInicio1().before(dateActual)) && (cal.before(tipoInstitucional.getFechaFin2()))){
+                btnGuardarInstitucionalTP.setEnabled(false);
+            }
+            if(tipoInstitucional.getFechaFin2().before(dateActual)){
+                btnGuardarInstitucionalTP.setEnabled(true);
+            }
+        }
         
     }
 
@@ -1327,8 +1350,74 @@ public class TipoProceso extends javax.swing.JPanel {
 
     private void btnGuardarInstitucionalTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarInstitucionalTPActionPerformed
         // TODO add your handling code here:
+        TipoProcesoVotacion proceso=null;   
+        JFormattedTextField fechai1 = btn1FIInstitucional.getEditor();
+        Date datei1 = (Date) fechai1.getValue();
+        JFormattedTextField fechai2 = btn2FIInstitucional.getEditor();
+        Date datei2 = (Date) fechai2.getValue();
+        JFormattedTextField fechaf1 = btn1FFInstitucional.getEditor();
+        Date datef1 = (Date) fechaf1.getValue();
+        JFormattedTextField fechaf2 = btn2FFInstitucional.getEditor();
+        Date datef2 = (Date) fechaf2.getValue();
+        if(datei1==null||datei2==null||datef1==null||datef2==null){
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
+            return;
+        }
+        double por;
+        Calendar cal = Calendar.getInstance();
+        try{
+            por=Double.parseDouble(txtPorInstitucional.getText())/100;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
+            return;
+        }
+        Calendar calA = Calendar.getInstance();                
+        proceso=new TipoProcesoVotacion();
+        proceso.setId(5);
+        calA.setTime(datei1);
+        proceso.setFechaInicio1(calA);                
+        Calendar calB = Calendar.getInstance();                 
+        calB.setTime(datei2);                
+        proceso.setFechaInicio2(calB);                
+        Calendar calC = Calendar.getInstance();                 
+        calC.setTime(datef1);                
+        proceso.setFechaFin1(calC);                
+        Calendar calD = Calendar.getInstance();                 
+        calD.setTime(datef2);                
+        proceso.setFechaFin2(calD);
+        proceso.setPorcentajeMinimo((float)por);
+        proceso.setNombre("Institucional"); 
+        if(verificaFechas(datei1,datei2,datef1,datef2))                
+        {                    
+            Manager.updateProceso(proceso);                    
+            JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");                
+        }
+        
+        
     }//GEN-LAST:event_btnGuardarInstitucionalTPActionPerformed
 
+    private boolean verificaFechas(Date datei1,Date datei2,Date datef1,Date datef2){
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        if(datei1.compareTo(dateActual)<0 || datei2.compareTo(dateActual)<0 || datef1.compareTo(dateActual)<0  || datef2.compareTo(dateActual)<0){
+            JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+            return false;
+        }                      
+        if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        }
+        if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        } 
+        if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        }
+        return true;
+    }
+    
     private void btnGuardarInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarInstitucionalActionPerformed
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel)tblInstitucional.getModel();
