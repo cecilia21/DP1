@@ -175,4 +175,59 @@ public class MySQLDAOTipoProcesoVotacion implements DAOTipoProcesoVotacion {
             }
             return null;
     }
+    
+    @Override
+    public TipoProcesoVotacion queryByName(String nombreProc){
+        Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			//Paso 1: Registrar el Driver
+			DriverManager.registerDriver(new Driver());
+			//Paso 2: Obtener la conexión
+			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
+			//Paso 3: Preparar la sentencia
+			String sql = "SELECT * FROM TipoProceso "
+					+ "WHERE nombre=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nombreProc);
+			//Paso 4: Ejecutar la sentencia
+			rs = pstmt.executeQuery();
+			//Paso 5(opc.): Procesar los resultados
+			if (rs.next()){
+				int id = rs.getInt("idProceso");
+				String nombre = rs.getString("nombre");
+                            Calendar fechaInicio1 = Calendar.getInstance();
+                            fechaInicio1.setTime(rs.getDate("fechaInicio1"));
+                            Calendar fechaInicio2 = Calendar.getInstance();
+                            fechaInicio2.setTime(rs.getDate("fechaInicio2"));
+                            Calendar fechaFin1 = Calendar.getInstance();
+                            fechaFin1.setTime(rs.getDate("fechaFin1"));
+                            Calendar fechaFin2 = Calendar.getInstance();
+                            fechaFin2.setTime(rs.getDate("fechaFin2"));
+                            float porc = rs.getFloat("porcentaje");
+                            TipoProcesoVotacion tpv = new TipoProcesoVotacion();
+                            tpv.setId(id);
+                            tpv.setFechaFin1(fechaFin1);
+                            tpv.setFechaFin2(fechaFin2);
+                            tpv.setFechaInicio1(fechaInicio1);
+                            tpv.setFechaInicio2(fechaInicio2);
+                            tpv.setNombre(nombre);
+                            tpv.setPorcentajeMinimo(porc);
+                            return tpv;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//Paso 6(OJO): Cerrar la conexión
+			try { if (pstmt!= null) pstmt.close();} 
+				catch (Exception e){e.printStackTrace();};
+			try { if (conn!= null) conn.close();} 
+				catch (Exception e){e.printStackTrace();};						
+		}
+		return null;    
+    }
 }

@@ -220,14 +220,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         pack();
     }
     
-    public void mostrarAdherentes(PartidoPolitico p){
+    public void mostrarAdherentes(PartidoPolitico p, int tipoProc){
         panelPrincipal.removeAll();
         repaint();
         panelPrincipal.setVisible(false);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
         VistaAdherentes part = new VistaAdherentes(this);
-        part.showDetail(p);
+        part.showDetail(p, tipoProc);
         panelPrincipal.add(part, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
         panelPrincipal.setVisible(true);
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));

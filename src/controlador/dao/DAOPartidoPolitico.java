@@ -6,6 +6,7 @@
 package controlador.dao;
 
 import java.util.ArrayList;
+import model.Adherente;
 import model.PartidoPolitico;
 
 /**
@@ -22,4 +23,5 @@ public interface DAOPartidoPolitico {
     PartidoPolitico queryById(int idProduct);
     ArrayList<PartidoPolitico> queryByName(String nombre);
     int[] queryTipoProcesoNombrePartido(String nombre);
+    ArrayList<Adherente> queryAdherentesById(int id);
 }

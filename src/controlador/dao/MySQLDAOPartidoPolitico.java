@@ -21,6 +21,7 @@ import com.mysql.jdbc.Driver;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import model.Adherente;
 import model.PartidoPolitico;
 
 public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
@@ -224,9 +225,72 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
 	}
 
 	@Override
-	public PartidoPolitico queryById(int idProduct) {
+	public PartidoPolitico queryById(int idPartido) {
 		
-		return null;	
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            try {
+                    //Paso 1: Registrar el Driver
+                    DriverManager.registerDriver(new Driver());
+                    //Paso 2: Obtener la conexión
+                    conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                            DBConnection.user,
+                                                            DBConnection.password);
+                    //Paso 3: Preparar la sentencia
+                    String sql = "SELECT * "
+                            + "FROM PartidoPolitico WHERE idPartido="+idPartido;
+
+                    pstmt = conn.prepareStatement(sql);
+                    //Paso 4: Ejecutar la sentencia
+                    rs = pstmt.executeQuery();
+                    //Paso 5(opc.): Procesar los resultados
+                    PartidoPolitico p = new PartidoPolitico();
+                    while (rs.next()){
+                        int id = rs.getInt("idPartido");
+                        String name = rs.getString("nombre");
+                        String nombre_rep =rs.getString("nombreRep");
+                        String apellido_rep = rs.getString("apellidoRep");
+                        int cant = rs.getInt("cantRegistrosValidos");
+                        String dni = rs.getString("dniRep");
+                        String correo = rs.getString("correo");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(rs.getDate("fechaReg"));
+                        String estado = rs.getString("estado");
+                        int proceso = rs.getInt("idTipoProceso");
+                        int region = rs.getInt("idRegion");
+                        int local = rs.getInt("idLocal");
+                        int insti = rs.getInt("idInstitucion");
+                        int distrito = rs.getInt("idDistrito");
+                        p.setNombre(name);
+                        p.setNombreRepresentante(nombre_rep);
+                        p.setApellidoRepresentante(apellido_rep);
+                        p.setCantidadRegistrosValidos(cant);
+                        p.setDniRepresentante(dni);
+                        p.setCorreoPartido(correo);
+                        p.setFechaRegistro(cal);
+                        p.setEstado(estado);
+                        p.setIdDistrito(distrito);
+                        p.setIdInstitucion(insti);
+                        p.setIdLocal(local);
+                        p.setIdRegion(region);
+                        p.setIdTipoProceso(proceso);                   
+                    }
+                    pstmt.close();
+                    conn.close();
+                    return p;
+            } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            } finally {
+                    //Paso 6(OJO): Cerrar la conexión
+                    try { if (pstmt!= null) pstmt.close();} 
+                            catch (Exception e){e.printStackTrace();};
+                    try { if (conn!= null) conn.close();} 
+                            catch (Exception e){e.printStackTrace();};	
+            }
+
+            return null;
 	}
         
         @Override
@@ -329,6 +393,7 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                         int insti = rs.getInt("idInstitucion");
                         int distrito = rs.getInt("idDistrito");
                         PartidoPolitico p = new PartidoPolitico();
+                        p.setId(id);
                         p.setNombre(name);
                         p.setNombreRepresentante(nombre_rep);
                         p.setApellidoRepresentante(apellido_rep);
@@ -473,5 +538,52 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
 
             return resultados;
         }
+        
+    @Override
+    public ArrayList<Adherente> queryAdherentesById(int id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Adherente> resultados= new ArrayList<Adherente>();
+        try {
+                //Paso 1: Registrar el Driver
+                DriverManager.registerDriver(new Driver());
+                //Paso 2: Obtener la conexión
+                conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
+                                                        DBConnection.user,
+                                                        DBConnection.password);
+                //Paso 3: Preparar la sentencia
+                String sql = "SELECT * "
+                        + "FROM Adherente WHERE idPartido="+id;
+
+                pstmt = conn.prepareStatement(sql);
+                //Paso 4: Ejecutar la sentencia
+                rs = pstmt.executeQuery();
+                //Paso 5(opc.): Procesar los resultados
+                while (rs.next()){
+                    String name = rs.getString("nombreJPG");
+                    String dni = rs.getString("dni");
+                    int idpartido = rs.getInt("idPartido");
+                    Adherente ad = new Adherente(dni);
+                    ad.setJpg(name);
+                    ad.setIdPartido(idpartido);
+                    resultados.add(ad);                       
+                }
+                pstmt.close();
+                conn.close();
+                return resultados;
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } finally {
+                //Paso 6(OJO): Cerrar la conexión
+                try { if (pstmt!= null) pstmt.close();} 
+                        catch (Exception e){e.printStackTrace();};
+                try { if (conn!= null) conn.close();} 
+                        catch (Exception e){e.printStackTrace();};	
+        }
+
+        return null;
+    }
 
 }
