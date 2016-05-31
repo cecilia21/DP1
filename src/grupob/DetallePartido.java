@@ -6,10 +6,19 @@
 package grupob;
 
 import controlador.Manager;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import model.PartidoPolitico;
 import model.Region;
 
@@ -641,13 +650,20 @@ public class DetallePartido extends javax.swing.JPanel {
             dni_rep2.setText(partidos.get(0).getDniRepresentante());
             correo2.setText(partidos.get(0).getCorreoPartido());
             fechaReg2.setCalendar(partidos.get(0).getFechaRegistro());
+            regionesModel = new RegionModel();
+            ArrayList<String> regs = new ArrayList<String>();
+            regionesModel.partidos = partidos;
             for(int i =0;i<partidos.size();i++){
-                System.out.println(partidos.get(i).getIdRegion());
                 Region reg = Manager.queryByIdRegion(partidos.get(i).getIdRegion());
-                tabla_region.setValueAt(""+reg.getNombre(), i, 0);
-                tabla_region.setValueAt(""+partidos.get(i).getEstado(), i, 1);
-                tabla_region.setValueAt(""+partidos.get(i).getCantidadRegistrosValidos(), i, 2);
+                regs.add(reg.getNombre());
             }
+            regionesModel.regiones = regs;
+            tabla_region.setModel(regionesModel);
+            TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+            tabla_region.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
+            tabla_region.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
+            //regionesModel.fireTableChanged(null);
+        
         }
         if(tipos[3]==0){
             jTabbedPane3.remove(pestDistrital);
@@ -660,7 +676,71 @@ public class DetallePartido extends javax.swing.JPanel {
         }
          jTabbedPane3.repaint();
     }
+    
+    private static class JTableButtonRenderer implements TableCellRenderer {        
+        @Override 
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JButton button = (JButton)value;
+            return button;  
+        }
+    }
+    
+    public class RegionModel extends AbstractTableModel{
+	ArrayList<String> regiones = null;	
+        ArrayList<PartidoPolitico> partidos = null; 
+	String [] titles = {"Region","Estado","Cant Adhs Falt", "Validar nuevos", "Eliminar"};
+        Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, JButton.class,  JButton.class};
+		
+        @Override
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return titles.length;
+		}
 
+		@Override
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return partidos.size();
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+                    String value = "";
+                    switch(col){
+			case 0:  value = regiones.get(row); break;
+			case 1:  value = partidos.get(row).getEstado(); break;
+			case 2:  value = "" + partidos.get(row).getCantidadRegistrosValidos(); break;
+                        case 3: final JButton button = new JButton("check");
+                                button.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent arg0) {
+                                        JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button), 
+                                                "Button clicked for row "+row);
+                                    }
+                                });
+                                return button; 
+                        case 4: final JButton button1 = new JButton("X");
+                                button1.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent arg0) {
+                                        JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button1), 
+                                                "Button clicked for row "+row);
+                                    }
+                                });
+                                return button1;
+			}
+			return value;
+		}
+                
+        @Override 
+        public Class<?> getColumnClass(int columnIndex) {
+            return COLUMN_TYPES[columnIndex];
+        }
+		
+		public String getColumnName(int col){
+			return titles[col];
+		}
+		
+	}
+    private RegionModel regionesModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adherentesRevision;
     private javax.swing.JTextField correo1;
