@@ -47,7 +47,7 @@ public class RegistrarDistrito extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         comboRegiones = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
