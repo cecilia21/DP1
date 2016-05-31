@@ -19,7 +19,7 @@ import model.Local;
 public class LocalTableModel extends AbstractTableModel {
     
     ArrayList<Local> localList =  null;
-    String [] titles = {"Nombre", "Cantidad de distritos" , "Distritos" , "Eliminar" };
+    String [] titles = {"Nombre", "Cantidad de Votantes" , "Distritos" , "Eliminar" };
     private boolean[]  editables = {true, true, true, true};
     
     public LocalTableModel(){
@@ -69,6 +69,7 @@ public class LocalTableModel extends AbstractTableModel {
                 else
                     return "";
             case 2: 
+                   if (local.getIdDistrito() ==  -1) return "";
                    Distrito dist = Manager.queryByIdDistrito(local.getIdDistrito());
                    return dist.getNombre();
             

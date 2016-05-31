@@ -29,6 +29,7 @@ public class Local {
      */
     public Local(){
             this.tipoProceso=4;
+            this.idDistrito = -1;
     }
     
     public int getId() {
