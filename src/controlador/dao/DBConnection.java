@@ -9,9 +9,9 @@ public class DBConnection {
 	public static String URL_JDBC_SQLServer = 
 	"jdbc:sqlserver://inti.lab.inf.pucp.edu.pe:1433;databaseName=inf282";
         public static String URL_JDBC_MySQL = 
-	 "jdbc:mysql://localhost:3307/dp1?autoReconnect=true&useSSL=false";
+	 "jdbc:mysql://localhost:3306/dp1";
 	public static String user = "root";
-	public static String password = "sephir18/11";
+	public static String password = "";
 	public static int dbType = MYSQL;
 	
 }
