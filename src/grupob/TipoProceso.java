@@ -20,6 +20,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Distrito;
+import model.Institucion;
 import model.Local;
 import model.Region;
 import model.TipoProcesoVotacion;
@@ -35,10 +36,13 @@ public class TipoProceso extends javax.swing.JPanel {
      */
     public static ArrayList<Region> listaRegiones=Manager.queryAllRegion();
     public static ArrayList<Distrito> listaDistritos=Manager.queryAllDistrito();
+    public static ArrayList<Local> listaLocalesI= Manager.queryAllLocales();
+    public static ArrayList<Institucion> listaInstituciones= new ArrayList<Institucion>();
     LocalTableModel tableModel = null;
-     public static ArrayList<Local> listaLocales;
+    public static ArrayList<Local> listaLocales;
     public TipoProceso() {
         initComponents();
+        initInstitucional();
 //        listaRegiones.add(new Region(1,"Lima",15000));
 //        listaRegiones.add(new Region(1,"Arequipa",10000));
 //        listaRegiones.add(new Region(1,"Junin",12000));
@@ -111,6 +115,28 @@ public class TipoProceso extends javax.swing.JPanel {
         
         jTabbedPane4.addChangeListener(changeListener);
         
+        
+    }
+    
+    void initInstitucional(){
+        TipoProcesoVotacion tipoInstitucional=Manager.queryProcesoById(5);
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        if(tipoInstitucional!=null && tipoInstitucional.getId()!=0){
+            if(!tipoInstitucional.getFechaInicio2().after(dateActual)){
+                btn1FIInstitucional.setDate(tipoInstitucional.getFechaInicio1().getTime());
+                btn2FIInstitucional.setDate(tipoInstitucional.getFechaInicio2().getTime());
+                btn1FFInstitucional.setDate(tipoInstitucional.getFechaFin1().getTime());
+                btn2FFInstitucional.setDate(tipoInstitucional.getFechaFin2().getTime());
+                txtPorInstitucional.setText(""+tipoInstitucional.getPorcentajeMinimo()*100);
+            }
+            if((tipoInstitucional.getFechaInicio1().before(dateActual)) && (cal.before(tipoInstitucional.getFechaFin2()))){
+                btnGuardarInstitucionalTP.setEnabled(false);
+            }
+            if(tipoInstitucional.getFechaFin2().before(dateActual)){
+                btnGuardarInstitucionalTP.setEnabled(true);
+            }
+        }
         
     }
 
@@ -192,12 +218,13 @@ public class TipoProceso extends javax.swing.JPanel {
         jXDatePicker14 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker15 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker16 = new org.jdesktop.swingx.JXDatePicker();
-        jPanel16 = new javax.swing.JPanel();
+        txtBuscar = new javax.swing.JTextField();
+        jPanelInstitucional = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
-        jButton30 = new javax.swing.JButton();
+        tblInstitucional = new javax.swing.JTable();
+        btnAddInstitucional = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtPorInstitucional = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
@@ -205,11 +232,16 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
-        jButton49 = new javax.swing.JButton();
-        jXDatePicker17 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker18 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker19 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker20 = new org.jdesktop.swingx.JXDatePicker();
+        btnGuardarInstitucional = new javax.swing.JButton();
+        btn1FIInstitucional = new org.jdesktop.swingx.JXDatePicker();
+        btn2FIInstitucional = new org.jdesktop.swingx.JXDatePicker();
+        btn1FFInstitucional = new org.jdesktop.swingx.JXDatePicker();
+        btn2FFInstitucional = new org.jdesktop.swingx.JXDatePicker();
+        btnBuscarInstitucional = new javax.swing.JButton();
+        txtNombreInstitucional = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnGuardarInstitucionalTP = new javax.swing.JButton();
 
         jTabbedPane4.setPreferredSize(new java.awt.Dimension(470, 300));
         jTabbedPane4.setRequestFocusEnabled(false);
@@ -354,7 +386,7 @@ public class TipoProceso extends javax.swing.JPanel {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
@@ -392,7 +424,7 @@ public class TipoProceso extends javax.swing.JPanel {
                                 .addComponent(jLabel31)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jXDatePicker7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(65, Short.MAX_VALUE))))
+                        .addContainerGap(68, Short.MAX_VALUE))))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,7 +509,7 @@ public class TipoProceso extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -548,13 +580,13 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cantidad de Votantes", "Distritos", "Proceso", "Eliminar"
+                "Nombre", "Cantidad de Votantes", "Distritos", "Eliminar"
             }
         ));
         jScrollPane8.setViewportView(jTable8);
@@ -601,48 +633,55 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel41)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel42)
-                        .addGap(9, 9, 9)
-                        .addComponent(jXDatePicker14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel44)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jXDatePicker16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel39)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel40)
-                        .addGap(9, 9, 9)
-                        .addComponent(jXDatePicker13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel43)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jXDatePicker15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jLabel41)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel42)
+                                .addGap(9, 9, 9)
+                                .addComponent(jXDatePicker14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel44)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXDatePicker16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel40)
+                                .addGap(9, 9, 9)
+                                .addComponent(jXDatePicker13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel43)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXDatePicker15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton29)
-                        .addGap(48, 48, 48)
-                        .addComponent(jButton48)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton29)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, Short.MAX_VALUE)
+                        .addComponent(jButton48)
+                        .addGap(31, 31, 31))))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton48)
                     .addComponent(jLabel14)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(jButton29)
-                    .addComponent(jButton48))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
                     .addComponent(jLabel39)
@@ -656,124 +695,101 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel44)
                     .addComponent(jXDatePicker14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jXDatePicker16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane4.addTab("Local", jPanel15);
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        jPanelInstitucional.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblInstitucional.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Cantidad de Votantes", "Locales", "Eliminar"
             }
         ));
-        jScrollPane9.setViewportView(jTable9);
+        tblInstitucional.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblInstitucionalMouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(tblInstitucional);
 
-        jButton30.setText("+");
+        jPanelInstitucional.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 450, 140));
+
+        btnAddInstitucional.setText("+");
+        btnAddInstitucional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddInstitucionalActionPerformed(evt);
+            }
+        });
+        jPanelInstitucional.add(btnAddInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, -1, -1));
 
         jLabel15.setText("%");
+        jPanelInstitucional.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
+        jPanelInstitucional.add(txtPorInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 37, -1));
 
         jLabel16.setText("Porcentaje: ");
+        jPanelInstitucional.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         jLabel45.setText("1er Revision");
+        jPanelInstitucional.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel46.setText("Fecha Inicio:");
+        jPanelInstitucional.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
 
         jLabel47.setText("2do Revision");
+        jPanelInstitucional.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         jLabel48.setText("Fecha Inicio:");
+        jPanelInstitucional.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
 
         jLabel49.setText("Fecha Fin:");
+        jPanelInstitucional.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, -1));
 
         jLabel50.setText("Fecha Fin:");
+        jPanelInstitucional.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
-        jButton49.setText("Guardar");
+        btnGuardarInstitucional.setText("Guardar");
+        btnGuardarInstitucional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarInstitucionalActionPerformed(evt);
+            }
+        });
+        jPanelInstitucional.add(btnGuardarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, -1, -1));
+        jPanelInstitucional.add(btn1FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
+        jPanelInstitucional.add(btn2FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
+        jPanelInstitucional.add(btn1FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+        jPanelInstitucional.add(btn2FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
 
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel15)
-                                .addGap(46, 46, 46)
-                                .addComponent(jButton30)
-                                .addGap(41, 41, 41)
-                                .addComponent(jButton49))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addComponent(jLabel45)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel46)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jXDatePicker17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel49)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jXDatePicker19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addComponent(jLabel47)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel48)
-                                        .addGap(9, 9, 9)
-                                        .addComponent(jXDatePicker18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel50)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jXDatePicker20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
-                    .addComponent(jButton30)
-                    .addComponent(jButton49))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel46)
-                    .addComponent(jLabel45)
-                    .addComponent(jLabel49)
-                    .addComponent(jXDatePicker17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel47)
-                    .addComponent(jLabel48)
-                    .addComponent(jLabel50)
-                    .addComponent(jXDatePicker18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        btnBuscarInstitucional.setText("Buscar");
+        btnBuscarInstitucional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarInstitucionalActionPerformed(evt);
+            }
+        });
+        jPanelInstitucional.add(btnBuscarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 80, -1));
+        jPanelInstitucional.add(txtNombreInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 160, 20));
 
-        jTabbedPane4.addTab("Institucional", jPanel16);
+        jLabel1.setText("Proceso de Votacion Institucional");
+        jPanelInstitucional.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel2.setText("Buscar por Nombre:");
+        jPanelInstitucional.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        btnGuardarInstitucionalTP.setText("Guardar");
+        btnGuardarInstitucionalTP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarInstitucionalTPActionPerformed(evt);
+            }
+        });
+        jPanelInstitucional.add(btnGuardarInstitucionalTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, -1));
+
+        jTabbedPane4.addTab("Institucional", jPanelInstitucional);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -786,8 +802,8 @@ public class TipoProceso extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1263,6 +1279,175 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");
     }//GEN-LAST:event_jButton47ActionPerformed
+
+    private void btnAddInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInstitucionalActionPerformed
+        // TODO add your handling code here:
+        AddInstitucional addInstitucional = new AddInstitucional();
+        addInstitucional.setVisible(true);
+    }//GEN-LAST:event_btnAddInstitucionalActionPerformed
+
+    private void btnBuscarInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarInstitucionalActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        if(!txtNombreInstitucional.getText().isEmpty()){
+            listaInstituciones.clear();
+            listaInstituciones=Manager.queryByNameInstitucion(txtNombreInstitucional.getText());            
+            
+            DefaultTableModel modelo = (DefaultTableModel)tblInstitucional.getModel();
+            modelo.setRowCount(0);
+            String datos[] = new String[4];
+            for (int i = 0; i < listaInstituciones.size(); i++) {
+                datos[0] = listaInstituciones.get(i).getNombre();
+                if(listaInstituciones.get(i).getCantidadVotantesRegistrados() == 0){
+                    datos[1] ="0";
+                }else{
+                    datos[1] = Integer.toString(listaInstituciones.get(i).getCantidadVotantesRegistrados());
+                }
+                datos[2] = Manager.queryLocalById(listaInstituciones.get(i).getIdLocal()).getNombre();
+                datos[3]="ELIMINAR";
+                modelo.addRow(datos);
+            }
+            
+        }
+        else
+            JOptionPane.showMessageDialog(null,"El campo buscar no puede estar vacio");      
+              
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnBuscarInstitucionalActionPerformed
+
+    private void tblInstitucionalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInstitucionalMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel)tblInstitucional.getModel();
+        
+        int row = tblInstitucional.rowAtPoint(evt.getPoint());
+        int col = tblInstitucional.columnAtPoint(evt.getPoint());
+        if(col==3){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+                            int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
+                            if(n==JOptionPane.YES_OPTION){                                
+                                String nombre=tblInstitucional.getValueAt(row, 0).toString();
+                                //Buscar el id en la lista
+                                for (int i = 0; i < listaInstituciones.size(); i++) {
+                                    if (listaInstituciones.get(i).getNombre().equals(nombre)){                                        
+                                        Manager.deleteInstitucion(listaInstituciones.get(i).getId()); 
+                                        listaInstituciones.remove(i);//Ver si es correcto esto
+                                        break;
+                                    }                                                                          
+                                }                                                               
+                            }            
+            modelo.removeRow(tblInstitucional.getSelectedRow());
+        }
+
+        
+        
+        
+        
+    }//GEN-LAST:event_tblInstitucionalMouseClicked
+
+    private void btnGuardarInstitucionalTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarInstitucionalTPActionPerformed
+        // TODO add your handling code here:
+        TipoProcesoVotacion proceso=null;   
+        JFormattedTextField fechai1 = btn1FIInstitucional.getEditor();
+        Date datei1 = (Date) fechai1.getValue();
+        JFormattedTextField fechai2 = btn2FIInstitucional.getEditor();
+        Date datei2 = (Date) fechai2.getValue();
+        JFormattedTextField fechaf1 = btn1FFInstitucional.getEditor();
+        Date datef1 = (Date) fechaf1.getValue();
+        JFormattedTextField fechaf2 = btn2FFInstitucional.getEditor();
+        Date datef2 = (Date) fechaf2.getValue();
+        if(datei1==null||datei2==null||datef1==null||datef2==null){
+            JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
+            return;
+        }
+        double por;
+        Calendar cal = Calendar.getInstance();
+        try{
+            por=Double.parseDouble(txtPorInstitucional.getText())/100;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Error: El porcentaje debe ser un valor numerico");
+            return;
+        }
+        Calendar calA = Calendar.getInstance();                
+        proceso=new TipoProcesoVotacion();
+        proceso.setId(5);
+        calA.setTime(datei1);
+        proceso.setFechaInicio1(calA);                
+        Calendar calB = Calendar.getInstance();                 
+        calB.setTime(datei2);                
+        proceso.setFechaInicio2(calB);                
+        Calendar calC = Calendar.getInstance();                 
+        calC.setTime(datef1);                
+        proceso.setFechaFin1(calC);                
+        Calendar calD = Calendar.getInstance();                 
+        calD.setTime(datef2);                
+        proceso.setFechaFin2(calD);
+        proceso.setPorcentajeMinimo((float)por);
+        proceso.setNombre("Institucional"); 
+        if(verificaFechas(datei1,datei2,datef1,datef2))                
+        {                    
+            Manager.updateProceso(proceso);                    
+            JOptionPane.showMessageDialog(null,"Se Completo de actualizar los datos del Proceso de Votacion Regional");                
+        }
+        
+        
+    }//GEN-LAST:event_btnGuardarInstitucionalTPActionPerformed
+
+    private boolean verificaFechas(Date datei1,Date datei2,Date datef1,Date datef2){
+        Calendar cal = Calendar.getInstance();
+        Date dateActual =cal.getTime();
+        if(datei1.compareTo(dateActual)<0 || datei2.compareTo(dateActual)<0 || datef1.compareTo(dateActual)<0  || datef2.compareTo(dateActual)<0){
+            JOptionPane.showMessageDialog(null,"Error: Los valores de la fecha deben ser superiores a hoy");
+            return false;
+        }                      
+        if(datei1.compareTo(datef2)>0 || datei1.compareTo(datei2)>0 || datei1.compareTo(datef1)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        }
+        if(datei2.compareTo(datei1)<0 || datei2.compareTo(datef1)<0 || datei2.compareTo(datef2)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        } 
+        if(datef1.compareTo(datei1)<0 || datef1.compareTo(datei2)>0 || datef1.compareTo(datef2)>0){
+            JOptionPane.showMessageDialog(null,"Error: Revise el orden de los valores ingresados");
+            return false;
+        }
+        return true;
+    }
+    
+    private void btnGuardarInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarInstitucionalActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel)tblInstitucional.getModel();
+        if(0 < modelo.getRowCount()){
+            modelo.getColumnCount();
+            Institucion institucion= new Institucion();
+            for(int i=0;i<modelo.getRowCount();i++){            
+                institucion.setId(listaInstituciones.get(i).getId());
+                institucion.setNombre(tblInstitucional.getValueAt(i, 0).toString());
+                institucion.setCantidadVotantesRegistrados(Integer.parseInt(tblInstitucional.getValueAt(i, 1).toString()));
+                institucion.setTipoProceso(5);//Tipo de proceso 5
+                for(int j=0;i<listaLocalesI.size();j++){
+                    if(listaLocalesI.get(j).getNombre().equals(tblInstitucional.getValueAt(i, 2).toString())){
+                        institucion.setIdLocal(listaLocalesI.get(j).getId());
+                        break;
+                    }                
+                }            
+                Manager.updateInstitucion(institucion);
+    //            System.out.println(listaInstituciones.get(i).getId());
+    //            System.out.println(tblInstitucional.getValueAt(i, 0).toString());
+    //            System.out.println(tblInstitucional.getValueAt(i, 1).toString());
+    //            System.out.println(tblInstitucional.getValueAt(i, 2).toString());        
+
+            }
+        
+//            
+        }
+        
+        
+    }//GEN-LAST:event_btnGuardarInstitucionalActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);
@@ -1388,12 +1573,19 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JButton addRowRegional;
     private javax.swing.JButton botonGuardarNacional;
     private javax.swing.JButton botonGuardarRegional;
+    private org.jdesktop.swingx.JXDatePicker btn1FFInstitucional;
+    private org.jdesktop.swingx.JXDatePicker btn1FIInstitucional;
+    private org.jdesktop.swingx.JXDatePicker btn2FFInstitucional;
+    private org.jdesktop.swingx.JXDatePicker btn2FIInstitucional;
+    private javax.swing.JButton btnAddInstitucional;
+    private javax.swing.JButton btnBuscarInstitucional;
+    private javax.swing.JButton btnGuardarInstitucional;
+    private javax.swing.JButton btnGuardarInstitucionalTP;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton47;
     private javax.swing.JButton jButton48;
-    private javax.swing.JButton jButton49;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1401,6 +1593,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -1437,8 +1630,8 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel19;
+    private javax.swing.JPanel jPanelInstitucional;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
@@ -1447,9 +1640,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
-    private javax.swing.JTable jTable9;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker10;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker11;
@@ -1458,11 +1649,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker14;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker15;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker16;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker17;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker18;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker19;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker20;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker3;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker4;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker5;
@@ -1472,5 +1659,9 @@ public class TipoProceso extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker9;
     private javax.swing.JTextField porcentajeDistrital;
     private javax.swing.JTextField porcentajeRegional;
+    private javax.swing.JTable tblInstitucional;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtNombreInstitucional;
+    private javax.swing.JTextField txtPorInstitucional;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,4 +18,5 @@ public interface DAOInstitucion {
     void delete (int idInstitucion);
     ArrayList<Institucion> queryAll();
     Institucion queryById(int idInstitucion);
+    ArrayList<Institucion> queryByName(String nombre);
 }
