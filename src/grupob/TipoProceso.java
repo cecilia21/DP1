@@ -265,6 +265,12 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel56.setText("Fecha Fin:");
 
+        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXDatePicker1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
@@ -1448,6 +1454,10 @@ public class TipoProceso extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btnGuardarInstitucionalActionPerformed
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
         modelo.setRowCount(0);

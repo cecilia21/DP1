@@ -21,14 +21,11 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-import model.ButtonColumn;
 import model.Distrito;
 import model.Institucion;
 import model.Local;
 import model.PartidoPolitico;
 import model.Region;
-import model.TableButton;
-import model.TableButtonListener;
 import model.TipoProcesoVotacion;
 
 /**
@@ -833,6 +830,8 @@ public class DetallePartido extends javax.swing.JPanel {
             dni_rep1.setText(partidos.get(0).getDniRepresentante());
             correo1.setText(partidos.get(0).getCorreoPartido());
             fechaReg1.setCalendar(partidos.get(0).getFechaRegistro());
+            estado1.setText(partidos.get(0).getEstado());
+            jTextField5.setText(""+partidos.get(0).getCantidadRegistrosValidos());
         }
         if(tipos[2]==0){            
             jTabbedPane3.remove(pestRegional);
