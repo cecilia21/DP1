@@ -72,16 +72,17 @@ public class OcrNumeros {
         for(int i =0;i<imagen.getWidth();i++) for(int j=0;j<imagen.getHeight();j++) 
             if(imgFinal[i][j]==0) imagen.setRGB(i, j, -1);
             else imagen.setRGB(i, j, -16777216);
+        /*
         try {
                 ImageIO.write(imagen, "jpg", new File("C:\\Users\\Cecilia\\Desktop\\numero.jpg"));
             } catch (IOException ex) {
                 Logger.getLogger(OcrNumeros.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
         return imgFinal;
     }
     
     public static int obtenerNumero(BufferedImage img){
-            File networkFile = new File("D:\\Users\\Cecilia\\Documents\\cecilia\\DP1\\network-binary-train-mnist.eg");
+            File networkFile = new File("src/red/network-binary-train-mnist.eg");
             BasicNetwork network = (BasicNetwork)(EncogDirectoryPersistence.loadObject(networkFile));
             /*File file = new File(archivo);
             BufferedImage img = ImageIO.read(file);*/

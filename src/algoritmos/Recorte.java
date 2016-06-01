@@ -116,11 +116,12 @@ public class Recorte {
             num = removeNoisePoints(num);
             num = cropper(num);
             dni[i] = num;
+            /*
             try {
                 ImageIO.write(dni[i], "jpg", new File("C:\\Users\\Cecilia\\Desktop\\numero"+i+".jpg"));
             } catch (IOException ex) {
                 Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
         }
         return dni;
     }
@@ -189,7 +190,7 @@ public class Recorte {
     public static void main(String[] args) {
         // TODO code application logic here
         //File file = new File("D:\\Users\\Cecilia\\Downloads\\rayado_Modificados_v1.jpg");
-        File file = new File("D:\\Users\\Cecilia\\Downloads\\padron.rayas.firmado.jpg");
+        File file = new File("src/red/padron.rayas.firmado.jpg");
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         try {
