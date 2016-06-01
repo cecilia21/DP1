@@ -16,6 +16,16 @@ import java.io.IOException;
  */
 public class Utils {
     
+    public static BufferedImage binarization(BufferedImage originalImage){
+        BufferedImage blackAndWhiteImg = new BufferedImage(
+        originalImage.getWidth(), originalImage.getHeight(),
+        BufferedImage.TYPE_BYTE_BINARY);
+
+        Graphics2D graphics = blackAndWhiteImg.createGraphics();
+        graphics.drawImage(originalImage, 0, 0, null);
+        return blackAndWhiteImg;
+    }
+    
     public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
         BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
@@ -27,7 +37,7 @@ public class Utils {
         return dimg;
     }
     
-    public static BufferedImage cropper(BufferedImage img) throws IOException{
+    public static BufferedImage cropper(BufferedImage img){
         int height = img.getHeight();
         int width = img.getWidth();
         int pixel;
