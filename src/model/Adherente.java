@@ -13,6 +13,7 @@ public class Adherente {
     private String dni;
     private String estado;
     private String jpg;
+    private int id;
     private int idPartido;
 
     public Adherente(String dni){
@@ -73,6 +74,20 @@ public class Adherente {
      */
     public void setIdPartido(int idPartido) {
         this.idPartido = idPartido;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

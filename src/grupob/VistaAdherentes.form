@@ -23,9 +23,9 @@
                   <Component id="jScrollPane10" min="-2" pref="440" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Component id="jButton43" min="-2" max="-2" attributes="0"/>
+                      <Component id="boton_validar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="55" pref="55" max="-2" attributes="0"/>
-                      <Component id="jButton44" min="-2" max="-2" attributes="0"/>
+                      <Component id="boton_invalidar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="55" pref="55" max="-2" attributes="0"/>
                       <Component id="boton_cancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -68,8 +68,8 @@
               <Component id="jScrollPane10" min="-2" pref="202" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton43" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton44" min="-2" max="-2" attributes="0"/>
+                  <Component id="boton_validar" min="-2" max="-2" attributes="0"/>
+                  <Component id="boton_invalidar" min="-2" max="-2" attributes="0"/>
                   <Component id="boton_cancelar" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
@@ -119,20 +119,20 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton43">
+    <Component class="javax.swing.JButton" name="boton_validar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Validar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton43ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_validarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton44">
+    <Component class="javax.swing.JButton" name="boton_invalidar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Invalidar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton44ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_invalidarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="boton_cancelar">

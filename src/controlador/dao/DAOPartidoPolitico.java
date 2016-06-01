@@ -19,9 +19,11 @@ public interface DAOPartidoPolitico {
     void delete (int idPartido);
     ArrayList<PartidoPolitico> queryAll();
     ArrayList<PartidoPolitico> queryByNombTipoLug(String nombre, int tipo, int lugar);
+    ArrayList<PartidoPolitico> queryByNombTipoLugFull(String nombre, int tipo, int lugar);
     ArrayList<PartidoPolitico> queryByNombTipo(String nombre, int tipo);
     PartidoPolitico queryById(int idProduct);
     ArrayList<PartidoPolitico> queryByName(String nombre);
     int[] queryTipoProcesoNombrePartido(String nombre);
     ArrayList<Adherente> queryAdherentesById(int id);
+    void deleteAdherenteById(int id);
 }

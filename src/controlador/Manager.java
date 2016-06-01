@@ -35,8 +35,16 @@ public class Manager {
         partidoDB.add(p);
     }
     
+    public static void updatePartido(PartidoPolitico p){
+        partidoDB.update(p);
+    }
+    
     public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLug(String nombre, int ind1, int ind2){
         return partidoDB.queryByNombTipoLug(nombre, ind1, ind2);
+    }
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLugFull(String nombre, int ind1, int ind2){
+        return partidoDB.queryByNombTipoLugFull(nombre, ind1, ind2);
     }
     
     public static ArrayList<PartidoPolitico> queryPartidoByNombTipo(String nombre, int ind1){
@@ -59,6 +67,10 @@ public class Manager {
     
     public static ArrayList<Adherente> queryAdherentesByPartidoId(int idPartido) {
         return partidoDB.queryAdherentesById(idPartido);
+    }
+    
+    public static void deleteAdherenteById(int id){
+        partidoDB.deleteAdherenteById(id);
     }
     
     public static TipoProcesoVotacion queryTipoProcesoByName(String nombre){

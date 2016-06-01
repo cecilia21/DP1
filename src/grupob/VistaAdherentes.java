@@ -24,6 +24,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
      */
     public static FramePrincipal padre;
     private PartidoPolitico partidoAdherente;
+    private int tipoProceso;
     public VistaAdherentes(FramePrincipal parent) {
         padre = parent;
         initComponents();
@@ -43,8 +44,8 @@ public class VistaAdherentes extends javax.swing.JPanel {
         nombre_partido = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
         tabla_adherentes = new javax.swing.JTable();
-        jButton43 = new javax.swing.JButton();
-        jButton44 = new javax.swing.JButton();
+        boton_validar = new javax.swing.JButton();
+        boton_invalidar = new javax.swing.JButton();
         boton_cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         tipo_proceso = new javax.swing.JTextField();
@@ -77,17 +78,17 @@ public class VistaAdherentes extends javax.swing.JPanel {
         });
         jScrollPane10.setViewportView(tabla_adherentes);
 
-        jButton43.setText("Validar");
-        jButton43.addActionListener(new java.awt.event.ActionListener() {
+        boton_validar.setText("Validar");
+        boton_validar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton43ActionPerformed(evt);
+                boton_validarActionPerformed(evt);
             }
         });
 
-        jButton44.setText("Invalidar");
-        jButton44.addActionListener(new java.awt.event.ActionListener() {
+        boton_invalidar.setText("Invalidar");
+        boton_invalidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton44ActionPerformed(evt);
+                boton_invalidarActionPerformed(evt);
             }
         });
 
@@ -113,9 +114,9 @@ public class VistaAdherentes extends javax.swing.JPanel {
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jButton43)
+                        .addComponent(boton_validar)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton44)
+                        .addComponent(boton_invalidar)
                         .addGap(55, 55, 55)
                         .addComponent(boton_cancelar))
                     .addGroup(layout.createSequentialGroup()
@@ -147,35 +148,58 @@ public class VistaAdherentes extends javax.swing.JPanel {
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton43)
-                    .addComponent(jButton44)
+                    .addComponent(boton_validar)
+                    .addComponent(boton_invalidar)
                     .addComponent(boton_cancelar))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
+    private void boton_validarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_validarActionPerformed
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas validar estos registros?","Advertencia",dialogButton);
         if(n == JOptionPane.YES_OPTION){
 
             //aquí se debe regresar a la misma vista pero recargando la tabla para eliminar los adherentes que ya fueron validados
+            for(int i=0;i<adherentesModel.adherentes.size();i++){
+                if(adherentesModel.valores[i]==true){
+                    
+                    Manager.deleteAdherenteById(adherentesModel.adherentes.get(i).getId());
+                    int lugar=0;
+                    if(tipoProceso==2)
+                        lugar = Manager.queryPartidoById(adherentesModel.adherentes.get(i).getIdPartido()).getIdRegion();
+                    if(tipoProceso==3)
+                        lugar = Manager.queryPartidoById(adherentesModel.adherentes.get(i).getIdPartido()).getIdDistrito();
+                    if(tipoProceso==4)
+                        lugar = Manager.queryPartidoById(adherentesModel.adherentes.get(i).getIdPartido()).getIdLocal();
+                    if(tipoProceso==5)
+                        lugar = Manager.queryPartidoById(adherentesModel.adherentes.get(i).getIdPartido()).getIdInstitucion();
+                    ArrayList<PartidoPolitico> partidoPol = Manager.queryPartidoByNombTipoLugFull(partidoAdherente.getNombre(), tipoProceso,lugar);
+                    partidoPol.get(0).setCantidadRegistrosValidos(partidoPol.get(0).getCantidadRegistrosValidos()+1);
+                    Manager.updatePartido(partidoPol.get(0));
+                }
+            }
+            showDetail(partidoAdherente, tipoProceso);
         }
         else {
 
         }
-    }//GEN-LAST:event_jButton43ActionPerformed
+    }//GEN-LAST:event_boton_validarActionPerformed
 
-    private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
+    private void boton_invalidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_invalidarActionPerformed
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas invalidar estos registros?","Advertencia",dialogButton);
         if(n == JOptionPane.YES_OPTION){
 
             //aquí se debe regresar a la misma vista pero recargando la tabla para eliminar los adherentes que ya fueron invalidados
+            for(int i=0;i<adherentesModel.adherentes.size();i++){
+                if(adherentesModel.valores[i]==true){
+                    Manager.deleteAdherenteById(adherentesModel.adherentes.get(i).getId());
+                }
+            }
+            showDetail(partidoAdherente, tipoProceso);
         }
-        else {
-        }
-    }//GEN-LAST:event_jButton44ActionPerformed
+    }//GEN-LAST:event_boton_invalidarActionPerformed
 
     private void boton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cancelarActionPerformed
 
@@ -185,6 +209,7 @@ public class VistaAdherentes extends javax.swing.JPanel {
 
     public void showDetail(PartidoPolitico p, int tipoProc){
         partidoAdherente = p;
+        tipoProceso = tipoProc;
         nombre_partido.setText(p.getNombre());
         ArrayList<PartidoPolitico> partidos = Manager.queryPartidoByNombTipo(p.getNombre(), tipoProc);
         TipoProcesoVotacion proceso = Manager.queryProcesoById(tipoProc);
@@ -292,8 +317,8 @@ public class VistaAdherentes extends javax.swing.JPanel {
     private MyTableModel adherentesModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boton_cancelar;
-    private javax.swing.JButton jButton43;
-    private javax.swing.JButton jButton44;
+    private javax.swing.JButton boton_invalidar;
+    private javax.swing.JButton boton_validar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;

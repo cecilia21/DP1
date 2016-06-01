@@ -36,6 +36,10 @@ public class PartidoPoliticoDB {
         return daoPartidos.queryByNombTipoLug(nombre, ind1, ind2);
     }
     
+    public ArrayList<PartidoPolitico> queryByNombTipoLugFull(String nombre, int ind1, int ind2){
+        return daoPartidos.queryByNombTipoLugFull(nombre, ind1, ind2);
+    }
+    
     public ArrayList<PartidoPolitico> queryByNombTipo(String nombre, int ind1){
         return daoPartidos.queryByNombTipo(nombre, ind1);
     }
@@ -50,6 +54,10 @@ public class PartidoPoliticoDB {
     
     public ArrayList<Adherente> queryAdherentesById(int id){
         return daoPartidos.queryAdherentesById(id);
+    }
+    
+    public void deleteAdherenteById(int id){
+        daoPartidos.deleteAdherenteById(id);
     }
     
     public PartidoPolitico queryPartidoById(int id){
