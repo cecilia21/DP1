@@ -37,8 +37,8 @@ public class RegistrarDistrito extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCancelarD = new javax.swing.JButton();
+        btnRegistraDistrito = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         cantidadRegistro = new javax.swing.JTextField();
         nombreRegistro = new javax.swing.JTextField();
@@ -49,17 +49,17 @@ public class RegistrarDistrito extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelarD.setText("Cancelar");
+        btnCancelarD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarDActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Registrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistraDistrito.setText("Registrar");
+        btnRegistraDistrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistraDistritoActionPerformed(evt);
             }
         });
 
@@ -83,9 +83,9 @@ public class RegistrarDistrito extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jButton1)
+                        .addComponent(btnRegistraDistrito)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(btnCancelarD))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -122,19 +122,19 @@ public class RegistrarDistrito extends javax.swing.JFrame {
                     .addComponent(comboRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnRegistraDistrito)
+                    .addComponent(btnCancelarD))
                 .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarDActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarDActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegistraDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraDistritoActionPerformed
         int cant;
         String nombre=nombreRegistro.getText();
         try{
@@ -158,7 +158,7 @@ public class RegistrarDistrito extends javax.swing.JFrame {
         Manager.addDistrito(di);
         this.setVisible(false);
         JOptionPane.showMessageDialog(null,"Distrito registrado\nahora puede buscarla en la lista de distritos");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegistraDistritoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,10 +197,10 @@ public class RegistrarDistrito extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelarD;
+    private javax.swing.JButton btnRegistraDistrito;
     private javax.swing.JTextField cantidadRegistro;
     private javax.swing.JComboBox<String> comboRegiones;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

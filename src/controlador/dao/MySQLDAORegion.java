@@ -33,7 +33,7 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO region "
+			String sql = "INSERT INTO Region "
 					+ "(idRegion, nombre,cantidadVotantes,idTipoProceso)"
 					+ "VALUES (?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -71,7 +71,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "UPDATE region "
+			String sql = "UPDATE Region "
 					+ "SET nombre=?, cantidadVotantes=? "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "DELETE FROM region "
+			String sql = "DELETE FROM Region "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
 			//
@@ -141,7 +141,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region";
+			String sql = "SELECT * FROM Region";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
@@ -183,7 +183,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region "
+			String sql = "SELECT * FROM Region "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idRegion);
@@ -226,7 +226,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region "
+			String sql = "SELECT * FROM Region "
 					+ "WHERE nombre LIKE ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nameb + "%");

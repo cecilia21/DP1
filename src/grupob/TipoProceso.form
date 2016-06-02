@@ -80,21 +80,21 @@
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jXDatePicker1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jXDatePicker2" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fechai1Nacional" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fechai2Nacional" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                           <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jXDatePicker4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fechaf2Nacional" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                           <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jXDatePicker3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fechaf1Nacional" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -112,8 +112,8 @@
                           <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jXDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jXDatePicker3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fechai1Nacional" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fechaf1Nacional" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -122,8 +122,8 @@
                               <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jXDatePicker2" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jXDatePicker4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="fechai2Nacional" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="fechaf2Nacional" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
@@ -175,16 +175,16 @@
                 <Property name="text" type="java.lang.String" value="Fecha Fin:"/>
               </Properties>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechai1Nacional">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXDatePicker1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fechai1NacionalActionPerformed"/>
               </Events>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker2">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechai2Nacional">
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker3">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaf1Nacional">
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker4">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaf2Nacional">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel57">
             </Component>
@@ -217,7 +217,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable6">
+                <Component class="javax.swing.JTable" name="jTableRegiones">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="0">
@@ -228,7 +228,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTable6KeyTyped"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableRegionesKeyTyped"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -346,28 +346,28 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker5">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechai1Regiones">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="200" y="60" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker6">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechai2Regiones">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="200" y="90" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker7">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaf1Regiones">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="360" y="60" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker8">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaf2Regiones">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="360" y="90" width="-1" height="-1"/>
@@ -454,7 +454,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable7">
+                <Component class="javax.swing.JTable" name="jTableDistritos">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
@@ -581,28 +581,28 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker9">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechai1Distritos">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="190" y="60" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker10">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechai2Distritos">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="190" y="90" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker11">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaf1Distritos">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="360" y="60" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker12">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaf2Distritos">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="360" y="90" width="-1" height="-1"/>

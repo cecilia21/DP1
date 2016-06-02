@@ -55,10 +55,10 @@ public class TipoProceso extends javax.swing.JPanel {
         Date dateActual =cal.getTime();
         if(tipoNacional!=null && tipoNacional.getId()!=0){
             if(!tipoNacional.getFechaInicio2().after(dateActual)){
-                jXDatePicker1.setDate(tipoNacional.getFechaInicio1().getTime());
-                jXDatePicker2.setDate(tipoNacional.getFechaInicio2().getTime());
-                jXDatePicker3.setDate(tipoNacional.getFechaFin1().getTime());
-                jXDatePicker4.setDate(tipoNacional.getFechaFin2().getTime());
+                fechai1Nacional.setDate(tipoNacional.getFechaInicio1().getTime());
+                fechai2Nacional.setDate(tipoNacional.getFechaInicio2().getTime());
+                fechaf1Nacional.setDate(tipoNacional.getFechaFin1().getTime());
+                fechaf2Nacional.setDate(tipoNacional.getFechaFin2().getTime());
             }
             if((tipoNacional.getFechaInicio1().before(dateActual)) && (cal.before(tipoNacional.getFechaFin2()))){
                 botonGuardarNacional.setEnabled(false);
@@ -69,10 +69,10 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         if(tipoRegional!=null && tipoRegional.getId()!=0){
             if(!tipoRegional.getFechaInicio2().after(dateActual)){
-                jXDatePicker5.setDate(tipoRegional.getFechaInicio1().getTime());
-                jXDatePicker6.setDate(tipoRegional.getFechaInicio2().getTime());
-                jXDatePicker7.setDate(tipoRegional.getFechaFin1().getTime());
-                jXDatePicker8.setDate(tipoRegional.getFechaFin2().getTime());
+                fechai1Regiones.setDate(tipoRegional.getFechaInicio1().getTime());
+                fechai2Regiones.setDate(tipoRegional.getFechaInicio2().getTime());
+                fechaf1Regiones.setDate(tipoRegional.getFechaFin1().getTime());
+                fechaf2Regiones.setDate(tipoRegional.getFechaFin2().getTime());
                 porcentajeRegional.setText(""+tipoRegional.getPorcentajeMinimo()*100);
             }
             if((tipoRegional.getFechaInicio1().before(dateActual)) && (cal.before(tipoRegional.getFechaFin2()))){
@@ -84,10 +84,10 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         if(tipoDistrital!=null && tipoDistrital.getId()!=0){
             if(!tipoRegional.getFechaInicio2().after(dateActual)){
-                jXDatePicker9.setDate(tipoDistrital.getFechaInicio1().getTime());
-                jXDatePicker10.setDate(tipoDistrital.getFechaInicio2().getTime());
-                jXDatePicker11.setDate(tipoDistrital.getFechaFin1().getTime());
-                jXDatePicker12.setDate(tipoDistrital.getFechaFin2().getTime());
+                fechai1Distritos.setDate(tipoDistrital.getFechaInicio1().getTime());
+                fechai2Distritos.setDate(tipoDistrital.getFechaInicio2().getTime());
+                fechaf1Distritos.setDate(tipoDistrital.getFechaFin1().getTime());
+                fechaf2Distritos.setDate(tipoDistrital.getFechaFin2().getTime());
                 porcentajeDistrital.setText(""+tipoDistrital.getPorcentajeMinimo()*100);
             }
             if((tipoDistrital.getFechaInicio1().before(dateActual)) && (cal.before(tipoDistrital.getFechaFin2()))){
@@ -103,15 +103,15 @@ public class TipoProceso extends javax.swing.JPanel {
         agregarDatos();
         agregarDatosDistritos();
         if(listaRegiones!=null){
-            jTable6.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
-            jTable6.getColumn("Eliminar").setCellEditor(new botonEliminarRegiones());
+            jTableRegiones.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTableRegiones.getColumn("Eliminar").setCellEditor(new botonEliminarRegiones());
         }
         if(listaDistritos!=null){
-            jTable7.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
-            jTable7.getColumn("Eliminar").setCellEditor(new botonEliminarDistritos());
+            jTableDistritos.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTableDistritos.getColumn("Eliminar").setCellEditor(new botonEliminarDistritos());
         }
         
-        TableColumn sColumn = jTable7.getColumnModel().getColumn(2);
+        TableColumn sColumn = jTableDistritos.getColumnModel().getColumn(2);
         ArrayList<Region> lReg=Manager.queryAllRegion();
         JComboBox comboBox = new JComboBox();
         for(int i=0;i<lReg.size();i++){
@@ -183,15 +183,15 @@ public class TipoProceso extends javax.swing.JPanel {
         botonGuardarNacional = new javax.swing.JButton();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker3 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker4 = new org.jdesktop.swingx.JXDatePicker();
+        fechai1Nacional = new org.jdesktop.swingx.JXDatePicker();
+        fechai2Nacional = new org.jdesktop.swingx.JXDatePicker();
+        fechaf1Nacional = new org.jdesktop.swingx.JXDatePicker();
+        fechaf2Nacional = new org.jdesktop.swingx.JXDatePicker();
         jLabel57 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        jTableRegiones = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         porcentajeRegional = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -203,10 +203,10 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         botonGuardarRegional = new javax.swing.JButton();
-        jXDatePicker5 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker6 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker7 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker8 = new org.jdesktop.swingx.JXDatePicker();
+        fechai1Regiones = new org.jdesktop.swingx.JXDatePicker();
+        fechai2Regiones = new org.jdesktop.swingx.JXDatePicker();
+        fechaf1Regiones = new org.jdesktop.swingx.JXDatePicker();
+        fechaf2Regiones = new org.jdesktop.swingx.JXDatePicker();
         jLabel3 = new javax.swing.JLabel();
         textRegiones = new javax.swing.JTextField();
         buscarRegiones = new javax.swing.JButton();
@@ -214,7 +214,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        jTableDistritos = new javax.swing.JTable();
         jButton28 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         porcentajeDistrital = new javax.swing.JTextField();
@@ -226,10 +226,10 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         botonGuardarDistrital = new javax.swing.JButton();
-        jXDatePicker9 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker10 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker11 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker12 = new org.jdesktop.swingx.JXDatePicker();
+        fechai1Distritos = new org.jdesktop.swingx.JXDatePicker();
+        fechai2Distritos = new org.jdesktop.swingx.JXDatePicker();
+        fechaf1Distritos = new org.jdesktop.swingx.JXDatePicker();
+        fechaf2Distritos = new org.jdesktop.swingx.JXDatePicker();
         buscarDistritos = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         textDistrito = new javax.swing.JTextField();
@@ -300,9 +300,9 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel56.setText("Fecha Fin:");
 
-        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+        fechai1Nacional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker1ActionPerformed(evt);
+                fechai1NacionalActionPerformed(evt);
             }
         });
 
@@ -332,19 +332,19 @@ public class TipoProceso extends javax.swing.JPanel {
                                     .addComponent(jLabel51)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jXDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(fechai1Nacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fechai2Nacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel19Layout.createSequentialGroup()
                                     .addGap(9, 9, 9)
                                     .addComponent(jLabel56)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fechaf2Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                                     .addGap(7, 7, 7)
                                     .addComponent(jLabel55)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(fechaf1Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(55, 55, 55)))))
         );
         jPanel19Layout.setVerticalGroup(
@@ -355,16 +355,16 @@ public class TipoProceso extends javax.swing.JPanel {
                     .addComponent(jLabel51)
                     .addComponent(jLabel52)
                     .addComponent(jLabel55)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechai1Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaf1Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel53)
                         .addComponent(jLabel54)
                         .addComponent(jLabel56))
-                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechai2Nacional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaf2Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel57)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -378,7 +378,7 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        jTableRegiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -386,12 +386,12 @@ public class TipoProceso extends javax.swing.JPanel {
                 "Nombre", "Cantidad de Votantes", "Eliminar"
             }
         ));
-        jTable6.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTableRegiones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTable6KeyTyped(evt);
+                jTableRegionesKeyTyped(evt);
             }
         });
-        jScrollPane6.setViewportView(jTable6);
+        jScrollPane6.setViewportView(jTableRegiones);
 
         jPanel13.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 156, 445, 134));
 
@@ -435,10 +435,10 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         });
         jPanel13.add(botonGuardarRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
-        jPanel13.add(jXDatePicker5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
-        jPanel13.add(jXDatePicker6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
-        jPanel13.add(jXDatePicker7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
-        jPanel13.add(jXDatePicker8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+        jPanel13.add(fechai1Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
+        jPanel13.add(fechai2Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
+        jPanel13.add(fechaf1Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+        jPanel13.add(fechaf2Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
 
         jLabel3.setText("Buscar por Nombre:");
         jPanel13.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
@@ -467,7 +467,7 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDistritos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -475,7 +475,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 "Nombre", "Cantidad de Votantes", "Regiones", "Eliminar"
             }
         ));
-        jScrollPane7.setViewportView(jTable7);
+        jScrollPane7.setViewportView(jTableDistritos);
 
         jPanel14.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 430, 133));
 
@@ -519,10 +519,10 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         });
         jPanel14.add(botonGuardarDistrital, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
-        jPanel14.add(jXDatePicker9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
-        jPanel14.add(jXDatePicker10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
-        jPanel14.add(jXDatePicker11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
-        jPanel14.add(jXDatePicker12, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+        jPanel14.add(fechai1Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
+        jPanel14.add(fechai2Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
+        jPanel14.add(fechaf1Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+        jPanel14.add(fechaf2Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
 
         buscarDistritos.setText("Buscar");
         buscarDistritos.addActionListener(new java.awt.event.ActionListener() {
@@ -780,13 +780,13 @@ public class TipoProceso extends javax.swing.JPanel {
 
     private void botonGuardarNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarNacionalActionPerformed
 
-        JFormattedTextField fechai1 = jXDatePicker1.getEditor();
+        JFormattedTextField fechai1 = fechai1Nacional.getEditor();
         Date datei1 = (Date) fechai1.getValue();
-        JFormattedTextField fechai2 = jXDatePicker2.getEditor();
+        JFormattedTextField fechai2 = fechai2Nacional.getEditor();
         Date datei2 = (Date) fechai2.getValue();
-        JFormattedTextField fechaf1 = jXDatePicker3.getEditor();
+        JFormattedTextField fechaf1 = fechaf1Nacional.getEditor();
         Date datef1 = (Date) fechaf1.getValue();
-        JFormattedTextField fechaf2 = jXDatePicker4.getEditor();
+        JFormattedTextField fechaf2 = fechaf2Nacional.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
         if(datei1==null||datei2==null||datef1==null||datef2==null){
             JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
@@ -822,9 +822,9 @@ public class TipoProceso extends javax.swing.JPanel {
          }
     }//GEN-LAST:event_botonGuardarNacionalActionPerformed
 
-    private void jTable6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable6KeyTyped
+    private void jTableRegionesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableRegionesKeyTyped
 
-    }//GEN-LAST:event_jTable6KeyTyped
+    }//GEN-LAST:event_jTableRegionesKeyTyped
 
     private void addRowRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowRegionalActionPerformed
         RegistraRegion window=new RegistraRegion();
@@ -833,13 +833,13 @@ public class TipoProceso extends javax.swing.JPanel {
 
     private void botonGuardarRegionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegionalActionPerformed
         TipoProcesoVotacion proceso=null;   
-        JFormattedTextField fechai1 = jXDatePicker5.getEditor();
+        JFormattedTextField fechai1 = fechai1Regiones.getEditor();
         Date datei1 = (Date) fechai1.getValue();
-        JFormattedTextField fechai2 = jXDatePicker6.getEditor();
+        JFormattedTextField fechai2 = fechai2Regiones.getEditor();
         Date datei2 = (Date) fechai2.getValue();
-        JFormattedTextField fechaf1 = jXDatePicker7.getEditor();
+        JFormattedTextField fechaf1 = fechaf1Regiones.getEditor();
         Date datef1 = (Date) fechaf1.getValue();
-        JFormattedTextField fechaf2 = jXDatePicker8.getEditor();
+        JFormattedTextField fechaf2 = fechaf2Regiones.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
         if(datei1==null||datei2==null||datef1==null||datef2==null){
             JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
@@ -1022,13 +1022,13 @@ public class TipoProceso extends javax.swing.JPanel {
     private void botonGuardarDistritalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarDistritalActionPerformed
         
         TipoProcesoVotacion proceso=null;
-        JFormattedTextField fechai1 = jXDatePicker9.getEditor();
+        JFormattedTextField fechai1 = fechai1Distritos.getEditor();
         Date datei1 = (Date) fechai1.getValue();
-        JFormattedTextField fechai2 = jXDatePicker10.getEditor();
+        JFormattedTextField fechai2 = fechai2Distritos.getEditor();
         Date datei2 = (Date) fechai2.getValue();
-        JFormattedTextField fechaf1 = jXDatePicker11.getEditor();
+        JFormattedTextField fechaf1 = fechaf1Distritos.getEditor();
         Date datef1 = (Date) fechaf1.getValue();
-        JFormattedTextField fechaf2 = jXDatePicker12.getEditor();
+        JFormattedTextField fechaf2 = fechaf2Distritos.getEditor();
         Date datef2 = (Date) fechaf2.getValue();
         if(datei1==null||datei2==null||datef1==null||datef2==null){
             JOptionPane.showMessageDialog(null,"Error: Falta ingresar todos los campos");
@@ -1237,13 +1237,13 @@ public class TipoProceso extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnGuardarInstitucionalActionPerformed
 
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+    private void fechai1NacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechai1NacionalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jXDatePicker1ActionPerformed
+    }//GEN-LAST:event_fechai1NacionalActionPerformed
 
     private void btnGuardarRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegionesActionPerformed
          ArrayList<Region> listaRegionesPas = listaRegiones;
-        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)jTableRegiones.getModel();
         for(int i=0;i<listaRegionesPas.size();i++){                    
             String a=modelo.getValueAt(i,1).toString();                    
             String n=modelo.getValueAt(i,0).toString();                    
@@ -1281,7 +1281,7 @@ public class TipoProceso extends javax.swing.JPanel {
         }else{
             listaBuscada=Manager.queryByNameDistrito(busc);
         }
-        DefaultTableModel modelo2 = (DefaultTableModel)jTable7.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel)jTableDistritos.getModel();
         modelo2.setRowCount(0);
         String datos[] = new String[3];
         for (int i = 0; i < listaBuscada.size(); i++) {
@@ -1297,16 +1297,16 @@ public class TipoProceso extends javax.swing.JPanel {
             modelo2.addRow(datos);
         }
         TableColumn colum1 = null;
-        colum1 = jTable7.getColumnModel().getColumn(0);
+        colum1 = jTableDistritos.getColumnModel().getColumn(0);
         colum1.setPreferredWidth(60);
         TableColumn colum2 = null;
-        colum2 = jTable7.getColumnModel().getColumn(1);
+        colum2 = jTableDistritos.getColumnModel().getColumn(1);
         colum2.setPreferredWidth(5);
         TableColumn colum3 = null;
-        colum3 = jTable7.getColumnModel().getColumn(2);
+        colum3 = jTableDistritos.getColumnModel().getColumn(2);
         colum3.setPreferredWidth(5);
         TableColumn colum4 = null;
-        colum4 = jTable7.getColumnModel().getColumn(3);
+        colum4 = jTableDistritos.getColumnModel().getColumn(3);
         colum4.setPreferredWidth(40);
         colum4.setPreferredWidth(10);
         listaDistritos=listaBuscada;
@@ -1314,7 +1314,7 @@ public class TipoProceso extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        DefaultTableModel modelo = (DefaultTableModel)jTable7.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)jTableDistritos.getModel();
         ArrayList<Distrito> listaDistritosPas = listaDistritos;
         for(int i=0;i<listaDistritosPas.size();i++){
             String a=modelo.getValueAt(i,1).toString();
@@ -1355,7 +1355,7 @@ public class TipoProceso extends javax.swing.JPanel {
             listaBuscada=Manager.queryByNameRegion(busc);
         }
 
-        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)jTableRegiones.getModel();
         modelo.setRowCount(0);
         String datos[] = new String[3];
         for (int i = 0; i < listaBuscada.size(); i++) {
@@ -1368,19 +1368,19 @@ public class TipoProceso extends javax.swing.JPanel {
             modelo.addRow(datos);
         }
         TableColumn colum1 = null;
-        colum1 = jTable6.getColumnModel().getColumn(0);
+        colum1 = jTableRegiones.getColumnModel().getColumn(0);
         colum1.setPreferredWidth(60);
         TableColumn colum2 = null;
-        colum2 = jTable6.getColumnModel().getColumn(1);
+        colum2 = jTableRegiones.getColumnModel().getColumn(1);
         colum2.setPreferredWidth(5);
         TableColumn colum3 = null;
-        colum3 = jTable6.getColumnModel().getColumn(2);
+        colum3 = jTableRegiones.getColumnModel().getColumn(2);
         colum3.setPreferredWidth(40);
         colum3.setPreferredWidth(10);
         listaRegiones=listaBuscada;
     }//GEN-LAST:event_buscarRegionesActionPerformed
     private void agregarDatos(){
-        DefaultTableModel modelo = (DefaultTableModel)jTable6.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)jTableRegiones.getModel();
         modelo.setRowCount(0);
         String datos[] = new String[3];
         for (int i = 0; i < listaRegiones.size(); i++) {
@@ -1393,19 +1393,19 @@ public class TipoProceso extends javax.swing.JPanel {
             modelo.addRow(datos);
         }
         TableColumn colum1 = null;
-        colum1 = jTable6.getColumnModel().getColumn(0);
+        colum1 = jTableRegiones.getColumnModel().getColumn(0);
         colum1.setPreferredWidth(60);
         TableColumn colum2 = null;
-        colum2 = jTable6.getColumnModel().getColumn(1);
+        colum2 = jTableRegiones.getColumnModel().getColumn(1);
         colum2.setPreferredWidth(5);
         TableColumn colum3 = null;
-        colum3 = jTable6.getColumnModel().getColumn(2);
+        colum3 = jTableRegiones.getColumnModel().getColumn(2);
         colum3.setPreferredWidth(40);
         colum3.setPreferredWidth(10);           
     }
     
     private void agregarDatosDistritos(){
-       DefaultTableModel modelo = (DefaultTableModel)jTable7.getModel();
+       DefaultTableModel modelo = (DefaultTableModel)jTableDistritos.getModel();
         modelo.setRowCount(0);
         String datos[] = new String[4];
         for (int i = 0; i < listaDistritos.size(); i++) {
@@ -1420,16 +1420,16 @@ public class TipoProceso extends javax.swing.JPanel {
             modelo.addRow(datos);
         }
         TableColumn colum1 = null;
-        colum1 = jTable7.getColumnModel().getColumn(0);
+        colum1 = jTableDistritos.getColumnModel().getColumn(0);
         colum1.setPreferredWidth(60);
         TableColumn colum2 = null;
-        colum2 = jTable7.getColumnModel().getColumn(1);
+        colum2 = jTableDistritos.getColumnModel().getColumn(1);
         colum2.setPreferredWidth(5);
         TableColumn colum3 = null;
-        colum3 = jTable7.getColumnModel().getColumn(2);
+        colum3 = jTableDistritos.getColumnModel().getColumn(2);
         colum3.setPreferredWidth(5);
         TableColumn colum4 = null;
-        colum4 = jTable7.getColumnModel().getColumn(3);
+        colum4 = jTableDistritos.getColumnModel().getColumn(3);
         colum4.setPreferredWidth(40);
         colum4.setPreferredWidth(10);           
     }
@@ -1518,6 +1518,18 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardarRegiones;
     private javax.swing.JButton buscarDistritos;
     private javax.swing.JButton buscarRegiones;
+    private org.jdesktop.swingx.JXDatePicker fechaf1Distritos;
+    private org.jdesktop.swingx.JXDatePicker fechaf1Nacional;
+    private org.jdesktop.swingx.JXDatePicker fechaf1Regiones;
+    private org.jdesktop.swingx.JXDatePicker fechaf2Distritos;
+    private org.jdesktop.swingx.JXDatePicker fechaf2Nacional;
+    private org.jdesktop.swingx.JXDatePicker fechaf2Regiones;
+    private org.jdesktop.swingx.JXDatePicker fechai1Distritos;
+    private org.jdesktop.swingx.JXDatePicker fechai1Nacional;
+    private org.jdesktop.swingx.JXDatePicker fechai1Regiones;
+    private org.jdesktop.swingx.JXDatePicker fechai2Distritos;
+    private org.jdesktop.swingx.JXDatePicker fechai2Nacional;
+    private org.jdesktop.swingx.JXDatePicker fechai2Regiones;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
@@ -1578,26 +1590,14 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
+    private javax.swing.JTable jTableDistritos;
+    private javax.swing.JTable jTableRegiones;
     private javax.swing.JTextField jTextField8;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker10;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker11;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker12;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker13;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker14;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker15;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker16;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker3;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker4;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker5;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker6;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker7;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker8;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker9;
     private javax.swing.JTextField porcentajeDistrital;
     private javax.swing.JTextField porcentajeRegional;
     private javax.swing.JTable tblInstitucional;

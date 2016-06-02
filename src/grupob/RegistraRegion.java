@@ -36,8 +36,8 @@ public class RegistraRegion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         nombreRegistro = new javax.swing.JTextField();
         cantidadRegistro = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRegistraRegion = new javax.swing.JButton();
+        btnCancelarR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -48,17 +48,17 @@ public class RegistraRegion extends javax.swing.JFrame {
 
         jLabel3.setText("Cantidad de Votantes");
 
-        jButton1.setText("Registrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistraRegion.setText("Registrar");
+        btnRegistraRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistraRegionActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelarR.setText("Cancelar");
+        btnCancelarR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarRActionPerformed(evt);
             }
         });
 
@@ -86,9 +86,9 @@ public class RegistraRegion extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jButton1)
+                .addComponent(btnRegistraRegion)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCancelarR)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,19 +107,19 @@ public class RegistraRegion extends javax.swing.JFrame {
                     .addComponent(cantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnRegistraRegion)
+                    .addComponent(btnCancelarR))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarRActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegistraRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraRegionActionPerformed
        int cant;
        String nombre=nombreRegistro.getText();
         try{
@@ -141,7 +141,7 @@ public class RegistraRegion extends javax.swing.JFrame {
         Manager.addRegion(re);        
         this.setVisible(false);
         JOptionPane.showMessageDialog(null,"Region registrada\nahora puede buscarla en la lista de regiones");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegistraRegionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,9 +180,9 @@ public class RegistraRegion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelarR;
+    private javax.swing.JButton btnRegistraRegion;
     private javax.swing.JTextField cantidadRegistro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
