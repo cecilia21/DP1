@@ -46,7 +46,7 @@ public class ProcesoRegionDB {
         return daoRegion.queryById(id);
     }
     
-    public Region queryByName(String name)
+    public ArrayList<Region> queryByName(String name)
     {
         return daoRegion.queryByName(name);
     }
