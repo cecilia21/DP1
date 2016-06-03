@@ -32,14 +32,15 @@ public class MySQLDAODistrito implements DAODistrito {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO distrito "
-					+ "(idDistrito, nombre, cantidadDeVotantes, idRegion)"
-					+ "VALUES (?,?,?,?)";
+			String sql = "INSERT INTO Distrito "
+					+ "(idDistrito,nombre,cantidadVotantes,idRegion,idTipoProceso)"
+					+ "VALUES (?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p.getId());
 			pstmt.setString(2, p.getNombre());
                         pstmt.setInt(3, p.getCantidadVotantesRegistrados());
                         pstmt.setInt(4, p.getIdRegion());
+                        pstmt.setInt(5,3);
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();			
 			//Paso 5(opc.): Procesar los resultados			
@@ -70,8 +71,8 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "UPDATE distrito "
-					+ "SET name=?, cantidadDeVotantes=?,idRegion=? "
+			String sql = "UPDATE Distrito "
+					+ "SET nombre=?, cantidadVotantes=?, idRegion=?, idTipoProceso=? "
 					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
 			//
@@ -79,7 +80,8 @@ public class MySQLDAODistrito implements DAODistrito {
 			pstmt.setString(1, p.getNombre());
                         pstmt.setInt(2, p.getCantidadVotantesRegistrados());
                         pstmt.setInt(3, p.getIdRegion());
-			pstmt.setInt(4, p.getId());
+                        pstmt.setInt(4, 3);
+			pstmt.setInt(5, p.getId());
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();
 			//Paso 5(opc.): Procesar los resultados			
@@ -104,11 +106,11 @@ public class MySQLDAODistrito implements DAODistrito {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,
-                                                            DBConnection.password);
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "DELETE FROM distrito "
-					+ "WHERE id=?";
+			String sql = "DELETE FROM Distrito "
+					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
 			//
 			pstmt.setInt(1, idDistrito);
@@ -139,8 +141,8 @@ public class MySQLDAODistrito implements DAODistrito {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,
-                                                            DBConnection.password);
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM Distrito";
 			pstmt = conn.prepareStatement(sql);
@@ -152,7 +154,9 @@ public class MySQLDAODistrito implements DAODistrito {
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int idReg = rs.getInt("idRegion");
+                                int t = rs.getInt("idTipoProceso");
 				Distrito p=new Distrito(id,idReg,name,cant);
+                                p.setTipoProceso(t);
 				arr.add(p);
 			}
 		} catch (SQLException e) {
@@ -179,10 +183,10 @@ public class MySQLDAODistrito implements DAODistrito {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,
-                                                            DBConnection.password);
+                                                            DBConnection.user,null
+                                                            /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM distrito "
+			String sql = "SELECT * FROM Distrito "
 					+ "WHERE idDistrito=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idDistrito);
@@ -194,7 +198,9 @@ public class MySQLDAODistrito implements DAODistrito {
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int idReg = rs.getInt("idRegion");
+                                int t = rs.getInt("idTipoProceso");
 				p=new Distrito(id,idReg,name,cant);
+                                p.setTipoProceso(t);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -210,11 +216,11 @@ public class MySQLDAODistrito implements DAODistrito {
     }
 
     @Override
-    public Distrito queryByName(String name) {
+    public ArrayList<Distrito> queryByName(String name) {
         Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Distrito p=null;
+		ArrayList<Distrito> arr = new ArrayList<Distrito>();
 		try {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
@@ -223,19 +229,22 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM distrito "
-					+ "WHERE name LIKE ?";
+			String sql = "SELECT * FROM Distrito "
+					+ "WHERE nombre LIKE ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
+			pstmt.setString(1, name+ "%");
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
-			if (rs.next()){
+			while (rs.next()){
 				int id = rs.getInt("idDistrito");
 				String named = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int idReg = rs.getInt("idRegion");
-				p=new Distrito(id,idReg,named,cant);
+                                int t = rs.getInt("idTipoProceso");
+				Distrito p=new Distrito(id,idReg,named,cant);
+                                p.setTipoProceso(t);
+                                arr.add(p);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -247,7 +256,7 @@ public class MySQLDAODistrito implements DAODistrito {
 			try { if (conn!= null) conn.close();} 
 				catch (Exception e){e.printStackTrace();};						
 		}
-		return p; 
+		return arr; 
     }
-    
+     
 }

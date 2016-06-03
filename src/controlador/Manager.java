@@ -126,18 +126,18 @@ public class Manager {
     
      public static void addRegion(Region i)
     {
-//        procesoRegionDB.add(i);
-        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoRegionDB.add(i);
+//        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateRegion(Region i)
     {
-//        procesoRegionDB.updateRegion(i);
-        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoRegionDB.updateRegion(i);
+//        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteRegion (int idRegion)
     {
-//        procesoRegionDB.deleteRegion(idRegion);
-        System.out.println("Se borro la region con id igual a "+idRegion);
+        procesoRegionDB.deleteRegion(idRegion);
+//        System.out.println("Se borro la region con id igual a "+idRegion);
     }
     public static ArrayList<Region> queryAllRegion()
     {
@@ -154,7 +154,7 @@ public class Manager {
         return procesoRegionDB.queryById(id);
     }
     
-    public static Region queryByNameRegion(String name)
+    public static ArrayList<Region> queryByNameRegion(String name)
     {
         return procesoRegionDB.queryByName(name);
     }
@@ -169,18 +169,18 @@ public class Manager {
     
     public static void addDistrito(Distrito i)
     {
-//        procesoDistritoDB.add(i);
-        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoDistritoDB.add(i);
+//        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateDistrito(Distrito i)
     {
-//        procesoDistritoDB.updateDistrito(i);
-        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoDistritoDB.updateDistrito(i);
+//        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteDistrito (int idDistrito)
     {
-//        procesoDistritoDB.deleteDistrito(idDistrito);
-        System.out.println("Se borro la distrito con id igual a "+idDistrito);
+        procesoDistritoDB.deleteDistrito(idDistrito);
+//        System.out.println("Se borro la distrito con id igual a "+idDistrito);
     }
     public static ArrayList<Distrito> queryAllDistrito()
     {
@@ -192,7 +192,7 @@ public class Manager {
         return procesoDistritoDB.queryById(id);
     }
     
-    public static Distrito queryByNameDistrito(String name)
+    public static ArrayList<Distrito> queryByNameDistrito(String name)
     {
         return procesoDistritoDB.queryByName(name);
     }
