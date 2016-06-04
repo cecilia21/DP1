@@ -187,6 +187,28 @@ public class Recorte {
         return img;
     }
     
+    public static void ejecutar(File file){
+        BufferedImage test;
+        int inicioX, inicioY, finX, finY;
+        try {
+            test = ImageIO.read(file);
+            test = binarization(test);
+            //ImageIO.write(test, "jpg", new File("C:\\Users\\alulab14\\Downloads\\bin.jpg"));
+            test = extraerCuadroData(test);
+            BufferedImage[] registros = extraerRegistros(test);
+            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
+            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
+            BufferedImage[] dni = extraerDni(registros[0]);
+            for(int i=0;i<cantDni;i++){
+                int num = OcrNumeros.obtenerNumero(dni[i]);
+                System.out.println("numero: "+num);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        
+    }
+    
     public static void main(String[] args) {
         // TODO code application logic here
         //File file = new File("D:\\Users\\Cecilia\\Downloads\\rayado_Modificados_v1.jpg");
