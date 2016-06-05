@@ -7,6 +7,7 @@ package grupob;
 
 import controlador.Manager;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import model.Distrito;
 import model.Local;
@@ -69,6 +70,7 @@ public class LocalTableModel extends AbstractTableModel {
                 else
                     return "";
             case 2: 
+                   if (local.getIdDistrito() ==  -1) return "";
                    Distrito dist = Manager.queryByIdDistrito(local.getIdDistrito());
                    return dist.getNombre();
             
@@ -80,6 +82,55 @@ public class LocalTableModel extends AbstractTableModel {
     
     }
     
+    
+    
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        super.setValueAt(aValue, rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+    
+   
+        
+        if(!localList.isEmpty() && aValue != null ){
+        
+           
+            Local local = localList.get(rowIndex);
+           
+            
+            switch(columnIndex){
+            
+                case 0:
+                        String nombre = (String)aValue;
+                        nombre.trim();
+                        if(!nombre.equals(""))
+                            local.setNombre(nombre);
+                        else
+                            JOptionPane.showMessageDialog(null, "Nombre no puede ser vacio", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                case 1:
+                        String cant = (String)aValue;
+                        try
+                        {
+                           int val =  Integer.parseInt(cant);
+                           local.setCantidadVotantesRegistrados(val);
+                            
+                        }catch(Exception ex){
+                            
+                              JOptionPane.showMessageDialog(null, "Valor colocado no es numerico", "Error", JOptionPane.ERROR_MESSAGE);
+                      
+                        
+                            
+                        };
+                        break;
+            
+            }
+        
+        
+        
+        }
+        
+    this.fireTableDataChanged();
+    
+    }
     
     @Override
     public String getColumnName(int col){
