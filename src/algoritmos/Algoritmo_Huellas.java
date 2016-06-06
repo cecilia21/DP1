@@ -95,6 +95,8 @@ public class Algoritmo_Huellas {
         String dn = null;
         String hu=null;
         ImagePlus imp;
+        double d=-1;
+        int nd=Integer.parseInt(dni);
        try {
 //                InputStream ExcelFileToRead = new FileInputStream("F:/registro.xlsx");
                 InputStream ExcelFileToRead = new FileInputStream("F:/down/Desarrollo de programas 1/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
@@ -115,13 +117,13 @@ public class Algoritmo_Huellas {
 				cell=(XSSFCell) cells.next();
                                 if(i==2)
                                 {
-                                    double d=cell.getNumericCellValue();
+                                    d=cell.getNumericCellValue();
                                     int num=(int) d;
                                     dn=num+"";
 //                                    System.out.print("dni: "+num+" ");
                                 }
                                 if(dn!=null){
-                                    if(dni.compareTo(dn)==0){
+                                    if(d==nd){
                                         if(i==4){
                                             double dh=cell.getNumericCellValue();
                                             int num=(int) dh;
@@ -159,7 +161,7 @@ public class Algoritmo_Huellas {
     }
     
     private BufferedImage EscalarHuella(BufferedImage huellaO,int tamH,int tamW){
-        Image or = huellaO.getScaledInstance(tamW, tamH, Image.SCALE_SMOOTH);
+        Image or = huellaO.getScaledInstance(tamW, tamH, Image.SCALE_FAST);
         BufferedImage buffered1 = new BufferedImage(tamW, tamH, BufferedImage.TYPE_INT_ARGB);
         buffered1.getGraphics().drawImage(or, 0, 0 , null);
         return buffered1;
@@ -370,11 +372,12 @@ public class Algoritmo_Huellas {
             int heightO=huellaO.getHeight();
             int heightC=huellaC.getHeight();
             int widthO=huellaO.getWidth();
-            int widthC=huellaC.getHeight();
-            int tamRef=210;
-            int t=heightO-tamRef;
-            BufferedImage huellaOE=EscalarHuella(huellaO,heightO-t,widthO-t);
-            BufferedImage huellaCE=EscalarHuella(huellaC,heightC-t,widthC-t);
+            int widthC=huellaC.getWidth();
+            int t2=heightO-heightC;
+            double p=(double)heightO/(double)t2;
+            double p2=widthO/p;
+            BufferedImage huellaOE=EscalarHuella(huellaO,heightO-t2,widthO-(int)p2);
+            BufferedImage huellaCE=EscalarHuella(huellaC,heightC,widthC);
             try {
                 huellaOE=cropper(huellaOE);
                 huellaCE=cropper(huellaCE);
