@@ -226,6 +226,7 @@ public class PartidoPolitico {
     public int getIdRegion() {
         return idRegion;
     }
+    
 
     /**
      * @param idLugar the idLugar to set

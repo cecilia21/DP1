@@ -5,10 +5,33 @@
  */
 package grupob;
 
+import algoritmos.Recorte;
+import controlador.Manager;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import model.Distrito;
+import model.Institucion;
+import model.Local;
 import model.PartidoPolitico;
+import model.Region;
+import model.TipoProcesoVotacion;
 
 /**
  *
@@ -25,6 +48,11 @@ public class DetallePartido extends javax.swing.JPanel {
     public DetallePartido(FramePrincipal parent) {
         padre = parent;
         initComponents();
+        pestInstitucion.setVisible(false);
+        pestDistrital.setVisible(false);
+        pestNacional.setVisible(false);
+        pestRegional.setVisible(false);
+        pestLocal.setVisible(false);
     }
 
     /**
@@ -39,36 +67,82 @@ public class DetallePartido extends javax.swing.JPanel {
         jTabbedPane3 = new javax.swing.JTabbedPane();
         pestNacional = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        estado1 = new javax.swing.JTextField();
         validarNuevos = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        dni_rep1 = new javax.swing.JTextField();
+        nombre_rep1 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        correo1 = new javax.swing.JTextField();
+        fechaReg1 = new com.toedter.calendar.JDateChooser();
+        adherentesRevision = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel24 = new javax.swing.JLabel();
         pestRegional = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabla_region = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        dni_rep2 = new javax.swing.JTextField();
+        nombre_rep2 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        fechaReg2 = new com.toedter.calendar.JDateChooser();
+        correo2 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        adherentesRevision1 = new javax.swing.JButton();
         pestDistrital = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tabla_distrito = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        dni_rep3 = new javax.swing.JTextField();
+        nombre_rep3 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        fechaReg3 = new com.toedter.calendar.JDateChooser();
+        correo3 = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        adherentesRevision2 = new javax.swing.JButton();
         pestLocal = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tabla_local = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
+        dni_rep4 = new javax.swing.JTextField();
+        nombre_rep4 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        fechaReg4 = new com.toedter.calendar.JDateChooser();
+        correo4 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        adherentesRevision3 = new javax.swing.JButton();
         pestInstitucion = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tabla_institucion = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        dni_rep5 = new javax.swing.JTextField();
+        nombre_rep5 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        fechaReg5 = new com.toedter.calendar.JDateChooser();
+        correo5 = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        adherentesRevision4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        nombre_rep = new javax.swing.JTextField();
-        dni_rep = new javax.swing.JTextField();
-        adherentesRevision = new javax.swing.JButton();
         nombre_partido = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
 
         pestNacional.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setText("Estado Actual:");
-        pestNacional.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 41, 93, 22));
-        pestNacional.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 42, 134, -1));
+        pestNacional.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 93, 20));
+
+        estado1.setEditable(false);
+        pestNacional.add(estado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 134, -1));
 
         validarNuevos.setText("Validar nuevos Adherentes");
         validarNuevos.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +150,7 @@ public class DetallePartido extends javax.swing.JPanel {
                 validarNuevosActionPerformed(evt);
             }
         });
-        pestNacional.add(validarNuevos, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 81, 245, -1));
+        pestNacional.add(validarNuevos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 180, -1));
 
         jButton21.setText("Eliminar");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
@@ -84,152 +158,40 @@ public class DetallePartido extends javax.swing.JPanel {
                 jButton21ActionPerformed(evt);
             }
         });
-        pestNacional.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 110, -1, -1));
+        pestNacional.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, -1, -1));
 
         jLabel8.setText("Cantidad de Adherentes faltantes: ");
-        pestNacional.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 160, -1, -1));
-        pestNacional.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 157, 38, -1));
+        pestNacional.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
-        jTabbedPane3.addTab("Nacional", pestNacional);
+        jTextField5.setEditable(false);
+        pestNacional.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 50, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Region", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
+        jLabel9.setText("Dni del Representante:");
+        pestNacional.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 130, -1));
+
+        dni_rep1.setEditable(false);
+        pestNacional.add(dni_rep1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 160, -1));
+
+        nombre_rep1.setEditable(false);
+        pestNacional.add(nombre_rep1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 160, -1));
+
+        jLabel10.setText("Nombre del Representante:");
+        pestNacional.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 140, -1));
+
+        jLabel1.setText("Correo:");
+        pestNacional.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        jLabel2.setText("Fecha de Registro:");
+        pestNacional.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        correo1.setEditable(false);
+        correo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correo1ActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        javax.swing.GroupLayout pestRegionalLayout = new javax.swing.GroupLayout(pestRegional);
-        pestRegional.setLayout(pestRegionalLayout);
-        pestRegionalLayout.setHorizontalGroup(
-            pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestRegionalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pestRegionalLayout.setVerticalGroup(
-            pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestRegionalLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("Regional", pestRegional);
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Distrito", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable3);
-
-        javax.swing.GroupLayout pestDistritalLayout = new javax.swing.GroupLayout(pestDistrital);
-        pestDistrital.setLayout(pestDistritalLayout);
-        pestDistritalLayout.setHorizontalGroup(
-            pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestDistritalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pestDistritalLayout.setVerticalGroup(
-            pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestDistritalLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("Distrital", pestDistrital);
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Local", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
-            }
-        ));
-        jScrollPane4.setViewportView(jTable4);
-
-        javax.swing.GroupLayout pestLocalLayout = new javax.swing.GroupLayout(pestLocal);
-        pestLocal.setLayout(pestLocalLayout);
-        pestLocalLayout.setHorizontalGroup(
-            pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestLocalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pestLocalLayout.setVerticalGroup(
-            pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestLocalLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("Local", pestLocal);
-
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Institucional", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable5);
-
-        javax.swing.GroupLayout pestInstitucionLayout = new javax.swing.GroupLayout(pestInstitucion);
-        pestInstitucion.setLayout(pestInstitucionLayout);
-        pestInstitucionLayout.setHorizontalGroup(
-            pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestInstitucionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pestInstitucionLayout.setVerticalGroup(
-            pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pestInstitucionLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("Institucional", pestInstitucion);
-
-        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        jLabel4.setText("Nombre del Partido");
-
-        jLabel5.setText("Nombre del Representante:");
-
-        jLabel6.setText("Dni del Representante:");
-
-        nombre_rep.setEditable(false);
-
-        dni_rep.setEditable(false);
+        });
+        pestNacional.add(correo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 160, -1));
+        pestNacional.add(fechaReg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 120, -1));
 
         adherentesRevision.setText("Adherentes en Revision");
         adherentesRevision.addActionListener(new java.awt.event.ActionListener() {
@@ -237,144 +199,898 @@ public class DetallePartido extends javax.swing.JPanel {
                 adherentesRevisionActionPerformed(evt);
             }
         });
+        pestNacional.add(adherentesRevision, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
+        pestNacional.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 570, 10));
+
+        jLabel24.setText("Opciones");
+        pestNacional.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        jTabbedPane3.addTab("Nacional", pestNacional);
+
+        tabla_region.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Region", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
+            }
+        ));
+        tabla_region.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_regionMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabla_region);
+
+        jLabel11.setText("Nombre del Representante:");
+
+        dni_rep2.setEditable(false);
+
+        nombre_rep2.setEditable(false);
+
+        jLabel12.setText("Dni del Representante:");
+
+        jLabel3.setText("Fecha de Registro:");
+
+        fechaReg2.setOpaque(false);
+
+        correo2.setEditable(false);
+        correo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correo2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Correo:");
+
+        adherentesRevision1.setText("Adherentes en Revision");
+        adherentesRevision1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adherentesRevision1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pestRegionalLayout = new javax.swing.GroupLayout(pestRegional);
+        pestRegional.setLayout(pestRegionalLayout);
+        pestRegionalLayout.setHorizontalGroup(
+            pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestRegionalLayout.createSequentialGroup()
+                .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pestRegionalLayout.createSequentialGroup()
+                                .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                                        .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel3))
+                                        .addGap(99, 99, 99)
+                                        .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(correo2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(fechaReg2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(60, 60, 60)
+                                        .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(dni_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(nombre_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                .addComponent(adherentesRevision1))))
+                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
+                .addContainerGap())
+        );
+        pestRegionalLayout.setVerticalGroup(
+            pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pestRegionalLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(nombre_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel12))
+                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(dni_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(correo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(pestRegionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pestRegionalLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(6, 6, 6))
+                            .addComponent(adherentesRevision1)))
+                    .addGroup(pestRegionalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fechaReg2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane3.addTab("Regional", pestRegional);
+
+        tabla_distrito.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Distrito", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
+            }
+        ));
+        tabla_distrito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_distritoMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabla_distrito);
+
+        jLabel13.setText("Nombre del Representante:");
+
+        dni_rep3.setEditable(false);
+
+        nombre_rep3.setEditable(false);
+
+        jLabel14.setText("Dni del Representante:");
+
+        jLabel6.setText("Fecha de Registro:");
+
+        fechaReg3.setOpaque(false);
+
+        correo3.setEditable(false);
+        correo3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correo3ActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setText("Correo:");
+
+        adherentesRevision2.setText("Adherentes en Revision");
+        adherentesRevision2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adherentesRevision2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pestDistritalLayout = new javax.swing.GroupLayout(pestDistrital);
+        pestDistrital.setLayout(pestDistritalLayout);
+        pestDistritalLayout.setHorizontalGroup(
+            pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestDistritalLayout.createSequentialGroup()
+                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pestDistritalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                    .addGroup(pestDistritalLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pestDistritalLayout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(nombre_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pestDistritalLayout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dni_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pestDistritalLayout.createSequentialGroup()
+                                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(correo3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaReg3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(adherentesRevision2)))
+                .addContainerGap())
+        );
+        pestDistritalLayout.setVerticalGroup(
+            pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pestDistritalLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(nombre_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(dni_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(correo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pestDistritalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fechaReg3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(adherentesRevision2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane3.addTab("Distrital", pestDistrital);
+
+        tabla_local.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Local", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
+            }
+        ));
+        tabla_local.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_localMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabla_local);
+
+        jLabel15.setText("Nombre del Representante:");
+
+        dni_rep4.setEditable(false);
+
+        nombre_rep4.setEditable(false);
+
+        jLabel16.setText("Dni del Representante:");
+
+        jLabel20.setText("Fecha de Registro:");
+
+        correo4.setEditable(false);
+        correo4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correo4ActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("Correo:");
+
+        adherentesRevision3.setText("Adherentes en Revision");
+        adherentesRevision3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adherentesRevision3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pestLocalLayout = new javax.swing.GroupLayout(pestLocal);
+        pestLocal.setLayout(pestLocalLayout);
+        pestLocalLayout.setHorizontalGroup(
+            pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestLocalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(pestLocalLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pestLocalLayout.createSequentialGroup()
+                        .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pestLocalLayout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addGap(153, 153, 153)
+                                .addComponent(correo4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pestLocalLayout.createSequentialGroup()
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(60, 60, 60)
+                                .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dni_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombre_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pestLocalLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(99, 99, 99)
+                        .addComponent(fechaReg4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(adherentesRevision3)
+                        .addGap(19, 19, 19))))
+        );
+        pestLocalLayout.setVerticalGroup(
+            pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pestLocalLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(nombre_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(dni_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addComponent(correo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel20)
+                        .addComponent(fechaReg4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adherentesRevision3))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane3.addTab("Local", pestLocal);
+
+        tabla_institucion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Institucional", "Estado Activo", "Cant. Adhs Faltantes", "Validar Nuevos", "Eliminar"
+            }
+        ));
+        tabla_institucion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_institucionMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tabla_institucion);
+
+        jLabel17.setText("Nombre del Representante:");
+
+        dni_rep5.setEditable(false);
+
+        nombre_rep5.setEditable(false);
+
+        jLabel18.setText("Dni del Representante:");
+
+        jLabel22.setText("Fecha de Registro:");
+
+        correo5.setEditable(false);
+        correo5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correo5ActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Correo:");
+
+        adherentesRevision4.setText("Adherentes en Revision");
+        adherentesRevision4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adherentesRevision4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pestInstitucionLayout = new javax.swing.GroupLayout(pestInstitucion);
+        pestInstitucion.setLayout(pestInstitucionLayout);
+        pestInstitucionLayout.setHorizontalGroup(
+            pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestInstitucionLayout.createSequentialGroup()
+                .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pestInstitucionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                    .addGroup(pestInstitucionLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pestInstitucionLayout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addGap(153, 153, 153)
+                                .addComponent(correo5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pestInstitucionLayout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addGap(99, 99, 99)
+                                .addComponent(fechaReg5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(adherentesRevision4))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pestInstitucionLayout.createSequentialGroup()
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(60, 60, 60)
+                                .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dni_rep5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombre_rep5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap())
+        );
+        pestInstitucionLayout.setVerticalGroup(
+            pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestInstitucionLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(nombre_rep5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(dni_rep5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(correo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pestInstitucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel22)
+                        .addComponent(fechaReg5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adherentesRevision4))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane3.addTab("Institucional", pestInstitucion);
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setText("Nombre del Partido");
 
         nombre_partido.setEditable(false);
+        nombre_partido.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         nombre_partido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombre_partidoActionPerformed(evt);
             }
         });
 
+        jLabel25.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel25.setText("Detalle de Partido Político");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombre_partido, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dni_rep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(nombre_rep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(adherentesRevision)))
+                .addGap(45, 45, 45)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nombre_partido, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane3))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombre_partido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(nombre_rep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adherentesRevision))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dni_rep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void validarNuevosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validarNuevosActionPerformed
         //jTabbedPane3.setVisible(false);
         JFileChooser fileChooser = new JFileChooser();
+        //fileChooser.setCurrentDirectory(new java.io.File("."));
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Seleccionar Carpeta");
+        //fileChooser.setAcceptAllFileFilterUsed(false);
         int returnValue = fileChooser.showOpenDialog(null);
+        
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+            //File selectedFile = fileChooser.getSelectedFile();
             //            System.out.println(selectedFile.getName());
+            File selectedFile=fileChooser.getSelectedFile();
+            FilenameFilter textFilter = new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.toLowerCase().endsWith(".jpg");
+                }
+            };
+            File[] files = selectedFile.listFiles(textFilter);
+            ArrayList<String> listaImagenes= new ArrayList<String>();
+            for (File file : files) {                
+//                try {
+//                    listaImagenes.add(file.getCanonicalPath());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                Recorte.ejecutar(file);
+            }          
+                        
         }
-        try{
-            //            System.out.println("hola");
-            Thread.sleep(2000);
-            jTabbedPane3.setVisible(true);
-            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
-
-            //            System.out.println("hola");
-        }catch(Exception e){
-
-        }
+        
+//        try{
+//            //            System.out.println("hola");
+//            Thread.sleep(2000);
+//            jTabbedPane3.setVisible(true);
+//            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+//            dialog.setLocationRelativeTo(null);
+//            dialog.setVisible(true);
+//
+//            //            System.out.println("hola");
+//        }catch(Exception e){
+//
+//        }
         //        jTabbedPane3.setVisible(true);
         //        imP5.setVisible(false);
     }//GEN-LAST:event_validarNuevosActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas eliminar?","Advertencia",dialogButton);
+          
+        int num = JOptionPane.showConfirmDialog(null, "está seguro que desea eliminarlo?");
+        if(num==0) { //se acepta eliminar 
+            PartidoPolitico p=Manager.queryPartidoByNombTipo(nombre_partido.getText(), 1).get(0);
+            Manager.deletePartidoById(p.getId());
+            showDetail(p);
+        }
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void adherentesRevisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adherentesRevisionActionPerformed
-        /*
-        jPanel2.setVisible(false);
-        jPanel3.setVisible(false);
-        jPanel4.setVisible(false);
-        jPanel11.setVisible(false);
-        panelRegistroPartidos.setVisible(false);
-        jPanel18.setVisible(true);
-*/
-        padre.mostrarAdherentes(partidoPolitico);
+        TipoProcesoVotacion vot = Manager.queryTipoProcesoByName(jTabbedPane3.getTitleAt(jTabbedPane3.getSelectedIndex()));
+        padre.mostrarAdherentes(partidoPolitico, vot.getId());
+        
     }//GEN-LAST:event_adherentesRevisionActionPerformed
 
     private void nombre_partidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_partidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombre_partidoActionPerformed
-    public void showDetail(PartidoPolitico p){
-        nombre_partido.setText(p.getNombre());
-        nombre_rep.setText(p.getNombreRepresentante()+" "+p.getApellidoRepresentante());
-        dni_rep.setText(p.getDniRepresentante());
-        partidoPolitico = p;
-    }
 
+    private void correo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correo1ActionPerformed
+
+    private void correo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correo2ActionPerformed
+
+    private void correo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correo3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correo3ActionPerformed
+
+    private void correo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correo4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correo4ActionPerformed
+
+    private void correo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correo5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correo5ActionPerformed
+
+    private void adherentesRevision1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adherentesRevision1ActionPerformed
+        // TODO add your handling code here:
+        TipoProcesoVotacion vot = Manager.queryTipoProcesoByName(jTabbedPane3.getTitleAt(jTabbedPane3.getSelectedIndex()));
+        padre.mostrarAdherentes(partidoPolitico, vot.getId());
+    }//GEN-LAST:event_adherentesRevision1ActionPerformed
+
+    private void adherentesRevision2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adherentesRevision2ActionPerformed
+        // TODO add your handling code here:
+        TipoProcesoVotacion vot = Manager.queryTipoProcesoByName(jTabbedPane3.getTitleAt(jTabbedPane3.getSelectedIndex()));
+        padre.mostrarAdherentes(partidoPolitico, vot.getId());
+    }//GEN-LAST:event_adherentesRevision2ActionPerformed
+
+    private void adherentesRevision3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adherentesRevision3ActionPerformed
+        // TODO add your handling code here:
+        TipoProcesoVotacion vot = Manager.queryTipoProcesoByName(jTabbedPane3.getTitleAt(jTabbedPane3.getSelectedIndex()));
+        padre.mostrarAdherentes(partidoPolitico, vot.getId());
+    }//GEN-LAST:event_adherentesRevision3ActionPerformed
+
+    private void adherentesRevision4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adherentesRevision4ActionPerformed
+        // TODO add your handling code here:
+        TipoProcesoVotacion vot = Manager.queryTipoProcesoByName(jTabbedPane3.getTitleAt(jTabbedPane3.getSelectedIndex()));
+        padre.mostrarAdherentes(partidoPolitico, vot.getId());
+    }//GEN-LAST:event_adherentesRevision4ActionPerformed
+
+    private void tabla_regionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_regionMouseClicked
+        // TODO add your handling code here:
+        int row = tabla_region.rowAtPoint(evt.getPoint());
+        int col = tabla_region.columnAtPoint(evt.getPoint());
+        if(col==4){
+            int num = JOptionPane.showConfirmDialog(null, "está seguro que desea eliminarlo?");
+            if(num==0) { //se acepta eliminar 
+                PartidoPolitico p = regionesModel.partidos.get(row);
+                Manager.deletePartidoById(p.getId());
+                showDetail(p);
+            }
+        }
+    }//GEN-LAST:event_tabla_regionMouseClicked
+
+    private void tabla_distritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_distritoMouseClicked
+        // TODO add your handling code here:
+        int row = tabla_distrito.rowAtPoint(evt.getPoint());
+        int col = tabla_distrito.columnAtPoint(evt.getPoint());
+        if(col==4){
+            int num = JOptionPane.showConfirmDialog(null, "está seguro que desea eliminarlo?");
+            if(num==0) { //se acepta eliminar 
+                PartidoPolitico p = distritosModel.partidos.get(row);
+                Manager.deletePartidoById(p.getId());
+                showDetail(p);
+            }
+        }
+    }//GEN-LAST:event_tabla_distritoMouseClicked
+
+    private void tabla_localMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_localMouseClicked
+        // TODO add your handling code here:
+        int row = tabla_local.rowAtPoint(evt.getPoint());
+        int col = tabla_local.columnAtPoint(evt.getPoint());
+        if(col==4){
+            int num = JOptionPane.showConfirmDialog(null, "está seguro que desea eliminarlo?");
+            if(num==0) { //se acepta eliminar 
+                PartidoPolitico p = localesModel.partidos.get(row);
+                Manager.deletePartidoById(p.getId());
+                showDetail(p);
+            }
+        }
+    }//GEN-LAST:event_tabla_localMouseClicked
+
+    private void tabla_institucionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_institucionMouseClicked
+        // TODO add your handling code here:
+        int row = tabla_local.rowAtPoint(evt.getPoint());
+        int col = tabla_local.columnAtPoint(evt.getPoint());
+        if(col==4){
+            int num = JOptionPane.showConfirmDialog(null, "está seguro que desea eliminarlo?");
+            if(num==0) { //se acepta eliminar 
+                PartidoPolitico p = institucionesModel.partidos.get(row);
+                Manager.deletePartidoById(p.getId());
+                showDetail(p);
+            }
+        }
+    }//GEN-LAST:event_tabla_institucionMouseClicked
+    public void showDetail(PartidoPolitico p){
+        ArrayList<PartidoPolitico> partidos = Manager.queryPartidoByName(p.getNombre());
+        if(partidos == null || partidos.size()==0 )
+            padre.mostrarBusqueda();
+        nombre_partido.setText(p.getNombre());
+        //nombre_rep.setText(p.getNombreRepresentante()+" "+p.getApellidoRepresentante());
+        //dni_rep.setText(p.getDniRepresentante());
+        partidoPolitico = p;
+        
+        int[] tipos = Manager.queryTipoProcesoNombrePartido(p.getNombre());
+        if(tipos[1]==0){
+            jTabbedPane3.remove(pestNacional);
+        } else{
+            partidos = Manager.queryPartidoByNombTipo(p.getNombre(), 1);
+            nombre_rep1.setText(partidos.get(0).getNombreRepresentante()+" "+partidos.get(0).getApellidoRepresentante());
+            dni_rep1.setText(partidos.get(0).getDniRepresentante());
+            correo1.setText(partidos.get(0).getCorreoPartido());
+            fechaReg1.setCalendar(partidos.get(0).getFechaRegistro());
+            estado1.setText(partidos.get(0).getEstado());
+            jTextField5.setText(""+partidos.get(0).getCantidadRegistrosValidos());
+        }
+        if(tipos[2]==0){            
+            jTabbedPane3.remove(pestRegional);
+        } else {
+            partidos = Manager.queryPartidoByNombTipo(p.getNombre(), 2);
+            nombre_rep2.setText(partidos.get(0).getNombreRepresentante()+" "+partidos.get(0).getApellidoRepresentante());
+            dni_rep2.setText(partidos.get(0).getDniRepresentante());
+            correo2.setText(partidos.get(0).getCorreoPartido());
+            fechaReg2.setCalendar(partidos.get(0).getFechaRegistro());
+            regionesModel = new RegionModel();
+            ArrayList<String> regs = new ArrayList<String>();
+            regionesModel.partidos = partidos;
+            for(int i =0;i<partidos.size();i++){
+                Region reg = Manager.queryByIdRegion(partidos.get(i).getIdRegion());
+                regs.add(reg.getNombre());
+            }
+            regionesModel.regiones = regs;
+            tabla_region.setModel(regionesModel);
+            TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+            tabla_region.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
+            tabla_region.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
+//regionesModel.fireTableChanged(null);
+        
+        }
+        if(tipos[3]==0){
+            jTabbedPane3.remove(pestDistrital);
+        }else {
+            partidos = Manager.queryPartidoByNombTipo(p.getNombre(), 3);
+            nombre_rep3.setText(partidos.get(0).getNombreRepresentante()+" "+partidos.get(0).getApellidoRepresentante());
+            dni_rep3.setText(partidos.get(0).getDniRepresentante());
+            correo3.setText(partidos.get(0).getCorreoPartido());
+            fechaReg3.setCalendar(partidos.get(0).getFechaRegistro());
+            distritosModel = new RegionModel();
+            distritosModel.titles[0]="Distritos";
+            ArrayList<String> regs = new ArrayList<String>();
+            distritosModel.partidos = partidos;
+            for(int i =0;i<partidos.size();i++){
+                Distrito reg = Manager.queryByIdDistrito(partidos.get(i).getIdDistrito());
+                regs.add(reg.getNombre());
+            }
+            distritosModel.regiones = regs;
+            tabla_distrito.setModel(distritosModel);
+            TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+            tabla_distrito.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
+            tabla_distrito.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
+        }
+        if(tipos[4]==0){
+            jTabbedPane3.remove(pestLocal);
+        }else {
+            partidos = Manager.queryPartidoByNombTipo(p.getNombre(), 4);
+            nombre_rep3.setText(partidos.get(0).getNombreRepresentante()+" "+partidos.get(0).getApellidoRepresentante());
+            dni_rep3.setText(partidos.get(0).getDniRepresentante());
+            correo3.setText(partidos.get(0).getCorreoPartido());
+            fechaReg3.setCalendar(partidos.get(0).getFechaRegistro());
+            localesModel = new RegionModel();
+            localesModel.titles[0]="Locales";
+            ArrayList<String> regs = new ArrayList<String>();
+            localesModel.partidos = partidos;
+            for(int i =0;i<partidos.size();i++){
+                Local reg = Manager.queryLocalById(partidos.get(i).getIdLocal());
+                regs.add(reg.getNombre());
+            }
+            localesModel.regiones = regs;
+            tabla_local.setModel(localesModel);
+            TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+            tabla_local.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
+            tabla_local.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
+        }
+        if(tipos[5]==0){
+            jTabbedPane3.remove(pestInstitucion);
+        }else {
+            partidos = Manager.queryPartidoByNombTipo(p.getNombre(), 5);
+            nombre_rep3.setText(partidos.get(0).getNombreRepresentante()+" "+partidos.get(0).getApellidoRepresentante());
+            dni_rep3.setText(partidos.get(0).getDniRepresentante());
+            correo3.setText(partidos.get(0).getCorreoPartido());
+            fechaReg3.setCalendar(partidos.get(0).getFechaRegistro());
+            institucionesModel = new RegionModel();
+            institucionesModel.titles[0]="Instituciones";
+            ArrayList<String> regs = new ArrayList<String>();
+            institucionesModel.partidos = partidos;
+            for(int i =0;i<partidos.size();i++){
+                Institucion reg = Manager.queryInstitucionById(partidos.get(i).getIdInstitucion());
+                regs.add(reg.getNombre());
+            }
+            institucionesModel.regiones = regs;
+            tabla_institucion.setModel(institucionesModel);
+            TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+            tabla_institucion.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
+            tabla_institucion.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
+        }
+         jTabbedPane3.repaint();
+    }
+    
+    private static class JTableButtonRenderer implements TableCellRenderer {        
+        @Override 
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JButton button = (JButton)value;
+            return button;  
+        }
+    }
+    
+    public class RegionModel extends AbstractTableModel{
+	ArrayList<String> regiones = null;	
+        ArrayList<PartidoPolitico> partidos = null; 
+	String [] titles = {"Region","Estado","Cant Adhs Falt", "Validar nuevos", "Eliminar"};
+        Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, JButton.class,  JButton.class};
+		
+        @Override
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return titles.length;
+		}
+
+		@Override
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return partidos.size();
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+                    String value = "";
+                    switch(col){
+			case 0:  value = regiones.get(row); break;
+			case 1:  value = partidos.get(row).getEstado(); break;
+			case 2:  value = "" + partidos.get(row).getCantidadRegistrosValidos(); break;
+                        case 3: final JButton button = new JButton("check");
+                                button.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent arg0) {
+                                        JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button), 
+                                                "Button clicked for row "+row);
+                                    }
+                                });
+                                return button; 
+                        case 4: final JButton button1 = new JButton("X");
+                                button1.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent arg0) {
+                                        JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button1), 
+                                                "Button clicked for row "+row);
+                                    }
+                                });
+                                return button1;
+			}
+			return value;
+		}
+                
+        @Override 
+        public Class<?> getColumnClass(int columnIndex) {
+            return COLUMN_TYPES[columnIndex];
+        }
+		
+		public String getColumnName(int col){
+			return titles[col];
+		}
+		
+	}
+    private RegionModel regionesModel;
+    private RegionModel distritosModel;
+    private RegionModel localesModel;
+    private RegionModel institucionesModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adherentesRevision;
-    private javax.swing.JTextField dni_rep;
+    private javax.swing.JButton adherentesRevision1;
+    private javax.swing.JButton adherentesRevision2;
+    private javax.swing.JButton adherentesRevision3;
+    private javax.swing.JButton adherentesRevision4;
+    private javax.swing.JTextField correo1;
+    private javax.swing.JTextField correo2;
+    private javax.swing.JTextField correo3;
+    private javax.swing.JTextField correo4;
+    private javax.swing.JTextField correo5;
+    private javax.swing.JTextField dni_rep1;
+    private javax.swing.JTextField dni_rep2;
+    private javax.swing.JTextField dni_rep3;
+    private javax.swing.JTextField dni_rep4;
+    private javax.swing.JTextField dni_rep5;
+    private javax.swing.JTextField estado1;
+    private com.toedter.calendar.JDateChooser fechaReg1;
+    private com.toedter.calendar.JDateChooser fechaReg2;
+    private com.toedter.calendar.JDateChooser fechaReg3;
+    private com.toedter.calendar.JDateChooser fechaReg4;
+    private com.toedter.calendar.JDateChooser fechaReg5;
     private javax.swing.JButton jButton21;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField nombre_partido;
-    private javax.swing.JTextField nombre_rep;
+    private javax.swing.JTextField nombre_rep1;
+    private javax.swing.JTextField nombre_rep2;
+    private javax.swing.JTextField nombre_rep3;
+    private javax.swing.JTextField nombre_rep4;
+    private javax.swing.JTextField nombre_rep5;
     private javax.swing.JPanel pestDistrital;
     private javax.swing.JPanel pestInstitucion;
     private javax.swing.JPanel pestLocal;
     private javax.swing.JPanel pestNacional;
     private javax.swing.JPanel pestRegional;
+    private javax.swing.JTable tabla_distrito;
+    private javax.swing.JTable tabla_institucion;
+    private javax.swing.JTable tabla_local;
+    private javax.swing.JTable tabla_region;
     private javax.swing.JButton validarNuevos;
     // End of variables declaration//GEN-END:variables
 }

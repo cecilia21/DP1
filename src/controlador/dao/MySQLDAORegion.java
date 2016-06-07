@@ -33,7 +33,7 @@ public class MySQLDAORegion implements DAORegion {
 								DBConnection.user,
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
-			String sql = "INSERT INTO region "
+			String sql = "INSERT INTO Region "
 					+ "(idRegion, nombre,cantidadVotantes,idTipoProceso)"
 					+ "VALUES (?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -71,7 +71,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "UPDATE region "
+			String sql = "UPDATE Region "
 					+ "SET nombre=?, cantidadVotantes=? "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "DELETE FROM region "
+			String sql = "DELETE FROM Region "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
 			//
@@ -141,7 +141,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region";
+			String sql = "SELECT * FROM Region";
 			pstmt = conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
@@ -183,7 +183,7 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region "
+			String sql = "SELECT * FROM Region "
 					+ "WHERE idRegion=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idRegion);
@@ -195,8 +195,8 @@ public class MySQLDAORegion implements DAORegion {
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int t = rs.getInt("idTipoProceso");
-                                p.setTipoProceso(t);
 				p=new Region(id,name,cant);
+                                p.setTipoProceso(t);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -212,11 +212,12 @@ public class MySQLDAORegion implements DAORegion {
     }
 
     @Override
-    public Region queryByName(String nameb) {
+    public ArrayList<Region> queryByName(String nameb){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Region p=null;
+//		Region p=null;
+                ArrayList<Region> arr = new ArrayList<Region>();
 		try {
 			//Paso 1: Registrar el Driver
 			DriverManager.registerDriver(new Driver());
@@ -225,20 +226,21 @@ public class MySQLDAORegion implements DAORegion {
                                                             DBConnection.user,null
                                                             /*DBConnection.password*/);
 			//Paso 3: Preparar la sentencia
-			String sql = "SELECT * FROM region "
-					+ "WHERE name LIKE ?";
+			String sql = "SELECT * FROM Region "
+					+ "WHERE nombre LIKE ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, nameb);
+			pstmt.setString(1, nameb + "%");
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
-			if (rs.next()){
+			while (rs.next()){
 				int id = rs.getInt("idRegion");
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int t = rs.getInt("idTipoProceso");
+                                Region p=new Region(id,name,cant);
                                 p.setTipoProceso(t);
-				p=new Region(id,name,cant);
+				arr.add(p);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -250,7 +252,7 @@ public class MySQLDAORegion implements DAORegion {
 			try { if (conn!= null) conn.close();} 
 				catch (Exception e){e.printStackTrace();};						
 		}
-		return p;      
+		return arr;      
     }
     
 }

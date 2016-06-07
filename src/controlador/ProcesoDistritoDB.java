@@ -46,7 +46,7 @@ public class ProcesoDistritoDB {
         return daoDistrito.queryById(id);
     }
     
-    public Distrito queryByName(String name)
+    public ArrayList<Distrito> queryByName(String name)
     {
         return daoDistrito.queryByName(name);
     }    

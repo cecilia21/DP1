@@ -16,4 +16,5 @@ public interface DAOTipoProcesoVotacion {
     void update(TipoProcesoVotacion p);
     TipoProcesoVotacion queryById(int idTipoProcesoVotacion);
     ArrayList<TipoProcesoVotacion> queryAll();
+    TipoProcesoVotacion queryByName(String nombre);
 }

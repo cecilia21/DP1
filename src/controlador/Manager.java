@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Adherente;
 import model.Distrito;
 import model.Institucion;
 import model.Local;
@@ -34,10 +35,51 @@ public class Manager {
         partidoDB.add(p);
     }
     
+    public static void updatePartido(PartidoPolitico p){
+        partidoDB.update(p);
+    }
+    
     public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLug(String nombre, int ind1, int ind2){
         return partidoDB.queryByNombTipoLug(nombre, ind1, ind2);
     }
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByNombTipoLugFull(String nombre, int ind1, int ind2){
+        return partidoDB.queryByNombTipoLugFull(nombre, ind1, ind2);
+    }
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByNombTipo(String nombre, int ind1){
+        return partidoDB.queryByNombTipo(nombre, ind1);
+    }
+    
     private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
+    
+    public static ArrayList<PartidoPolitico> queryPartidoByName(String nombre){
+        return partidoDB.queryByName(nombre);
+    }
+    
+    public static int[] queryTipoProcesoNombrePartido(String nombre){
+        return partidoDB.queryTipoProcesoNombrePartido(nombre);
+    }
+    
+    public static PartidoPolitico queryPartidoById(int id){
+        return partidoDB.queryPartidoById(id);
+    }
+    
+    public static ArrayList<Adherente> queryAdherentesByPartidoId(int idPartido) {
+        return partidoDB.queryAdherentesById(idPartido);
+    }
+    
+    public static void deleteAdherenteById(int id){
+        partidoDB.deleteAdherenteById(id);
+    }
+    
+    public static TipoProcesoVotacion queryTipoProcesoByName(String nombre){
+        return tipoprocesoDB.queryByName(nombre);
+    }
+    
+    public static void deletePartidoById(int id){
+        partidoDB.delete(id);
+    }
     
     /////////INSTITUCIONAL
     
@@ -49,9 +91,9 @@ public class Manager {
     {
         procesoInstitucionalDB.update(i);
     }
-    public static void deleteInstitucion(int idProduct)
+    public static void deleteInstitucion(int idInstitucion)
     {
-        procesoInstitucionalDB.delete(idProduct);
+        procesoInstitucionalDB.delete(idInstitucion);
     }
     public static ArrayList<Institucion> queryAllInstitucion()
     {
@@ -59,6 +101,10 @@ public class Manager {
     }
     public static Institucion queryInstitucionById(int institucionId) {
         return procesoInstitucionalDB.queryById(institucionId);
+    }
+    public static ArrayList<Institucion> queryByNameInstitucion(String nombre)
+    {
+        return procesoInstitucionalDB.queryByName(nombre);
     }
     
     /////////FIN INSTITUCIONAL
@@ -80,18 +126,18 @@ public class Manager {
     
      public static void addRegion(Region i)
     {
-//        procesoRegionDB.add(i);
-        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoRegionDB.add(i);
+//        System.out.println("Se registro la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateRegion(Region i)
     {
-//        procesoRegionDB.updateRegion(i);
-        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoRegionDB.updateRegion(i);
+//        System.out.println("Se actualizo la region con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteRegion (int idRegion)
     {
-//        procesoRegionDB.deleteRegion(idRegion);
-        System.out.println("Se borro la region con id igual a "+idRegion);
+        procesoRegionDB.deleteRegion(idRegion);
+//        System.out.println("Se borro la region con id igual a "+idRegion);
     }
     public static ArrayList<Region> queryAllRegion()
     {
@@ -108,7 +154,7 @@ public class Manager {
         return procesoRegionDB.queryById(id);
     }
     
-    public static Region queryByNameRegion(String name)
+    public static ArrayList<Region> queryByNameRegion(String name)
     {
         return procesoRegionDB.queryByName(name);
     }
@@ -123,18 +169,18 @@ public class Manager {
     
     public static void addDistrito(Distrito i)
     {
-//        procesoDistritoDB.add(i);
-        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoDistritoDB.add(i);
+//        System.out.println("Se registro la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void updateDistrito(Distrito i)
     {
-//        procesoDistritoDB.updateDistrito(i);
-        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
+        procesoDistritoDB.updateDistrito(i);
+//        System.out.println("Se actualizo la distrito con id igual a "+i.getId()+" y nombre "+i.getNombre());
     }
     public static void deleteDistrito (int idDistrito)
     {
-//        procesoDistritoDB.deleteDistrito(idDistrito);
-        System.out.println("Se borro la distrito con id igual a "+idDistrito);
+        procesoDistritoDB.deleteDistrito(idDistrito);
+//        System.out.println("Se borro la distrito con id igual a "+idDistrito);
     }
     public static ArrayList<Distrito> queryAllDistrito()
     {
@@ -146,7 +192,7 @@ public class Manager {
         return procesoDistritoDB.queryById(id);
     }
     
-    public static Distrito queryByNameDistrito(String name)
+    public static ArrayList<Distrito> queryByNameDistrito(String name)
     {
         return procesoDistritoDB.queryByName(name);
     }
