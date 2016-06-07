@@ -5,12 +5,21 @@
  */
 package algoritmos;
 
+import ij.ImagePlus;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static preprocessing.Utils.binarization;
 import static preprocessing.Utils.cropper;
 
@@ -206,6 +215,16 @@ public class Recorte {
                 //System.out.println("numero: "+num);
             }
             System.out.println("DNI: " + numS);
+            numS="06618973";//Solo para probar q funcione
+            //Imagenes de los padrones, ceci en esta parte pones lo que extraes del padron
+            BufferedImage ImagenPadronHuella=null;
+            BufferedImage ImagenPadronFirma=null;
+            //Imagenes del repositorio
+            BufferedImage ImagenHuella=null;
+            BufferedImage ImagenFirma=null;
+            buscarImagenes(numS,ImagenHuella,ImagenFirma);
+            Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+            double por=Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }       
@@ -235,4 +254,82 @@ public class Recorte {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    private static void buscarImagenes(String dni,BufferedImage ImagenHuella, BufferedImage ImagenFirma){        
+        ImagenHuella=null;
+        ImagenFirma=null;
+        String dn = null;
+        double d=-1;
+        int nd=Integer.parseInt(dni);
+       try {
+                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+			while (cells.hasNext())
+			{
+				cell=(XSSFCell) cells.next();
+                                if(i==2)
+                                {
+                                    d=cell.getNumericCellValue();
+                                    int num=(int) d;
+                                    dn=num+"";
+//                                    System.out.print("dni: "+num+" ");
+                                }
+                                if(dn!=null){
+                                    if(d==nd){
+                                        if(i==4){
+                                            double dh=cell.getNumericCellValue();
+                                            int num=(int) dh;
+                                            String dr=null;
+                                            if(num<10){
+                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/00"+num+".jpg";
+                                            } 
+                                            else
+                                            if(num>9 && num<100){
+                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/0"+num+".jpg";
+                                            }
+                                            else{
+                                                System.out.println("c");
+                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/"+num+".jpg";
+                                            }
+                                            File file = new File(dr);
+                                            ImagenHuella= ImageIO.read(file);
+                                            
+                                            cell=(XSSFCell) cells.next();
+                                            i++;
+                                        }
+                                        if(i==5){
+                                            String dh=cell.getStringCellValue();
+                                            String dr=null;
+                                            dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/firmas.jpg/"+dh+".jpg";
+                                            File file = new File(dr);
+                                            ImagenFirma= ImageIO.read(file);
+                                        }
+                                    }
+                                }
+                                i++;
+			}
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }    
+       
+    }
 }
+
+
+
+
