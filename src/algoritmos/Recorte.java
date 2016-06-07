@@ -5,6 +5,7 @@
  */
 package algoritmos;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -99,6 +100,8 @@ public class Recorte {
         for(int i=0;i<registrosPorJpg;i++){
             BufferedImage registro = test.getSubimage(0, i*alto, test.getWidth(), alto);
             resultados[i] = registro;
+           
+        
         }
         return resultados;
     }
@@ -115,6 +118,12 @@ public class Recorte {
             num = limpiarBordeImagen(num,2,4);
             num = removeNoisePoints(num);
             num = cropper(num);
+            
+       
+          
+            
+            
+            
             dni[i] = num;
             /*
             try {
@@ -210,4 +219,16 @@ public class Recorte {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+       private static BufferedImage resizeImage(BufferedImage originalImage, int type,
+                                         Integer img_width, Integer img_height)
+{
+    BufferedImage resizedImage = new BufferedImage(img_width, img_height, type);
+    Graphics2D g = resizedImage.createGraphics();
+    g.drawImage(originalImage, 0, 0, img_width, img_height, null);
+    g.dispose();
+
+    return resizedImage;
+}
 }

@@ -6,7 +6,6 @@
 package grupob;
 
 import controlador.Manager;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.InputVerifier;
@@ -15,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Distrito;
 import model.Institucion;
+import model.Local;
 import model.PartidoPolitico;
 import model.Region;
 import model.TipoProcesoVotacion;
@@ -58,7 +58,6 @@ public class RegistrarPartido extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         registro_seleccione_lugar = new javax.swing.JLabel();
         registro_tipo_proceso = new javax.swing.JComboBox<String>();
-        registro_lugar = new javax.swing.JComboBox<String>();
         apellidos_rep = new javax.swing.JTextField();
         nombre_partido = new javax.swing.JTextField();
         jButton36 = new javax.swing.JButton();
@@ -68,6 +67,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
         jLabel60 = new javax.swing.JLabel();
         correo = new javax.swing.JTextField();
         dni = new javax.swing.JTextField();
+        registro_lugar = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(470, 350));
@@ -101,9 +101,6 @@ public class RegistrarPartido extends javax.swing.JPanel {
             }
         });
         jPanel17.add(registro_tipo_proceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 129, -1));
-
-        registro_lugar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Villa Maria del Triunfo", "Nuevo Chimbote" }));
-        jPanel17.add(registro_lugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 129, -1));
         jPanel17.add(apellidos_rep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 129, -1));
 
         nombre_partido.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +134,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
         jPanel17.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
         jPanel17.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 129, -1));
         jPanel17.add(dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 129, -1));
+        jPanel17.add(registro_lugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 130, -1));
 
         add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 460, 300));
         jPanel17.getAccessibleContext().setAccessibleName("");
@@ -156,25 +154,26 @@ public class RegistrarPartido extends javax.swing.JPanel {
             if(indice == 1){
                 ArrayList<Region> regiones = Manager.queryAllRegion();
                 for(int i = 0; i<regiones.size(); i++){
-                    registro_lugar.addItem(regiones.get(i).getNombre());
+                    registro_lugar.addItem(regiones.get(i));
                     //System.out.println("" + regiones.get(i).getNombre());
                 }
             }
             if(indice == 2){
                 ArrayList<Distrito> distritos = Manager.queryAllDistrito();                
                 for(int i=0; i<distritos.size(); i++)
-                    registro_lugar.addItem(distritos.get(i).getNombre());
+                    registro_lugar.addItem(distritos.get(i));
             }
             if(indice==3){
-                //ArrayList<Local> locales = Manager.queryAllLocales();
-                registro_lugar.addItem("Local1");
-                registro_lugar.addItem("Local2");
-                registro_lugar.addItem("Local3");
+                ArrayList<Local> locales = Manager.queryAllLocales();
+                for(int i = 0;i <  locales.size() ; i++)
+                    registro_lugar.addItem(locales.get(i));
+                
+               
             }
             if(indice == 4){
                 ArrayList<Institucion> inst = Manager.queryAllInstitucion();
                 for(int i=0;i<inst.size();i++)
-                    registro_lugar.addItem(inst.get(i).getNombre());
+                    registro_lugar.addItem(inst.get(i));
             }
         }
         else{
@@ -209,6 +208,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
         dni_text = dni.getText();
         correoPartido = correo.getText();
         int tipo_proc = registro_tipo_proceso.getSelectedIndex()+1;
+        
         int idLug = registro_lugar.getSelectedIndex()+1;
         PartidoPolitico part = new PartidoPolitico();
         part.setNombre(nombre);
@@ -216,19 +216,33 @@ public class RegistrarPartido extends javax.swing.JPanel {
         part.setNombreRepresentante(nombreRep);
         part.setDniRepresentante(dni_text);
         part.setIdTipoProceso(tipo_proc);
+       
         part.setFechaRegistro(Calendar.getInstance());
         part.setEstado("Activo");
         part.setCantidadRegistrosValidos(0);
         part.setCorreoPartido(correoPartido);
-        if(tipo_proc==2)
-            part.setIdRegion(idLug);
-        if(tipo_proc==3)
-            part.setIdDistrito(idLug);
-        if(tipo_proc==4)
-            part.setIdLocal(idLug);
-        if(tipo_proc==5)
-            part.setIdInstitucion(idLug);
+        if(tipo_proc==2){
+            
+            Region region =   (Region ) registro_lugar.getSelectedItem();
+            
+            part.setIdRegion(region.getId());}
+        if(tipo_proc==3){
         
+            Distrito distrito =   (Distrito ) registro_lugar.getSelectedItem();
+            part.setIdDistrito(distrito.getId());
+        
+            
+        }
+        if(tipo_proc==4){
+            
+            Local local =  (Local ) registro_lugar.getSelectedItem();
+            part.setIdLocal(local.getId());
+        }
+        if(tipo_proc==5){
+            
+            Institucion institucion =   (Institucion ) registro_lugar.getSelectedItem();
+            part.setIdInstitucion(institucion.getId());
+        }
         Manager.addPartido(part);
         JOptionPane.showMessageDialog(null, "Registro guardado exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
         cleanForm();
@@ -276,7 +290,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nombre_partido;
     private javax.swing.JTextField nombres_rep;
-    private javax.swing.JComboBox<String> registro_lugar;
+    private javax.swing.JComboBox registro_lugar;
     private javax.swing.JLabel registro_seleccione_lugar;
     private javax.swing.JComboBox<String> registro_tipo_proceso;
     // End of variables declaration//GEN-END:variables

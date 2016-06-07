@@ -1108,6 +1108,7 @@ public class TipoProceso extends javax.swing.JPanel {
 //            
         }
         
+        JOptionPane.showMessageDialog(this, "Se guardaron los cambios con exito");
         
     }//GEN-LAST:event_btnGuardarInstitucionalActionPerformed
 

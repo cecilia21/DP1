@@ -15,6 +15,8 @@ import model.Region;
  */
 public class RegistraRegion extends javax.swing.JFrame {
 
+    String message =  new String();
+    boolean error = false;
     /**
      * Creates new form RegistraRegion
      */
@@ -120,21 +122,52 @@ public class RegistraRegion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarRActionPerformed
 
     private void btnRegistraRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraRegionActionPerformed
-       int cant;
+       int cant = 0;
        String nombre=nombreRegistro.getText();
+       nombre.trim();
+       
+        if(nombre.isEmpty()){
+            
+            message += "Error: Ingrese un nombre\n";
+            error = true;
+            /*
+            
+            JOptionPane.showMessageDialog(null,"Error: Ingrese un nombre");
+            return;*/
+        }  
+      
+       
+       
+       
         try{
             cant=Integer.parseInt(cantidadRegistro.getText());
             if(cant<0){
+                
+                message += "Error: La cantidad debe ser un numero positivo\n";
+                error = true;
+                /*
                 JOptionPane.showMessageDialog(null,"Error: La cantidad debe ser un numero positivo");
                 return;
+                */
             }
         } catch (NumberFormatException e) {
+            
+            message += "Error: La cantidad debe ser un numero\n";
+            error  = true;
+            /*
             JOptionPane.showMessageDialog(null,"Error: La cantidad debe ser un numero");
             return;
+            */
         }
-        if(nombre==""){
-            JOptionPane.showMessageDialog(null,"Error: Ingrese un nombre");
+       
+        if(error){
+        
+            JOptionPane.showMessageDialog(this,message,"Error",JOptionPane.WARNING_MESSAGE);
+            message = "";
+            error = false;
             return;
+        
+        
         }
         Region re=new Region(0,nombre,cant);
         re.setTipoProceso(1);
