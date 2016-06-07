@@ -199,10 +199,13 @@ public class Recorte {
             int ancho = Math.round(registros[0].getWidth()*(float)0.02);
             BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
             BufferedImage[] dni = extraerDni(registros[0]);
+            String numS=new String();
             for(int i=0;i<cantDni;i++){
                 int num = OcrNumeros.obtenerNumero(dni[i]);
-                System.out.println("numero: "+num);
+                numS+=num;
+                //System.out.println("numero: "+num);
             }
+            System.out.println("DNI: " + numS);
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }       

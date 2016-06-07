@@ -705,18 +705,18 @@ public class DetallePartido extends javax.swing.JPanel {
                         
         }
         
-        try{
-            //            System.out.println("hola");
-            Thread.sleep(2000);
-            jTabbedPane3.setVisible(true);
-            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
-
-            //            System.out.println("hola");
-        }catch(Exception e){
-
-        }
+//        try{
+//            //            System.out.println("hola");
+//            Thread.sleep(2000);
+//            jTabbedPane3.setVisible(true);
+//            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+//            dialog.setLocationRelativeTo(null);
+//            dialog.setVisible(true);
+//
+//            //            System.out.println("hola");
+//        }catch(Exception e){
+//
+//        }
         //        jTabbedPane3.setVisible(true);
         //        imP5.setVisible(false);
     }//GEN-LAST:event_validarNuevosActionPerformed
