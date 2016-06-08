@@ -43,8 +43,8 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                                     + "(nombre, cantRegistrosValidos, nombreRep, "
                                     + "apellidoRep, dniRep, correo, "
                                     + "fechaReg, estado, idTipoProceso, idRegion, "
-                                    + " idLocal, idDistrito, idInstitucion)"
-                                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                                    + " idLocal, idDistrito, idInstitucion ,idUsuario)"
+                                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,? , ?)";
                     pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, p.getNombre());
                     pstmt.setInt(2, 0);
@@ -53,9 +53,12 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                     pstmt.setString(5, p.getDniRepresentante());
                     //pstmt.setString(6, p.getCorreoRepresentante());
                     pstmt.setString(6, p.getCorreoPartido());
+
+                    
                     pstmt.setDate(7, new java.sql.Date(p.getFechaRegistro().getTimeInMillis()));
                     pstmt.setString(8, p.getEstado());
                     pstmt.setInt(9, p.getIdTipoProceso());
+                    pstmt.setInt(14, 1);
                     if(p.getIdRegion()>0)
                         pstmt.setInt(10, p.getIdRegion());
                     else pstmt.setString(10, null);

@@ -50,4 +50,13 @@ public class ProcesoDistritoDB {
     {
         return daoDistrito.queryByName(name);
     }    
+    
+    
+        public ArrayList<Distrito> queryAllDistritosByRegion(int idRegion)
+    {
+        return daoDistrito.queryAllByRegion(idRegion);
+    }
+    
+    
+    
 }

@@ -13,6 +13,14 @@ public class DBConnection {
                 "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf226eb?zeroDateTimeBehavior=convertToNull";
 	public static String user = "inf226eb";
 	public static String password = "w4TrHBAc3hbAfGX2";
+        
+        /*
+          public static String URL_JDBC_MySQL = 
+	 "jdbc:mysql://localhost:3307/dp1?autoReconnect=true&useSSL=false";
+          public static String user = "root";
+	public static String password = "";
+         */ 
+          
 	public static int dbType = MYSQL;
 	
 }

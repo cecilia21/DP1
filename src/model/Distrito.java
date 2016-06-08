@@ -83,12 +83,7 @@ public class Distrito {
         this.idRegion = idRegion;
     }
     
-    @Override
-    public String toString(){
-    
-    
-       return this.nombre;
-    }
+  
         
     /**
      * @return the tipoProceso
@@ -102,5 +97,12 @@ public class Distrito {
      */
     public void setTipoProceso(int tipoProceso) {
         this.tipoProceso = tipoProceso;
+    }
+    
+    @Override
+    public String toString(){
+        
+        return nombre;
+    
     }
 }
