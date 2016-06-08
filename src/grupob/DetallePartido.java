@@ -5,12 +5,17 @@
  */
 package grupob;
 
+import algoritmos.Recorte;
 import controlador.Manager;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -672,23 +677,46 @@ public class DetallePartido extends javax.swing.JPanel {
     private void validarNuevosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validarNuevosActionPerformed
         //jTabbedPane3.setVisible(false);
         JFileChooser fileChooser = new JFileChooser();
+        //fileChooser.setCurrentDirectory(new java.io.File("."));
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Seleccionar Carpeta");
+        //fileChooser.setAcceptAllFileFilterUsed(false);
         int returnValue = fileChooser.showOpenDialog(null);
+        
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+            //File selectedFile = fileChooser.getSelectedFile();
             //            System.out.println(selectedFile.getName());
+            File selectedFile=fileChooser.getSelectedFile();
+            FilenameFilter textFilter = new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.toLowerCase().endsWith(".jpg");
+                }
+            };
+            File[] files = selectedFile.listFiles(textFilter);
+            ArrayList<String> listaImagenes= new ArrayList<String>();
+            for (File file : files) {                
+//                try {
+//                    listaImagenes.add(file.getCanonicalPath());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                Recorte.ejecutar(file);
+            }          
+                        
         }
-        try{
-            //            System.out.println("hola");
-            Thread.sleep(2000);
-            jTabbedPane3.setVisible(true);
-            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
-
-            //            System.out.println("hola");
-        }catch(Exception e){
-
-        }
+        
+//        try{
+//            //            System.out.println("hola");
+//            Thread.sleep(2000);
+//            jTabbedPane3.setVisible(true);
+//            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+//            dialog.setLocationRelativeTo(null);
+//            dialog.setVisible(true);
+//
+//            //            System.out.println("hola");
+//        }catch(Exception e){
+//
+//        }
         //        jTabbedPane3.setVisible(true);
         //        imP5.setVisible(false);
     }//GEN-LAST:event_validarNuevosActionPerformed
