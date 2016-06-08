@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import model.Distrito;
 import model.Institucion;
+import model.Local;
 import model.Region;
 import model.TipoProcesoVotacion;
 
@@ -185,9 +186,10 @@ public class BusquedaPartidos extends javax.swing.JPanel {
                     busq_lugar.addItem(distritos.get(i).getNombre());
             }
             if(indice == 4){
-                busq_lugar.addItem("Local1");
-                busq_lugar.addItem("Local2");
-                busq_lugar.addItem("Local3");
+                
+               ArrayList<Local> locales = Manager.queryAllLocales();
+               for(int i = 0; i < locales.size() ; i++)
+                   busq_lugar.addItem(locales.get(i).getNombre());
             }
             if(indice == 5){
                 ArrayList<Institucion> locales = Manager.queryAllInstitucion();

@@ -17,6 +17,8 @@ import model.Region;
  */
 public class RegistrarDistrito extends javax.swing.JFrame {
 
+    String message = new String();
+    boolean error = false;
     /**
      * Creates new form RegistrarDistrito
      */
@@ -41,11 +43,11 @@ public class RegistrarDistrito extends javax.swing.JFrame {
         btnRegistraDistrito = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         cantidadRegistro = new javax.swing.JTextField();
-        nombreRegistro = new javax.swing.JTextField();
+        txtNombreRegDistrito = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboRegiones = new javax.swing.JComboBox<>();
+        comboRegiones = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +74,8 @@ public class RegistrarDistrito extends javax.swing.JFrame {
 
         jLabel4.setText("Region:");
 
+        comboRegiones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Region" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +100,7 @@ public class RegistrarDistrito extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(nombreRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNombreRegDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
@@ -111,7 +115,7 @@ public class RegistrarDistrito extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(nombreRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreRegDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -135,27 +139,60 @@ public class RegistrarDistrito extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarDActionPerformed
 
     private void btnRegistraDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraDistritoActionPerformed
-        int cant;
-        String nombre=nombreRegistro.getText();
+        int cant = 0;
+        String nombre=txtNombreRegDistrito.getText();
+        
+        nombre.trim();
+        
         try{
             cant=Integer.parseInt(cantidadRegistro.getText());
             if(cant<0){
-                JOptionPane.showMessageDialog(null,"Error: La cantidad debe ser un numero positivo");
-                return;
+                message += "Error: La cantidad debe ser un numero positivo\n";
+                error = true;
+               /* JOptionPane.showMessageDialog(null,"Error: La cantidad debe ser un numero positivo");
+                return;*/
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null,"Error: La cantidad debe ser un numero");
-            return;
+            
+                message += "Error: La cantidad debe ser un numero\n";
+                error = true;
+           /* JOptionPane.showMessageDialog(null,"Error: La cantidad debe ser un numero");
+            return;*/
         }
-        if(nombre==""){
-            JOptionPane.showMessageDialog(null,"Error: Ingrese un nombre");
-            return;
+        if(nombre.isEmpty()){
+            
+            message += "Error: Ingrese un nombre\n";
+            error = true;
+            /*JOptionPane.showMessageDialog(null,"Error: Ingrese un nombre");
+            return;*/
         }
-        String reg=comboRegiones.getSelectedItem().toString();
+        
+        
+        if(comboRegiones.getSelectedIndex() != 0){
+            
+            String reg=comboRegiones.getSelectedItem().toString();
         ArrayList<Region> arrRegiones=Manager.queryByNameRegion(reg);
         Distrito di=new Distrito(0,arrRegiones.get(0).getId(),nombre,cant);
         di.setTipoProceso(1);
         Manager.addDistrito(di);
+        
+      
+        
+        }else{
+        
+              message += "Seleccione una region\n";
+              error = true;
+        
+        }
+        if(error){
+        
+        
+            JOptionPane.showMessageDialog(this,message,"Error",JOptionPane.WARNING_MESSAGE);
+            message = "";
+            error = false;
+            return;
+        }
+        
         this.setVisible(false);
         JOptionPane.showMessageDialog(null,"Distrito registrado\nahora puede buscarla en la lista de distritos");
     }//GEN-LAST:event_btnRegistraDistritoActionPerformed
@@ -205,6 +242,6 @@ public class RegistrarDistrito extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField nombreRegistro;
+    private javax.swing.JTextField txtNombreRegDistrito;
     // End of variables declaration//GEN-END:variables
 }

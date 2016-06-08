@@ -46,7 +46,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="nombreRegistro" min="-2" pref="129" max="-2" attributes="0"/>
+                              <Component id="txtNombreRegDistrito" min="-2" pref="129" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="nombreRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNombreRegDistrito" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -114,7 +114,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="cantidadRegistro">
     </Component>
-    <Component class="javax.swing.JTextField" name="nombreRegistro">
+    <Component class="javax.swing.JTextField" name="txtNombreRegDistrito">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -137,7 +137,9 @@
     <Component class="javax.swing.JComboBox" name="comboRegiones">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="1">
+            <StringItem index="0" value="Seleccione Region"/>
+          </StringArray>
         </Property>
       </Properties>
       <AuxValues>

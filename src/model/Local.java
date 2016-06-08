@@ -97,5 +97,13 @@ public class Local {
     public void setIdProceso(int idTipo) {
         this.tipoProceso = idTipo;
     }
+    
+    
+    public String toString(){
+        
+        return nombre;
+        
+    }
+           
         
 }

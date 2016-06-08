@@ -22,15 +22,19 @@ public class AddInstitucional extends javax.swing.JFrame {
     /**
      * Creates new form AddInstitucional
      */
+    String message = new String();
+    boolean error = false;
     public static ArrayList<Local> listaLocal= Manager.queryAllLocales();
     
     public AddInstitucional() {
         initComponents();
-        String lista [] =new String[listaLocal.size()];
+        String lista [] =new String[listaLocal.size() + 1];
+        lista[0] = "Seleccione Local";
 	for(int i=0;i<listaLocal.size();i++){
-            lista[i]=listaLocal.get(i).getNombre();
+            lista[i+1]=listaLocal.get(i).getNombre();
         }
 	cboxLocal.setModel(new DefaultComboBoxModel(lista));
+       
         
     }
 
@@ -48,7 +52,7 @@ public class AddInstitucional extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtCanVotantes = new javax.swing.JTextField();
-        cboxLocal = new javax.swing.JComboBox<>();
+        cboxLocal = new javax.swing.JComboBox<String>();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -61,7 +65,7 @@ public class AddInstitucional extends javax.swing.JFrame {
 
         jLabel18.setText("Local");
 
-        cboxLocal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxLocal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Local" }));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,28 +138,68 @@ public class AddInstitucional extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        if (isNumber(txtCanVotantes.getText()) && (!txtCanVotantes.getText().contains("."))){
-            Institucion institucion = new Institucion();
+        String nombre =  txtNombre.getText();
+        
+        nombre.trim();
+        
+        if(nombre.isEmpty()){
+            
+            message += "Ingrese nombre\n";
+            error =true;
+            
+            
+        }
+        
+        if(!isNumber(txtCanVotantes.getText())){
+        
+            message += "El campo cantidad de votantes no es numerico\n";
+            error=true;
+        
+        }
+        
+       
+     
+        
+        
+        
+        if (isNumber(txtCanVotantes.getText()) && (txtCanVotantes.getText().contains("."))){
+            
+            
+            message += "El campo cantidad de votantes debe ser numerico entero\n";
+            error = true;
+           // JOptionPane.showMessageDialog(null,"El campo cantidad de votantes debe ser numerico entero");   
+        }
+        
+            if(cboxLocal.getSelectedIndex() == 0){
+                
+                message += "Seleccione un local";
+                error = true;
+              
+            }
+                    
+          
+        if(error){
+        
+            JOptionPane.showMessageDialog(this,message,"Error",JOptionPane.WARNING_MESSAGE);
+            message = "";
+            error = false;
+            return;
+        }
+        
+           Institucion institucion = new Institucion();
         
             institucion.setNombre(txtNombre.getText());
             institucion.setCantidadVotantesRegistrados(Integer.parseInt(txtCanVotantes.getText()));
 
-            for(int i=0;i<listaLocal.size();i++){
-                if(listaLocal.get(i).getNombre().equals(cboxLocal.getSelectedItem().toString())){
-                    institucion.setIdLocal(listaLocal.get(i).getId());
-                    break;
-                }                
-            }            
+            institucion.setIdLocal(listaLocal.get(cboxLocal.getSelectedIndex() - 1).getId());
+        
             institucion.setTipoProceso(5);
             Manager.addInstitucion(institucion);
-
-            dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"El campo cantidad de votantes debe ser numerico entero");   
-        }
-        
-        
+            JOptionPane.showMessageDialog(this,"Se Region registrada");
+           
+             dispose();
+            
+            
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

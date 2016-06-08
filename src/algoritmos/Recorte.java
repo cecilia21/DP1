@@ -113,6 +113,8 @@ public class Recorte {
         for(int i=0;i<registrosPorJpg;i++){
             BufferedImage registro = test.getSubimage(0, i*alto, test.getWidth(), alto);
             resultados[i] = registro;
+           
+        
         }
         return resultados;
     }
@@ -129,6 +131,12 @@ public class Recorte {
             num = limpiarBordeImagen(num,2,4);
             num = removeNoisePoints(num);
             num = cropper(num);
+            
+       
+          
+            
+            
+            
             dni[i] = num;
             /*
             try {
