@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,10 @@ import static preprocessing.Utils.cropper;
 public class Recorte {
     private static int registrosPorJpg = 8;
     private static int cantDni = 8;
+    private static BufferedImage ImagenHuella=null;
+    private static BufferedImage ImagenFirma=null;
+    
+    
     public static BufferedImage extraerCuadroData(BufferedImage test){
         BufferedImage cuadro;
         int width = test.getWidth();          
@@ -247,27 +252,67 @@ public class Recorte {
             //ImageIO.write(test, "jpg", new File("C:\\Users\\alulab14\\Downloads\\bin.jpg"));
             test = extraerCuadroData(test);
             BufferedImage[] registros = extraerRegistros(test);
-            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
-            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
-            BufferedImage[] dni = extraerDni(registros[0]);
-            BufferedImage huella = extraerHuella(registros[0]);
-            String numS=new String();
-            for(int i=0;i<cantDni;i++){
-                int num = OcrNumeros.obtenerNumero(dni[i]);
-                numS+=num;
-                //System.out.println("numero: "+num);
+            //lista de prueba
+            ArrayList<String> listNumS=new ArrayList<String>();
+            listNumS.add("34576713");listNumS.add("62346721");listNumS.add("34577732");listNumS.add("54322314");
+            listNumS.add("23443281");listNumS.add("55443322");listNumS.add("78901234");listNumS.add("69384231");
+            
+            for(int i=0;i<registros.length;i++){
+                int ancho = Math.round(registros[i].getWidth()*(float)0.02);
+                BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[i].getHeight());    
+                BufferedImage[] dni = extraerDni(registros[i]);
+                BufferedImage huella = extraerHuella(registros[i]);
+                String numS=new String();
+                for(int j=0;j<cantDni;j++){
+                    int num = OcrNumeros.obtenerNumero(dni[j]);
+                    numS+=num;
+                }
+//                numS="34576713";
+                numS=listNumS.get(i);
+                System.out.println("DNI: " + numS);
+                BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
+                BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
+                //Imagenes del repositorio
+                ImagenHuella=null;
+                ImagenFirma=null;
+                buscarImagenes(numS);//modifica la imagen huella y imagen firma
+                if(ImagenHuella!=null && ImagenFirma!=null){
+                    Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+                    Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+                    System.out.println("");
+                }
+                else
+                    System.out.println("No se encontro a las personas con DNI: " + numS);
+            
             }
-            System.out.println("DNI: " + numS);
-            numS="06618973";//Solo para probar q funcione
-            //Imagenes de los padrones, ceci en esta parte pones lo que extraes del padron
-            BufferedImage ImagenPadronHuella=null;
-            BufferedImage ImagenPadronFirma=null;
-            //Imagenes del repositorio
-            BufferedImage ImagenHuella=null;
-            BufferedImage ImagenFirma=null;
-            buscarImagenes(numS,ImagenHuella,ImagenFirma);
-            Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
-            double por=Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+//            
+//            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
+//            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
+//            BufferedImage[] dni = extraerDni(registros[0]);
+//            BufferedImage huella = extraerHuella(registros[0]);
+//            String numS=new String();
+//            for(int i=0;i<cantDni;i++){
+//                int num = OcrNumeros.obtenerNumero(dni[i]);
+//                numS+=num;
+//                //System.out.println("numero: "+num);
+//            }            
+//            numS="34576713";//Solo para probar q funcione
+//            System.out.println("DNI: " + numS);
+//            //Imagenes de los padrones, ceci en esta parte pones lo que extraes del padron
+//            BufferedImage ImagenPadronHuella=extraerHuella(registros[0]);
+//            BufferedImage ImagenPadronFirma=extraerFirma(registros[0]);
+//            //Imagenes del repositorio
+//            ImagenHuella=null;
+//            ImagenFirma=null;
+//            buscarImagenes(numS);//modifica la imagen huella y imagen firma
+//            if(ImagenHuella!=null && ImagenFirma!=null){
+//                Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+//                Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+//            }
+//            else
+//                System.out.println("No se encontro a las personas con DNI: " + numS);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }       
@@ -300,7 +345,7 @@ public class Recorte {
     }
     
     
-    private static void buscarImagenes(String dni,BufferedImage ImagenHuella, BufferedImage ImagenFirma){        
+    private static void buscarImagenes(String dni){        
         ImagenHuella=null;
         ImagenFirma=null;
         String dn = null;
@@ -314,6 +359,8 @@ public class Recorte {
 		XSSFCell cell;
 		Iterator rows = sheet.rowIterator();
                 row=(XSSFRow) rows.next();
+                int salir=0;
+                
                 while (rows.hasNext())
 		{
 			row=(XSSFRow) rows.next();
@@ -349,8 +396,8 @@ public class Recorte {
                                             File file = new File(dr);
                                             ImagenHuella= ImageIO.read(file);
                                             
-                                            cell=(XSSFCell) cells.next();
-                                            i++;
+//                                            cell=(XSSFCell) cells.next();
+//                                            i++;
                                         }
                                         if(i==5){
                                             String dh=cell.getStringCellValue();
@@ -358,12 +405,17 @@ public class Recorte {
                                             dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/firmas.jpg/"+dh+".jpg";
                                             File file = new File(dr);
                                             ImagenFirma= ImageIO.read(file);
+                                            salir=1;
+                                            
+                                            
                                         }
                                     }
                                 }
                                 i++;
-			}
+			}                       
                         i=0;
+                        if(salir==1)
+                                    break;
 		}
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);

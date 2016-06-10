@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+
 import dyimagefx.*;
 import dyimagefx.morph.Skeletonization;
 import java.awt.Color;
@@ -72,11 +73,14 @@ public class Algoritmo_Firma2 {
             }
             acumulado=acumulado/contador;
 //            System.out.println("Porcentaje de similitud: "+ acumulado*100 +"% \n" + contador);
-            System.out.print(acumulado*100 + ",");
+//            System.out.print(acumulado*100 + ",");
+            acumulado=acumulado*100;
             if(75<acumulado)
-                System.out.print("Firma válida");
+                System.out.println("Firma válida: " + acumulado);
+            else if(65<acumulado)
+                System.out.println("Firma en revisión: " + acumulado);
             else
-                System.out.print("Firma no válida");
+                System.out.println("Firma no válida: " + acumulado);
 //                System.out.println();               
                           
         

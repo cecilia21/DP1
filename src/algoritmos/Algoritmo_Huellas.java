@@ -316,7 +316,14 @@ public class Algoritmo_Huellas {
                 Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
             }            
         }  
-        System.out.println(""+por);
+//        System.out.println(""+por);
+        por=por*100;
+        if(65<por)
+                System.out.println("Huella válida: " + por);
+        if(45<por)
+                System.out.println("Huella revisión: " + por);
+        else
+                System.out.println("Huella no válida: " + por);
         return por;
     }
 
