@@ -33,7 +33,13 @@ public class Recorte {
     private static int cantDni = 8;
     private static BufferedImage ImagenHuella=null;
     private static BufferedImage ImagenFirma=null;
-    
+    private static double umbral1_firma = 0.65;
+    private static double umbral2_firma = 0.45;
+    private static double umbral1_huella = 0.70;
+    private static double umbral2_huella = 0.50;
+    private static int registro_aprobado = 1;
+    private static int registro_observado = 2;
+    private static int registro_rechazado = 3;
     
     public static BufferedImage extraerCuadroData(BufferedImage test){
         BufferedImage cuadro;
@@ -243,6 +249,25 @@ public class Recorte {
         return img;
     }
     
+    private static int validarAprobacion(double p_firma, double p_huella){
+        // 1 = aprobado, 2= observado, 3=rechazado
+        boolean nombre_coincide=true;
+        boolean firma_valida = p_firma>=umbral1_firma;
+        boolean firma_observada = p_firma<umbral1_firma && p_firma>=umbral2_firma;
+        boolean firma_rechazada =  p_firma<umbral2_firma;
+        boolean huella_valida = p_huella >= umbral1_huella;
+        boolean huella_observada = p_huella<umbral1_huella && p_huella >=umbral2_huella;
+        boolean huella_rechazada = p_huella<umbral2_huella;
+        if(firma_valida && huella_valida) return registro_aprobado;
+        
+        if (firma_valida && huella_observada) return registro_observado;
+        if (firma_observada && huella_valida) return registro_observado;
+        if (nombre_coincide && firma_rechazada && huella_valida) return registro_observado;
+        if (nombre_coincide && firma_valida && huella_rechazada) return registro_observado;
+        else return registro_rechazado;        
+        
+    }
+    
     public static void ejecutar(File file){
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
@@ -276,9 +301,11 @@ public class Recorte {
                 ImagenHuella=null;
                 ImagenFirma=null;
                 buscarImagenes(numS);//modifica la imagen huella y imagen firma
+                double porcentaje_firma, porcentaje_huella;
                 if(ImagenHuella!=null && ImagenFirma!=null){
-                    Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
-                    Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+                    porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+                    porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+                    int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
                     System.out.println("");
                 }
                 else

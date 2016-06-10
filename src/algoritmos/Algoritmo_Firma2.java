@@ -26,7 +26,7 @@ import preprocessing.ThinningService;
  */
 public class Algoritmo_Firma2 {
  
-    public static void validarFirma(BufferedImage originalImage1,BufferedImage originalImage2){
+    public static double validarFirma(BufferedImage originalImage1,BufferedImage originalImage2){
         
 
                         
@@ -83,7 +83,7 @@ public class Algoritmo_Firma2 {
                 System.out.println("Firma no válida: " + acumulado);
 //                System.out.println();               
                           
-        
+        return acumulado/100;
     }
     
     
