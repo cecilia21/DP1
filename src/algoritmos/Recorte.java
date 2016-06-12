@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import model.Adherente;
 import model.PartidoPolitico;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -402,7 +403,7 @@ public class Recorte {
         }  
     }    
     
-    public static void ejecutar(File file){
+    public static void ejecutar(File file,ArrayList<Adherente> listaAdherente){
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         try {
@@ -414,38 +415,57 @@ public class Recorte {
             //lista de prueba
             ArrayList<String> listNumS=new ArrayList<String>();
             listNumS.add("34576713");listNumS.add("62346721");listNumS.add("34577732");listNumS.add("54322314");
-            listNumS.add("23443281");listNumS.add("55443322");listNumS.add("78901234");listNumS.add("69384231");
+            listNumS.add("23443281");listNumS.add("55443322");listNumS.add("78901234");listNumS.add("69384231");           
             
             for(int i=0;i<registros.length;i++){
                 int ancho = Math.round(registros[i].getWidth()*(float)0.02);
-                BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[i].getHeight());    
+                //BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[i].getHeight());    
                 BufferedImage[] dni = extraerDni(registros[i]);
-                BufferedImage huella = extraerHuella(registros[i]);
-                String numS=new String();
+                //BufferedImage huella = extraerHuella(registros[i]);
+                String numS=new String();//DNI en string
                 for(int j=0;j<cantDni;j++){
                     int num = OcrNumeros.obtenerNumero(dni[j]);
                     numS+=num;
                 }
 //                numS="34576713";
-                numS=listNumS.get(i);
+                numS=listNumS.get(i);//Comentar para que no este hardcodeado
                 System.out.println("DNI: " + numS);
                 BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
                 BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
                 //Imagenes del repositorio
                 ImagenHuella=null;
                 ImagenFirma=null;
-                buscarImagenes(numS);//modifica la imagen huella y imagen firma
+                buscarImagenes(numS);//modifica las variables de ImagenHuella y ImagenFirma
                 double porcentaje_firma, porcentaje_huella;
+                int esta=0;
                 if(ImagenHuella!=null && ImagenFirma!=null){
                     porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
                     porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
                     int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
                     System.out.println("");
+                    
+                    if(criterio!=registro_rechazado){
+                        Adherente adherente= new Adherente();
+                        adherente.setDni(numS);
+                        if(criterio==registro_aprobado)
+                            adherente.setEstado("Aprobado");
+                        if(criterio==registro_observado)
+                            adherente.setEstado("Observado");
+                        
+                        for(int w=0;w<listaAdherente.size();w++){
+                            if(listaAdherente.get(w).getDni().equals(numS)){
+                                esta=1;
+                                break;
+                            }
+                        }
+                        if(esta==0)
+                            listaAdherente.add(adherente);
+                    }                   
+                    
                 }
                 else
-                    System.out.println("No se encontro a las personas con DNI: " + numS);
-            
-            }
+                    System.out.println("No se encontro a las personas con DNI: " + numS);            
+                }
 //            
 //            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
 //            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
