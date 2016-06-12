@@ -225,14 +225,15 @@ public class MySQLDAOLocal implements DAOLocal{
                         int idDistrito = rs.getInt("idDistrito");
                         int idProceso = rs.getInt("idTipoProceso");
                         String nombre = rs.getString("nombre");
+                        int ubigeo = rs.getInt("ubigeo");
                         int CantidadVotantesRegistrados = rs.getInt("cantidadVotantes");
                          i = new Local();
-            i.setId(id);
-            i.setIdDistrito(idDistrito);
-            i.setIdProceso(idProceso);
-            i.setNombre(nombre);
-            i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
-				
+                        i.setId(id);
+                        i.setIdDistrito(idDistrito);
+                        i.setIdProceso(idProceso);
+                        i.setNombre(nombre);
+                        i.setCantidadVotantesRegistrados(CantidadVotantesRegistrados);
+			i.setUbigeo(ubigeo);	
 				
                 }
             

@@ -150,6 +150,7 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                     String nombre = rs.getString("nombre");
                     int cantidadVotantes = rs.getInt("cantidadVotantes");
                     int tipoProceso=rs.getInt("idTipoProceso");
+                    int ubigeo = rs.getInt("ubigeo");
                                        
                     Institucion i = new Institucion();
                     i.setId(id);
@@ -157,6 +158,7 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                     i.setNombre(nombre);
                     i.setCantidadVotantesRegistrados(cantidadVotantes);
                     i.setTipoProceso(tipoProceso);
+                    i.setUbigeo(ubigeo);
                     arr.add(i);
                 }
         } catch (SQLException e) {

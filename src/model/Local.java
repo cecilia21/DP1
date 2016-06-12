@@ -15,7 +15,22 @@ public class Local {
     private String nombre;
     private int tipoProceso;
     private int CantidadVotantesRegistrados;
+    private int ubigeo;
 
+    /**
+     * @return the ubigeo
+     */
+    public int getUbigeo() {
+        return ubigeo;
+    }
+ 
+    /**
+     * @param ubigeo the ubigeo to set
+     */
+    public void setUbigeo(int ubigeo) {
+        this.ubigeo = ubigeo;
+    }    
+       
     public Local(int id,int idD,int idTipo,String nombre,int cantidad){
         this.idLocal=id;
         this.idDistrito=idD;

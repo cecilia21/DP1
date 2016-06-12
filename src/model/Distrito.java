@@ -15,7 +15,22 @@ public class Distrito {
     private String nombre;    
     private int CantidadVotantesRegistrados;
     private int tipoProceso;
+    private int ubigeo;
 
+    /**
+     * @return the ubigeo
+     */
+    public int getUbigeo() {
+        return ubigeo;
+    }
+
+    /**
+     * @param ubigeo the ubigeo to set
+     */
+    public void setUbigeo(int ubigeo) {
+        this.ubigeo = ubigeo;
+    }    
+        
     public Distrito(){
         
     }

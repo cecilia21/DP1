@@ -700,7 +700,9 @@ public class DetallePartido extends javax.swing.JPanel {
 //                } catch (IOException ex) {
 //                    Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
 //                }
-                Recorte.ejecutar(file);
+                    PartidoPolitico p=Manager.queryPartidoByNombTipo(nombre_partido.getText(), 1).get(0);
+                    Recorte.ejecutarProceso(file,p);
+//                    Recorte.ejecutar(file);
             }          
                         
         }
