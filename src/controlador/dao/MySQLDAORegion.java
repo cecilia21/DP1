@@ -138,8 +138,8 @@ public class MySQLDAORegion implements DAORegion {
 			DriverManager.registerDriver(new Driver());
 			//Paso 2: Obtener la conexión
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
-                                                            DBConnection.user,null
-                                                            /*DBConnection.password*/);
+                                                            DBConnection.user,
+                                                            DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM Region";
 			pstmt = conn.prepareStatement(sql);

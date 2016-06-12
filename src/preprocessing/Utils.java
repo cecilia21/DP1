@@ -82,8 +82,9 @@ public class Utils {
     public static String executeTesseract(String file) throws IOException{
         Runtime rt = Runtime.getRuntime();
         //rt.exec("cd "+tesseract);
-        String[] commands = {tesseract+"\\tesseract",carpeta_temp+""+file, "stdout", "letters"};
-        Process proc = rt.exec(commands);
+        String[] commands = {tesseract+"\\tesseract",carpeta_temp+""+file, 
+            "stdout", "-psm 8", "letters"};
+        Process proc = rt.exec(tesseract+"\\tesseract "+carpeta_temp+""+file+" stdout -psm 8 nodict letters");
 
         BufferedReader stdInput = new BufferedReader(new 
              InputStreamReader(proc.getInputStream()));
