@@ -324,7 +324,7 @@ public class Algoritmo_Huellas {
                 System.out.println("Huella revisión: " + por);
         else
                 System.out.println("Huella no válida: " + por);
-        return por;
+        return por/100;
     }
 
     

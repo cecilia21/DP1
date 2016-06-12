@@ -30,7 +30,38 @@ public class Manager {
     private static PartidoPoliticoDB partidoDB = new PartidoPoliticoDB(); 
     private static ProcesoDistritoDB procesoDistritoDB = new ProcesoDistritoDB(); 
     private static ProcesosLocalDB procesoLocalDB = new ProcesosLocalDB();
+    private static ProcesoAdherenteDB procesoAdherenteDB = new ProcesoAdherenteDB();
+    private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
     
+    ////////////////////////////////////ADHERENTE
+    
+    public static void addAdherente(Adherente a) {
+    	procesoAdherenteDB.add(a);
+
+    }
+    public static void updateAdherente(Adherente a) {
+    	procesoAdherenteDB.update(a);
+
+    }
+    public static void deleteAdherente(int idAdherente) {
+    	procesoAdherenteDB.delete(idAdherente);
+
+    }
+    public static ArrayList<Adherente> queryAllAdherente()
+    {
+    	return procesoAdherenteDB.queryAll();       
+    }
+    public static Adherente queryAdherenteById(int idAdherente) {
+        return procesoAdherenteDB.queryById(idAdherente);
+    }       
+    public static void addListaAdherente(ArrayList<Adherente> listaAdherente){
+        procesoAdherenteDB.addLista(listaAdherente);
+    }   
+    public static ArrayList<Adherente> queryAllAdherenteObservado(int idPartido){
+        return procesoAdherenteDB.queryAllObservado(idPartido);        
+    }
+   
+    ////////////////////////////////////
     public static void addPartido(PartidoPolitico p){
         partidoDB.add(p);
     }
@@ -51,8 +82,7 @@ public class Manager {
         return partidoDB.queryByNombTipo(nombre, ind1);
     }
     
-    private static ProcesoInstitucionalDB procesoInstitucionalDB = new ProcesoInstitucionalDB();
-    
+   
     public static ArrayList<PartidoPolitico> queryPartidoByName(String nombre){
         return partidoDB.queryByName(nombre);
     }

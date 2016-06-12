@@ -26,6 +26,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
+import model.Adherente;
 import model.Distrito;
 import model.Institucion;
 import model.Local;
@@ -669,23 +670,18 @@ public class DetallePartido extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombre_partido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void validarNuevosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validarNuevosActionPerformed
-        //jTabbedPane3.setVisible(false);
         JFileChooser fileChooser = new JFileChooser();
-        //fileChooser.setCurrentDirectory(new java.io.File("."));
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setDialogTitle("Seleccionar Carpeta");
-        //fileChooser.setAcceptAllFileFilterUsed(false);
         int returnValue = fileChooser.showOpenDialog(null);
         
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            //File selectedFile = fileChooser.getSelectedFile();
-            //            System.out.println(selectedFile.getName());
             File selectedFile=fileChooser.getSelectedFile();
             FilenameFilter textFilter = new FilenameFilter() {
                 public boolean accept(File dir, String name) {
@@ -693,32 +689,71 @@ public class DetallePartido extends javax.swing.JPanel {
                 }
             };
             File[] files = selectedFile.listFiles(textFilter);
-            ArrayList<String> listaImagenes= new ArrayList<String>();
-            for (File file : files) {                
-//                try {
-//                    listaImagenes.add(file.getCanonicalPath());
-//                } catch (IOException ex) {
-//                    Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-                Recorte.ejecutar(file);
-            }          
-                        
+            ArrayList<PartidoPolitico> partidos;
+            partidos = Manager.queryPartidoByNombTipo(nombre_partido.getText(), 1);
+            int cantValidosT=0;
+            int cantRechazadosT=0;
+            int cantObservadosT=0;
+            for (File file : files) {
+                ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
+                ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
+                Recorte.ejecutar(file,listaAdherente);
+                
+//                Adherente ad1= new Adherente();
+//                ad1.setDni("66666665");
+//                ad1.setEstado("Observado");
+//                
+//                Adherente ad2= new Adherente();
+//                ad2.setDni("66666666");
+//                ad2.setEstado("Aprobado");
+//                listaAdherente.add(ad1);
+//                listaAdherente.add(ad2);                
+//                
+//                Adherente ad3= new Adherente();
+//                ad3.setDni("66666667");
+//                ad3.setEstado("Aprobado");
+//                listaAdherente.add(ad3);
+                
+                //Validar si ya estan en la base de datos
+                ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                int esta=0;
+                for(int i=0;i<listaAdherente.size();i++){
+                    for(int j=0;j<lAdBD.size();j++){
+                        if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                            esta=1;
+                            break;
+                        }                            
+                    }
+                    if(esta==0)
+                        listaAdherentef.add(listaAdherente.get(i));
+                    esta=0;
+                }
+                int cantValidos=0;
+                int cantObservados=0;
+                for(int i=0;i<listaAdherentef.size();i++){
+                    listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                    listaAdherentef.get(i).setIdPartido(partidos.get(0).getId());
+                    if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                        cantValidos+=1;
+                        cantValidosT+=1;
+                    }                        
+                    if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                        cantObservados+=1;
+                        cantObservadosT+=1;
+                    }    
+                }
+                Manager.addListaAdherente(listaAdherentef); 
+                cantRechazadosT+=(listaAdherente.size()-cantValidos-cantObservados);
+                PartidoPolitico partPol=partidos.get(0); 
+                partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                Manager.updatePartido(partPol);  
+            }
+            showDetail(partidos.get(0)); 
+            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+            dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
         }
-        
-//        try{
-//            //            System.out.println("hola");
-//            Thread.sleep(2000);
-//            jTabbedPane3.setVisible(true);
-//            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
-//            dialog.setLocationRelativeTo(null);
-//            dialog.setVisible(true);
-//
-//            //            System.out.println("hola");
-//        }catch(Exception e){
-//
-//        }
-        //        jTabbedPane3.setVisible(true);
-        //        imP5.setVisible(false);
     }//GEN-LAST:event_validarNuevosActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
@@ -797,6 +832,87 @@ public class DetallePartido extends javax.swing.JPanel {
                 showDetail(p);
             }
         }
+        
+        if(col==3){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setDialogTitle("Seleccionar Carpeta");
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile=fileChooser.getSelectedFile();
+                FilenameFilter textFilter = new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".jpg");
+                    }
+                };
+                File[] files = selectedFile.listFiles(textFilter);
+                PartidoPolitico p = regionesModel.partidos.get(row);
+                int cantValidosT=0;
+                int cantRechazadosT=0;
+                int cantObservadosT=0;
+                for (File file : files) {
+                    ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
+                    ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
+                    Recorte.ejecutar(file,listaAdherente);
+
+//                    Adherente ad1= new Adherente();
+//                    ad1.setDni("66666681");
+//                    ad1.setEstado("Observado");
+//                    
+//                    Adherente ad2= new Adherente();
+//                    ad2.setDni("66666682");
+//                    ad2.setEstado("Aprobado");
+//                    listaAdherente.add(ad1);
+//                    listaAdherente.add(ad2);                
+//                    
+//                    Adherente ad3= new Adherente();
+//                    ad3.setDni("66666683");
+//                    ad3.setEstado("Aprobado");
+//                    listaAdherente.add(ad3);
+
+                    //Validar si ya estan en la base de datos
+                    ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                    int esta=0;
+                    for(int i=0;i<listaAdherente.size();i++){
+                        for(int j=0;j<lAdBD.size();j++){
+                            if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                                esta=1;
+                                break;
+                            }                            
+                        }
+                        if(esta==0)
+                            listaAdherentef.add(listaAdherente.get(i));
+                        esta=0;
+                    }
+                    int cantValidos=0;
+                    int cantObservados=0;
+                    for(int i=0;i<listaAdherentef.size();i++){
+                        listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                        listaAdherentef.get(i).setIdPartido(p.getId());
+                        if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                            cantValidos+=1;
+                            cantValidosT+=1;
+                        }                        
+                        if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                            cantObservados+=1;
+                            cantObservadosT+=1;
+                        }    
+                    }
+                    Manager.addListaAdherente(listaAdherentef); 
+                    cantRechazadosT+=(listaAdherente.size()-cantValidos-cantObservados);
+                    PartidoPolitico partPol=p; 
+                    partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                    Manager.updatePartido(partPol);  
+                }
+                showDetail(p); 
+                Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+                dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        
+        }
     }//GEN-LAST:event_tabla_regionMouseClicked
 
     private void tabla_distritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_distritoMouseClicked
@@ -811,6 +927,89 @@ public class DetallePartido extends javax.swing.JPanel {
                 showDetail(p);
             }
         }
+        
+        if(col==3){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setDialogTitle("Seleccionar Carpeta");
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile=fileChooser.getSelectedFile();
+                FilenameFilter textFilter = new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".jpg");
+                    }
+                };
+                File[] files = selectedFile.listFiles(textFilter);
+                PartidoPolitico p = distritosModel.partidos.get(row);
+                int cantValidosT=0;
+                int cantRechazadosT=0;
+                int cantObservadosT=0;
+                for (File file : files) {
+                    ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
+                    ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
+                    Recorte.ejecutar(file,listaAdherente);
+
+//                    Adherente ad1= new Adherente();
+//                    ad1.setDni("11111111");
+//                    ad1.setEstado("Observado");
+//                    
+//                    Adherente ad2= new Adherente();
+//                    ad2.setDni("11111112");
+//                    ad2.setEstado("Aprobado");
+//                    listaAdherente.add(ad1);
+//                    listaAdherente.add(ad2);                
+//                    
+//                    Adherente ad3= new Adherente();
+//                    ad3.setDni("11111113");
+//                    ad3.setEstado("Aprobado");
+//                    listaAdherente.add(ad3);
+
+                    //Validar si ya estan en la base de datos
+                    ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                    int esta=0;
+                    for(int i=0;i<listaAdherente.size();i++){
+                        for(int j=0;j<lAdBD.size();j++){
+                            if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                                esta=1;
+                                break;
+                            }                            
+                        }
+                        if(esta==0)
+                            listaAdherentef.add(listaAdherente.get(i));
+                        esta=0;
+                    }
+                    int cantValidos=0;
+                    int cantObservados=0;
+                    for(int i=0;i<listaAdherentef.size();i++){
+                        listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                        listaAdherentef.get(i).setIdPartido(p.getId());
+                        if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                            cantValidos+=1;
+                            cantValidosT+=1;
+                        }                        
+                        if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                            cantObservados+=1;
+                            cantObservadosT+=1;
+                        }    
+                    }
+                    Manager.addListaAdherente(listaAdherentef); 
+                    cantRechazadosT+=(listaAdherente.size()-cantValidos-cantObservados);
+                    PartidoPolitico partPol=p; 
+                    partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                    Manager.updatePartido(partPol);  
+                }
+                showDetail(p); 
+                Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+                dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        
+        }
+        
+        
     }//GEN-LAST:event_tabla_distritoMouseClicked
 
     private void tabla_localMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_localMouseClicked
@@ -825,6 +1024,87 @@ public class DetallePartido extends javax.swing.JPanel {
                 showDetail(p);
             }
         }
+        if(col==3){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setDialogTitle("Seleccionar Carpeta");
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile=fileChooser.getSelectedFile();
+                FilenameFilter textFilter = new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".jpg");
+                    }
+                };
+                File[] files = selectedFile.listFiles(textFilter);
+                PartidoPolitico p = localesModel.partidos.get(row);
+                int cantValidosT=0;
+                int cantRechazadosT=0;
+                int cantObservadosT=0;
+                for (File file : files) {
+                    ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
+                    ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
+                    Recorte.ejecutar(file,listaAdherente);
+
+//                    Adherente ad1= new Adherente();
+//                    ad1.setDni("11111111");
+//                    ad1.setEstado("Observado");
+//                    
+//                    Adherente ad2= new Adherente();
+//                    ad2.setDni("11111112");
+//                    ad2.setEstado("Aprobado");
+//                    listaAdherente.add(ad1);
+//                    listaAdherente.add(ad2);                
+//                    
+//                    Adherente ad3= new Adherente();
+//                    ad3.setDni("11111113");
+//                    ad3.setEstado("Aprobado");
+//                    listaAdherente.add(ad3);
+
+                    //Validar si ya estan en la base de datos
+                    ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                    int esta=0;
+                    for(int i=0;i<listaAdherente.size();i++){
+                        for(int j=0;j<lAdBD.size();j++){
+                            if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                                esta=1;
+                                break;
+                            }                            
+                        }
+                        if(esta==0)
+                            listaAdherentef.add(listaAdherente.get(i));
+                        esta=0;
+                    }
+                    int cantValidos=0;
+                    int cantObservados=0;
+                    for(int i=0;i<listaAdherentef.size();i++){
+                        listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                        listaAdherentef.get(i).setIdPartido(p.getId());
+                        if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                            cantValidos+=1;
+                            cantValidosT+=1;
+                        }                        
+                        if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                            cantObservados+=1;
+                            cantObservadosT+=1;
+                        }    
+                    }
+                    Manager.addListaAdherente(listaAdherentef); 
+                    cantRechazadosT+=(listaAdherente.size()-cantValidos-cantObservados);
+                    PartidoPolitico partPol=p; 
+                    partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                    Manager.updatePartido(partPol);  
+                }
+                showDetail(p); 
+                Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+                dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        
+        }
+        
     }//GEN-LAST:event_tabla_localMouseClicked
 
     private void tabla_institucionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_institucionMouseClicked
@@ -839,6 +1119,88 @@ public class DetallePartido extends javax.swing.JPanel {
                 showDetail(p);
             }
         }
+        
+        if(col==3){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setDialogTitle("Seleccionar Carpeta");
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile=fileChooser.getSelectedFile();
+                FilenameFilter textFilter = new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".jpg");
+                    }
+                };
+                File[] files = selectedFile.listFiles(textFilter);
+                PartidoPolitico p = institucionesModel.partidos.get(row);
+                int cantValidosT=0;
+                int cantRechazadosT=0;
+                int cantObservadosT=0;
+                for (File file : files) {
+                    ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
+                    ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
+                    Recorte.ejecutar(file,listaAdherente);
+
+//                    Adherente ad1= new Adherente();
+//                    ad1.setDni("11111111");
+//                    ad1.setEstado("Observado");
+//                    
+//                    Adherente ad2= new Adherente();
+//                    ad2.setDni("11111112");
+//                    ad2.setEstado("Aprobado");
+//                    listaAdherente.add(ad1);
+//                    listaAdherente.add(ad2);                
+//                    
+//                    Adherente ad3= new Adherente();
+//                    ad3.setDni("11111113");
+//                    ad3.setEstado("Aprobado");
+//                    listaAdherente.add(ad3);
+
+                    //Validar si ya estan en la base de datos
+                    ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                    int esta=0;
+                    for(int i=0;i<listaAdherente.size();i++){
+                        for(int j=0;j<lAdBD.size();j++){
+                            if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                                esta=1;
+                                break;
+                            }                            
+                        }
+                        if(esta==0)
+                            listaAdherentef.add(listaAdherente.get(i));
+                        esta=0;
+                    }
+                    int cantValidos=0;
+                    int cantObservados=0;
+                    for(int i=0;i<listaAdherentef.size();i++){
+                        listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                        listaAdherentef.get(i).setIdPartido(p.getId());
+                        if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                            cantValidos+=1;
+                            cantValidosT+=1;
+                        }                        
+                        if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                            cantObservados+=1;
+                            cantObservadosT+=1;
+                        }    
+                    }
+                    Manager.addListaAdherente(listaAdherentef); 
+                    cantRechazadosT+=(listaAdherente.size()-cantValidos-cantObservados);
+                    PartidoPolitico partPol=p; 
+                    partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                    Manager.updatePartido(partPol);  
+                }
+                showDetail(p); 
+                Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+                dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        
+        }
+        
     }//GEN-LAST:event_tabla_institucionMouseClicked
     public void showDetail(PartidoPolitico p){
         ArrayList<PartidoPolitico> partidos = Manager.queryPartidoByName(p.getNombre());

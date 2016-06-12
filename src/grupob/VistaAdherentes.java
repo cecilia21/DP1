@@ -164,7 +164,9 @@ public class VistaAdherentes extends javax.swing.JPanel {
             for(int i=0;i<adherentesModel.adherentes.size();i++){
                 if(adherentesModel.valores[i]==true){
                     
-                    Manager.deleteAdherenteById(adherentesModel.adherentes.get(i).getId());
+                    //Manager.deleteAdherenteById(adherentesModel.adherentes.get(i).getId());                    
+                    adherentesModel.adherentes.get(i).setEstado("Aprobado");
+                    Manager.updateAdherente(adherentesModel.adherentes.get(i));
                     int lugar=0;
                     if(tipoProceso==2)
                         lugar = Manager.queryPartidoById(adherentesModel.adherentes.get(i).getIdPartido()).getIdRegion();
@@ -194,7 +196,8 @@ public class VistaAdherentes extends javax.swing.JPanel {
             //aquí se debe regresar a la misma vista pero recargando la tabla para eliminar los adherentes que ya fueron invalidados
             for(int i=0;i<adherentesModel.adherentes.size();i++){
                 if(adherentesModel.valores[i]==true){
-                    Manager.deleteAdherenteById(adherentesModel.adherentes.get(i).getId());
+                   // Manager.deleteAdherenteById(adherentesModel.adherentes.get(i).getId());
+                   Manager.deleteAdherente(adherentesModel.adherentes.get(i).getId());
                 }
             }
             showDetail(partidoAdherente, tipoProceso);
@@ -227,7 +230,8 @@ public class VistaAdherentes extends javax.swing.JPanel {
             adherentesModel.titles = new String[]{"DNI", "Nombre JPG", "Instit.", "Marcar"};
         ArrayList<Adherente> ads = new ArrayList<Adherente>();
         for(int i=0;i<partidos.size();i++){
-            ads = Manager.queryAdherentesByPartidoId(partidos.get(i).getId());
+            ads.addAll(Manager.queryAllAdherenteObservado(partidos.get(i).getId()));
+            //ads = Manager.queryAdherentesByPartidoId(partidos.get(i).getId());
         }
         adherentesModel.adherentes = ads;
         adherentesModel.valores = new Boolean[ads.size()];
