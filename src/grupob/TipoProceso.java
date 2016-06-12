@@ -5,7 +5,9 @@
  */
 package grupob;
 
+import algoritmos.Recorte;
 import controlador.Manager;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +16,7 @@ import java.util.Vector;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -54,6 +57,9 @@ public class TipoProceso extends javax.swing.JPanel {
         TipoProcesoVotacion tipoDistrital=Manager.queryProcesoById(3);
         Calendar cal = Calendar.getInstance();
         Date dateActual =cal.getTime();
+        textConfGeneral.setText(Recorte.rutaGeneral);
+        textConfHuellas.setText(Recorte.rutaHuella);
+        textConfFirmas.setText(Recorte.rutaFirma);
         if(tipoNacional!=null && tipoNacional.getId()!=0){
             if(!tipoNacional.getFechaInicio2().after(dateActual)){
                 fechai1Nacional.setDate(tipoNacional.getFechaInicio1().getTime());
@@ -139,7 +145,7 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         };
         
-        jTabbedPane4.addChangeListener(changeListener);
+        jconfiguracion.addChangeListener(changeListener);
         
         
     }
@@ -175,7 +181,7 @@ public class TipoProceso extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jconfiguracion = new javax.swing.JTabbedPane();
         jPanel19 = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
@@ -282,9 +288,19 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnGuardarInstitucionalTP = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        textConfGeneral = new javax.swing.JTextField();
+        textConfHuellas = new javax.swing.JTextField();
+        textConfFirmas = new javax.swing.JTextField();
+        seleccionarFirmas = new javax.swing.JButton();
+        seleccionarGeneral = new javax.swing.JButton();
+        seleccionarHuellas = new javax.swing.JButton();
 
-        jTabbedPane4.setPreferredSize(new java.awt.Dimension(470, 300));
-        jTabbedPane4.setRequestFocusEnabled(false);
+        jconfiguracion.setPreferredSize(new java.awt.Dimension(470, 300));
+        jconfiguracion.setRequestFocusEnabled(false);
 
         jLabel51.setText("Fecha Inicio:");
 
@@ -379,7 +395,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 .addGap(78, 78, 78))
         );
 
-        jTabbedPane4.addTab("Nacional", jPanel19);
+        jconfiguracion.addTab("Nacional", jPanel19);
 
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -468,7 +484,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel4.setText("Proceso de Votacion Regional");
         jPanel13.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
-        jTabbedPane4.addTab("Regional", jPanel13);
+        jconfiguracion.addTab("Regional", jPanel13);
 
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -552,7 +568,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel6.setText("Proceso de Votacion Distrital");
         jPanel14.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
-        jTabbedPane4.addTab("Distrital", jPanel14);
+        jconfiguracion.addTab("Distrital", jPanel14);
 
         PanelLocal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -639,7 +655,7 @@ public class TipoProceso extends javax.swing.JPanel {
         });
         PanelLocal.add(btnGuardarProcLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
 
-        jTabbedPane4.addTab("Local", PanelLocal);
+        jconfiguracion.addTab("Local", PanelLocal);
 
         jPanelInstitucional.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -728,7 +744,47 @@ public class TipoProceso extends javax.swing.JPanel {
         });
         jPanelInstitucional.add(btnGuardarInstitucionalTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, -1));
 
-        jTabbedPane4.addTab("Institucional", jPanelInstitucional);
+        jconfiguracion.addTab("Institucional", jPanelInstitucional);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setText("Seleccione archivo de Repositorio: ");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+        jLabel8.setText("Seleccione Carpeta de Huellas de Repositorio:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        jLabel14.setText("Seleccione Carpeta de Firmas de Huellas de Repositorio:");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        jPanel1.add(textConfGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
+        jPanel1.add(textConfHuellas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 210, -1));
+        jPanel1.add(textConfFirmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, -1));
+
+        seleccionarFirmas.setText("Seleccionar");
+        seleccionarFirmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarFirmasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(seleccionarFirmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
+
+        seleccionarGeneral.setText("Seleccionar");
+        seleccionarGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarGeneralActionPerformed(evt);
+            }
+        });
+        jPanel1.add(seleccionarGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, -1, -1));
+
+        seleccionarHuellas.setText("Seleccionar");
+        seleccionarHuellas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarHuellasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(seleccionarHuellas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+
+        jconfiguracion.addTab("Configuracion", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -736,12 +792,12 @@ public class TipoProceso extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addComponent(jconfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -939,7 +995,7 @@ public class TipoProceso extends javax.swing.JPanel {
     }//GEN-LAST:event_botonGuardarDistritalActionPerformed
 
     public void paneSelect(int n){
-        jTabbedPane4.setSelectedIndex(n);
+        jconfiguracion.setSelectedIndex(n);
     }
     
     private void btnAddInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInstitucionalActionPerformed
@@ -1328,6 +1384,42 @@ public class TipoProceso extends javax.swing.JPanel {
 
 // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarProcLocalActionPerformed
+
+    private void seleccionarGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarGeneralActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar Carpeta");
+        int returnValue = fileChooser.showOpenDialog(null);
+        File selectedFile=fileChooser.getSelectedFile();
+        textConfGeneral.setText(""+selectedFile);
+        Recorte.rutaGeneral=""+selectedFile;
+        System.out.println(""+Recorte.rutaGeneral);
+    }//GEN-LAST:event_seleccionarGeneralActionPerformed
+
+    private void seleccionarHuellasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarHuellasActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Seleccionar Carpeta");
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile=fileChooser.getSelectedFile();
+            textConfHuellas.setText(""+selectedFile);
+            Recorte.rutaHuella=""+selectedFile;
+            System.out.println(""+Recorte.rutaHuella);
+        }
+    }//GEN-LAST:event_seleccionarHuellasActionPerformed
+
+    private void seleccionarFirmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarFirmasActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Seleccionar Carpeta");
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile=fileChooser.getSelectedFile();
+            textConfFirmas.setText(""+selectedFile);
+            Recorte.rutaFirma=""+selectedFile;
+            System.out.println(""+Recorte.rutaFirma);
+        }
+    }//GEN-LAST:event_seleccionarFirmasActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTableRegiones.getModel();
         modelo.setRowCount(0);
@@ -1529,6 +1621,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -1562,7 +1655,10 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel19;
@@ -1570,9 +1666,9 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTableDistritos;
     private javax.swing.JTable jTableRegiones;
+    private javax.swing.JTabbedPane jconfiguracion;
     private javax.swing.JLabel lblBusqLocal;
     private javax.swing.JLabel lblFechaFin1Local;
     private javax.swing.JLabel lblFechaFin2Local;
@@ -1584,8 +1680,14 @@ public class TipoProceso extends javax.swing.JPanel {
     private javax.swing.JLabel lblTituloLocal;
     private javax.swing.JTextField porcentajeDistrital;
     private javax.swing.JTextField porcentajeRegional;
+    private javax.swing.JButton seleccionarFirmas;
+    private javax.swing.JButton seleccionarGeneral;
+    private javax.swing.JButton seleccionarHuellas;
     private javax.swing.JTable tblInstitucional;
     private javax.swing.JTable tblLocal;
+    private javax.swing.JTextField textConfFirmas;
+    private javax.swing.JTextField textConfGeneral;
+    private javax.swing.JTextField textConfHuellas;
     private javax.swing.JTextField textDistrito;
     private javax.swing.JTextField textRegiones;
     private javax.swing.JTextField txtBuscarLocal;

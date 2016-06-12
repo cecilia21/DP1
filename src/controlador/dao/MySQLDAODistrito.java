@@ -108,6 +108,7 @@ public class MySQLDAODistrito implements DAODistrito {
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
                                                             DBConnection.user,
                                                             DBConnection.password);
+
 			//Paso 3: Preparar la sentencia
 			String sql = "DELETE FROM Distrito "
 					+ "WHERE idDistrito=?";
@@ -144,7 +145,7 @@ public class MySQLDAODistrito implements DAODistrito {
                                                             DBConnection.user,DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM Distrito";
-			pstmt = conn.prepareStatement(sql);
+			pstmt = (com.mysql.jdbc.PreparedStatement) conn.prepareStatement(sql);
 			//Paso 4: Ejecutar la sentencia
 			rs = pstmt.executeQuery();
 			//Paso 5(opc.): Procesar los resultados
@@ -184,6 +185,7 @@ public class MySQLDAODistrito implements DAODistrito {
 			conn = DriverManager.getConnection(DBConnection.URL_JDBC_MySQL,
                                                             DBConnection.user,
                                                             DBConnection.password);
+
 			//Paso 3: Preparar la sentencia
 			String sql = "SELECT * FROM Distrito "
 					+ "WHERE idDistrito=?";
@@ -198,8 +200,10 @@ public class MySQLDAODistrito implements DAODistrito {
 				int cant = rs.getInt("cantidadVotantes");
                                 int idReg = rs.getInt("idRegion");
                                 int t = rs.getInt("idTipoProceso");
+                                int ubigeo = rs.getInt("ubigeo");
 				p=new Distrito(id,idReg,name,cant);
                                 p.setTipoProceso(t);
+                                p.setUbigeo(ubigeo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

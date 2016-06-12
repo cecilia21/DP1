@@ -193,8 +193,10 @@ public class MySQLDAORegion implements DAORegion {
 				String name = rs.getString("nombre");
 				int cant = rs.getInt("cantidadVotantes");
                                 int t = rs.getInt("idTipoProceso");
+                                int ubigeo = rs.getInt("ubigeo");
 				p=new Region(id,name,cant);
                                 p.setTipoProceso(t);
+                                p.setUbigeo(ubigeo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
