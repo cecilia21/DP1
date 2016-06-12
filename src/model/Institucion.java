@@ -17,7 +17,22 @@ public class Institucion {
     private int tipoProceso;
     private String nombre;
     private int CantidadVotantesRegistrados;
+    private int ubigeo;
 
+    /**
+     * @return the ubigeo
+     */
+    public int getUbigeo() {
+        return ubigeo;
+    }
+
+    /**
+     * @param ubigeo the ubigeo to set
+     */
+    public void setUbigeo(int ubigeo) {
+        this.ubigeo = ubigeo;
+    }    
+        
     public Institucion(int id,int idL,String nombre,int cantidad){
         this.id=id;
         this.idLocal=idL;

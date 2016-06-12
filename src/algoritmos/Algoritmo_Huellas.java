@@ -8,7 +8,13 @@ package algoritmos;
 import com.sun.rowset.internal.Row;
 import ij.IJ;
 import ij.ImagePlus;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
@@ -216,6 +222,28 @@ public class Algoritmo_Huellas {
         
         return (1-por);
     }
+
+    public static BufferedImage rotate(BufferedImage image, double angle) {
+    double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
+    int w = image.getWidth(), h = image.getHeight();
+    int neww = (int)Math.floor(w*cos+h*sin), newh = (int) Math.floor(h * cos + w * sin);
+    GraphicsConfiguration gc = getDefaultConfiguration();
+    BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.TRANSLUCENT);
+    Graphics2D g = result.createGraphics();
+    g.setColor(Color.WHITE);
+    g.fillRect(0, 0, neww, newh);
+    g.translate((neww - w) / 2, (newh - h) / 2);
+    g.rotate(angle, w / 2, h / 2);
+    g.drawRenderedImage(image, null);
+    g.dispose();
+    return result;
+}
+    
+    private static GraphicsConfiguration getDefaultConfiguration() {
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    GraphicsDevice gd = ge.getDefaultScreenDevice();
+    return gd.getDefaultConfiguration();
+}        
     
 //    private static BufferedImage readImage(File file) throws IOException
 //    {
@@ -291,6 +319,21 @@ public class Algoritmo_Huellas {
         if(huellaO!=null){
 //            huellaO=ot;
 //            huellaC=tt;
+            try {
+                huellaO=cropper(huellaO);
+                huellaC=cropper(huellaC);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(huellaC.getWidth()>huellaC.getHeight()){
+                huellaC=rotate(huellaC,1.57);
+                try {
+                    huellaC = cropper(huellaC);
+                } catch (IOException ex) {
+                    Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
             int heightO=huellaO.getHeight();
             int heightC=huellaC.getHeight();
             int widthO=huellaO.getWidth();

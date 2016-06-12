@@ -5,6 +5,7 @@
  */
 package algoritmos;
 
+import controlador.Manager;
 import ij.ImagePlus;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import model.PartidoPolitico;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -45,6 +47,9 @@ public class Recorte {
     private static int registro_aprobado = 1;
     private static int registro_observado = 2;
     private static int registro_rechazado = 3;
+    public static String rutaGeneral="/temp";
+    public static String rutaHuella="/temp";
+    public static String rutaFirma="/temp";
     
     public static BufferedImage extraerCuadroData(BufferedImage test){
         BufferedImage cuadro;
@@ -339,6 +344,63 @@ public class Recorte {
         else return registro_rechazado;        
         
     }
+ 
+   public static void ejecutarProceso(File file, PartidoPolitico p){
+        BufferedImage test;
+        int inicioX, inicioY, finX, finY;
+        try {
+            test = ImageIO.read(file);
+            test = binarization(test);
+            //ImageIO.write(test, "jpg", new File("C:\\Users\\alulab14\\Downloads\\bin.jpg"));
+            test = extraerCuadroData(test);
+            BufferedImage[] registros = extraerRegistros(test);
+            //lista de prueba
+            ArrayList<String> listNumS=new ArrayList<String>();
+            listNumS.add("34576713");listNumS.add("62346721");listNumS.add("34577732");listNumS.add("54322314");
+            listNumS.add("23443281");listNumS.add("55443322");listNumS.add("78901234");listNumS.add("69384231");
+            int ubigeo=0;
+                if(p.getIdTipoProceso()==1)ubigeo=-1;
+                if(p.getIdTipoProceso()==2)ubigeo=Manager.queryByIdRegion(p.getIdRegion()).getUbigeo();
+                if(p.getIdTipoProceso()==3)ubigeo=Manager.queryByIdDistrito(p.getIdDistrito()).getUbigeo();
+                if(p.getIdTipoProceso()==4)ubigeo=Manager.queryLocalById(p.getIdLocal()).getUbigeo();
+                if(p.getIdTipoProceso()==5)ubigeo=Manager.queryInstitucionById(p.getIdInstitucion()).getUbigeo();
+            for(int i=0;i<registros.length;i++){
+                int ancho = Math.round(registros[i].getWidth()*(float)0.02);
+                BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[i].getHeight());    
+                BufferedImage[] dni = extraerDni(registros[i]);
+//                BufferedImage huella = extraerHuella(registros[i]);              
+                String numS=new String();
+//                for(int j=0;j<cantDni;j++){
+//                    int num = OcrNumeros.obtenerNumero(dni[j]);
+//                    numS+=num;
+//                }
+//                numS="34576713";
+                numS=listNumS.get(i);
+                System.out.println("DNI: " + numS);                
+                int ubigeoPadron=buscarUbigeo(numS);
+                if(ubigeo==-1 || ubigeo==ubigeoPadron){
+                    System.out.println("  Ubigeo Correcto");
+                BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
+                BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
+                //Imagenes del repositorio
+                ImagenHuella=null;
+                ImagenFirma=null;
+                buscarImagenes(numS);//modifica la imagen huella y imagen firma
+                double porcentaje_firma, porcentaje_huella;
+                if(ImagenHuella!=null && ImagenFirma!=null){
+                    porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+                    porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+                    int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
+                    System.out.println("");
+                }
+                else
+                    System.out.println("No se encontro a las personas con DNI: " + numS);            
+            }System.out.println("-------Ubigeo incorrecto---");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }    
     
     public static void ejecutar(File file){
         BufferedImage test;
@@ -459,6 +521,54 @@ public class Recorte {
         }
     }
     
+    private static int buscarUbigeo(String dni){    
+        String dn = null;
+        double d=-1;
+        int nd=Integer.parseInt(dni);
+        int ubigeo=0;
+       try {           
+//                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+			while (cells.hasNext())
+			{
+				cell=(XSSFCell) cells.next();
+                                if(i==2)
+                                {
+                                    d=cell.getNumericCellValue();
+                                    int num=(int) d;
+                                    dn=num+"";
+                                }
+                                if(dn!=null){
+                                    if(d==nd){
+                                        if(i==3){
+                                            double dh=cell.getNumericCellValue();
+                                            ubigeo=(int) dh;
+                                            return ubigeo;
+                                        }
+                                    }
+                                }
+                                i++;
+			}                       
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }    
+       return ubigeo;
+    }
     
     private static void buscarImagenes(String dni){        
         ImagenHuella=null;
@@ -467,7 +577,8 @@ public class Recorte {
         double d=-1;
         int nd=Integer.parseInt(dni);
        try {
-                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
+//                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
                 XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		XSSFRow row; 
@@ -498,15 +609,18 @@ public class Recorte {
                                             int num=(int) dh;
                                             String dr=null;
                                             if(num<10){
-                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/00"+num+".jpg";
+//                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/00"+num+".jpg";
+                                                dr=Recorte.rutaHuella+"/00"+num+".jpg";
                                             } 
                                             else
                                             if(num>9 && num<100){
-                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/0"+num+".jpg";
+//                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/0"+num+".jpg";
+                                                dr=Recorte.rutaHuella+"/0"+num+".jpg";
                                             }
                                             else{
                                                 System.out.println("c");
-                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/"+num+".jpg";
+//                                                dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/huellas.jpg/"+num+".jpg";
+                                                dr=Recorte.rutaHuella+"/"+num+".jpg";
                                             }
                                             File file = new File(dr);
                                             ImagenHuella= ImageIO.read(file);
@@ -517,7 +631,8 @@ public class Recorte {
                                         if(i==5){
                                             String dh=cell.getStringCellValue();
                                             String dr=null;
-                                            dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/firmas.jpg/"+dh+".jpg";
+//                                            dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/firmas.jpg/"+dh+".jpg";
+                                            dr=Recorte.rutaFirma+"/"+dh+".jpg";
                                             File file = new File(dr);
                                             ImagenFirma= ImageIO.read(file);
                                             salir=1;
