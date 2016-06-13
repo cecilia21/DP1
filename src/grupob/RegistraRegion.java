@@ -124,7 +124,7 @@ public class RegistraRegion extends javax.swing.JFrame {
     private void btnRegistraRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraRegionActionPerformed
        int cant = 0;
        String nombre=nombreRegistro.getText();
-       nombre.trim();
+       nombre = nombre.trim();
        
         if(nombre.isEmpty()){
             

@@ -58,7 +58,7 @@ public class MySQLDAOPartidoPolitico implements DAOPartidoPolitico{
                     pstmt.setDate(7, new java.sql.Date(p.getFechaRegistro().getTimeInMillis()));
                     pstmt.setString(8, p.getEstado());
                     pstmt.setInt(9, p.getIdTipoProceso());
-                    pstmt.setInt(14, 1);
+                    pstmt.setNull(14, java.sql.Types.INTEGER);
                     if(p.getIdRegion()>0)
                         pstmt.setInt(10, p.getIdRegion());
                     else pstmt.setString(10, null);

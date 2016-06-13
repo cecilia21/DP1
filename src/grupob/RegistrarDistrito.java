@@ -142,7 +142,7 @@ public class RegistrarDistrito extends javax.swing.JFrame {
         int cant = 0;
         String nombre=txtNombreRegDistrito.getText();
         
-        nombre.trim();
+        nombre = nombre.trim();
         
         try{
             cant=Integer.parseInt(cantidadRegistro.getText());

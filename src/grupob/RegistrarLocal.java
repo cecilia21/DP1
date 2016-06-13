@@ -167,8 +167,8 @@ public class RegistrarLocal extends javax.swing.JFrame {
               String nombre = txtRegNombreLocal.getText();
         String cant  = txtRegVotantesLocal.getText();
         
-        nombre.trim();
-        cant.trim();
+        nombre = nombre.trim();
+        cant = cant.trim();
         
         if(nombre.isEmpty()){
             error = true;

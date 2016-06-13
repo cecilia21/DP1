@@ -83,6 +83,8 @@ public class DetallePartido extends javax.swing.JPanel {
         adherentesRevision = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel24 = new javax.swing.JLabel();
+        btnModPartNac = new javax.swing.JButton();
+        btnGuardarPartNac = new javax.swing.JButton();
         pestRegional = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_region = new javax.swing.JTable();
@@ -204,6 +206,22 @@ public class DetallePartido extends javax.swing.JPanel {
 
         jLabel24.setText("Opciones");
         pestNacional.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        btnModPartNac.setText("Modificar");
+        btnModPartNac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModPartNacActionPerformed(evt);
+            }
+        });
+        pestNacional.add(btnModPartNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 80, 30));
+
+        btnGuardarPartNac.setText("Guardar");
+        btnGuardarPartNac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarPartNacActionPerformed(evt);
+            }
+        });
+        pestNacional.add(btnGuardarPartNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 80, 30));
 
         jTabbedPane3.addTab("Nacional", pestNacional);
 
@@ -840,10 +858,79 @@ public class DetallePartido extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_tabla_institucionMouseClicked
+
+    private void btnModPartNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModPartNacActionPerformed
+        // TODO add your handling code here:
+        
+         nombre_rep1.setEditable(true);
+         dni_rep1.setEditable(true);
+         correo1.setEditable(true);
+         btnGuardarPartNac.setEnabled(true);
+        
+        
+        
+    }//GEN-LAST:event_btnModPartNacActionPerformed
+
+    private void btnGuardarPartNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPartNacActionPerformed
+        // TODO add your handling code here:
+         
+        String nombre = nombre_rep1.getText();
+        nombre = nombre.trim();
+        
+        if(nombre.isEmpty()){
+        
+           // error += "Nombre representante vacio";
+        
+        }
+        
+        String[] nombComp =  nombre.split(" ");
+        
+        
+        
+        
+         String dni = dni_rep1.getText();
+         dni = dni.trim();
+        try{
+         int dniV =  Integer.parseInt(dni);
+         
+        }catch(Exception ex ){
+                 
+                 
+       }
+       
+        
+        
+          String correo  =   correo1.getText();
+          correo = correo.trim();
+          
+          
+          
+         ArrayList<PartidoPolitico> partidos = Manager.queryPartidoByNombTipo(nombre_partido.getText() , 1);
+         partidoPolitico = partidos.get(0);
+         
+         
+         
+         
+         
+         
+          
+          
+          /*
+          if(correo.isEmpty()){
+          
+              error += "Campo correo esta vacio";
+          }*/
+          
+          
+          
+        
+        
+        
+    }//GEN-LAST:event_btnGuardarPartNacActionPerformed
     public void showDetail(PartidoPolitico p){
         ArrayList<PartidoPolitico> partidos = Manager.queryPartidoByName(p.getNombre());
         if(partidos == null || partidos.size()==0 )
-            padre.mostrarBusqueda();
+        padre.mostrarBusqueda();
         nombre_partido.setText(p.getNombre());
         //nombre_rep.setText(p.getNombreRepresentante()+" "+p.getApellidoRepresentante());
         //dni_rep.setText(p.getDniRepresentante());
@@ -1026,6 +1113,8 @@ public class DetallePartido extends javax.swing.JPanel {
     private javax.swing.JButton adherentesRevision2;
     private javax.swing.JButton adherentesRevision3;
     private javax.swing.JButton adherentesRevision4;
+    private javax.swing.JButton btnGuardarPartNac;
+    private javax.swing.JButton btnModPartNac;
     private javax.swing.JTextField correo1;
     private javax.swing.JTextField correo2;
     private javax.swing.JTextField correo3;
