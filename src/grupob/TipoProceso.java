@@ -298,6 +298,7 @@ public class TipoProceso extends javax.swing.JPanel {
         seleccionarFirmas = new javax.swing.JButton();
         seleccionarGeneral = new javax.swing.JButton();
         seleccionarHuellas = new javax.swing.JButton();
+        GuardarConfiguracion = new javax.swing.JButton();
 
         jconfiguracion.setPreferredSize(new java.awt.Dimension(470, 300));
         jconfiguracion.setRequestFocusEnabled(false);
@@ -754,7 +755,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel8.setText("Seleccione Carpeta de Huellas de Repositorio:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jLabel14.setText("Seleccione Carpeta de Firmas de Huellas de Repositorio:");
+        jLabel14.setText("Seleccione Carpeta de Firmas de Repositorio:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
         jPanel1.add(textConfGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
         jPanel1.add(textConfHuellas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 210, -1));
@@ -783,6 +784,14 @@ public class TipoProceso extends javax.swing.JPanel {
             }
         });
         jPanel1.add(seleccionarHuellas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+
+        GuardarConfiguracion.setText("Guardar Configuracion");
+        GuardarConfiguracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarConfiguracionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(GuardarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 190, -1));
 
         jconfiguracion.addTab("Configuracion", jPanel1);
 
@@ -1391,8 +1400,7 @@ public class TipoProceso extends javax.swing.JPanel {
         int returnValue = fileChooser.showOpenDialog(null);
         File selectedFile=fileChooser.getSelectedFile();
         textConfGeneral.setText(""+selectedFile);
-        Recorte.rutaGeneral=""+selectedFile;
-        System.out.println(""+Recorte.rutaGeneral);
+//        Recorte.rutaGeneral=""+selectedFile;        
     }//GEN-LAST:event_seleccionarGeneralActionPerformed
 
     private void seleccionarHuellasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarHuellasActionPerformed
@@ -1403,8 +1411,7 @@ public class TipoProceso extends javax.swing.JPanel {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile=fileChooser.getSelectedFile();
             textConfHuellas.setText(""+selectedFile);
-            Recorte.rutaHuella=""+selectedFile;
-            System.out.println(""+Recorte.rutaHuella);
+//            Recorte.rutaHuella=""+selectedFile;
         }
     }//GEN-LAST:event_seleccionarHuellasActionPerformed
 
@@ -1416,10 +1423,24 @@ public class TipoProceso extends javax.swing.JPanel {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile=fileChooser.getSelectedFile();
             textConfFirmas.setText(""+selectedFile);
-            Recorte.rutaFirma=""+selectedFile;
-            System.out.println(""+Recorte.rutaFirma);
+//            Recorte.rutaFirma=""+selectedFile;            
         }
     }//GEN-LAST:event_seleccionarFirmasActionPerformed
+
+    private void GuardarConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarConfiguracionActionPerformed
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas guardar la configuracion?","Advertencia",dialogButton);
+        if(n==JOptionPane.YES_OPTION){
+                  Recorte.rutaFirma=textConfFirmas.getText();
+                  Recorte.rutaHuella=textConfHuellas.getText();
+                  Recorte.rutaGeneral=textConfGeneral.getText();
+                  System.out.println(""+Recorte.rutaGeneral);
+                  System.out.println(""+Recorte.rutaHuella);                  
+                  System.out.println(""+Recorte.rutaFirma);
+                  JOptionPane.showMessageDialog(null,"Configuracion Guardada");
+        }
+    }//GEN-LAST:event_GuardarConfiguracionActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTableRegiones.getModel();
         modelo.setRowCount(0);
@@ -1577,6 +1598,7 @@ public class TipoProceso extends javax.swing.JPanel {
      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton GuardarConfiguracion;
     private javax.swing.JPanel PanelLocal;
     private javax.swing.JScrollPane ScrollPaneLocal;
     private javax.swing.JButton addRowRegional;
