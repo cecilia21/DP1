@@ -16,6 +16,10 @@ public class Adherente {
     private int id;
     private int idPartido;
 
+    public Adherente(){
+        
+    }
+    
     public Adherente(String dni){
         this.dni=dni;
         this.estado="NoInscrito";

@@ -47,6 +47,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         locales = new javax.swing.JButton();
         distritos = new javax.swing.JButton();
         nacional = new javax.swing.JButton();
+        configuracion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 600));
@@ -124,7 +125,15 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         jPanel2.add(nacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 170, 230));
+        configuracion.setText("Configuracion");
+        configuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configuracionActionPerformed(evt);
+            }
+        });
+        jPanel2.add(configuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 170, 260));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -206,6 +215,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }//GEN-LAST:event_localesActionPerformed
+
+    private void configuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionActionPerformed
+        panelPrincipal.removeAll();
+        repaint();
+        TipoProceso part = new TipoProceso();
+        part.paneSelect(5);
+        panelPrincipal.add(part,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        pack();
+    }//GEN-LAST:event_configuracionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,6 +319,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarPartido;
+    private javax.swing.JButton configuracion;
     private javax.swing.JButton distritos;
     private javax.swing.JButton instituciones;
     private javax.swing.JPanel jPanel1;
