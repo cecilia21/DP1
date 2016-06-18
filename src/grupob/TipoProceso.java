@@ -1021,8 +1021,10 @@ public class TipoProceso extends javax.swing.JPanel {
             listaInstituciones=Manager.queryByNameInstitucion(txtNombreInstitucional.getText());            
             
             DefaultTableModel modelo = (DefaultTableModel)tblInstitucional.getModel();
+            tblInstitucional.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
             modelo.setRowCount(0);
             String datos[] = new String[4];
+            
             for (int i = 0; i < listaInstituciones.size(); i++) {
                 datos[0] = listaInstituciones.get(i).getNombre();
                 if(listaInstituciones.get(i).getCantidadVotantesRegistrados() == 0){
@@ -1064,9 +1066,11 @@ public class TipoProceso extends javax.swing.JPanel {
                                         listaInstituciones.remove(i);//Ver si es correcto esto
                                         break;
                                     }                                                                          
-                                }                                                               
+                                }
+                                
+                                modelo.removeRow(tblInstitucional.getSelectedRow());
                             }            
-            modelo.removeRow(tblInstitucional.getSelectedRow());
+            
         }
 
         
@@ -1323,7 +1327,7 @@ public class TipoProceso extends javax.swing.JPanel {
     private void btnBuscarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLocalActionPerformed
 
         String localName  = txtBuscarLocal.getText();
-        localName.trim();
+        localName = localName.trim();
         
         if(localName.isEmpty()){
             //buscar todos

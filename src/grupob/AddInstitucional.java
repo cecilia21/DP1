@@ -140,7 +140,7 @@ public class AddInstitucional extends javax.swing.JFrame {
         
         String nombre =  txtNombre.getText();
         
-        nombre.trim();
+        nombre = nombre.trim();
         
         if(nombre.isEmpty()){
             
@@ -195,7 +195,7 @@ public class AddInstitucional extends javax.swing.JFrame {
         
             institucion.setTipoProceso(5);
             Manager.addInstitucion(institucion);
-            JOptionPane.showMessageDialog(this,"Se Region registrada");
+            JOptionPane.showMessageDialog(this,"Institucion registrada");
            
              dispose();
             

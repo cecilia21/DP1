@@ -37,8 +37,10 @@ public class ButtonEliminarLocales extends AbstractCellEditor implements TableCe
 	public ButtonEliminarLocales() {
 	    button = new JButton();
 	    button.setOpaque(true);
+            /*
             icon = new ImageIcon(getClass().getResource("/Imagenes/delete1.png"));
-            button.setIcon(icon);
+            button.setIcon(icon);*/
+            button.setText("X");
 	    button.addActionListener(bListener);
             
  
@@ -49,9 +51,10 @@ public class ButtonEliminarLocales extends AbstractCellEditor implements TableCe
 		    bListener.setTable(table);
                     this.value = value;
                     
-                    button.setIcon(new ImageIcon(icon.getImage().getScaledInstance(8, 8, 
-                            java.awt.Image.SCALE_DEFAULT)));
-//		    button.setText( (value == null) ? "" : value.toString() );
+                   /* button.setIcon(new ImageIcon(icon.getImage().getScaledInstance(8, 8, 
+                            java.awt.Image.SCALE_DEFAULT)));*/
+                     
+		   // button.setText( "X" );
 		    return button;
 		  }
 
@@ -63,11 +66,12 @@ public class ButtonEliminarLocales extends AbstractCellEditor implements TableCe
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-       
+       /*
         if(value instanceof Icon){
             button.setIcon((Icon) value);
         }else
-            button.setIcon(null);
+            button.setIcon(null);*/
+     //   button.setText("X");
                     
         return button;
     
