@@ -52,9 +52,11 @@ public class AddInstitucional extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtCanVotantes = new javax.swing.JTextField();
-        cboxLocal = new javax.swing.JComboBox<String>();
+        cboxLocal = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblRegistrarInstUbigeo = new javax.swing.JLabel();
+        txtInstUbigeo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Institución");
@@ -65,7 +67,7 @@ public class AddInstitucional extends javax.swing.JFrame {
 
         jLabel18.setText("Local");
 
-        cboxLocal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Local" }));
+        cboxLocal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Local" }));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,28 +83,36 @@ public class AddInstitucional extends javax.swing.JFrame {
             }
         });
 
+        lblRegistrarInstUbigeo.setText("Ubigeo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel18)
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(43, 43, 43)
+                            .addComponent(btnGuardar)
+                            .addGap(20, 20, 20)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(btnGuardar)
-                        .addGap(20, 20, 20)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addComponent(lblRegistrarInstUbigeo)
+                        .addGap(112, 112, 112)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCancelar)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre)
                     .addComponent(cboxLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCanVotantes, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCanVotantes)
+                    .addComponent(txtInstUbigeo))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,11 +130,15 @@ public class AddInstitucional extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboxLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRegistrarInstUbigeo)
+                    .addComponent(txtInstUbigeo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -176,6 +190,28 @@ public class AddInstitucional extends javax.swing.JFrame {
                 error = true;
               
             }
+            
+            
+            
+              String ubigeo = txtInstUbigeo.getText();
+        ubigeo  =  ubigeo.trim();
+          int codUbigeo = 0;
+        
+            try{
+        
+           codUbigeo = Integer.parseInt(ubigeo);
+            if(codUbigeo == 0){
+                message += "Numero de ubigeo  invalido\n";
+                error = true;
+            }
+            
+            
+        }catch(Exception ex){
+            
+            message += "codigo ubigeo debe ser numerico";
+            error = true;
+        }
+            
                     
           
         if(error){
@@ -194,6 +230,7 @@ public class AddInstitucional extends javax.swing.JFrame {
             institucion.setIdLocal(listaLocal.get(cboxLocal.getSelectedIndex() - 1).getId());
         
             institucion.setTipoProceso(5);
+            institucion.setUbigeo(codUbigeo);
             Manager.addInstitucion(institucion);
             JOptionPane.showMessageDialog(this,"Institucion registrada");
            
@@ -244,7 +281,9 @@ public class AddInstitucional extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel lblRegistrarInstUbigeo;
     private javax.swing.JTextField txtCanVotantes;
+    private javax.swing.JTextField txtInstUbigeo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

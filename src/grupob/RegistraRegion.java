@@ -40,6 +40,8 @@ public class RegistraRegion extends javax.swing.JFrame {
         cantidadRegistro = new javax.swing.JTextField();
         btnRegistraRegion = new javax.swing.JButton();
         btnCancelarR = new javax.swing.JButton();
+        txtRegionUbigeo = new javax.swing.JTextField();
+        lblRegionUbigeo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,6 +66,8 @@ public class RegistraRegion extends javax.swing.JFrame {
             }
         });
 
+        lblRegionUbigeo.setText("Ubigeo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,17 +85,23 @@ public class RegistraRegion extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(nombreRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(cantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(12, 12, 12)
+                                                .addComponent(btnRegistraRegion))
+                                            .addComponent(lblRegionUbigeo))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnCancelarR)
+                                            .addComponent(txtRegionUbigeo)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(27, 27, 27))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnRegistraRegion)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelarR)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,11 +117,15 @@ public class RegistraRegion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(cantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRegionUbigeo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRegionUbigeo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistraRegion)
                     .addComponent(btnCancelarR))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -159,6 +173,27 @@ public class RegistraRegion extends javax.swing.JFrame {
             return;
             */
         }
+        
+        
+        
+           String ubigeo = txtRegionUbigeo.getText();
+        ubigeo  =  ubigeo.trim();
+        int codUbigeo = 0;
+        
+            try{
+        
+             codUbigeo = Integer.parseInt(ubigeo);
+            if(codUbigeo == 0){
+                message += "Numero de ubigeo  invalido\n";
+                error = true;
+            }
+            
+            
+        }catch(Exception ex){
+            
+            message += "codigo ubigeo debe ser numerico";
+            error = true;
+        }
        
         if(error){
         
@@ -171,6 +206,7 @@ public class RegistraRegion extends javax.swing.JFrame {
         }
         Region re=new Region(0,nombre,cant);
         re.setTipoProceso(1);
+        re.setUbigeo(codUbigeo);
         Manager.addRegion(re);        
         this.setVisible(false);
         JOptionPane.showMessageDialog(null,"Region registrada\nahora puede buscarla en la lista de regiones");
@@ -219,6 +255,8 @@ public class RegistraRegion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblRegionUbigeo;
     private javax.swing.JTextField nombreRegistro;
+    private javax.swing.JTextField txtRegionUbigeo;
     // End of variables declaration//GEN-END:variables
 }

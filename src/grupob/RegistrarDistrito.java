@@ -47,7 +47,9 @@ public class RegistrarDistrito extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboRegiones = new javax.swing.JComboBox<String>();
+        comboRegiones = new javax.swing.JComboBox<>();
+        lblDistUbigeo = new javax.swing.JLabel();
+        txtDistritoUbigeo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,7 +76,9 @@ public class RegistrarDistrito extends javax.swing.JFrame {
 
         jLabel4.setText("Region:");
 
-        comboRegiones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Region" }));
+        comboRegiones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Region" }));
+
+        lblDistUbigeo.setText("Ubigeo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,17 +98,21 @@ public class RegistrarDistrito extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtNombreRegDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(cantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(lblDistUbigeo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDistritoUbigeo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,7 +132,11 @@ public class RegistrarDistrito extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(comboRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDistUbigeo)
+                    .addComponent(txtDistritoUbigeo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistraDistrito)
                     .addComponent(btnCancelarD))
@@ -167,14 +179,33 @@ public class RegistrarDistrito extends javax.swing.JFrame {
             return;*/
         }
         
+          String ubigeo = txtDistritoUbigeo.getText();
+        ubigeo  =  ubigeo.trim();
+        int codUbigeo = 0;
+        
+            try{
+        
+             codUbigeo = Integer.parseInt(ubigeo);
+            if(codUbigeo == 0){
+                message += "Numero de ubigeo  invalido\n";
+                error = true;
+            }
+            
+            
+        }catch(Exception ex){
+            
+            message += "codigo ubigeo debe ser numerico";
+            error = true;
+        }
+       
+        ArrayList<Region> arrRegiones = null;
         
         if(comboRegiones.getSelectedIndex() != 0){
             
+            
             String reg=comboRegiones.getSelectedItem().toString();
-        ArrayList<Region> arrRegiones=Manager.queryByNameRegion(reg);
-        Distrito di=new Distrito(0,arrRegiones.get(0).getId(),nombre,cant);
-        di.setTipoProceso(1);
-        Manager.addDistrito(di);
+        arrRegiones =Manager.queryByNameRegion(reg);
+        
         
       
         
@@ -191,6 +222,16 @@ public class RegistrarDistrito extends javax.swing.JFrame {
             message = "";
             error = false;
             return;
+        }
+        
+        try{
+        Distrito di=new Distrito(0,arrRegiones.get(0).getId(),nombre,cant);
+        di.setTipoProceso(2);
+        di.setUbigeo(codUbigeo);
+        Manager.addDistrito(di);}
+        catch(Exception ex){
+            ex.printStackTrace();
+        
         }
         
         this.setVisible(false);
@@ -242,6 +283,8 @@ public class RegistrarDistrito extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblDistUbigeo;
+    private javax.swing.JTextField txtDistritoUbigeo;
     private javax.swing.JTextField txtNombreRegDistrito;
     // End of variables declaration//GEN-END:variables
 }

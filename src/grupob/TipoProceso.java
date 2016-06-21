@@ -129,6 +129,14 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         sColumn.setCellEditor(new DefaultCellEditor(comboBox));
         
+        TableColumn instColumn = tblInstitucional.getColumnModel().getColumn(2);
+        ArrayList<Local> lLoc  = Manager.queryAllLocales();
+        JComboBox comboBoxLocal  = new JComboBox();
+        for(int i = 0 ; i < lLoc.size() ; i++){
+            comboBoxLocal.addItem(lLoc.get(i).getNombre());
+        }
+        instColumn.setCellEditor(new DefaultCellEditor(comboBoxLocal));
+        
         
         
           ChangeListener changeListener = new ChangeListener() {
@@ -1042,7 +1050,8 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
                 }else{
                     datos[1] = Integer.toString(listaInstituciones.get(i).getCantidadVotantesRegistrados());
                 }
-                datos[2] = Manager.queryLocalById(listaInstituciones.get(i).getIdLocal()).getNombre();
+                String n = Manager.queryLocalById(listaInstituciones.get(i).getIdLocal()).getNombre();
+                datos[2] = "" + n;
                 datos[3]="ELIMINAR";
                 modelo.addRow(datos);
             }
@@ -1168,8 +1177,30 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
             for(int i=0;i<modelo.getRowCount();i++){            
                 institucion.setId(listaInstituciones.get(i).getId());
                 institucion.setNombre(tblInstitucional.getValueAt(i, 0).toString());
-                institucion.setCantidadVotantesRegistrados(Integer.parseInt(tblInstitucional.getValueAt(i, 1).toString()));
-                institucion.setTipoProceso(5);//Tipo de proceso 5
+                
+                String  n = tblInstitucional.getValueAt(i, 1).toString();
+                int num = -1;
+                try{
+                    num = Integer.parseInt(n);
+                
+                    
+                }catch(Exception ex){
+                
+                    JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
+                return;
+                    
+                }
+                
+                
+                 if(num<0){
+                JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
+                return;
+            }
+                
+                  institucion.setCantidadVotantesRegistrados(num);
+               
+                
+               institucion.setTipoProceso(5);//Tipo de proceso 5
                 for(int j=0;i<listaLocalesI.size();j++){
                     if(listaLocalesI.get(j).getNombre().equals(tblInstitucional.getValueAt(i, 2).toString())){
                         institucion.setIdLocal(listaLocalesI.get(j).getId());
