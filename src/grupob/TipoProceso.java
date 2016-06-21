@@ -8,10 +8,13 @@ package grupob;
 import algoritmos.Recorte;
 import controlador.Manager;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.Vector;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
@@ -138,6 +141,8 @@ public class TipoProceso extends javax.swing.JPanel {
                 switch(index){
                 case 3: cargarDatosLocal();
                         return;
+
+                            
                 default:
                         return;
                  }
@@ -800,13 +805,14 @@ public class TipoProceso extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jconfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addComponent(jconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 361, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -914,13 +920,17 @@ public class TipoProceso extends javax.swing.JPanel {
 
          RegistrarLocal window=new RegistrarLocal();
          window.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
-        window.setVisible(true);/*
+        window.setVisible(true);
         
         
         
         
         
-         DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
+        /*
+        
+        
+        
+DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
         Vector row = new Vector();
         row.add("");
         row.add("");
@@ -1442,8 +1452,17 @@ public class TipoProceso extends javax.swing.JPanel {
                   System.out.println(""+Recorte.rutaGeneral);
                   System.out.println(""+Recorte.rutaHuella);                  
                   System.out.println(""+Recorte.rutaFirma);
+                  
+                  generaConfig(textConfHuellas.getText(),textConfFirmas.getText(),textConfGeneral.getText());
                   JOptionPane.showMessageDialog(null,"Configuracion Guardada");
         }
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_GuardarConfiguracionActionPerformed
     private void agregarDatos(){
         DefaultTableModel modelo = (DefaultTableModel)jTableRegiones.getModel();
@@ -1598,6 +1617,42 @@ public class TipoProceso extends javax.swing.JPanel {
          Calendar cal =  Calendar.getInstance();
          cal.setTime(date);
          return cal;
+     
+     }
+     
+   
+     
+     private void generaConfig(String huellas, String firmas , String excel){
+     
+         
+         File file = new File("./config");
+         if(!file.exists())
+             file.mkdir();
+         
+         FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            
+           
+            fichero = new FileWriter("./config/conf.txt");
+            pw = new PrintWriter(fichero);
+
+              pw.println("dir_huellas: " + huellas );
+              
+              pw.println("dir_firmas: " +  firmas);
+              
+              pw.println("dir_excel: " + excel);
+              
+              
+              pw.close();
+              
+     fichero.close();
+        }catch(Exception ex){
+        
+        
+        }
+     
      
      }
 
