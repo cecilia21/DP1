@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package algoritmos;
-
-import com.sun.rowset.internal.Row;
 import ij.IJ;
 import ij.ImagePlus;
 import java.awt.Color;
@@ -48,7 +46,7 @@ public class Algoritmo_Huellas {
     //  Binarizacion... 
    private static BufferedImage binarizarHuella(BufferedImage huella) { 
         ImagePlus imp; 
-        imp = new ImagePlus("huellaOriginal", huella);         
+        imp = new ImagePlus("huellaOriginalriginal", huella);         
         IJ.run(imp,"Make Binary","");        
         BufferedImage bf = (BufferedImage) imp.getImage(); 
         return bf; 
@@ -56,7 +54,7 @@ public class Algoritmo_Huellas {
    //Esquelitazacion
     private static BufferedImage skeletonHuella(BufferedImage huella) { 
         ImagePlus imp; 
-        imp = new ImagePlus("huellaOriginal", huella); 
+        imp = new ImagePlus("huellaOriginalriginal", huella); 
         IJ.run(imp,"Skeletonize","");
         BufferedImage bf = (BufferedImage) imp.getImage(); 
         return bf; 
@@ -64,7 +62,7 @@ public class Algoritmo_Huellas {
     //Normalizacion
     private static BufferedImage normalizarHuella(BufferedImage huella) { 
         ImagePlus imp; 
-        imp = new ImagePlus("huellaOriginal", huella); 
+        imp = new ImagePlus("huellaOriginalriginal", huella); 
         IJ.run(imp, "Subtract Background...", "rolling=" + 100 + " light");
         imp.getProcessor().setAutoThreshold("Default");
         imp.getProcessor().setThreshold(-1,8,0);  
@@ -96,8 +94,8 @@ public class Algoritmo_Huellas {
         return croppedImage;
     }
 
-    private static BufferedImage EscalarHuella(BufferedImage huellaO,int tamH,int tamW){
-        Image or = huellaO.getScaledInstance(tamW, tamH, Image.SCALE_FAST);
+    private static BufferedImage EscalarHuella(BufferedImage huellaOriginal,int tamH,int tamW){
+        Image or = huellaOriginal.getScaledInstance(tamW, tamH, Image.SCALE_FAST);
         BufferedImage buffered1 = new BufferedImage(tamW, tamH, BufferedImage.TYPE_INT_ARGB);
         buffered1.getGraphics().drawImage(or, 0, 0 , null);
         return buffered1;
@@ -312,49 +310,49 @@ public class Algoritmo_Huellas {
 //        rgb[2] = b;
 //    }
     
-    public static double VerificaHuella(BufferedImage huellaO,BufferedImage huellaC){
+    public static double VerificaHuella(BufferedImage huellaOriginal,BufferedImage huellaComparar){
         double por=-1;
 
-//        huellaO=ot;
-        if(huellaO!=null){
-//            huellaO=ot;
-//            huellaC=tt;
+//        huellaOriginal=ot;
+        if(huellaOriginal!=null && huellaComparar != null){
+//            huellaOriginal=ot;
+//            huellaComparar=tt;
             try {
-                huellaO=cropper(huellaO);
-                huellaC=cropper(huellaC);
+                huellaOriginal=cropper(huellaOriginal);
+                huellaComparar=cropper(huellaComparar);
                 
             } catch (IOException ex) {
                 Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(huellaC.getWidth()>huellaC.getHeight()){
-                huellaC=rotate(huellaC,1.57);
+            if(huellaComparar.getWidth()>huellaComparar.getHeight()){
+                huellaComparar=rotate(huellaComparar,1.57);
                 try {
-                    huellaC = cropper(huellaC);
+                    huellaComparar = cropper(huellaComparar);
                 } catch (IOException ex) {
                     Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
                 }
              }
-            int heightO=huellaO.getHeight();
-            int heightC=huellaC.getHeight();
-            int widthO=huellaO.getWidth();
-            int widthC=huellaC.getWidth();
+            int heightO=huellaOriginal.getHeight();
+            int heightC=huellaComparar.getHeight();
+            int widthO=huellaOriginal.getWidth();
+            int widthC=huellaComparar.getWidth();
             int t2=heightO-heightC;
             double p=(double)heightO/(double)t2;
             double p2=widthO/p;
-            BufferedImage huellaOE=EscalarHuella(huellaO,heightO-t2,widthO-(int)p2);
-            BufferedImage huellaCE=EscalarHuella(huellaC,heightC,widthC);
+            BufferedImage huellaOriginalE=EscalarHuella(huellaOriginal,heightO-t2,widthO-(int)p2);
+            BufferedImage huellaCompararE=EscalarHuella(huellaComparar,heightC,widthC);
             try {
-                huellaOE=cropper(huellaOE);
-                huellaCE=cropper(huellaCE);
-                huellaOE=binarizarHuella(huellaOE);
-                huellaCE=binarizarHuella(huellaCE);
-                huellaOE=cropper(huellaOE);
-                huellaCE=cropper(huellaCE);
-                huellaOE=skeletonHuella(huellaOE);
-                huellaCE=skeletonHuella(huellaCE);
-                huellaOE=cropper(huellaOE);
-                huellaCE=cropper(huellaCE); 
-                por=CompareMinize(huellaOE,huellaCE);
+                huellaOriginalE=cropper(huellaOriginalE);
+                huellaCompararE=cropper(huellaCompararE);
+                huellaOriginalE=binarizarHuella(huellaOriginalE);
+                huellaCompararE=binarizarHuella(huellaCompararE);
+                huellaOriginalE=cropper(huellaOriginalE);
+                huellaCompararE=cropper(huellaCompararE);
+                huellaOriginalE=skeletonHuella(huellaOriginalE);
+                huellaCompararE=skeletonHuella(huellaCompararE);
+                huellaOriginalE=cropper(huellaOriginalE);
+                huellaCompararE=cropper(huellaCompararE); 
+                por=CompareMinize(huellaOriginalE,huellaCompararE);
             } catch (IOException ex) {
                 Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
             }            

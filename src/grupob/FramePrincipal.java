@@ -5,9 +5,15 @@
  */
 package grupob;
 
+import algoritmos.Recorte;
 import controlador.Manager;
 import java.awt.Frame;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Scanner;
 import model.PartidoPolitico;
 
 /**
@@ -16,15 +22,25 @@ import model.PartidoPolitico;
  */
 public class FramePrincipal extends javax.swing.JFrame {
 
+   
     /**
      * Creates new form FramePrincipal
      */
     public FramePrincipal() {
+        
+        
+       
         initComponents();
+         
+         
+         cargarConfiguracion();
         BusquedaPartidos busq = new BusquedaPartidos(this);
         busq.setVisible(true);
         panelPrincipal.add(busq,new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+
+        
+        
         pack();
     }
 
@@ -316,6 +332,81 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
         pack();
     }
+    
+    
+      private  void  cargarConfiguracion(){
+         
+      File archivo = new File ("./config/conf.txt");
+      
+       if(!archivo.exists()) generaConfig();      
+      Scanner s = null;
+        try {
+            s = new Scanner (archivo);
+           
+          int valor = 0;
+            
+            while(s.hasNextLine()){
+            
+                String cadena =   s.nextLine();
+              
+              
+               if(cadena.contains(":")){
+                 
+                   String subcad[] = cadena.split(":");
+                   String ruta  = subcad[1].trim();
+                   if (subcad[0].contains("huellas")) Recorte.rutaHuella = ruta; //temp.ruta = ruta; 
+                   if (subcad[0].contains("firmas")) Recorte.rutaFirma  = ruta; //temp.ruta1 = ruta;
+                   if (subcad[0].contains("excel")) Recorte.rutaGeneral = ruta; //temp.ruta2 = ruta;
+                          
+               }
+ 
+            }
+         
+           
+        }catch(Exception ex){
+            
+ 
+        }
+        
+
+     
+     }
+      
+      public void generaConfig(){
+      
+             File file = new File("./config");
+         if(!file.exists())
+             file.mkdir();
+         
+         FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            
+           
+            fichero = new FileWriter("./config/conf.txt");
+            pw = new PrintWriter(fichero);
+
+              pw.println("dir_huellas:   /home/temp"  );
+              
+              pw.println("dir_firmas:  /home/temp");
+              
+              pw.println("dir_excel: /home/temp");
+              
+              
+              pw.close();
+              
+     fichero.close();
+        }catch(Exception ex){
+        
+        
+        }
+      
+      
+      
+      }
+      
+      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarPartido;

@@ -21,6 +21,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import model.Adherente;
 import model.PartidoPolitico;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -378,6 +381,9 @@ public class Recorte {
 //                numS="34576713";
                 numS=listNumS.get(i);
                 System.out.println("DNI: " + numS);                
+                
+                
+                
                 int ubigeoPadron=buscarUbigeo(numS);
                 if(ubigeo==-1 || ubigeo==ubigeoPadron){
                     System.out.println("  Ubigeo Correcto");
@@ -403,39 +409,96 @@ public class Recorte {
         }  
     }    
     
-    public static void ejecutar(File file,ArrayList<Adherente> listaAdherente){
+    public static void ejecutar(File file,ArrayList<Adherente> listaAdherente, PartidoPolitico partido){
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         try {
             test = ImageIO.read(file);
             test = binarization(test);
-            //ImageIO.write(test, "jpg", new File("C:\\Users\\alulab14\\Downloads\\bin.jpg"));
+            
+       //Configuracion del Algoritmo OCR digitos
+            ITesseract instance  = new Tesseract();
+         ArrayList<String> p = new ArrayList<>();
+        p.add("digits");
+        instance.setConfigs(p);
+        instance.setLanguage("dit"); 
+            
+            
             test = extraerCuadroData(test);
             BufferedImage[] registros = extraerRegistros(test);
             //lista de prueba
-            ArrayList<String> listNumS=new ArrayList<String>();
-            listNumS.add("34576713");listNumS.add("62346721");listNumS.add("34577732");listNumS.add("54322314");
-            listNumS.add("23443281");listNumS.add("55443322");listNumS.add("78901234");listNumS.add("69384231");           
-            
+       
+         String numero;
             for(int i=0;i<registros.length;i++){
                 int ancho = Math.round(registros[i].getWidth()*(float)0.02);
-                //BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[i].getHeight());    
-                BufferedImage[] dni = extraerDni(registros[i]);
-                //BufferedImage huella = extraerHuella(registros[i]);
-                String numS=new String();//DNI en string
-                for(int j=0;j<cantDni;j++){
-                    int num = OcrNumeros.obtenerNumero(dni[j]);
-                    numS+=num;
+                
+                       
+                     BufferedImage[] dni = extraerDni(registros[i]);
+                   numero = "";
+                   for(int k = 0;   k < dni.length ; k++){
+                       
+                try {
+                   
+                    String  dig  =  instance.doOCR(dni[k]);
+                    dig = dig.trim();
+                    if(!dig.isEmpty())
+                        numero += dig.charAt(0);
+                    else 
+                        numero += "0";  // Los digitos no identificados  le coloca cero por defecto
+                    
+                
+                } catch (TesseractException ex) {
+                    Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
                 }
-//                numS="34576713";
-                numS=listNumS.get(i);//Comentar para que no este hardcodeado
-                System.out.println("DNI: " + numS);
+                       
+                   
+                   }
+                       System.out.println(numero);
+                       
+              
+          
+                
+                
+                         
+                ArrayList<BufferedImage> nombres = extraerNombre(registros[i]);
+                //Configuracion del OCR de Letras
+                Tesseract instance2 = new Tesseract();
+                instance2.setLanguage("spa");
+                String nombre = "";
+                 for(int k=0;k<nombres.size();k++){
+  
+                        try {
+                            nombre += instance2.doOCR(nombres.get(k));
+                         
+                        } catch (TesseractException ex) {
+                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
+                }
+                 
+                 System.out.println(nombre);
+                
+
+                
+                int ubigeo = 0;
+                if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
+                if(partido.getIdTipoProceso() == 2) ubigeo  = Manager.queryByIdRegion(partido.getIdRegion()).getUbigeo();
+                if(partido.getIdTipoProceso() == 3) ubigeo  = Manager.queryByIdDistrito(partido.getIdDistrito()).getUbigeo();
+                if(partido.getIdTipoProceso() == 4) ubigeo  = Manager.queryLocalById(partido.getIdLocal()).getUbigeo();
+                if(partido.getIdTipoProceso() == 5) ubigeo  = Manager.queryInstitucionById(partido.getIdInstitucion()).getUbigeo();
+                
+                
+                
+                 int ubigeoPadron=buscarUbigeo(numero);
+                if(ubigeo==-1 || ubigeo==ubigeoPadron){
+                    System.out.println("  Ubigeo Correcto");
                 BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
                 BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
                 //Imagenes del repositorio
                 ImagenHuella=null;
                 ImagenFirma=null;
-                buscarImagenes(numS);//modifica las variables de ImagenHuella y ImagenFirma
+                buscarImagenes(numero);//modifica la imagen huella y imagen firma
+               
                 double porcentaje_firma, porcentaje_huella;
                 int esta=0;
                 if(ImagenHuella!=null && ImagenFirma!=null){
@@ -446,14 +509,14 @@ public class Recorte {
                     
                     if(criterio!=registro_rechazado){
                         Adherente adherente= new Adherente();
-                        adherente.setDni(numS);
+                        adherente.setDni(numero);
                         if(criterio==registro_aprobado)
                             adherente.setEstado("Aprobado");
                         if(criterio==registro_observado)
                             adherente.setEstado("Observado");
                         
                         for(int w=0;w<listaAdherente.size();w++){
-                            if(listaAdherente.get(w).getDni().equals(numS)){
+                            if(listaAdherente.get(w).getDni().equals(numero)){
                                 esta=1;
                                 break;
                             }
@@ -464,8 +527,10 @@ public class Recorte {
                     
                 }
                 else
-                    System.out.println("No se encontro a las personas con DNI: " + numS);            
+                    System.out.println("No se encontro a las personas con DNI: " + numero);            
                 }
+            
+            }
 //            
 //            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
 //            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
@@ -506,6 +571,13 @@ public class Recorte {
         File file = new File("src/red/padron.rayas.firmado.jpg");
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
+        
+        ITesseract instance  = new Tesseract();
+         ArrayList<String> p = new ArrayList<>();
+        p.add("digits");
+        instance.setConfigs(p);
+        instance.setLanguage("dit");
+        
         try {
             test = ImageIO.read(file);
             test = binarization(test);
@@ -514,32 +586,103 @@ public class Recorte {
             BufferedImage[] registros = extraerRegistros(test);
             int ancho = Math.round(registros[0].getWidth()*(float)0.02);
             BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
-            BufferedImage[] dni = extraerDni(registros[0]);
-            extraerFirma(registros[0]);
+  //          BufferedImage[] dni = extraerDni(registros[0]);
+     //       extraerFirma(registros[0]);
+     String numero ;
             for(int k=0;k<registros.length;k++){
                 BufferedImage dniComp = extraerDniUnaImagen(registros[k]);                
                 ArrayList<BufferedImage> nombres = extraerNombre(registros[k]);
                 String nombre = ""; String identidad ="";
-                ImageIO.write(dniComp, "png", new File("src\\red\\dni.png"));
+                BufferedImage[] dni = extraerDni(registros[k]);
+               // ImageIO.write(dniComp, "png", new File("src\\red\\dni.png"));
+                
+               // for(int i = 0 ; i < dni.length ; i++){
+                
+            
+                  
+                numero = "";
+                        for(int i = 0;   i < dni.length ; i++){
+                       
+                try {
+                    String  dig  =  instance.doOCR(dni[i]);
+                    dig = dig.trim();
+                    if(!dig.isEmpty())
+                        numero += dig.charAt(0);
+                    else 
+                        numero += "*";
+                    
+                
+                } catch (TesseractException ex) {
+                    Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                       
+                   
+                   }
+                       System.out.println(numero);
+                    
+                
+                
+            
+            int valo = 0;
+      
+            
+              Tesseract instance2 = new Tesseract();
+                instance2.setLanguage("spa");
+           
+                
                 for(int i=0;i<nombres.size();i++){
                     try {                        
-                        ImageIO.write(nombres.get(i), "png", new File("src\\red\\name"+i+".png"));
-                        nombre += executeTesseract("name"+i+".png");
-                    } catch (IOException ex) {
+                      
+                        nombre += instance2.doOCR(nombres.get(i));
+                    } catch (Exception ex) {
                         Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                identidad = executeTesseractNumbers("dni.png");
-                System.out.println("el dni es:" + identidad +" y el nombre es: "+nombre+" con cantidad i: "+nombres.size());
             }
+                /*
+                 BufferedImage[] dnixx = extraerDni(registros[k]);
+                //BufferedImage huella = extraerHuella(registros[i]);
+                String numS=new String();//DNI en string
+                
+                for(int j=0;j<cantDni;j++){
+                    int num = OcrNumeros.obtenerNumero(dnixx[j]);
+                     
+                    numS+=num;
+                }
+                
+                
+                
+                identidad = executeTesseractNumbers("dni.png");
+                
+                
+                identidad  = identidad.trim();
+                identidad  = identidad.substring(0, 7);
+                
+                char[] mmm = identidad.toCharArray();
+                char[] nnn = numS.toCharArray();
+                for(int i = 0 ;  i < identidad.length(); i++){
+                    
+                    if (mmm[i] != nnn[i]) mmm[i] = nnn[i];
+                
+                    
+                
+                }
+                
+               identidad = String.valueOf(mmm);
+                
+                System.out.println("el dni es:" + identidad +" y el nombre es: "+nombre+" con cantidad i: "+nombres.size());
+        */  //  }
+          /*
             for(int i=0;i<cantDni;i++){
                 int num = OcrNumeros.obtenerNumero(dni[i]);
                 //System.out.println("numero: "+num);
-            }
+            }*/
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+   // }
     
     private static int buscarUbigeo(String dni){    
         String dn = null;
