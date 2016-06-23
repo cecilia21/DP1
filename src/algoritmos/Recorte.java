@@ -576,8 +576,8 @@ public class Recorte {
     
     public static void main(String[] args) {
         // TODO code application logic here
-        File file = new File("C:\\Users\\alulab14.INF\\Downloads\\alternado_ok_rayado_v1.jpg");
-        //File file = new File("src/red/padron.rayas.firmado.jpg");
+        //File file = new File("C:\\Users\\alulab14.INF\\Downloads\\alternado_ok_rayado_v1.jpg");
+        File file = new File("src/red/padron.rayas.firmado.jpg");
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         
