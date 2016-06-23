@@ -196,7 +196,14 @@ public class Recorte {
               */ 
         return firma;
     }
-    
+    private static boolean esLineaNegra(int[] linea){
+        double porcentaje = 0.7*linea.length;
+        int negros=0;
+        for(int i=0;i<linea.length;i++)
+            if(linea[i]==-16777216) negros++;
+        if(negros>=porcentaje) return true;
+        return false;
+    }
     private static BufferedImage extraerCuadritos(int iniCuadro, int cantCuadros, BufferedImage registro){
         int iniX=0;
         int ancho;
@@ -204,9 +211,12 @@ public class Recorte {
         int cuadroInicio = 0;
         int ultimaColumnaRecorrida = iniX;
         for(int i=20;i<registro.getWidth();i++){
+            int[] linea = new int[registro.getHeight()];
             for(int j=0;j<registro.getHeight();j++){
-                if(registro.getRGB(i, j)!=-16777216) break;
-                if(j+1==registro.getHeight()){
+                linea[j]=registro.getRGB(i, j);
+            }
+              //  if(registro.getRGB(i, j)!=-16777216) break;
+                if(esLineaNegra(linea)){
                     if(cuadroInicio==iniCuadro){
                         if(ultimaColumnaRecorrida+1!=i){
                             cuadrosRecorridos++;
@@ -223,7 +233,7 @@ public class Recorte {
                     }
                     ultimaColumnaRecorrida=i;
                 }
-            }
+            //}
         }
         return null;
     }
@@ -261,7 +271,6 @@ public class Recorte {
         int cuadroAnt =-1;
         int iniX =0; int finX =0;
         for(int i=0;i<23;i++){
-            
             BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
@@ -567,8 +576,8 @@ public class Recorte {
     
     public static void main(String[] args) {
         // TODO code application logic here
-        //File file = new File("D:\\Users\\Cecilia\\Downloads\\rayado_Modificados_v1.jpg");
-        File file = new File("src/red/padron.rayas.firmado.jpg");
+        File file = new File("C:\\Users\\alulab14.INF\\Downloads\\alternado_ok_rayado_v1.jpg");
+        //File file = new File("src/red/padron.rayas.firmado.jpg");
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         
