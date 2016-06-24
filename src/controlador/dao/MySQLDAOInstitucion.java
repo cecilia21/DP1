@@ -34,8 +34,8 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                                                         DBConnection.password);
                 //Paso 3: Preparar la sentencia
                 String sql = "INSERT INTO Institucion "
-                                + "(idLocal,nombre,cantidadVotantes,idTipoProceso)"
-                                + "VALUES (?,?,?,?)";
+                                + "(idLocal,nombre,cantidadVotantes,idTipoProceso,ubigeo)"
+                                + "VALUES (?,?,?,?,?)";
                 
                 pstmt = (PreparedStatement) conn.prepareStatement(sql);
                 //pstmt.setInt(1, p.getId());
@@ -43,6 +43,8 @@ public class MySQLDAOInstitucion implements DAOInstitucion {
                 pstmt.setString(2, i.getNombre());
                 pstmt.setInt(3, i.getCantidadVotantesRegistrados());
                 pstmt.setInt(4, i.getTipoProceso());
+                pstmt.setInt(5, i.getUbigeo());
+                
                 //Paso 4: Ejecutar la sentencia
                 pstmt.executeUpdate();
                 //Paso 5(opc.): Procesar los resultados			

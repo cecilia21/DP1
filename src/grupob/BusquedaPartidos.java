@@ -118,7 +118,7 @@ public class BusquedaPartidos extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(busq_nombre)
-                                    .addComponent(busq_tipo, 0, 129, Short.MAX_VALUE)
+                                    .addComponent(busq_tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(busq_lugar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 100, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -151,7 +151,7 @@ public class BusquedaPartidos extends javax.swing.JPanel {
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("Búsqueda de Partido");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 190, 30));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 330, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_buscarActionPerformed

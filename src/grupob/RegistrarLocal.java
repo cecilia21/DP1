@@ -58,7 +58,7 @@ public class RegistrarLocal extends javax.swing.JFrame {
         btnRegRegistrarLocal = new javax.swing.JButton();
         btnRegCancelarLocal = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtLocalUbigeo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,7 +124,7 @@ public class RegistrarLocal extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cbRegRegionLocal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbRegDistritoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1))))
+                                .addComponent(txtLocalUbigeo))))
                     .addComponent(lblTituloRegLocal))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -152,7 +152,7 @@ public class RegistrarLocal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLocalUbigeo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegRegistrarLocal)
@@ -217,6 +217,31 @@ public class RegistrarLocal extends javax.swing.JFrame {
             error = true;
         }else
             local.setIdDistrito(((Distrito)cbRegDistritoLocal.getSelectedItem()).getId());
+        
+        
+        String ubigeo = txtLocalUbigeo.getText();
+        ubigeo  =  ubigeo.trim();
+        
+        
+            try{
+        
+            int codUbigeo = Integer.parseInt(ubigeo);
+            if(codUbigeo == 0){
+                message += "Numero de ubigeo  invalido\n";
+                error = true;
+            }else
+                local.setUbigeo(codUbigeo);
+            
+            
+        }catch(Exception ex){
+             if(ubigeo.isEmpty()) message += "Codigo ubigeo esta vacio";
+             else message += "codigo ubigeo debe ser numerico";
+            error = true;
+        }
+       
+            
+        
+        
         
         
         if(error){
@@ -344,12 +369,12 @@ public class RegistrarLocal extends javax.swing.JFrame {
     private javax.swing.JComboBox cbRegDistritoLocal;
     private javax.swing.JComboBox cbRegRegionLocal;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblRegDistritoLocal;
     private javax.swing.JLabel lblRegNombreLocal;
     private javax.swing.JLabel lblRegRegionLocal;
     private javax.swing.JLabel lblRegVotantesLocal;
     private javax.swing.JLabel lblTituloRegLocal;
+    private javax.swing.JTextField txtLocalUbigeo;
     private javax.swing.JTextField txtRegNombreLocal;
     private javax.swing.JTextField txtRegVotantesLocal;
     // End of variables declaration//GEN-END:variables

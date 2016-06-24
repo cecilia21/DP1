@@ -129,6 +129,14 @@ public class TipoProceso extends javax.swing.JPanel {
         }
         sColumn.setCellEditor(new DefaultCellEditor(comboBox));
         
+        TableColumn instColumn = tblInstitucional.getColumnModel().getColumn(2);
+        ArrayList<Local> lLoc  = Manager.queryAllLocales();
+        JComboBox comboBoxLocal  = new JComboBox();
+        for(int i = 0 ; i < lLoc.size() ; i++){
+            comboBoxLocal.addItem(lLoc.get(i).getNombre());
+        }
+        instColumn.setCellEditor(new DefaultCellEditor(comboBoxLocal));
+        
         
         
           ChangeListener changeListener = new ChangeListener() {
@@ -224,6 +232,7 @@ public class TipoProceso extends javax.swing.JPanel {
         buscarRegiones = new javax.swing.JButton();
         btnGuardarRegiones = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTableDistritos = new javax.swing.JTable();
@@ -247,6 +256,7 @@ public class TipoProceso extends javax.swing.JPanel {
         textDistrito = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         PanelLocal = new javax.swing.JPanel();
         ScrollPaneLocal = new javax.swing.JScrollPane();
         tblLocal = new javax.swing.JTable();
@@ -270,6 +280,7 @@ public class TipoProceso extends javax.swing.JPanel {
         lblBusqLocal = new javax.swing.JLabel();
         btnBuscarLocal = new javax.swing.JButton();
         btnGuardarProcLocal = new javax.swing.JButton();
+        jSepProcLocal = new javax.swing.JSeparator();
         jPanelInstitucional = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         tblInstitucional = new javax.swing.JTable();
@@ -293,6 +304,7 @@ public class TipoProceso extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnGuardarInstitucionalTP = new javax.swing.JButton();
+        jSepProcInst = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -305,16 +317,24 @@ public class TipoProceso extends javax.swing.JPanel {
         seleccionarHuellas = new javax.swing.JButton();
         GuardarConfiguracion = new javax.swing.JButton();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jconfiguracion.setPreferredSize(new java.awt.Dimension(470, 300));
         jconfiguracion.setRequestFocusEnabled(false);
 
+        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel51.setText("Fecha Inicio:");
+        jPanel19.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 43, -1, -1));
 
         jLabel52.setText("1er Revision");
+        jPanel19.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 43, -1, -1));
 
         jLabel53.setText("2do Revision");
+        jPanel19.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 71, -1, -1));
 
         jLabel54.setText("Fecha Inicio:");
+        jPanel19.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 71, -1, -1));
 
         botonGuardarNacional.setText("Guardar");
         botonGuardarNacional.addActionListener(new java.awt.event.ActionListener() {
@@ -322,84 +342,25 @@ public class TipoProceso extends javax.swing.JPanel {
                 botonGuardarNacionalActionPerformed(evt);
             }
         });
+        jPanel19.add(botonGuardarNacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 180, 30));
 
         jLabel55.setText("Fecha Fin:");
+        jPanel19.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 43, -1, -1));
 
         jLabel56.setText("Fecha Fin:");
+        jPanel19.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 71, -1, -1));
 
         fechai1Nacional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fechai1NacionalActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel58)
-                    .addComponent(jLabel57)
-                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                            .addComponent(botonGuardarNacional, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(98, 98, 98))
-                        .addGroup(jPanel19Layout.createSequentialGroup()
-                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                                    .addComponent(jLabel53)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel54)
-                                    .addGap(10, 10, 10))
-                                .addGroup(jPanel19Layout.createSequentialGroup()
-                                    .addComponent(jLabel52)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel51)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fechai1Nacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fechai2Nacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel19Layout.createSequentialGroup()
-                                    .addGap(9, 9, 9)
-                                    .addComponent(jLabel56)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(fechaf2Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                                    .addGap(7, 7, 7)
-                                    .addComponent(jLabel55)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(fechaf1Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(55, 55, 55)))))
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel51)
-                    .addComponent(jLabel52)
-                    .addComponent(jLabel55)
-                    .addComponent(fechai1Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaf1Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel53)
-                        .addComponent(jLabel54)
-                        .addComponent(jLabel56))
-                    .addComponent(fechai2Nacional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaf2Nacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel57)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel58)
-                .addGap(68, 68, 68)
-                .addComponent(botonGuardarNacional)
-                .addGap(78, 78, 78))
-        );
+        jPanel19.add(fechai1Nacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 38, -1, -1));
+        jPanel19.add(fechai2Nacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 71, -1, -1));
+        jPanel19.add(fechaf1Nacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 38, -1, -1));
+        jPanel19.add(fechaf2Nacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 71, -1, -1));
+        jPanel19.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 137, -1, -1));
+        jPanel19.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 149, -1, -1));
 
         jconfiguracion.addTab("Nacional", jPanel19);
 
@@ -420,14 +381,14 @@ public class TipoProceso extends javax.swing.JPanel {
         });
         jScrollPane6.setViewportView(jTableRegiones);
 
-        jPanel13.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 156, 445, 134));
+        jPanel13.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 214, 590, 110));
 
         jLabel9.setText("Porcentaje: ");
-        jPanel13.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 31, -1, -1));
-        jPanel13.add(porcentajeRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 28, 37, -1));
+        jPanel13.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+        jPanel13.add(porcentajeRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 37, -1));
 
         jLabel10.setText("%");
-        jPanel13.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 31, -1, -1));
+        jPanel13.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
 
         addRowRegional.setText("+");
         addRowRegional.addActionListener(new java.awt.event.ActionListener() {
@@ -435,25 +396,25 @@ public class TipoProceso extends javax.swing.JPanel {
                 addRowRegionalActionPerformed(evt);
             }
         });
-        jPanel13.add(addRowRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
+        jPanel13.add(addRowRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
 
         jLabel27.setText("Fecha Inicio:");
-        jPanel13.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
+        jPanel13.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
 
         jLabel28.setText("1er Revision");
-        jPanel13.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        jPanel13.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel29.setText("2do Revision");
-        jPanel13.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        jPanel13.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jLabel30.setText("Fecha Inicio:");
-        jPanel13.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+        jPanel13.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         jLabel31.setText("Fecha Fin:");
-        jPanel13.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, -1));
+        jPanel13.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
         jLabel32.setText("Fecha Fin:");
-        jPanel13.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
+        jPanel13.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
 
         botonGuardarRegional.setText("Guardar");
         botonGuardarRegional.addActionListener(new java.awt.event.ActionListener() {
@@ -461,15 +422,15 @@ public class TipoProceso extends javax.swing.JPanel {
                 botonGuardarRegionalActionPerformed(evt);
             }
         });
-        jPanel13.add(botonGuardarRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
-        jPanel13.add(fechai1Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
-        jPanel13.add(fechai2Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
-        jPanel13.add(fechaf1Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
-        jPanel13.add(fechaf2Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+        jPanel13.add(botonGuardarRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
+        jPanel13.add(fechai1Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+        jPanel13.add(fechai2Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+        jPanel13.add(fechaf1Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
+        jPanel13.add(fechaf2Regiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
 
         jLabel3.setText("Buscar por Nombre:");
-        jPanel13.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-        jPanel13.add(textRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 140, -1));
+        jPanel13.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        jPanel13.add(textRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 220, -1));
 
         buscarRegiones.setText("Buscar");
         buscarRegiones.addActionListener(new java.awt.event.ActionListener() {
@@ -477,7 +438,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 buscarRegionesActionPerformed(evt);
             }
         });
-        jPanel13.add(buscarRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, -1, -1));
+        jPanel13.add(buscarRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, -1, -1));
 
         btnGuardarRegiones.setText("Guardar");
         btnGuardarRegiones.addActionListener(new java.awt.event.ActionListener() {
@@ -485,10 +446,12 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarRegionesActionPerformed(evt);
             }
         });
-        jPanel13.add(btnGuardarRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, -1, -1));
+        jPanel13.add(btnGuardarRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel4.setText("Proceso de Votacion Regional");
         jPanel13.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+        jPanel13.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 540, -1));
 
         jconfiguracion.addTab("Regional", jPanel13);
 
@@ -504,7 +467,7 @@ public class TipoProceso extends javax.swing.JPanel {
         ));
         jScrollPane7.setViewportView(jTableDistritos);
 
-        jPanel14.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 430, 133));
+        jPanel14.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 213, 590, 110));
 
         jButton28.setText("+");
         jButton28.addActionListener(new java.awt.event.ActionListener() {
@@ -512,32 +475,32 @@ public class TipoProceso extends javax.swing.JPanel {
                 jButton28ActionPerformed(evt);
             }
         });
-        jPanel14.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
+        jPanel14.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
 
         jLabel11.setText("%");
-        jPanel14.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
-        jPanel14.add(porcentajeDistrital, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 37, -1));
+        jPanel14.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
+        jPanel14.add(porcentajeDistrital, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 37, -1));
 
         jLabel12.setText("Porcentaje: ");
-        jPanel14.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+        jPanel14.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         jLabel33.setText("1er Revision");
-        jPanel14.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        jPanel14.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel34.setText("Fecha Inicio:");
-        jPanel14.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, 20));
+        jPanel14.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, 20));
 
         jLabel35.setText("2do Revision");
-        jPanel14.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        jPanel14.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jLabel36.setText("Fecha Inicio:");
-        jPanel14.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+        jPanel14.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         jLabel37.setText("Fecha Fin:");
-        jPanel14.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, -1));
+        jPanel14.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
         jLabel38.setText("Fecha Fin:");
-        jPanel14.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, -1));
+        jPanel14.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
 
         botonGuardarDistrital.setText("Guardar");
         botonGuardarDistrital.addActionListener(new java.awt.event.ActionListener() {
@@ -545,11 +508,11 @@ public class TipoProceso extends javax.swing.JPanel {
                 botonGuardarDistritalActionPerformed(evt);
             }
         });
-        jPanel14.add(botonGuardarDistrital, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
-        jPanel14.add(fechai1Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
-        jPanel14.add(fechai2Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
-        jPanel14.add(fechaf1Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
-        jPanel14.add(fechaf2Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+        jPanel14.add(botonGuardarDistrital, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+        jPanel14.add(fechai1Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+        jPanel14.add(fechai2Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+        jPanel14.add(fechaf1Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
+        jPanel14.add(fechaf2Distritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
 
         buscarDistritos.setText("Buscar");
         buscarDistritos.addActionListener(new java.awt.event.ActionListener() {
@@ -557,7 +520,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 buscarDistritosActionPerformed(evt);
             }
         });
-        jPanel14.add(buscarDistritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+        jPanel14.add(buscarDistritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 70, -1));
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -565,14 +528,16 @@ public class TipoProceso extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel14.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 299, -1, -1));
-        jPanel14.add(textDistrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 195, -1));
+        jPanel14.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        jPanel14.add(textDistrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 230, -1));
 
         jLabel5.setText("Buscar por Nombre:");
-        jPanel14.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanel14.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel6.setText("Proceso de Votacion Distrital");
         jPanel14.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+        jPanel14.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 540, 10));
 
         jconfiguracion.addTab("Distrital", jPanel14);
 
@@ -591,7 +556,7 @@ public class TipoProceso extends javax.swing.JPanel {
         ));
         ScrollPaneLocal.setViewportView(tblLocal);
 
-        PanelLocal.add(ScrollPaneLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 176, 443, 120));
+        PanelLocal.add(ScrollPaneLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 590, 120));
 
         btnRegistrarLocal.setText("+");
         btnRegistrarLocal.addActionListener(new java.awt.event.ActionListener() {
@@ -599,32 +564,32 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnRegistrarLocalActionPerformed(evt);
             }
         });
-        PanelLocal.add(btnRegistrarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, -1, -1));
+        PanelLocal.add(btnRegistrarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
 
         jLabel13.setText("%");
-        PanelLocal.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
-        PanelLocal.add(txtPorcentajeLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 37, -1));
+        PanelLocal.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
+        PanelLocal.add(txtPorcentajeLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 37, -1));
 
         lblPorcLocal.setText("Porcentaje: ");
-        PanelLocal.add(lblPorcLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        PanelLocal.add(lblPorcLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         lblRevLocal1.setText("1er Revision");
-        PanelLocal.add(lblRevLocal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        PanelLocal.add(lblRevLocal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         lblFechaInicio1Local.setText("Fecha Inicio:");
-        PanelLocal.add(lblFechaInicio1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+        PanelLocal.add(lblFechaInicio1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
 
         lblRevLocal2.setText("2do Revision");
-        PanelLocal.add(lblRevLocal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        PanelLocal.add(lblRevLocal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         lblFechaInicio2Local.setText("Fecha Inicio:");
-        PanelLocal.add(lblFechaInicio2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+        PanelLocal.add(lblFechaInicio2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         lblFechaFin1Local.setText("Fecha Fin:");
-        PanelLocal.add(lblFechaFin1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
+        PanelLocal.add(lblFechaFin1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
         lblFechaFin2Local.setText("Fecha Fin:");
-        PanelLocal.add(lblFechaFin2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
+        PanelLocal.add(lblFechaFin2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
 
         btnGuardarTablaLocal.setText("Guardar");
         btnGuardarTablaLocal.addActionListener(new java.awt.event.ActionListener() {
@@ -632,18 +597,19 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarTablaLocalActionPerformed(evt);
             }
         });
-        PanelLocal.add(btnGuardarTablaLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, -1, -1));
-        PanelLocal.add(dpFechaInicio1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, -1));
-        PanelLocal.add(dpFechaInicio2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, -1));
-        PanelLocal.add(dpFechaFin1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, -1, -1));
-        PanelLocal.add(dpFechaFin2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
-        PanelLocal.add(txtBuscarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 190, -1));
+        PanelLocal.add(btnGuardarTablaLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        PanelLocal.add(dpFechaInicio1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+        PanelLocal.add(dpFechaInicio2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+        PanelLocal.add(dpFechaFin1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
+        PanelLocal.add(dpFechaFin2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
+        PanelLocal.add(txtBuscarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 220, -1));
 
+        lblTituloLocal.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lblTituloLocal.setText("Proceso de Votacion Local");
-        PanelLocal.add(lblTituloLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 14, -1, -1));
+        PanelLocal.add(lblTituloLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
-        lblBusqLocal.setText("Busqueda por Nombre:");
-        PanelLocal.add(lblBusqLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        lblBusqLocal.setText("Buscar por Nombre:");
+        PanelLocal.add(lblBusqLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         btnBuscarLocal.setText("Buscar");
         btnBuscarLocal.addActionListener(new java.awt.event.ActionListener() {
@@ -651,7 +617,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnBuscarLocalActionPerformed(evt);
             }
         });
-        PanelLocal.add(btnBuscarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
+        PanelLocal.add(btnBuscarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 80, -1));
 
         btnGuardarProcLocal.setText("Guardar");
         btnGuardarProcLocal.addActionListener(new java.awt.event.ActionListener() {
@@ -659,7 +625,8 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarProcLocalActionPerformed(evt);
             }
         });
-        PanelLocal.add(btnGuardarProcLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
+        PanelLocal.add(btnGuardarProcLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+        PanelLocal.add(jSepProcLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 560, 10));
 
         jconfiguracion.addTab("Local", PanelLocal);
 
@@ -680,7 +647,7 @@ public class TipoProceso extends javax.swing.JPanel {
         });
         jScrollPane9.setViewportView(tblInstitucional);
 
-        jPanelInstitucional.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 450, 140));
+        jPanelInstitucional.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 590, 120));
 
         btnAddInstitucional.setText("+");
         btnAddInstitucional.addActionListener(new java.awt.event.ActionListener() {
@@ -688,32 +655,32 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnAddInstitucionalActionPerformed(evt);
             }
         });
-        jPanelInstitucional.add(btnAddInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, -1, -1));
+        jPanelInstitucional.add(btnAddInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
 
         jLabel15.setText("%");
-        jPanelInstitucional.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
-        jPanelInstitucional.add(txtPorInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 37, -1));
+        jPanelInstitucional.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
+        jPanelInstitucional.add(txtPorInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 37, -1));
 
         jLabel16.setText("Porcentaje: ");
-        jPanelInstitucional.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        jPanelInstitucional.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         jLabel45.setText("1er Revision");
-        jPanelInstitucional.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        jPanelInstitucional.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel46.setText("Fecha Inicio:");
-        jPanelInstitucional.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
+        jPanelInstitucional.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
 
         jLabel47.setText("2do Revision");
-        jPanelInstitucional.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        jPanelInstitucional.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jLabel48.setText("Fecha Inicio:");
-        jPanelInstitucional.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+        jPanelInstitucional.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         jLabel49.setText("Fecha Fin:");
-        jPanelInstitucional.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, -1));
+        jPanelInstitucional.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
         jLabel50.setText("Fecha Fin:");
-        jPanelInstitucional.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
+        jPanelInstitucional.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
 
         btnGuardarInstitucional.setText("Guardar");
         btnGuardarInstitucional.addActionListener(new java.awt.event.ActionListener() {
@@ -721,11 +688,11 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarInstitucionalActionPerformed(evt);
             }
         });
-        jPanelInstitucional.add(btnGuardarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, -1, -1));
-        jPanelInstitucional.add(btn1FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
-        jPanelInstitucional.add(btn2FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
-        jPanelInstitucional.add(btn1FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
-        jPanelInstitucional.add(btn2FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+        jPanelInstitucional.add(btnGuardarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        jPanelInstitucional.add(btn1FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+        jPanelInstitucional.add(btn2FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+        jPanelInstitucional.add(btn1FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
+        jPanelInstitucional.add(btn2FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
 
         btnBuscarInstitucional.setText("Buscar");
         btnBuscarInstitucional.addActionListener(new java.awt.event.ActionListener() {
@@ -733,14 +700,15 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnBuscarInstitucionalActionPerformed(evt);
             }
         });
-        jPanelInstitucional.add(btnBuscarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 80, -1));
-        jPanelInstitucional.add(txtNombreInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 160, 20));
+        jPanelInstitucional.add(btnBuscarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 80, -1));
+        jPanelInstitucional.add(txtNombreInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 220, -1));
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setText("Proceso de Votacion Institucional");
-        jPanelInstitucional.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanelInstitucional.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
         jLabel2.setText("Buscar por Nombre:");
-        jPanelInstitucional.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jPanelInstitucional.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         btnGuardarInstitucionalTP.setText("Guardar");
         btnGuardarInstitucionalTP.addActionListener(new java.awt.event.ActionListener() {
@@ -748,7 +716,8 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarInstitucionalTPActionPerformed(evt);
             }
         });
-        jPanelInstitucional.add(btnGuardarInstitucionalTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, -1));
+        jPanelInstitucional.add(btnGuardarInstitucionalTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
+        jPanelInstitucional.add(jSepProcInst, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 550, -1));
 
         jconfiguracion.addTab("Institucional", jPanelInstitucional);
 
@@ -800,21 +769,7 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jconfiguracion.addTab("Configuracion", jPanel1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 361, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        add(jconfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 420));
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonGuardarNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarNacionalActionPerformed
@@ -1042,7 +997,8 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
                 }else{
                     datos[1] = Integer.toString(listaInstituciones.get(i).getCantidadVotantesRegistrados());
                 }
-                datos[2] = Manager.queryLocalById(listaInstituciones.get(i).getIdLocal()).getNombre();
+                String n = Manager.queryLocalById(listaInstituciones.get(i).getIdLocal()).getNombre();
+                datos[2] = "" + n;
                 datos[3]="ELIMINAR";
                 modelo.addRow(datos);
             }
@@ -1168,8 +1124,30 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
             for(int i=0;i<modelo.getRowCount();i++){            
                 institucion.setId(listaInstituciones.get(i).getId());
                 institucion.setNombre(tblInstitucional.getValueAt(i, 0).toString());
-                institucion.setCantidadVotantesRegistrados(Integer.parseInt(tblInstitucional.getValueAt(i, 1).toString()));
-                institucion.setTipoProceso(5);//Tipo de proceso 5
+                
+                String  n = tblInstitucional.getValueAt(i, 1).toString();
+                int num = -1;
+                try{
+                    num = Integer.parseInt(n);
+                
+                    
+                }catch(Exception ex){
+                
+                    JOptionPane.showMessageDialog(null,"Error: Ingreso un valor distinto de un numero en la fila: "+(i+1)+" columna: 2");
+                return;
+                    
+                }
+                
+                
+                 if(num<0){
+                JOptionPane.showMessageDialog(null,"Error: Ingreso un numero negativo en la fila: "+(i+1)+" columna: 2");
+                return;
+            }
+                
+                  institucion.setCantidadVotantesRegistrados(num);
+               
+                
+               institucion.setTipoProceso(5);//Tipo de proceso 5
                 for(int j=0;i<listaLocalesI.size();j++){
                     if(listaLocalesI.get(j).getNombre().equals(tblInstitucional.getValueAt(i, 2).toString())){
                         institucion.setIdLocal(listaLocalesI.get(j).getId());
@@ -1747,6 +1725,10 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JSeparator jSepProcInst;
+    private javax.swing.JSeparator jSepProcLocal;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTableDistritos;
     private javax.swing.JTable jTableRegiones;
     private javax.swing.JTabbedPane jconfiguracion;

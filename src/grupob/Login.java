@@ -36,6 +36,7 @@ public class Login extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tf1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tf1.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +131,7 @@ public class Login extends javax.swing.JFrame {
     private void btLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLActionPerformed
        FramePrincipal fp = new FramePrincipal();
        fp.setVisible(true);
+       fp.setTitle("VeRi-AlFa");
        this.setVisible(false);
         /*
         Inicio window = new Inicio(new javax.swing.JFrame(), true);
