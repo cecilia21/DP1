@@ -190,8 +190,8 @@ public class RegistraRegion extends javax.swing.JFrame {
             
             
         }catch(Exception ex){
-            
-            message += "codigo ubigeo debe ser numerico";
+            if(ubigeo.isEmpty()) message += "Codigo ubigeo esta vacio";
+            else  message += "codigo ubigeo debe ser numerico";
             error = true;
         }
        
