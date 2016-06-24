@@ -36,6 +36,7 @@ public class Login extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tf1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tf1.addActionListener(new java.awt.event.ActionListener() {
