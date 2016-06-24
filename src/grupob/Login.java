@@ -130,6 +130,7 @@ public class Login extends javax.swing.JFrame {
     private void btLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLActionPerformed
        FramePrincipal fp = new FramePrincipal();
        fp.setVisible(true);
+       fp.setTitle("VeRi-AlFa");
        this.setVisible(false);
         /*
         Inicio window = new Inicio(new javax.swing.JFrame(), true);

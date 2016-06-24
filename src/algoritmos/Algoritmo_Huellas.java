@@ -89,7 +89,9 @@ public class Algoritmo_Huellas {
                 }
                 
             }
-        }        
+        }
+        if(endY==0 || endX==0 || (endX-startX<=0)|| (endY-startY<=0))return null;
+//        System.out.println(endY+" "+endX+" "+startX+" "+startY);
         BufferedImage croppedImage = img.getSubimage(startX, startY, endX-startX, endY-startY);        
         return croppedImage;
     }
@@ -202,12 +204,8 @@ public class Algoritmo_Huellas {
         int n1=0;
         for(int i=0;i<to;i++){
             for(int j=0;j<tt;j++){
-                if((arro[0][i]==arrt[0][j])||(arro[0][i]==(arrt[0][j]+1))||
-                        (arro[0][i]==(arrt[0][j]-1))||(arro[0][i]==(arrt[0][j]+2))||
-                        (arro[0][i]==(arrt[0][j]-2))){
-                    if(((arro[1][i]==arrt[1][j])||(arro[1][i]==(arrt[1][j]+1))||
-                        (arro[1][i]==(arrt[1][j]-1))||(arro[1][i]==(arrt[1][j]+2))||
-                        (arro[1][i]==(arrt[1][j]-2)))&&(arro[2][i]==arrt[2][j])){
+                if((arro[0][i]<=arrt[0][j]+6)||(arro[0][i]>=(arrt[0][j]-6))){
+                    if(((arro[1][i]<=arrt[1][j]+6)||(arro[1][i]>=(arrt[1][j]-6)))&&(arro[2][i]==arrt[2][j])){
                         n1++;
                         break;
                     }
@@ -216,8 +214,8 @@ public class Algoritmo_Huellas {
         }
         p3=(double)(to-n1)/to;
         
-        por=(2*p1+2*p2+6*(p3))/10;
-        
+        por=(p1+p2+8*(p3))/10;
+//        por=(10*(p3))/10;
         return (1-por);
     }
 
@@ -243,87 +241,94 @@ public class Algoritmo_Huellas {
     return gd.getDefaultConfiguration();
 }        
     
-//    private static BufferedImage readImage(File file) throws IOException
-//    {
-//        return readImage(new FileInputStream(file));
-//    }
-//
-//    
-//    private static BufferedImage readImage(InputStream stream) throws IOException
-//    {
-//        Iterator<ImageReader> imageReaders = 
-//            ImageIO.getImageReadersBySuffix("jpg");
-//        ImageReader imageReader = imageReaders.next();
-//        ImageInputStream iis = 
-//            ImageIO.createImageInputStream(stream);
-//        imageReader.setInput(iis, true, true);
-//        Raster raster = imageReader.readRaster(0, null);
-//        int w = raster.getWidth();
-//        int h = raster.getHeight();
-//
-//        BufferedImage result = 
-//            new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-//        int rgb[] = new int[3];
-//        int pixel[] = new int[3];
-//        for (int x=0; x<w; x++)
-//        {
-//            for (int y=0; y<h; y++)
-//            {
-//                raster.getPixel(x, y, pixel);
-//                int Y = pixel[0];
-//                int CR = pixel[1];
-//                int CB = pixel[2];
-//                toRGB(Y, CB, CR, rgb);
-//                int r = rgb[0];
-//                int g = rgb[1];
-//                int b = rgb[2];
-//                int bgr = 
-//                    ((b & 0xFF) << 16) | 
-//                    ((g & 0xFF) <<  8) | 
-//                     (r & 0xFF);
-//                result.setRGB(x, y, bgr);
-//            }
-//        }
-//        return result;
-//    }
-//
-//    private static void toRGB(int y, int cb, int cr, int rgb[])
-//    {
-//        float Y = y / 255.0f;
-//        float Cb = (cb-128) / 255.0f;
-//        float Cr = (cr-128) / 255.0f;
-//
-//        float R = Y + 1.4f * Cr;
-//        float G = Y -0.343f * Cb - 0.711f * Cr;
-//        float B = Y + 1.765f * Cb;
-//
-//        R = Math.min(1.0f, Math.max(0.0f, R));
-//        G = Math.min(1.0f, Math.max(0.0f, G));
-//        B = Math.min(1.0f, Math.max(0.0f, B));
-//
-//        int r = (int)(R * 255);
-//        int g = (int)(G * 255);
-//        int b = (int)(B * 255);
-//
-//        rgb[0] = r;
-//        rgb[1] = g;
-//        rgb[2] = b;
-//    }
+    public static BufferedImage readImage(File file) throws IOException
+    {
+        return readImage(new FileInputStream(file));
+    }
+
     
-    public static double VerificaHuella(BufferedImage huellaOriginal,BufferedImage huellaComparar){
+    public static BufferedImage readImage(InputStream stream) throws IOException
+    {
+        Iterator<ImageReader> imageReaders = 
+            ImageIO.getImageReadersBySuffix("jpg");
+        ImageReader imageReader = imageReaders.next();
+        ImageInputStream iis = 
+            ImageIO.createImageInputStream(stream);
+        imageReader.setInput(iis, true, true);
+        Raster raster = imageReader.readRaster(0, null);
+        int w = raster.getWidth();
+        int h = raster.getHeight();
+
+        BufferedImage result = 
+            new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        int rgb[] = new int[3];
+        int pixel[] = new int[3];
+        for (int x=0; x<w; x++)
+        {
+            for (int y=0; y<h; y++)
+            {
+                raster.getPixel(x, y, pixel);
+                int Y = pixel[0];
+                int CR = pixel[1];
+                int CB = pixel[2];
+                toRGB(Y, CB, CR, rgb);
+                int r = rgb[0];
+                int g = rgb[1];
+                int b = rgb[2];
+                int bgr = 
+                    ((b & 0xFF) << 16) | 
+                    ((g & 0xFF) <<  8) | 
+                     (r & 0xFF);
+                result.setRGB(x, y, bgr);
+            }
+        }
+        return result;
+    }
+
+    public static void toRGB(int y, int cb, int cr, int rgb[])
+    {
+        float Y = y / 255.0f;
+        float Cb = (cb-128) / 255.0f;
+        float Cr = (cr-128) / 255.0f;
+
+        float R = Y + 1.4f * Cr;
+        float G = Y -0.343f * Cb - 0.711f * Cr;
+        float B = Y + 1.765f * Cb;
+
+        R = Math.min(1.0f, Math.max(0.0f, R));
+        G = Math.min(1.0f, Math.max(0.0f, G));
+        B = Math.min(1.0f, Math.max(0.0f, B));
+
+        int r = (int)(R * 255);
+        int g = (int)(G * 255);
+        int b = (int)(B * 255);
+
+        rgb[0] = r;
+        rgb[1] = g;
+        rgb[2] = b;
+    }
+    
+    public static double VerificaHuella(BufferedImage huellaOriginal,BufferedImage huellaComparar) throws IOException{
         double por=-1;
 
 //        huellaOriginal=ot;
         if(huellaOriginal!=null && huellaComparar != null){
 //            huellaOriginal=ot;
 //            huellaComparar=tt;
+            BufferedImage huellaOriginalE=huellaOriginal;
+            BufferedImage huellaCompararE=huellaComparar;
+            huellaOriginal=binarizarHuella(huellaOriginal);
+//            ImagePlus im=new ImagePlus("huella original",huellaOriginalE);
+//                im.show();
+//                ImagePlus im2=new ImagePlus("huella compara",huellaCompararE);
+//                im2.show();
             try {
                 huellaOriginal=cropper(huellaOriginal);
-                huellaComparar=cropper(huellaComparar);
-                
+                huellaComparar=cropper(huellaComparar);                
             } catch (IOException ex) {
                 Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }            
+            if(huellaComparar!=null && huellaOriginal!=null){
             if(huellaComparar.getWidth()>huellaComparar.getHeight()){
                 huellaComparar=rotate(huellaComparar,1.57);
                 try {
@@ -332,6 +337,11 @@ public class Algoritmo_Huellas {
                     Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
                 }
              }
+            huellaCompararE=huellaComparar;
+//            ImagePlus im=new ImagePlus("huella original",huellaOriginalE);
+//                im.show();
+//                ImagePlus im2=new ImagePlus("huella compara",huellaCompararE);
+//                im2.show();
             int heightO=huellaOriginal.getHeight();
             int heightC=huellaComparar.getHeight();
             int widthO=huellaOriginal.getWidth();
@@ -339,29 +349,28 @@ public class Algoritmo_Huellas {
             int t2=heightO-heightC;
             double p=(double)heightO/(double)t2;
             double p2=widthO/p;
-            BufferedImage huellaOriginalE=EscalarHuella(huellaOriginal,heightO-t2,widthO-(int)p2);
-            BufferedImage huellaCompararE=EscalarHuella(huellaComparar,heightC,widthC);
-            try {
-                huellaOriginalE=cropper(huellaOriginalE);
-                huellaCompararE=cropper(huellaCompararE);
+            huellaOriginalE=EscalarHuella(huellaOriginal,heightO-t2,widthO-(int)p2);
+            huellaCompararE=EscalarHuella(huellaComparar,heightC,widthC);
+//                ImagePlus im=new ImagePlus("ho",huellaOriginalE);
+//                im.show();
+//                ImagePlus im2=new ImagePlus("ho",huellaCompararE);
+//                im2.show();
                 huellaOriginalE=binarizarHuella(huellaOriginalE);
                 huellaCompararE=binarizarHuella(huellaCompararE);
-                huellaOriginalE=cropper(huellaOriginalE);
-                huellaCompararE=cropper(huellaCompararE);
                 huellaOriginalE=skeletonHuella(huellaOriginalE);
                 huellaCompararE=skeletonHuella(huellaCompararE);
-                huellaOriginalE=cropper(huellaOriginalE);
-                huellaCompararE=cropper(huellaCompararE); 
+                ImagePlus im=new ImagePlus("huella original",huellaOriginalE);
+                im.show();
+                ImagePlus im2=new ImagePlus("huella compara",huellaCompararE);
+                im2.show();
                 por=CompareMinize(huellaOriginalE,huellaCompararE);
-            } catch (IOException ex) {
-                Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
         }  
 //        System.out.println(""+por);
         por=por*100;
-        if(65<por)
+        if(80<por)
                 System.out.println("Huella válida: " + por);
-        if(45<por)
+        else if(65<por)
                 System.out.println("Huella revisión: " + por);
         else
                 System.out.println("Huella no válida: " + por);

@@ -46,8 +46,8 @@ public class Recorte {
     private static BufferedImage ImagenFirma=null;
     private static double umbral1_firma = 0.65;
     private static double umbral2_firma = 0.45;
-    private static double umbral1_huella = 0.70;
-    private static double umbral2_huella = 0.50;
+    private static double umbral1_huella = 0.80;
+    private static double umbral2_huella = 0.65;
     private static int registro_aprobado = 1;
     private static int registro_observado = 2;
     private static int registro_rechazado = 3;
@@ -767,6 +767,17 @@ public class Recorte {
                                 }
                                 if(dn!=null){
                                     if(d==nd){
+                                        
+                                        if(i==4){
+                                            String dh=cell.getStringCellValue();
+                                            String dr=null;
+                                            dr=Recorte.rutaHuella+"/"+dh+".jpg";
+                                            File file = new File(dr);
+                                            ImagenHuella= ImageIO.read(file);
+                                            salir=1;  
+                                        }
+                                        
+                                        /*
                                         if(i==4){
                                             double dh=cell.getNumericCellValue();
                                             int num=(int) dh;
@@ -790,7 +801,7 @@ public class Recorte {
                                             
 //                                            cell=(XSSFCell) cells.next();
 //                                            i++;
-                                        }
+                                        }*/
                                         if(i==5){
                                             String dh=cell.getStringCellValue();
                                             String dr=null;
