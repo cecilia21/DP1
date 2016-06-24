@@ -33,14 +33,15 @@ public class MySQLDAODistrito implements DAODistrito {
 								DBConnection.password);
 			//Paso 3: Preparar la sentencia
 			String sql = "INSERT INTO Distrito "
-					+ "(idDistrito,nombre,cantidadVotantes,idRegion,idTipoProceso)"
-					+ "VALUES (?,?,?,?,?)";
+					+ "(idDistrito,nombre,cantidadVotantes,idRegion,idTipoProceso,ubigeo)"
+					+ "VALUES (?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p.getId());
 			pstmt.setString(2, p.getNombre());
                         pstmt.setInt(3, p.getCantidadVotantesRegistrados());
                         pstmt.setInt(4, p.getIdRegion());
                         pstmt.setInt(5,3);
+                        pstmt.setInt(6,p.getUbigeo());
 			//Paso 4: Ejecutar la sentencia
 			pstmt.executeUpdate();			
 			//Paso 5(opc.): Procesar los resultados			
