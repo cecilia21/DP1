@@ -688,7 +688,7 @@ public class Recorte {
             IJ.run(imp,"Make Binary","");  
             test= (BufferedImage) imp.getImage(); 
             int valido = Utils.validarPlanillon(test);
-            if(valido==-1) return -1;
+            if(valido==-1) return -2;
        //Configuracion del Algoritmo OCR digitos
             ITesseract instance  = new Tesseract();
          ArrayList<String> p = new ArrayList<>();
