@@ -1,3 +1,3 @@
-dir_huellas: /home/franz/Desktop/DATOS/huellas.jpg
-dir_firmas: /home/franz/Desktop/DATOS/firmas.jpg
-dir_excel: /home/franz/Desktop/DATOS/registro.nacional.v.1.xlsx
+dir_huellas: D:\repositorio\GRUPO02\Huellas
+dir_firmas: D:\repositorio\GRUPO02\Firmas
+dir_excel: D:\repositorio\GRUPO02\b.rnv.xlsx

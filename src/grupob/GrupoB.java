@@ -16,7 +16,7 @@ public class GrupoB {
      */
     public static void main(String[] args) {
         
-        Login window=new Login();
+        FramePrincipal window=new FramePrincipal();
         
         window.setTitle("Sistema de Verificacion y Inscripcion de Partidos Politicos");
         window.setLocationRelativeTo(null);

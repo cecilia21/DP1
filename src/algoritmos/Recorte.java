@@ -6,6 +6,7 @@
 package algoritmos;
 
 import controlador.Manager;
+import ij.IJ;
 import ij.ImagePlus;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -259,7 +261,14 @@ public class Recorte {
         return result.getSubimage(0, 0, dni.getWidth(), alto+40);
     }
     
-    private static ArrayList<BufferedImage> extraerNombre(BufferedImage registro){
+    private static ArrayList<String> extraerNombre(BufferedImage registro) throws TesseractException{
+//        ImagePlus imp=new ImagePlus("let",registro);
+//             imp.show();
+        String nom="";
+        Tesseract instance2 = new Tesseract();
+        instance2.setLanguage("spa");
+        instance2.setConfigs(Arrays.asList("letters"));
+        ArrayList <String> arrNomb=new ArrayList<String>();
         BufferedImage nombre = extraerCuadritos(9+25,23,registro);
         BufferedImage result = new BufferedImage(
                        nombre.getWidth(), nombre.getHeight(), //work these out
@@ -274,15 +283,109 @@ public class Recorte {
             BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
+            if(arrNomb.isEmpty() && i==0){                
+                nom = instance2.doOCR(letra);
+                nom=nom.trim();
+                nom=nom.replaceAll("\nH","");
+                nom=nom.replaceAll("\n","");
+                nom=nom.replaceAll("\nIi","");
+                if(nom.compareTo("Aji")==0){ 
+                        nom="A";                            
+                }
+                if(nom.compareTo("A\nIi")==0){ 
+                        nom="A";                            
+                }
+                if(nom.compareTo("A A")==0){ 
+                        nom="A";                            
+                }
+                if(nom.compareTo("AH")==0){ 
+                        nom="A";                            
+                }
+                arrNomb.add(nom);
+            }
             if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
                 if(cuadroAnt+1==i){
                     iniX = i*nombre.getWidth()/25;
                     finX = 0;
                 }
                 finX +=nombre.getWidth()/25;
-                letra = cropper(letra);
-                g.drawImage(letra, i*nombre.getWidth()/25, 20, null);
+                letra = cropper(letra);   
+                nom = instance2.doOCR(letra);
+                int lon=arrNomb.size();
+                if(i!=0){
+                        for(int k=0;k<lon;k++){
+                           String nom3=nom;
+                           nom3=nom3.trim();
+                           nom3=nom3.replaceAll("\n","");
+                           nom3=nom3.trim();
+                           nom3=nom3.replaceAll("\nH","");
+                           nom3=nom3.replaceAll("\nln","");
+                           nom3=nom3.replaceAll("Ii","");
+                           nom3=nom3.replaceAll("li","");
+                           nom3=nom3.replaceAll("ha","");
+                           nom3=nom3.trim();
+                            String no=arrNomb.get(k);
+//                            if(nom3.compareTo("l")==0){ 
+//                                     String no2=no+"I";                                     
+//                                      arrNomb.add(no2);
+//                            }
+                            if(nom3.compareTo("il")==0){ 
+                                     nom3="I";
+                            } 
+                            if(nom3.compareTo("IL")==0){ 
+                                     nom3="L";
+                            } 
+                            if(nom3.compareTo("AId")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("Aja")==0){ 
+                                     nom3="A";
+                            }
+                            nom3=nom3.replaceAll("l","I");
+//                            if(nom3.compareTo("K")==0){ 
+//                                     String no2=no+"I";                                     
+//                                      arrNomb.add(no2);
+//                            }
+//                            if(nom3.compareTo("T")==0){ 
+//                                     String no2=no+"I";                                     
+//                                      arrNomb.add(no2);
+//                            }
+//                            if(nom.compareTo("CI")==0){ 
+//                                     String no2=no+"E";                                     
+//                                      arrNomb.add(no2);
+//                            }
+                            if(nom3.compareTo("EJ")==0){ 
+                                     String no2=no+"S";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("")==0){ 
+                                     String no2=no+"I";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("AH")==0){ 
+                                     String no2=no+"A";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("Aji")==0){ 
+                                    nom3="A";                            
+                            }
+                            nom3=nom3.replaceAll("Hu","O");
+                            nom3=nom3.replaceAll("f","C");
+                            nom3=nom3.replaceAll("a","I");
+                            nom3=nom3.replaceAll("b","D");
+                            nom3=nom3.replaceAll("In","L");
+                            nom3=nom3.trim();                            
+                            no+=nom3;
+                            arrNomb.set(k, no);   
+                    }
+                }
             }else{
+                int lon2=arrNomb.size();
+                for(int k=0;k<lon2;k++){
+                    String no2=arrNomb.get(k);
+                    no2+=" ";
+                    arrNomb.set(k, no2);
+                }
                 if(i>1 && i!=cuadroAnt+1){
                     BufferedImage app = result.getSubimage(iniX, 0, finX, alto+40);
                     nombres.add(app);
@@ -291,11 +394,22 @@ public class Recorte {
             }
             if(i==1) alto = letra.getHeight();
         }        
-        return nombres;
+//        System.out.println(nom);
+        for(int k=0;k<arrNomb.size();k++){
+            System.out.println(""+arrNomb.get(k));
+        }
+        return arrNomb;
     }
     
-    private static ArrayList<BufferedImage> extraerApellidos(BufferedImage registro){
+    private static ArrayList<String> extraerApellidos(BufferedImage registro) throws TesseractException{
+//        ImagePlus imp=new ImagePlus("let",registro);
+//             imp.show();
         BufferedImage nombre = extraerCuadritos(9,25,registro);
+        String nom="";
+        Tesseract instance2 = new Tesseract();
+        instance2.setLanguage("spa");
+        instance2.setConfigs(Arrays.asList("letters"));
+        ArrayList <String> arrNomb=new ArrayList<String>();
         BufferedImage result = new BufferedImage(
                        nombre.getWidth(), nombre.getHeight(), //work these out
                        BufferedImage.TYPE_INT_RGB);
@@ -307,17 +421,147 @@ public class Recorte {
         int iniX =0; int finX =0;
         for(int i=0;i<25;i++){            
             BufferedImage letra = extraerCuadritos(9+i,1,registro);
+//            ImagePlus imp=new ImagePlus("let",letra);
+//             imp.show();
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
+            if(arrNomb.isEmpty() && i==0){                
+                nom = instance2.doOCR(letra);
+                nom=nom.trim();
+                nom=nom.replaceAll("\nH","");
+                nom=nom.replaceAll("\n","");
+                nom=nom.replaceAll("Ii","");
+//                nom=nom.replaceAll("\nH","");
+//                nom=nom.replaceAll("\n","");
+                nom=nom.replaceAll("If","J");  
+                if(nom.compareTo("IY")==0){ 
+                                     String no2="J";                                     
+                                     arrNomb.add(no2);
+                            }
+                if(nom.compareTo("FNL l")==0){ 
+                                     nom="D";  
+                            }                
+                arrNomb.add(nom);
+            }
             if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
                 if(cuadroAnt+1==i){
                     iniX = i*nombre.getWidth()/25;
                     finX = 0;
                 }
                 finX +=nombre.getWidth()/25;
-                letra = cropper(letra);
-                g.drawImage(letra, i*nombre.getWidth()/25, 20, null);
+//                ImagePlus imp3=new ImagePlus("let",letra);
+//                imp3.show();
+                letra = cropper(letra);                
+//                g.drawImage(letra, i*nombre.getWidth()/25, 20, null);
+//                ImagePlus imp2=new ImagePlus("let",letra);
+//                imp2.show();
+                int lon=arrNomb.size();
+                nom = instance2.doOCR(letra);
+                if(i!=0){
+                        for(int k=0;k<lon;k++){
+                           String nom3=nom;
+//                           nom3 = instance2.doOCR(letra);
+                           nom3=nom3.trim();
+                           if(nom3.compareTo("C\nI")==0){ 
+                                     nom3="P";
+                            }  
+                           if(nom3.compareTo("A\nla")==0){ 
+                                     nom3="A";
+                            } 
+                           if(nom3.compareTo("H\nLI")==0){ 
+                                     nom3="O";
+                            } 
+                           if(nom3.compareTo("h\nxx")==0){ 
+                                     nom3="D";
+                            }
+                           if(nom3.compareTo("P\nU")==0){ 
+                                     nom3="O";
+                            } 
+                           if(nom3.compareTo("Av")==0){ 
+                                     nom3="O";
+                            }
+                           if(nom3.compareTo("R\nv")==0){ 
+                                     nom3="O";
+                            }
+                           if(nom3.compareTo("Hu")==0){ 
+                                     nom3="O";
+                            }
+                           nom3=nom3.replaceAll("iEZ","E");
+                           nom3=nom3.replaceAll("\nH","");                           
+                           nom3=nom3.replaceAll("Ii","");
+                           nom3=nom3.replaceAll("Id","");
+                           nom3=nom3.replaceAll("nu","");
+                           nom3=nom3.replaceAll("na","");
+                           nom3=nom3.replaceAll("ll","I");
+                           nom3=nom3.replaceAll("il","I");
+                            nom3=nom3.replaceAll("ll","L");
+                            nom3=nom3.replaceAll("If","J");
+                            nom3=nom3.replaceAll("yN","D");
+                           nom3=nom3.replaceAll("\n","");
+                           nom3=nom3.trim();
+                            String no=arrNomb.get(k);
+                            if(nom3.compareTo("I")==0){ 
+                                     String no2=no+"L";                                     
+                                      arrNomb.add(no2);
+                            }
+                            nom3=nom3.replaceAll("l","I");
+//                            if(nom3.compareTo("CI")==0){ 
+//                                     String no2=no+"P";                                     
+//                                      arrNomb.add(no2);
+//                            }                            
+//                            if(nom3.compareTo("i")==0){ 
+//                                     String no2=no+"S";                                     
+//                                      arrNomb.add(no2);
+//                            }
+//                            if(nom3.compareTo("K")==0){ 
+//                                     String no2=no+"I";                                     
+//                                      arrNomb.add(no2);
+//                            }                            
+//                            if(nom3.compareTo("C")==0){ 
+//                                     String no2=no+"O";                                     
+//                                      arrNomb.add(no2);
+//                            }
+//                            if(nom3.compareTo("V")==0){ 
+//                                     String no2=no+"Y";                                     
+//                                      arrNomb.add(no2);
+//                            }                            
+                            nom3=nom3.replaceAll("i","S");
+                            if(nom3.compareTo("IY")==0){ 
+                                     String no2=no+"J";                                     
+                                     arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("E")==0){ 
+                                     String no2=no+"R";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("Q")==0){ 
+                                     String no2=no+"R";                                     
+                                      arrNomb.add(no2);
+                            }                            
+                            if(nom3.compareTo("G")==0){ 
+                                     String no2=no+"O";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom.compareTo("II")==0){ 
+                                     String no2=no+"L";                                     
+                                      arrNomb.add(no2);
+                            }
+                            
+                            nom3=nom3.replaceAll("k","R");                            
+                            nom3=nom3.trim();                            
+                            no+=nom3;
+                            arrNomb.set(k, no);
+//                            }                            
+                            
+                    }
+                }
             }else{
+                int lon2=arrNomb.size();
+                for(int k=0;k<lon2;k++){
+                    String no2=arrNomb.get(k);
+                    no2+=" ";
+                    arrNomb.set(k, no2);
+                }
                 if(i>1 && i!=cuadroAnt+1){
                     BufferedImage app = result.getSubimage(iniX, 0, finX, alto+40);
                     apellidos.add(app);
@@ -326,7 +570,10 @@ public class Recorte {
             }
             if(i==1) alto = letra.getHeight();
         }
-        return apellidos;
+        for(int k=0;k<arrNomb.size();k++){
+            System.out.println(""+arrNomb.get(k));
+        }
+        return arrNomb;
     }
     
     private static int esCuadroBlanco(BufferedImage cuadro){
@@ -358,73 +605,16 @@ public class Recorte {
         
     }
  
-   public static void ejecutarProceso(File file, PartidoPolitico p){
-        BufferedImage test;
-        int inicioX, inicioY, finX, finY;
-        try {
-            test = ImageIO.read(file);
-            test = binarization(test);
-            //ImageIO.write(test, "jpg", new File("C:\\Users\\alulab14\\Downloads\\bin.jpg"));
-            test = extraerCuadroData(test);
-            BufferedImage[] registros = extraerRegistros(test);
-            //lista de prueba
-            ArrayList<String> listNumS=new ArrayList<String>();
-            listNumS.add("34576713");listNumS.add("62346721");listNumS.add("34577732");listNumS.add("54322314");
-            listNumS.add("23443281");listNumS.add("55443322");listNumS.add("78901234");listNumS.add("69384231");
-            int ubigeo=0;
-                if(p.getIdTipoProceso()==1)ubigeo=-1;
-                if(p.getIdTipoProceso()==2)ubigeo=Manager.queryByIdRegion(p.getIdRegion()).getUbigeo();
-                if(p.getIdTipoProceso()==3)ubigeo=Manager.queryByIdDistrito(p.getIdDistrito()).getUbigeo();
-                if(p.getIdTipoProceso()==4)ubigeo=Manager.queryLocalById(p.getIdLocal()).getUbigeo();
-                if(p.getIdTipoProceso()==5)ubigeo=Manager.queryInstitucionById(p.getIdInstitucion()).getUbigeo();
-            for(int i=0;i<registros.length;i++){
-                int ancho = Math.round(registros[i].getWidth()*(float)0.02);
-                BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[i].getHeight());    
-                BufferedImage[] dni = extraerDni(registros[i]);
-//                BufferedImage huella = extraerHuella(registros[i]);              
-                String numS=new String();
-//                for(int j=0;j<cantDni;j++){
-//                    int num = OcrNumeros.obtenerNumero(dni[j]);
-//                    numS+=num;
-//                }
-//                numS="34576713";
-                numS=listNumS.get(i);
-                System.out.println("DNI: " + numS);                
-                
-                
-                
-                int ubigeoPadron=buscarUbigeo(numS);
-                if(ubigeo==-1 || ubigeo==ubigeoPadron){
-                    System.out.println("  Ubigeo Correcto");
-                BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
-                BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
-                //Imagenes del repositorio
-                ImagenHuella=null;
-                ImagenFirma=null;
-                buscarImagenes(numS);//modifica la imagen huella y imagen firma
-                double porcentaje_firma, porcentaje_huella;
-                if(ImagenHuella!=null && ImagenFirma!=null){
-                    porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
-                    porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
-                    int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
-                    System.out.println("");
-                }
-                else
-                    System.out.println("No se encontro a las personas con DNI: " + numS);            
-            }System.out.println("-------Ubigeo incorrecto---");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-    }    
     
-    public static void ejecutar(File file,ArrayList<Adherente> listaAdherente, PartidoPolitico partido){
+    public static void ejecutar(File file,ArrayList<Adherente> listaAdherente, PartidoPolitico partido) throws TesseractException{
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         try {
             test = ImageIO.read(file);
-            test = binarization(test);
-            
+//            test = binarization(test);
+            ImagePlus imp=new ImagePlus("Nuevo",test);
+            IJ.run(imp,"Make Binary","");  
+            test= (BufferedImage) imp.getImage(); 
        //Configuracion del Algoritmo OCR digitos
             ITesseract instance  = new Tesseract();
          ArrayList<String> p = new ArrayList<>();
@@ -464,28 +654,46 @@ public class Recorte {
                    }
                        System.out.println(numero);
                        
-              
-          
-                
-                
-                         
-                ArrayList<BufferedImage> nombres = extraerNombre(registros[i]);
+                ArrayList<String> nombres2 = extraerNombre(registros[i]);
+//                ImagePlus imp=new ImagePlus("let",nombres.get(0));
+//                imp.show();        
+                ArrayList<String> apellidos2 = extraerApellidos(registros[i]);
                 //Configuracion del OCR de Letras
                 Tesseract instance2 = new Tesseract();
                 instance2.setLanguage("spa");
                 String nombre = "";
-                 for(int k=0;k<nombres.size();k++){
-  
-                        try {
-                            nombre += instance2.doOCR(nombres.get(k));
-                         
-                        } catch (TesseractException ex) {
-                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    
-                }
+                String apell = "";
+                String ap;
+//                 for(int k=0;k<nombres.size();k++){
+//  
+//                        try {
+////                            ImagePlus imp=new ImagePlus("im",nombres.get(k));
+////                            imp.show();
+//                            nombre += instance2.doOCR(nombres.get(k));
+////                            System.out.print(nombre+" ");
+//                        } catch (TesseractException ex) {
+//                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    
+//                }
                  
-                 System.out.println(nombre);
+//                 System.out.println(nombre);
+                 
+//                 for(int k=0;k<apellidos.size();k++){
+//  
+//                        try {
+////                            ImagePlus imp=new ImagePlus("im",apellidos.get(k));
+////                            imp.show();
+//                            ap = instance2.doOCR(apellidos.get(k));
+//                            ap = ap.trim();
+//                            apell+=ap+" ";
+////                            System.out.print(apell+" ");
+//                        } catch (TesseractException ex) {
+//                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    
+//                }
+//                 System.out.println(apell);
                 
 
                 
@@ -574,13 +782,13 @@ public class Recorte {
         
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TesseractException {
         // TODO code application logic here
         //File file = new File("C:\\Users\\alulab14.INF\\Downloads\\alternado_ok_rayado_v1.jpg");
-        File file = new File("src/red/padron.rayas.firmado.jpg");
+        File file = new File("D:\\Base Datos/Padron_PlantillaN1.jpg");
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
-        
+        String nombre2 = "";
         ITesseract instance  = new Tesseract();
          ArrayList<String> p = new ArrayList<>();
         p.add("digits");
@@ -600,8 +808,9 @@ public class Recorte {
      String numero ;
             for(int k=0;k<registros.length;k++){
                 BufferedImage dniComp = extraerDniUnaImagen(registros[k]);                
-                ArrayList<BufferedImage> nombres = extraerNombre(registros[k]);
+//                ArrayList<BufferedImage> nombres = extraerNombre(registros[k]);
                 String nombre = ""; String identidad ="";
+                nombre2="";
                 BufferedImage[] dni = extraerDni(registros[k]);
                // ImageIO.write(dniComp, "png", new File("src\\red\\dni.png"));
                 
@@ -639,15 +848,17 @@ public class Recorte {
                 instance2.setLanguage("spa");
            
                 
-                for(int i=0;i<nombres.size();i++){
-                    try {                        
-                      
-                        nombre += instance2.doOCR(nombres.get(i));
-                    } catch (Exception ex) {
-                        Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+//                for(int i=0;i<nombres.size();i++){
+//                    try {                        
+//                      
+//                        nombre2 += instance2.doOCR(nombres.get(i));
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
             }
+            System.out.println(nombre2);
+            
                 /*
                  BufferedImage[] dnixx = extraerDni(registros[k]);
                 //BufferedImage huella = extraerHuella(registros[i]);

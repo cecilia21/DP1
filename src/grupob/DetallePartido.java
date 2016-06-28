@@ -33,6 +33,7 @@ import model.Local;
 import model.PartidoPolitico;
 import model.Region;
 import model.TipoProcesoVotacion;
+import net.sourceforge.tess4j.TesseractException;
 
 /**
  *
@@ -830,7 +831,11 @@ public class DetallePartido extends javax.swing.JPanel {
             for (File file : files) {
                 ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                 ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
-                Recorte.ejecutar(file,listaAdherente, partPolitico );
+                try {
+                    Recorte.ejecutar(file,listaAdherente, partPolitico );
+                } catch (TesseractException ex) {
+                    Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
 //                Adherente ad1= new Adherente();
 //                ad1.setDni("66666665");
@@ -987,7 +992,11 @@ public class DetallePartido extends javax.swing.JPanel {
                 for (File file : files) {
                     ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                     ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
-                    Recorte.ejecutar(file,listaAdherente, p);
+                    try {
+                        Recorte.ejecutar(file,listaAdherente, p);                        
+                    } catch (TesseractException ex) {
+                        Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
 //                    Adherente ad1= new Adherente();
 //                    ad1.setDni("66666681");
@@ -1082,7 +1091,11 @@ public class DetallePartido extends javax.swing.JPanel {
                 for (File file : files) {
                     ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                     ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
-                    Recorte.ejecutar(file,listaAdherente,p);
+                    try {
+                        Recorte.ejecutar(file,listaAdherente,p);
+                    } catch (TesseractException ex) {
+                        Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
 //                    Adherente ad1= new Adherente();
 //                    ad1.setDni("11111111");
@@ -1178,7 +1191,11 @@ public class DetallePartido extends javax.swing.JPanel {
                 for (File file : files) {
                     ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                     ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
-                    Recorte.ejecutar(file,listaAdherente,p);
+                    try {
+                        Recorte.ejecutar(file,listaAdherente,p);
+                    } catch (TesseractException ex) {
+                        Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
 //                    Adherente ad1= new Adherente();
 //                    ad1.setDni("11111111");
@@ -1274,7 +1291,11 @@ public class DetallePartido extends javax.swing.JPanel {
                 for (File file : files) {
                     ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                     ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
-                    Recorte.ejecutar(file,listaAdherente,p);
+                    try {
+                        Recorte.ejecutar(file,listaAdherente,p);
+                    } catch (TesseractException ex) {
+                        Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
 //                    Adherente ad1= new Adherente();
 //                    ad1.setDni("11111111");
