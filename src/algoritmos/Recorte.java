@@ -266,7 +266,7 @@ public class Recorte {
 //             imp.show();
         String nom="";
         Tesseract instance2 = new Tesseract();
-        instance2.setLanguage("spa");
+        instance2.setLanguage("+abc");
         instance2.setConfigs(Arrays.asList("letters"));
         ArrayList <String> arrNomb=new ArrayList<String>();
         BufferedImage nombre = extraerCuadritos(9+25,23,registro);
@@ -286,50 +286,39 @@ public class Recorte {
             if(arrNomb.isEmpty() && i==0){                
                 nom = instance2.doOCR(letra);
                 nom=nom.trim();
-                nom=nom.replaceAll("\nH","");
                 nom=nom.replaceAll("\n","");
-                nom=nom.replaceAll("\nIi","");
-                if(nom.compareTo("Aji")==0){ 
-                        nom="A";                            
-                }
-                if(nom.compareTo("A\nIi")==0){ 
-                        nom="A";                            
-                }
-                if(nom.compareTo("A A")==0){ 
-                        nom="A";                            
-                }
                 if(nom.compareTo("AH")==0){ 
                         nom="A";                            
                 }
-                if(nom.compareTo("rnLJ")==0){ 
-                        nom="D";                            
+                if(nom.compareTo("ADH")==0){ 
+                        nom="A";                            
                 }
-                if(nom.compareTo("Ix")==0){ 
-                        nom="D";                            
-                }
-                if(nom.compareTo("n")==0){ 
-                        nom="D";                            
-                }                
-                if(nom.compareTo("rxL J")==0){ 
-                        nom="D";                            
-                }  
-                if(nom.compareTo("rnm")==0){ 
-                        nom="D";                            
-                } 
-                if(nom.compareTo("rnw")==0){ 
-                        nom="D";                            
-                } 
-                if(nom.compareTo("rxw")==0){ 
-                        nom="D";                            
-                } 
-                if(nom.compareTo("yaLil")==0){ 
-                        nom="D";                            
+                if(nom.compareTo("AXH")==0){ 
+                        nom="A";                            
                 }   
-                if(nom.compareTo("C")==0){ 
+                if(nom.compareTo("AN")==0){ 
+                        nom="A";                            
+                } 
+                if(nom.compareTo("MU")==0){ 
+                        nom="D";                            
+                } 
+                if(nom.compareTo("ZN")==0){ 
+                        nom="D";                            
+                }
+                if(nom.compareTo("FXL M")==0){ 
+                        nom="D";                            
+                }
+                if(nom.compareTo("KNU")==0){ 
+                        nom="D";                            
+                }
+                if(nom.compareTo("D")==0){ 
                                      String no2="E";                                     
                                      arrNomb.add(no2);
                             }
-                nom=nom.replaceAll("l","I");
+                if(nom.compareTo("N")==0){ 
+                                     String no2="D";                                     
+                                     arrNomb.add(no2);
+                            }
                 arrNomb.add(nom);
             }
             if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
@@ -347,82 +336,87 @@ public class Recorte {
                            nom3=nom3.trim();
                            nom3=nom3.replaceAll("\n","");
                            nom3=nom3.trim();
-                           nom3=nom3.replaceAll("\nH","");
-                           nom3=nom3.replaceAll("\nln","");
-                           nom3=nom3.replaceAll("Ii","");
-                           nom3=nom3.replaceAll("li","");
-                           nom3=nom3.replaceAll("ha","");
-                           nom3=nom3.trim();
                             String no=arrNomb.get(k);
-//                            if(nom3.compareTo("l")==0){ 
-//                                     String no2=no+"I";                                     
-//                                      arrNomb.add(no2);
-//                            }
-                            if(nom3.compareTo("il")==0){ 
-                                     nom3="I";
+                            if(nom3.compareTo("AA")==0){ 
+                                     nom3="A";
                             } 
-                            if(nom3.compareTo("IL")==0){ 
-                                     nom3="L";
+                            if(nom3.compareTo("AN")==0){ 
+                                     nom3="A";
                             } 
-                            if(nom3.compareTo("AId")==0){ 
+                            if(nom3.compareTo("AM")==0){ 
                                      nom3="A";
                             }
-                            if(nom3.compareTo("Aja")==0){ 
-                                     nom3="A";
+                            if(nom3.compareTo("ADH")==0){ 
+                                    nom3="A";                            
+                            } 
+                            if(nom3.compareTo("AAH")==0){ 
+                                    nom3="A";                            
+                            } 
+                            if(nom3.compareTo("AXH")==0){ 
+                                    nom3="A";                            
                             }
-                            if(nom3.compareTo("Exi")==0){ 
+                            if(nom3.compareTo("DZF")==0){ 
+                                    nom3="E";                            
+                            }
+                            if(nom3.compareTo("FI")==0){ 
                                      nom3="E";
                             }
-                            if(nom3.compareTo("rx")==0){ 
-                                     nom3="D";
+                            if(nom3.compareTo("II")==0){ 
+                                     nom3="I";
                             }
-                            if(nom3.compareTo("MU")==0){ 
-                                     nom3="O";
+                            if(nom3.compareTo("JI")==0){ 
+                                     nom3="I";
                             }
-                            if(nom3.compareTo("fx")==0){ 
+                            if(nom3.compareTo("Aid")==0){ 
                                      nom3="A";
+                            }
+                            if(nom3.compareTo("FU")==0){ 
+                                     nom3="O";
                             }
                             if(nom3.compareTo("AU")==0){ 
                                      nom3="O";
                             }
-                            nom3=nom3.replaceAll("l","I");
-//                            if(nom3.compareTo("K")==0){ 
-//                                     String no2=no+"I";                                     
-//                                      arrNomb.add(no2);
-//                            }
-//                            if(nom3.compareTo("T")==0){ 
-//                                     String no2=no+"I";                                     
-//                                      arrNomb.add(no2);
-//                            }
+                            if(nom3.compareTo("HU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("QI")==0){ 
+                                     nom3="I";
+                            } 
+                            if(nom3.compareTo("AId")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("IL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("DW")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("BL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("NN")==0){ 
+                                     nom3="N";
+                            }
+                            if(nom3.compareTo("DZ")==0){ 
+                                     nom3="A";
+                            }
                             if(nom3.compareTo("P")==0){ 
                                      String no2=no+"D";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("EJ")==0){ 
-                                     String no2=no+"S";                                     
                                       arrNomb.add(no2);
                             }
                             if(nom3.compareTo("")==0){ 
                                      String no2=no+"I";                                     
                                       arrNomb.add(no2);
                             }
-                            if(nom3.compareTo("AH")==0){ 
-                                     String no2=no+"A";                                     
+                            if(nom3.compareTo("UL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("N")==0){ 
+                                     String no2=no+"D";                                     
                                       arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("Aji")==0){ 
-                                    nom3="A";                            
-                            }
-                            if(nom3.compareTo("yw")==0){ 
-                                    nom3="D";                            
-                            }
-                            nom3=nom3.replaceAll("Hu","O");
-                            nom3=nom3.replaceAll("f","C");
-                            nom3=nom3.replaceAll("a","I");
-                            nom3=nom3.replaceAll("b","D");
-                            nom3=nom3.replaceAll("u","A");
-                            nom3=nom3.replaceAll("In","L");
-                            nom3=nom3.trim();                            
+                                      String no3=no+"A";                                     
+                                      arrNomb.add(no3);
+                            }                    
                             no+=nom3;
                             arrNomb.set(k, no);   
                     }
@@ -455,7 +449,7 @@ public class Recorte {
         BufferedImage nombre = extraerCuadritos(9,25,registro);
         String nom="";
         Tesseract instance2 = new Tesseract();
-        instance2.setLanguage("spa");
+        instance2.setLanguage("spa+abc");
         instance2.setConfigs(Arrays.asList("letters"));
         ArrayList <String> arrNomb=new ArrayList<String>();
         BufferedImage result = new BufferedImage(
@@ -478,26 +472,15 @@ public class Recorte {
                 nom=nom.trim();
                 nom=nom.replaceAll("\nH","");
                 nom=nom.replaceAll("\n","");
-                nom=nom.replaceAll("Ii","");
-//                nom=nom.replaceAll("\nH","");
-//                nom=nom.replaceAll("\n","");
-                nom=nom.replaceAll("If","J");  
-                if(nom.compareTo("IY")==0){ 
-                                     String no2="J";                                     
-                                     arrNomb.add(no2);
-                            }
-                if(nom.compareTo("U")==0){ 
-                                     String no2="J";                                     
-                                     arrNomb.add(no2);
-                            }
-                if(nom.compareTo("FNL l")==0){ 
+                if(nom.compareTo("FNLJ")==0){ 
                                      nom="D";  
                             }
                 if(nom.compareTo("rxu")==0){ 
                                      nom="D";  
                             } 
-                if(nom.compareTo("r")==0){ 
-                                     nom="D";  
+              if(nom.compareTo("V")==0){ 
+                                     String no2="D";                                     
+                                     arrNomb.add(no2);
                             }
                 arrNomb.add(nom);
             }
@@ -518,130 +501,102 @@ public class Recorte {
                 if(i!=0){
                         for(int k=0;k<lon;k++){
                            String nom3=nom;
-//                           nom3 = instance2.doOCR(letra);
                            nom3=nom3.trim();
-                           if(nom3.compareTo("C\nI")==0){ 
-                                     nom3="P";
-                            }  
-                           if(nom3.compareTo("A\nla")==0){ 
-                                     nom3="A";
-                            } 
-                           if(nom3.compareTo("H\nLI")==0){ 
-                                     nom3="O";
-                            } 
-                           if(nom3.compareTo("h\nxx")==0){ 
-                                     nom3="D";
-                            }
-                           if(nom3.compareTo("P\nU")==0){ 
-                                     nom3="O";
-                            } 
-                           if(nom3.compareTo("Av")==0){ 
-                                     nom3="O";
-                            }
-                           if(nom3.compareTo("R\nv")==0){ 
-                                     nom3="O";
-                            }
-                           if(nom3.compareTo("Hu")==0){ 
-                                     nom3="O";
-                            }
-                           if(nom3.compareTo("fx")==0){ 
-                                     nom3="D";
-                            }
-                           if(nom3.compareTo("IQ")==0){ 
-                                     nom3="R";
-                            }
-                           if(nom3.compareTo("d")==0){ 
-                                     nom3="J";
-                            }
-                           nom3=nom3.replaceAll("iEZ","E");
                            nom3=nom3.replaceAll("\nH","");                           
                            nom3=nom3.replaceAll("Ii","");
-                           nom3=nom3.replaceAll("Id","");
-                           nom3=nom3.replaceAll("nu","");
-                           nom3=nom3.replaceAll("na","");
-                           nom3=nom3.replaceAll("ll","I");
-                           nom3=nom3.replaceAll("il","I");
-                            nom3=nom3.replaceAll("ll","L");
-                            nom3=nom3.replaceAll("If","J");
-                            nom3=nom3.replaceAll("yN","D");
                            nom3=nom3.replaceAll("\n","");
                            nom3=nom3.trim();
                             String no=arrNomb.get(k);
+                            if(nom3.compareTo("hxx")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("HU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("AId")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("ADH")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("Ala")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("Ax")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("ll")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("l")==0){ 
+                                     nom3="I";
+                            }
+                            if(nom3.compareTo("r")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("rw")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("FI")==0){ 
+                                     nom3="E";
+                            }
+                            if(nom3.compareTo("CI")==0){ 
+                                     nom3="P";
+                            }
+                            if(nom3.compareTo("IU")==0){ 
+                                     nom3="I";
+                            }
+                            if(nom3.compareTo("PU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("nU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("AU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("hU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("HU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("lL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("IL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("fx")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("rwU")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("FU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("NN")==0){ 
+                                     nom3="N";
+                            }
+                            if(nom3.compareTo("xL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("d")==0){ 
+                                     nom3="J";
+                            }
+                            if(nom3.compareTo("yxLJ")==0){ 
+                                     nom3="D";
+                            }
                             if(nom3.compareTo("")==0){ 
-                                     String no2=no+"I";                                     
+                                    String no2=no+"I";                                     
                                       arrNomb.add(no2);
                                      String no3=no+"L";                                     
                                       arrNomb.add(no3);
                             }
-                           if(nom3.compareTo("FU")==0){ 
-                                     nom3="O";
-                            }
                            if(nom3.compareTo("KL")==0){ 
                                      nom3="L";
-                            }
-                           if(nom3.compareTo("IL")==0){ 
-                                     nom3="L";
-                            }
-                           if(nom3.compareTo("rwU")==0){ 
-                                     nom3="D";
-                            }
-                           if(nom3.compareTo("rw")==0){ 
-                                     nom3="D";
-                            }
-                           if(nom3.compareTo("r")==0){ 
-                                     nom3="D";
-                            }
-                           if(nom3.compareTo("xL")==0){ 
-                                     nom3="L";
-                            }
-                            if(nom3.compareTo("yxLJ")==0){ 
-                                     nom3="D";
-                            }    
-                            if(nom3.compareTo("I")==0){ 
-                                     String no2=no+"L";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("AU")==0){ 
-                                     String no2=no+"O";                                     
-                                      arrNomb.add(no2);
-                            }
-                            nom3=nom3.replaceAll("l","I");                 
-                            nom3=nom3.replaceAll("i","S");
-                            if(nom3.compareTo("IY")==0){ 
-                                     String no2=no+"J";                                     
-                                     arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("E")==0){ 
-                                     String no2=no+"R";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("K")==0){ 
-                                     String no2=no+"I";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("Q")==0){ 
-                                     String no2=no+"R";                                     
-                                      arrNomb.add(no2);
-                            }                            
-                            if(nom3.compareTo("G")==0){ 
-                                     String no2=no+"O";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom3.compareTo("U")==0){ 
-                                     String no2=no+"O";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom.compareTo("II")==0){ 
-                                     String no2=no+"L";                                     
-                                      arrNomb.add(no2);
-                            }
-                            if(nom.compareTo("k")==0){ 
-                                     String no2=no+"R";                                     
-                                      arrNomb.add(no2);
-                            }  
-                            nom3=nom3.replaceAll("k","K");
-                            nom3=nom3.replaceAll("r","D");
-                            nom3=nom3.trim();                            
+                            }                    
                             no+=nom3;
                             arrNomb.set(k, no);
 //                            }                            
@@ -713,7 +668,7 @@ public class Recorte {
          ArrayList<String> p = new ArrayList<>();
         p.add("digits");
         instance.setConfigs(p);
-        instance.setLanguage("dit"); 
+        instance.setLanguage("digitosf"); 
             
             
             test = extraerCuadroData(test);
@@ -745,7 +700,7 @@ public class Recorte {
                        
                    
                    }
-                       System.out.println(numero);
+//                       System.out.println(numero);
                        
                 ArrayList<String> nombres2 = extraerNombre(registros[i]);
 //                ImagePlus imp=new ImagePlus("let",nombres.get(0));
@@ -770,16 +725,21 @@ public class Recorte {
 //                    System.out.println("A: "+apellidosE.get(k));
 //                }
                 ArrayList<String> lDniOcrL=new ArrayList<String>();
+                ArrayList<String> lDniOcrLP=new ArrayList<String>();
                 lDniOcrL=nombresE;
                 for(int k=0;k<apellidosE.size();k++){
                     if(!lDniOcrL.contains(apellidosE.get(k))){
                         lDniOcrL.add(apellidosE.get(k));
                     }
+                    else{
+                        lDniOcrLP.add(apellidosE.get(k));
+                    }
                 }
-                for(int k=0;k<lDniOcrL.size();k++){
-                    System.out.println(lDniOcrL.get(k));
+                for(int k=0;k<lDniOcrLP.size();k++){
+                    System.out.println(lDniOcrLP.get(k));
                 }
-
+                String numero2="";
+                if(lDniOcrLP.size()==1)numero2=lDniOcrLP.get(0);
                 
                 int ubigeo = 0;
                 if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
@@ -787,7 +747,7 @@ public class Recorte {
                 if(partido.getIdTipoProceso() == 3) ubigeo  = Manager.queryByIdDistrito(partido.getIdDistrito()).getUbigeo();
                 if(partido.getIdTipoProceso() == 4) ubigeo  = Manager.queryLocalById(partido.getIdLocal()).getUbigeo();
                 if(partido.getIdTipoProceso() == 5) ubigeo  = Manager.queryInstitucionById(partido.getIdInstitucion()).getUbigeo();
-                
+//                
                 
                 
                  int ubigeoPadron=buscarUbigeo(numero);
@@ -799,7 +759,7 @@ public class Recorte {
                 ImagenHuella=null;
                 ImagenFirma=null;
                 buscarImagenes(numero);//modifica la imagen huella y imagen firma
-               
+               if(ImagenHuella==null && ImagenFirma==null)buscarImagenes(numero2);
                 double porcentaje_firma, porcentaje_huella;
                 int esta=0;
                 if(ImagenHuella!=null && ImagenFirma!=null){
@@ -1043,8 +1003,8 @@ public class Recorte {
         ArrayList<String> dniE=new ArrayList<String>();
         int gd=0;
         try {           
-//                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
-                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+//                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
                 XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		XSSFRow row; 
@@ -1097,8 +1057,8 @@ public class Recorte {
         ArrayList<String> dniE=new ArrayList<String>();
         int gd=0;
         try {           
-//                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
-                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+//                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
                 XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		XSSFRow row; 
@@ -1187,7 +1147,8 @@ public class Recorte {
                                             String dr=null;
                                             dr=Recorte.rutaHuella+"/"+dh+".jpg";
                                             File file = new File(dr);
-                                            ImagenHuella= ImageIO.read(file);
+//                                            ImagenHuella= ImageIO.read(file);
+                                            ImagenHuella= Algoritmo_Huellas.readImage(file);
                                             salir=1;  
                                         }
                                         
@@ -1222,7 +1183,8 @@ public class Recorte {
 //                                            dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/firmas.jpg/"+dh+".jpg";
                                             dr=Recorte.rutaFirma+"/"+dh+".jpg";
                                             File file = new File(dr);
-                                            ImagenFirma= ImageIO.read(file);
+                                            ImagenFirma= Algoritmo_Huellas.readImage(file);
+//                                            ImagenFirma= ImageIO.read(file);
                                             salir=1;
                                             
                                             
