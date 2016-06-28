@@ -1,3 +1,3 @@
-dir_huellas: D:\repositorio\GRUPO02\Huellas
-dir_firmas: D:\repositorio\GRUPO02\Firmas
+dir_huellas: D
+dir_firmas: D
 dir_excel: D:\repositorio\GRUPO02\b.rnv.xlsx

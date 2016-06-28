@@ -301,6 +301,35 @@ public class Recorte {
                 if(nom.compareTo("AH")==0){ 
                         nom="A";                            
                 }
+                if(nom.compareTo("rnLJ")==0){ 
+                        nom="D";                            
+                }
+                if(nom.compareTo("Ix")==0){ 
+                        nom="D";                            
+                }
+                if(nom.compareTo("n")==0){ 
+                        nom="D";                            
+                }                
+                if(nom.compareTo("rxL J")==0){ 
+                        nom="D";                            
+                }  
+                if(nom.compareTo("rnm")==0){ 
+                        nom="D";                            
+                } 
+                if(nom.compareTo("rnw")==0){ 
+                        nom="D";                            
+                } 
+                if(nom.compareTo("rxw")==0){ 
+                        nom="D";                            
+                } 
+                if(nom.compareTo("yaLil")==0){ 
+                        nom="D";                            
+                }   
+                if(nom.compareTo("C")==0){ 
+                                     String no2="E";                                     
+                                     arrNomb.add(no2);
+                            }
+                nom=nom.replaceAll("l","I");
                 arrNomb.add(nom);
             }
             if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
@@ -341,6 +370,21 @@ public class Recorte {
                             if(nom3.compareTo("Aja")==0){ 
                                      nom3="A";
                             }
+                            if(nom3.compareTo("Exi")==0){ 
+                                     nom3="E";
+                            }
+                            if(nom3.compareTo("rx")==0){ 
+                                     nom3="D";
+                            }
+                            if(nom3.compareTo("MU")==0){ 
+                                     nom3="O";
+                            }
+                            if(nom3.compareTo("fx")==0){ 
+                                     nom3="A";
+                            }
+                            if(nom3.compareTo("AU")==0){ 
+                                     nom3="O";
+                            }
                             nom3=nom3.replaceAll("l","I");
 //                            if(nom3.compareTo("K")==0){ 
 //                                     String no2=no+"I";                                     
@@ -350,10 +394,10 @@ public class Recorte {
 //                                     String no2=no+"I";                                     
 //                                      arrNomb.add(no2);
 //                            }
-//                            if(nom.compareTo("CI")==0){ 
-//                                     String no2=no+"E";                                     
-//                                      arrNomb.add(no2);
-//                            }
+                            if(nom3.compareTo("P")==0){ 
+                                     String no2=no+"D";                                     
+                                      arrNomb.add(no2);
+                            }
                             if(nom3.compareTo("EJ")==0){ 
                                      String no2=no+"S";                                     
                                       arrNomb.add(no2);
@@ -369,10 +413,14 @@ public class Recorte {
                             if(nom3.compareTo("Aji")==0){ 
                                     nom3="A";                            
                             }
+                            if(nom3.compareTo("yw")==0){ 
+                                    nom3="D";                            
+                            }
                             nom3=nom3.replaceAll("Hu","O");
                             nom3=nom3.replaceAll("f","C");
                             nom3=nom3.replaceAll("a","I");
                             nom3=nom3.replaceAll("b","D");
+                            nom3=nom3.replaceAll("u","A");
                             nom3=nom3.replaceAll("In","L");
                             nom3=nom3.trim();                            
                             no+=nom3;
@@ -395,9 +443,9 @@ public class Recorte {
             if(i==1) alto = letra.getHeight();
         }        
 //        System.out.println(nom);
-        for(int k=0;k<arrNomb.size();k++){
-            System.out.println(""+arrNomb.get(k));
-        }
+//        for(int k=0;k<arrNomb.size();k++){
+//            System.out.println(""+arrNomb.get(k));
+//        }
         return arrNomb;
     }
     
@@ -438,9 +486,19 @@ public class Recorte {
                                      String no2="J";                                     
                                      arrNomb.add(no2);
                             }
+                if(nom.compareTo("U")==0){ 
+                                     String no2="J";                                     
+                                     arrNomb.add(no2);
+                            }
                 if(nom.compareTo("FNL l")==0){ 
                                      nom="D";  
-                            }                
+                            }
+                if(nom.compareTo("rxu")==0){ 
+                                     nom="D";  
+                            } 
+                if(nom.compareTo("r")==0){ 
+                                     nom="D";  
+                            }
                 arrNomb.add(nom);
             }
             if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
@@ -486,6 +544,15 @@ public class Recorte {
                            if(nom3.compareTo("Hu")==0){ 
                                      nom3="O";
                             }
+                           if(nom3.compareTo("fx")==0){ 
+                                     nom3="D";
+                            }
+                           if(nom3.compareTo("IQ")==0){ 
+                                     nom3="R";
+                            }
+                           if(nom3.compareTo("d")==0){ 
+                                     nom3="J";
+                            }
                            nom3=nom3.replaceAll("iEZ","E");
                            nom3=nom3.replaceAll("\nH","");                           
                            nom3=nom3.replaceAll("Ii","");
@@ -500,31 +567,45 @@ public class Recorte {
                            nom3=nom3.replaceAll("\n","");
                            nom3=nom3.trim();
                             String no=arrNomb.get(k);
+                            if(nom3.compareTo("")==0){ 
+                                     String no2=no+"I";                                     
+                                      arrNomb.add(no2);
+                                     String no3=no+"L";                                     
+                                      arrNomb.add(no3);
+                            }
+                           if(nom3.compareTo("FU")==0){ 
+                                     nom3="O";
+                            }
+                           if(nom3.compareTo("KL")==0){ 
+                                     nom3="L";
+                            }
+                           if(nom3.compareTo("IL")==0){ 
+                                     nom3="L";
+                            }
+                           if(nom3.compareTo("rwU")==0){ 
+                                     nom3="D";
+                            }
+                           if(nom3.compareTo("rw")==0){ 
+                                     nom3="D";
+                            }
+                           if(nom3.compareTo("r")==0){ 
+                                     nom3="D";
+                            }
+                           if(nom3.compareTo("xL")==0){ 
+                                     nom3="L";
+                            }
+                            if(nom3.compareTo("yxLJ")==0){ 
+                                     nom3="D";
+                            }    
                             if(nom3.compareTo("I")==0){ 
                                      String no2=no+"L";                                     
                                       arrNomb.add(no2);
                             }
-                            nom3=nom3.replaceAll("l","I");
-//                            if(nom3.compareTo("CI")==0){ 
-//                                     String no2=no+"P";                                     
-//                                      arrNomb.add(no2);
-//                            }                            
-//                            if(nom3.compareTo("i")==0){ 
-//                                     String no2=no+"S";                                     
-//                                      arrNomb.add(no2);
-//                            }
-//                            if(nom3.compareTo("K")==0){ 
-//                                     String no2=no+"I";                                     
-//                                      arrNomb.add(no2);
-//                            }                            
-//                            if(nom3.compareTo("C")==0){ 
-//                                     String no2=no+"O";                                     
-//                                      arrNomb.add(no2);
-//                            }
-//                            if(nom3.compareTo("V")==0){ 
-//                                     String no2=no+"Y";                                     
-//                                      arrNomb.add(no2);
-//                            }                            
+                            if(nom3.compareTo("AU")==0){ 
+                                     String no2=no+"O";                                     
+                                      arrNomb.add(no2);
+                            }
+                            nom3=nom3.replaceAll("l","I");                 
                             nom3=nom3.replaceAll("i","S");
                             if(nom3.compareTo("IY")==0){ 
                                      String no2=no+"J";                                     
@@ -532,6 +613,10 @@ public class Recorte {
                             }
                             if(nom3.compareTo("E")==0){ 
                                      String no2=no+"R";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("K")==0){ 
+                                     String no2=no+"I";                                     
                                       arrNomb.add(no2);
                             }
                             if(nom3.compareTo("Q")==0){ 
@@ -542,12 +627,20 @@ public class Recorte {
                                      String no2=no+"O";                                     
                                       arrNomb.add(no2);
                             }
+                            if(nom3.compareTo("U")==0){ 
+                                     String no2=no+"O";                                     
+                                      arrNomb.add(no2);
+                            }
                             if(nom.compareTo("II")==0){ 
                                      String no2=no+"L";                                     
                                       arrNomb.add(no2);
                             }
-                            
-                            nom3=nom3.replaceAll("k","R");                            
+                            if(nom.compareTo("k")==0){ 
+                                     String no2=no+"R";                                     
+                                      arrNomb.add(no2);
+                            }  
+                            nom3=nom3.replaceAll("k","K");
+                            nom3=nom3.replaceAll("r","D");
                             nom3=nom3.trim();                            
                             no+=nom3;
                             arrNomb.set(k, no);
@@ -570,12 +663,12 @@ public class Recorte {
             }
             if(i==1) alto = letra.getHeight();
         }
-        for(int k=0;k<arrNomb.size();k++){
-            System.out.println(""+arrNomb.get(k));
-        }
+//        for(int k=0;k<arrNomb.size();k++){
+//            System.out.println(""+arrNomb.get(k));
+//        }
         return arrNomb;
     }
-    
+     
     private static int esCuadroBlanco(BufferedImage cuadro){
         cuadro = limpiarBordeImagen(cuadro,2,4);
         cuadro = removeNoisePoints(cuadro);
@@ -664,37 +757,28 @@ public class Recorte {
                 String nombre = "";
                 String apell = "";
                 String ap;
-//                 for(int k=0;k<nombres.size();k++){
-//  
-//                        try {
-////                            ImagePlus imp=new ImagePlus("im",nombres.get(k));
-////                            imp.show();
-//                            nombre += instance2.doOCR(nombres.get(k));
-////                            System.out.print(nombre+" ");
-//                        } catch (TesseractException ex) {
-//                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    
-//                }
-                 
-//                 System.out.println(nombre);
-                 
-//                 for(int k=0;k<apellidos.size();k++){
-//  
-//                        try {
-////                            ImagePlus imp=new ImagePlus("im",apellidos.get(k));
-////                            imp.show();
-//                            ap = instance2.doOCR(apellidos.get(k));
-//                            ap = ap.trim();
-//                            apell+=ap+" ";
-////                            System.out.print(apell+" ");
-//                        } catch (TesseractException ex) {
-//                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    
-//                }
-//                 System.out.println(apell);
                 
+                ArrayList<String> nombresE=null;
+                nombresE=RevisaNombre(nombres2);
+//                for(int k=0;k<nombresE.size();k++){
+//                    System.out.println("N: "+nombresE.get(k));
+//                }      
+//                System.out.println("");
+                ArrayList<String> apellidosE=null;
+                apellidosE=RevisaApellido(apellidos2);
+//                for(int k=0;k<apellidosE.size();k++){
+//                    System.out.println("A: "+apellidosE.get(k));
+//                }
+                ArrayList<String> lDniOcrL=new ArrayList<String>();
+                lDniOcrL=nombresE;
+                for(int k=0;k<apellidosE.size();k++){
+                    if(!lDniOcrL.contains(apellidosE.get(k))){
+                        lDniOcrL.add(apellidosE.get(k));
+                    }
+                }
+                for(int k=0;k<lDniOcrL.size();k++){
+                    System.out.println(lDniOcrL.get(k));
+                }
 
                 
                 int ubigeo = 0;
@@ -952,6 +1036,116 @@ public class Recorte {
        }    
        return ubigeo;
     }
+
+    
+    private static ArrayList<String> RevisaNombre(ArrayList<String> arrNomb){
+        ArrayList<String> nombresE=new ArrayList<String>();
+        ArrayList<String> dniE=new ArrayList<String>();
+        int gd=0;
+        try {           
+//                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+                        gd=0;
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+			while (cells.hasNext())
+			{
+				cell=(XSSFCell) cells.next();
+                                if(i==0)
+                                {
+                                    String dh=cell.getStringCellValue();
+                                    dh=dh.toUpperCase();
+                                    for(int j=0;j<arrNomb.size();j++){
+                                        String nom=arrNomb.get(j).toUpperCase().trim();
+                                        if(nom.compareTo(dh)==0){
+                                            nombresE.add(dh);
+                                            gd=1;
+                                        }
+                                    }
+                                    if(gd!=1)break;
+                                }
+                                if(i==2 && gd==1){
+                                    double d2=cell.getNumericCellValue();
+                                    int num=(int) d2;
+                                    String dn=num+"";
+                                    dniE.add(dn);
+                                    break;
+                                }
+                                i++;
+			}                       
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }        
+        return dniE;
+    }
+ 
+     private static ArrayList<String> RevisaApellido(ArrayList<String> arrNomb){
+        ArrayList<String> nombresE=new ArrayList<String>();
+        ArrayList<String> dniE=new ArrayList<String>();
+        int gd=0;
+        try {           
+//                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+                        gd=0;
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+			while (cells.hasNext())
+			{
+				cell=(XSSFCell) cells.next();
+                                if(i==1)
+                                {
+                                    String dh=cell.getStringCellValue();
+                                    dh=dh.toUpperCase();
+                                    for(int j=0;j<arrNomb.size();j++){
+                                        String nom=arrNomb.get(j).toUpperCase().trim();
+                                        if(nom.compareTo(dh)==0){
+                                            nombresE.add(dh);
+                                            gd=1;
+                                        }
+                                    }
+                                    if(gd!=1)break;
+                                }
+                                if(i==2 && gd==1){
+                                    double d2=cell.getNumericCellValue();
+                                    int num=(int) d2;
+                                    String dn=num+"";
+                                    dniE.add(dn);
+                                    break;
+                                }
+                                i++;
+			}                       
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }        
+        return dniE;
+    }
+    
     
     private static void buscarImagenes(String dni){        
         ImagenHuella=null;
