@@ -6,6 +6,7 @@
 package grupob;
 
 import algoritmos.Recorte;
+import static algoritmos.Recorte.rutaGeneral;
 import controlador.Manager;
 import java.io.File;
 import java.io.FileWriter;
@@ -33,6 +34,8 @@ import model.Institucion;
 import model.Local;
 import model.Region;
 import model.TipoProcesoVotacion;
+import org.apache.commons.io.FilenameUtils;
+import preprocessing.Utils;
 
 /**
  *
@@ -731,8 +734,14 @@ public class TipoProceso extends javax.swing.JPanel {
 
         jLabel14.setText("Seleccione Carpeta de Firmas de Repositorio:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+
+        textConfGeneral.setEditable(false);
         jPanel1.add(textConfGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
+
+        textConfHuellas.setEditable(false);
         jPanel1.add(textConfHuellas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 210, -1));
+
+        textConfFirmas.setEditable(false);
         jPanel1.add(textConfFirmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, -1));
 
         seleccionarFirmas.setText("Seleccionar");
@@ -1391,7 +1400,11 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
         fileChooser.setDialogTitle("Seleccionar Carpeta");
         int returnValue = fileChooser.showOpenDialog(null);
         File selectedFile=fileChooser.getSelectedFile();
-        textConfGeneral.setText(""+selectedFile);
+        String ext = FilenameUtils.getExtension(selectedFile.getName());
+        if(ext.compareTo("xlsx")!=0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo excel.");
+        } else { 
+        textConfGeneral.setText(""+selectedFile);}
 //        Recorte.rutaGeneral=""+selectedFile;        
     }//GEN-LAST:event_seleccionarGeneralActionPerformed
 
@@ -1402,7 +1415,11 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile=fileChooser.getSelectedFile();
-            textConfHuellas.setText(""+selectedFile);
+            if(!Utils.validarRutaImagenHuella(selectedFile.getAbsolutePath(), 1)){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una carpeta con archivos JPG con la cantidad de registros de votantes exacta.");
+            } else { 
+                textConfHuellas.setText(""+selectedFile);
+            }
 //            Recorte.rutaHuella=""+selectedFile;
         }
     }//GEN-LAST:event_seleccionarHuellasActionPerformed
@@ -1414,7 +1431,11 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile=fileChooser.getSelectedFile();
-            textConfFirmas.setText(""+selectedFile);
+            if(!Utils.validarRutaImagenHuella(selectedFile.getAbsolutePath(), 1)){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una carpeta con archivos JPG con la cantidad de registros de votantes exacta.");
+            } else { 
+                textConfFirmas.setText(""+selectedFile);
+            }
 //            Recorte.rutaFirma=""+selectedFile;            
         }
     }//GEN-LAST:event_seleccionarFirmasActionPerformed
@@ -1424,15 +1445,33 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int n =JOptionPane.showConfirmDialog (null, "Estas Seguro que deseas guardar la configuracion?","Advertencia",dialogButton);
         if(n==JOptionPane.YES_OPTION){
-                  Recorte.rutaFirma=textConfFirmas.getText();
-                  Recorte.rutaHuella=textConfHuellas.getText();
-                  Recorte.rutaGeneral=textConfGeneral.getText();
-                  System.out.println(""+Recorte.rutaGeneral);
-                  System.out.println(""+Recorte.rutaHuella);                  
-                  System.out.println(""+Recorte.rutaFirma);
-                  
-                  generaConfig(textConfHuellas.getText(),textConfFirmas.getText(),textConfGeneral.getText());
-                  JOptionPane.showMessageDialog(null,"Configuracion Guardada");
+            if(!Utils.validarRutaGeneral(textConfGeneral.getText())){
+                JOptionPane.showMessageDialog(null, "Error: No se encontró archivo excel del RNV. Configurar ruta.");
+            }else{
+                int cant = Utils.cumpleFormatoExcelRNV(textConfGeneral.getText());
+                if(cant==-1){
+                    JOptionPane.showMessageDialog(null, "Error: El archivo Excel no cumple con el formato deseado.");
+                }else{
+                    if(cant!=-1 && !Utils.validarRutaImagenHuella(textConfHuellas.getText(), cant)){
+                        JOptionPane.showMessageDialog(null, "Error: No se encontraron archivos JPG en la carpeta de Huellas.");
+                    }else{
+                        if(cant!=-1 && !Utils.validarRutaImagenHuella(textConfFirmas.getText(), cant)){
+                            JOptionPane.showMessageDialog(null, "Error: No se encontraron archivos JPG en la carpeta de Firmas.");
+                        }
+                        else{
+                              Recorte.rutaFirma=textConfFirmas.getText();
+                              Recorte.rutaHuella=textConfHuellas.getText();
+                              Recorte.rutaGeneral=textConfGeneral.getText();
+                              System.out.println(""+Recorte.rutaGeneral);
+                              System.out.println(""+Recorte.rutaHuella);                  
+                              System.out.println(""+Recorte.rutaFirma);
+
+                              generaConfig(textConfHuellas.getText(),textConfFirmas.getText(),textConfGeneral.getText());
+                              JOptionPane.showMessageDialog(null,"Configuracion Guardada");
+                        }
+                    }
+                }
+            }
         }
         
         

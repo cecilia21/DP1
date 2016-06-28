@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import model.Adherente;
 import model.PartidoPolitico;
 import net.sourceforge.tess4j.ITesseract;
@@ -30,6 +31,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import preprocessing.Utils;
 import static preprocessing.Utils.binarization;
 import static preprocessing.Utils.cropper;
 import static preprocessing.Utils.executeTesseract;
@@ -699,11 +701,33 @@ public class Recorte {
     }
  
     
-    public static void ejecutar(File file,ArrayList<Adherente> listaAdherente, PartidoPolitico partido) throws TesseractException{
+    public static int ejecutar(File file,ArrayList<Adherente> listaAdherente, PartidoPolitico partido) throws TesseractException{
+        //validar que exista excel rnv
+        if(!Utils.validarRutaGeneral(""+rutaGeneral)){
+            JOptionPane.showMessageDialog(null, "No se encontró archivo excel del RNV. Configurar ruta.");
+            return -1;
+        }
+        int cant = Utils.cumpleFormatoExcelRNV(rutaGeneral);
+        if(cant==-1){
+            JOptionPane.showMessageDialog(null, "Error: El archivo Excel no cumple con el formato deseado.");
+            return -1;
+        }
+        //validar que existan huellas jpg
+        //validar que existan firmas jpg
+        if(!Utils.validarRutaImagenHuella(rutaHuella, cant)){
+            JOptionPane.showMessageDialog(null, "Error en el directorio de huellas. Revisar configuración.");
+            return -1;
+        }
+        if(!Utils.validarRutaImagenHuella(rutaFirma, cant)){
+            JOptionPane.showMessageDialog(null, "Error en el directorio de firmas. Revisar configuración.");
+            return -1;
+        }
+        //validar formato del jpg
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         try {
             test = ImageIO.read(file);
+            //validar formato imagen
 //            test = binarization(test);
             ImagePlus imp=new ImagePlus("Nuevo",test);
             IJ.run(imp,"Make Binary","");  
@@ -863,7 +887,7 @@ public class Recorte {
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
         }       
-        
+        return 1;
     }
     
     public static void main(String[] args) throws TesseractException {
