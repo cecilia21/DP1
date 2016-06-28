@@ -61,73 +61,57 @@ public class Recorte {
     
     public static BufferedImage extraerCuadroData(BufferedImage test){
         BufferedImage cuadro;
-        int width = test.getWidth();          
-            int height = test.getHeight();
-            int inicioX, inicioY, finX, finY;
-            inicioX=inicioY=finX=finY=0;
-            boolean done = false;
-            inicioX = 0;
-            inicioY= height;
-            finX = width;
-            finY=0;
-            for(int i=0;i<(width/6);i++){
-                for(int j=height-1;j>=height-(height/5);j--){
-                    if(test.getRGB(i, j)== -16777216 && test.getRGB(i+1, j)==-16777216 &&
-                           test.getRGB(i, j-1)== -16777216){
-                        int pix=i+1;
-                        while(pix<i+20){
-                            int menor, mayor;
-                            menor = j-1;
-                            mayor = j+1;
-                            if(j-1<0) menor = 0;
-                            if(j+1==height)mayor = j;
-                            if(test.getRGB(pix, j)!=-16777216 && test.getRGB(pix, menor)!=-16777216 &&
-                                    test.getRGB(pix, mayor)!= -16777216) break;
-                            pix++;
-                            if(pix==i+20){
-                                inicioX=i;
-                                inicioY=j;
-                                done = true;
-                            }
-                        }
-                        if(done)
-                            break;
-                    }                        
-                }
-                if(done) break;
+        for(int i=5;i<test.getHeight()/4;i++){
+            int[] linea = new int[test.getWidth()];
+            for(int j=0;j<test.getWidth();j++)
+                linea[j]=test.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                test = test.getSubimage(0, i, test.getWidth(),test.getHeight()-i );
+                break;
             }
-            done = false;
-            for(int i=width-1;i>=width-(width/4);i--){
-                for(int j=0;j<(height/4);j++){
-                    if(test.getRGB(i, j)==-16777216 && test.getRGB(i-1, j)==-16777216 &&
-                            test.getRGB(i, j+1)==-16777216){
-                        int pix=i-1;
-                        while(pix>i-20){
-                            int menor, mayor;
-                            menor = j-1;
-                            mayor = j+1;
-                            if(j-1<0) menor = 0;
-                            if(j+1==height)mayor = j;
-                            if(test.getRGB(pix, j)!=-16777216 && test.getRGB(pix, menor)!=-16777216 &&
-                                    test.getRGB(pix, mayor)!= -16777216) break;
-                            pix--;
-                            if(pix==i-20){
-                                finX=i;
-                                finY=j;
-                                done = true;
-                            }
-                        }
-                        if(done)
-                            break;
-                    }
-                }
-                if(done)break;
+        }
+        for(int i=5;i<test.getWidth()/4;i++){
+            int[] linea=new int[test.getHeight()];
+            for(int j=0;j<test.getHeight();j++)
+                linea[j] = test.getRGB(i, j);
+            if(esLineaNegra(linea)){
+                test=test.getSubimage(i, 0, test.getWidth()-i, test.getHeight());
+                break;
             }
-
-            test = test.getSubimage(inicioX, finY, (finX-inicioX), (inicioY-finY));
-            int nuevoHeight = Math.round(test.getHeight()*(float)0.965);
-            int ini = Math.round(test.getHeight()*(float)0.035);
-            cuadro = test.getSubimage(0, ini, test.getWidth(), nuevoHeight);
+        }
+        for(int i=test.getWidth()-7;i>test.getWidth()/2;i--){
+            int[] linea = new int[test.getHeight()];
+            for(int j=0;j<test.getHeight();j++)
+                linea[j]=test.getRGB(i, j);
+            if(esLineaNegra(linea)){
+                test=test.getSubimage(0, 0, i, test.getHeight());
+                break;
+            }
+        }
+        for(int i=test.getHeight()-5;i>test.getHeight()/2;i--){
+            int[] linea= new int[test.getWidth()];
+            for(int j=0;j<test.getWidth();j++)
+                linea[j]=test.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                test=test.getSubimage(0, 0, test.getWidth(), i);
+                break;
+            }
+        }
+            int blancos = 1;
+            int fila = 0;
+            boolean ant_negra = false;
+            while(blancos<3&&fila<test.getHeight()-1){
+                int[] linea = new int [test.getWidth()];
+                for(int i=0;i<test.getWidth();i++)
+                    linea[i] = test.getRGB(i,fila);
+                if(esLineaNegra(linea)){
+                    if(!ant_negra)blancos++;
+                    ant_negra=true;
+                } else ant_negra = false;
+                fila++;
+            }
+            int nuevoHeight = test.getHeight()-fila;
+            cuadro = test.getSubimage(0, fila, test.getWidth(), nuevoHeight);
             return cuadro;
     }
     
@@ -245,7 +229,7 @@ public class Recorte {
     public static BufferedImage extraerDniUnaImagen(BufferedImage registro){
         BufferedImage dni = extraerCuadritos(1,8,registro);
         BufferedImage result = new BufferedImage(
-                       dni.getWidth(), dni.getHeight(), //work these out
+                       dni.getWidth(), dni.getHeight()+40, //work these out
                        BufferedImage.TYPE_INT_RGB);
         for(int i=0;i<result.getHeight();i++) for(int j=0;j<result.getWidth();j++) result.setRGB(j, i, -1);
         Graphics g = result.getGraphics();
@@ -258,7 +242,7 @@ public class Recorte {
             letra = removeNoisePoints(letra);
             letra = cropper(letra);
             g.drawImage(letra, i*dni.getWidth()/8, 20, null);
-            if(i==1) alto = letra.getHeight();
+            if(i==1) alto = letra.getHeight()-1;
         }       
         return result.getSubimage(0, 0, dni.getWidth(), alto+40);
     }
@@ -856,7 +840,7 @@ public class Recorte {
     public static void main(String[] args) throws TesseractException {
         // TODO code application logic here
         //File file = new File("C:\\Users\\alulab14.INF\\Downloads\\alternado_ok_rayado_v1.jpg");
-        File file = new File("D:\\Base Datos/Padron_PlantillaN1.jpg");
+        File file = new File("D:\\Users\\Cecilia\\Downloads/fallo.jpg");
         BufferedImage test;
         int inicioX, inicioY, finX, finY;
         String nombre2 = "";
@@ -869,8 +853,12 @@ public class Recorte {
         try {
             test = ImageIO.read(file);
             test = binarization(test);
+            int valido = Utils.validarPlanillon(test);
+            if(valido==-1) return;
+            System.out.println("llego");
             //ImageIO.write(test, "jpg", new File("C:\\Users\\alulab14\\Downloads\\bin.jpg"));
             test = extraerCuadroData(test);
+            ImageIO.write(test,"jpg", new File("D:\\Users\\Cecilia\\Downloads/tod.jpg"));
             BufferedImage[] registros = extraerRegistros(test);
             int ancho = Math.round(registros[0].getWidth()*(float)0.02);
             BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
@@ -878,7 +866,9 @@ public class Recorte {
      //       extraerFirma(registros[0]);
      String numero ;
             for(int k=0;k<registros.length;k++){
+                
                 BufferedImage dniComp = extraerDniUnaImagen(registros[k]);                
+                ImageIO.write(dniComp,"jpg", new File("D:\\Users\\Cecilia\\Downloads/tod"+k+".jpg"));
 //                ArrayList<BufferedImage> nombres = extraerNombre(registros[k]);
                 String nombre = ""; String identidad ="";
                 nombre2="";

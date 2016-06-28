@@ -327,45 +327,49 @@ public class Utils {
     }
     
     public static BufferedImage limpiarBordeImagen(BufferedImage numero1, int proporcionX, int proporcionY){
+        BufferedImage nuevo = numero1;
         if(proporcionX ==-1) proporcionX = 1;
         if(proporcionY ==-1) proporcionY = 1;
         int inicioY, inicioX, finY, finX;
         inicioY = 0;
         for(int i=0;i<numero1.getHeight()/proporcionY;i++){
-            for(int j=0;j<numero1.getWidth();j++){
-                if(numero1.getRGB(j, i)!=-16777216) break;
-                if(j==numero1.getWidth()-1) inicioY = i+1;
+            int[] linea = new int[numero1.getWidth()];
+            for(int j=0;j<numero1.getWidth();j++)
+                linea[j]=numero1.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                 inicioY = i+1;   
             }
         }
 
         finY = numero1.getHeight()-1;
         for(int i=numero1.getHeight()-1;i>(numero1.getHeight()-(numero1.getHeight()/proporcionY));i--){
-            for(int j=0;j<numero1.getWidth();j++){
-                if(numero1.getRGB(j, i)!=-16777216) break;
-                if(j==numero1.getWidth()-1) finY = i-1;
+            int[] linea= new int[numero1.getWidth()];
+            for(int j=0;j<numero1.getWidth();j++)
+                linea[j]=numero1.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                finY = i-1;
             }
         }
 
         inicioX = 0;
         for(int i=0;i<numero1.getWidth()/proporcionX;i++){
-            int blancos = 0;
-            for(int j=0;j<numero1.getHeight();j++){
-                if(numero1.getRGB(i, j)!=-16777216){
-                    blancos++;
-                    if(blancos > 0.5*numero1.getHeight())
-                        break;
-                }
-                if(j+1==numero1.getHeight()) inicioX = i+1;
+            int[] linea=new int[numero1.getHeight()];
+            for(int j=0;j<numero1.getHeight();j++)
+                linea[j] = numero1.getRGB(i, j);
+            if(esLineaNegra(linea)){
+                inicioX =i+1;
             }
         }
 
         finX = numero1.getWidth()-1;
         for(int i=numero1.getWidth()-1;i>(numero1.getWidth()-(numero1.getWidth()/proporcionX));i--){
-            for(int j=0;j<numero1.getHeight();j++){
-                if(numero1.getRGB(i, j)!=-16777216) break;
-                if(j==numero1.getHeight()-1) finX = i-1;
+            int[] linea = new int[numero1.getHeight()];
+            for(int j=0;j<numero1.getHeight();j++)
+                linea[j]=numero1.getRGB(i, j);
+            if(esLineaNegra(linea)){
+                finX=i-1;
             }
-        }
-        return numero1.getSubimage(inicioX, inicioY, (finX-inicioX), (finY-inicioY));
+        }        
+        return numero1.getSubimage(inicioX, inicioY, (finX-inicioX),(finY-inicioY));
     }
 }
