@@ -828,69 +828,63 @@ public class DetallePartido extends javax.swing.JPanel {
             int cantValidosT=0;
             int cantRechazadosT=0;
             int cantObservadosT=0;
-            for (File file : files) {
-                ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
-                ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
-                try {
-                    Recorte.ejecutar(file,listaAdherente, partPolitico );
-                } catch (TesseractException ex) {
-                    Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-//                Adherente ad1= new Adherente();
-//                ad1.setDni("66666665");
-//                ad1.setEstado("Observado");
-//                
-//                Adherente ad2= new Adherente();
-//                ad2.setDni("66666666");
-//                ad2.setEstado("Aprobado");
-//                listaAdherente.add(ad1);
-//                listaAdherente.add(ad2);                
-//                
-//                Adherente ad3= new Adherente();
-//                ad3.setDni("66666667");
-//                ad3.setEstado("Aprobado");
-//                listaAdherente.add(ad3);
-                
-                //Validar si ya estan en la base de datos
-                ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
-                int esta=0;
-                for(int i=0;i<listaAdherente.size();i++){
-                    for(int j=0;j<lAdBD.size();j++){
-                        if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
-                            esta=1;
-                            break;
-                        }                            
+            int resultado = -1;
+            if(files.length<1){
+                JOptionPane.showMessageDialog(null, "Carpeta vacía, seleccione otra.");
+            } else{
+                for (File file : files) {
+                    ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
+                    ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
+                    resultado = -1;
+                    try {
+                        resultado = Recorte.ejecutar(file,listaAdherente, partPolitico );
+                    } catch (TesseractException ex) {
+                        Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    if(esta==0)
-                        listaAdherentef.add(listaAdherente.get(i));
-                    esta=0;
+                    if(resultado==-1) break;
+                        //Validar si ya estan en la base de datos
+                        ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                        int esta=0;
+                        for(int i=0;i<listaAdherente.size();i++){
+                            for(int j=0;j<lAdBD.size();j++){
+                                if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                                    esta=1;
+                                    break;
+                                }                            
+                            }
+                            if(esta==0)
+                                listaAdherentef.add(listaAdherente.get(i));
+                            esta=0;
+                        }
+                        int cantValidos=0;
+                        int cantObservados=0;
+                        for(int i=0;i<listaAdherentef.size();i++){
+                            listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                            listaAdherentef.get(i).setIdPartido(partidos.get(0).getId());
+                            if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                                cantValidos+=1;
+                                cantValidosT+=1;
+                            }                        
+                            if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                                cantObservados+=1;
+                                cantObservadosT+=1;
+                            }    
+                        }
+                        Manager.addListaAdherente(listaAdherentef); 
+                        cantRechazadosT+=(personaPadron-cantValidos-cantObservados);
+                        PartidoPolitico partPol=partidos.get(0); 
+                        partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                        Manager.updatePartido(partPol);  
+                    }
+                if(resultado!=-1){
+                    System.out.println("4");
+                    showDetail(partidos.get(0)); 
+                    Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
+                    dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
+                    dialog.setLocationRelativeTo(null);
+                    dialog.setVisible(true);
                 }
-                int cantValidos=0;
-                int cantObservados=0;
-                for(int i=0;i<listaAdherentef.size();i++){
-                    listaAdherentef.get(i).setJpg(file.getAbsolutePath());
-                    listaAdherentef.get(i).setIdPartido(partidos.get(0).getId());
-                    if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
-                        cantValidos+=1;
-                        cantValidosT+=1;
-                    }                        
-                    if(listaAdherentef.get(i).getEstado().equals("Observado")){
-                        cantObservados+=1;
-                        cantObservadosT+=1;
-                    }    
-                }
-                Manager.addListaAdherente(listaAdherentef); 
-                cantRechazadosT+=(personaPadron-cantValidos-cantObservados);
-                PartidoPolitico partPol=partidos.get(0); 
-                partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
-                Manager.updatePartido(partPol);  
             }
-            showDetail(partidos.get(0)); 
-            Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
-            dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
         }
     }//GEN-LAST:event_validarNuevosActionPerformed
 

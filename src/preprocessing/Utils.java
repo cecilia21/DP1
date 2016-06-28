@@ -5,20 +5,142 @@
  */
 package preprocessing;
 
+import algoritmos.Recorte;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
  * @author USUARIO
  */
+
+
 public class Utils {
     private static String tesseract = "src\\red\\Tesseract-OCR";
     private static String carpeta_temp = "src\\red\\";
+    /*
+    public static void main(String args[]){
+        validarRutaGeneral("C:\\Users\\Cecilia\\Desktop\\Libro1.xlsx");
+        //cumpleFormatoExcelRNV("C:\\Users\\Cecilia\\Desktop\\Libro1.xlsx");
+        cumpleFormatoExcelRNV("D:\\Users\\Cecilia\\Downloads\\registro.nacional.v.1.xlsx");
+        
+    }
+   */
+    public static boolean validarRutaGeneral(String ruta){
+        if(new File(ruta)==null) return false;
+        if(!new File(ruta).exists()) return false;
+        File[] files = new File(ruta).listFiles();
+        if(new File(ruta).isDirectory()||files!=null){
+            if(files.length>3) return false;
+            for(int i=0;i<files.length;i++){
+                String ext = FilenameUtils.getExtension(files[i].getName());
+                if(ext.compareTo("xlsx")==0) return true;
+            }
+            return false;
+        } else{
+            String ext = FilenameUtils.getExtension(new File(ruta).getName());
+            if(ext.compareTo("xlsx")==0) return true;
+            return false;
+        }
+    }
+    public static boolean validarRutaImagenHuella(String imagen, int cantRegistros){
+        if(new File(imagen)==null) return false;
+        if(!new File(imagen).exists()) return false;
+        if(new File(imagen).isDirectory()){
+            File[] files = new File(imagen).listFiles();
+            if(files.length<cantRegistros) return false;
+            int cantJPgs = 0;
+            for(int i=0;i<files.length;i++){
+                String ext = FilenameUtils.getExtension(files[i].getName());
+                if(ext.compareTo("jpg")==0) cantJPgs++;
+            }
+            if(cantJPgs<cantRegistros) return false;
+            return true;
+        }
+        return false;
+    }
+    
+    public static int cumpleFormatoExcelRNV(String ruta){
+        InputStream ExcelFileToRead = null;
+        try {
+            //regresa -1 si NO cumpel formato
+            // de lo contrario regresa la cantidad de registros que tiene
+            ExcelFileToRead = new FileInputStream(ruta);
+            XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+            XSSFSheet sheet = wb.getSheetAt(0);
+            XSSFRow row;
+            XSSFCell cell;
+            Iterator rows = sheet.rowIterator();
+            row=(XSSFRow) rows.next();
+            Iterator cells = row.cellIterator();
+            cell=(XSSFCell) cells.next();
+            if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) return -1;
+            String dh=cell.getStringCellValue();
+            dh=dh.toUpperCase();
+            if(dh.compareTo("NOMBRE")!=0) return -1;
+            cell=(XSSFCell) cells.next();
+            if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) return -1;
+            dh=cell.getStringCellValue();
+            dh=dh.toUpperCase();
+            if(dh.compareTo("APELLIDOS")!=0) return -1;
+            cell=(XSSFCell) cells.next();
+            if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) return -1;
+            dh=cell.getStringCellValue();
+            dh=dh.toUpperCase();
+            if(dh.compareTo("DNI")!=0) return -1;
+            cell=(XSSFCell) cells.next();
+            if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) return -1;
+            dh=cell.getStringCellValue();
+            dh=dh.toUpperCase();
+            if(dh.compareTo("UBIGEO")!=0) return -1;
+            cell=(XSSFCell) cells.next();
+            if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) return -1;
+            dh=cell.getStringCellValue();
+            dh=dh.toUpperCase();
+            if(!dh.matches("HUELLA.*")) return -1;
+            cell=(XSSFCell) cells.next();
+            if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) return -1;
+            dh=cell.getStringCellValue();
+            dh=dh.toUpperCase();
+            if(!dh.matches("FIRMA.*")) return -1;
+            int cant = 0;
+            while(rows.hasNext()){
+                row = (XSSFRow) rows.next();
+                cells = row.cellIterator();
+                cell=(XSSFCell) cells.next();
+                if(cell.getCellType() != XSSFCell.CELL_TYPE_STRING) break;
+                cant++;
+            }
+            return cant;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ExcelFileToRead.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return -1;
+    }
     
     public static BufferedImage binarization(BufferedImage originalImage){
         BufferedImage blackAndWhiteImg = new BufferedImage(
