@@ -687,6 +687,8 @@ public class Recorte {
             ImagePlus imp=new ImagePlus("Nuevo",test);
             IJ.run(imp,"Make Binary","");  
             test= (BufferedImage) imp.getImage(); 
+            int valido = Utils.validarPlanillon(test);
+            if(valido==-1) return -1;
        //Configuracion del Algoritmo OCR digitos
             ITesseract instance  = new Tesseract();
          ArrayList<String> p = new ArrayList<>();
@@ -846,6 +848,7 @@ public class Recorte {
             
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }       
         return 1;
     }

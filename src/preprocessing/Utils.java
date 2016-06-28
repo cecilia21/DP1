@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -38,7 +39,15 @@ public class Utils {
     public static void main(String args[]){
         validarRutaGeneral("C:\\Users\\Cecilia\\Desktop\\Libro1.xlsx");
         //cumpleFormatoExcelRNV("C:\\Users\\Cecilia\\Desktop\\Libro1.xlsx");
-        cumpleFormatoExcelRNV("D:\\Users\\Cecilia\\Downloads\\registro.nacional.v.1.xlsx");
+        //cumpleFormatoExcelRNV("D:\\Users\\Cecilia\\Downloads\\registro.nacional.v.1.xlsx");
+        BufferedImage img;
+        try {
+            img = ImageIO.read(new File("D:\\Users\\Cecilia\\Documents\\cecilia\\DP1\\pruebas/todo.jpg"));
+            int num = validarPlanillon(img);
+            System.out.println(""+num);
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
    */
@@ -140,6 +149,63 @@ public class Utils {
             }
         }
         return -1;
+    }
+    
+    private static boolean esLineaNegra(int[] linea){
+        double porcentaje = 0.7*linea.length;
+        int negros=0;
+        for(int i=0;i<linea.length;i++)
+            if(linea[i]==-16777216) negros++;
+            //if(linea[i]!=-1) negros++;
+        if(negros>=porcentaje) return true;
+        return false;
+    }
+    
+    public static int validarPlanillon(BufferedImage test){
+        if(test.getWidth()<1200 || test.getHeight()<500) return -1;
+        int inicioY = 0;
+        int inicioX = 0;
+        int finY = test.getHeight()-1;
+        int finX = test.getWidth() -1;
+        for(int i=5;i<test.getHeight()/4;i++){
+            int[] linea = new int[test.getWidth()];
+            for(int j=0;j<test.getWidth();j++)
+                linea[j]=test.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                inicioY = i+1;
+                break;
+            }
+        }
+        for(int i=5;i<test.getWidth()/4;i++){
+            int[] linea=new int[test.getHeight()];
+            for(int j=0;j<test.getHeight();j++)
+                linea[j] = test.getRGB(i, j);
+            if(esLineaNegra(linea)){
+                inicioX = i+1;
+                break;
+            }
+        }
+        for(int i=test.getWidth()-7;i>test.getWidth()/2;i--){
+            int[] linea = new int[test.getHeight()];
+            for(int j=0;j<test.getHeight();j++)
+                linea[j]=test.getRGB(i, j);
+            if(esLineaNegra(linea)){
+                finX = i-1;
+                break;
+            }
+        }
+        for(int i=test.getHeight()-5;i>test.getHeight()/2;i--){
+            int[] linea= new int[test.getWidth()];
+            for(int j=0;j<test.getWidth();j++)
+                linea[j]=test.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                finY = i-1;
+                break;
+            }
+        }
+        if(finY<inicioY || finX<inicioX) return -1;
+        if((finY-inicioY)<400 || (finX-inicioX)<1200) return -1;
+        return 1;
     }
     
     public static BufferedImage binarization(BufferedImage originalImage){
