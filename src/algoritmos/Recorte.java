@@ -1027,8 +1027,8 @@ public class Recorte {
         ArrayList<String> dniE=new ArrayList<String>();
         int gd=0;
         try {           
-//                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
-                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+//                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
                 XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		XSSFRow row; 
@@ -1081,8 +1081,8 @@ public class Recorte {
         ArrayList<String> dniE=new ArrayList<String>();
         int gd=0;
         try {           
-//                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
-                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+//                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
                 XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		XSSFRow row; 
