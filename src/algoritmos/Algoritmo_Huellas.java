@@ -359,7 +359,7 @@ public class Algoritmo_Huellas {
                 huellaCompararE=binarizarHuella(huellaCompararE);
                 huellaOriginalE=skeletonHuella(huellaOriginalE);
                 huellaCompararE=skeletonHuella(huellaCompararE);
-                ImagePlus im=new ImagePlus("huella original",huellaOriginalE);
+               ImagePlus im=new ImagePlus("huella original",huellaOriginalE);
                 im.show();
                 ImagePlus im2=new ImagePlus("huella compara",huellaCompararE);
                 im2.show();
