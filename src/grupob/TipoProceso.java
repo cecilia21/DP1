@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -29,6 +31,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import model.Configuration;
 import model.Distrito;
 import model.Institucion;
 import model.Local;
@@ -1647,33 +1653,29 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
      private void generaConfig(String huellas, String firmas , String excel){
      
          
-         File file = new File("./config");
+         
+            File file = new File("./config");
          if(!file.exists())
              file.mkdir();
          
-         FileWriter fichero = null;
-        PrintWriter pw = null;
-        try
-        {
+         
+         Configuration conf  = new Configuration();
+         conf.setRutaGeneral(excel);
+         conf.setRutaFirmas(firmas);
+         conf.setRutaHuellas(huellas);
+         
+        try {
+            JAXBContext context =    JAXBContext.newInstance(Configuration.class);
+            Marshaller marshaller  = context.createMarshaller();
             
-           
-            fichero = new FileWriter("./config/conf.txt");
-            pw = new PrintWriter(fichero);
-
-              pw.println("dir_huellas: " + huellas );
-              
-              pw.println("dir_firmas: " +  firmas);
-              
-              pw.println("dir_excel: " + excel);
-              
-              
-              pw.close();
-              
-     fichero.close();
-        }catch(Exception ex){
-        
-        
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(conf, new File("./config/conf.xml"));
+            
+        } catch (JAXBException ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+         
      
      
      }
