@@ -485,6 +485,23 @@ public class Recorte {
                     
                 }
                  
+                 
+                 
+                 ArrayList<BufferedImage> apellidos = extraerApellidos(registros[i]);
+                 for(int k=0;k<apellidos.size();k++){
+  
+                        try {
+                            nombre += instance2.doOCR(apellidos.get(k));
+                         
+                        } catch (TesseractException ex) {
+                            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
+                }
+                 
+                 
+                 
+                 
                  System.out.println(nombre);
                 
 
@@ -776,7 +793,7 @@ public class Recorte {
                                 }
                                 if(dn!=null){
                                     if(d==nd){
-                                        
+                                       
                                         if(i==4){
                                             String dh=cell.getStringCellValue();
                                             String dr=null;
