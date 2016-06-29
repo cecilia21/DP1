@@ -151,7 +151,7 @@ public class DetallePartido extends javax.swing.JPanel {
         pestNacional.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setText("Estado Actual:");
-        pestNacional.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 93, 20));
+        pestNacional.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 170, 20));
 
         estado1.setEditable(false);
         pestNacional.add(estado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 134, -1));
@@ -170,7 +170,7 @@ public class DetallePartido extends javax.swing.JPanel {
                 jButton21ActionPerformed(evt);
             }
         });
-        pestNacional.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, -1, -1));
+        pestNacional.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
 
         jLabel8.setText("Cantidad de Adherentes faltantes: ");
         pestNacional.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
@@ -211,7 +211,7 @@ public class DetallePartido extends javax.swing.JPanel {
                 adherentesRevisionActionPerformed(evt);
             }
         });
-        pestNacional.add(adherentesRevision, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
+        pestNacional.add(adherentesRevision, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 180, -1));
         pestNacional.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 570, 10));
 
         jLabel24.setText("Opciones");
@@ -362,7 +362,7 @@ public class DetallePartido extends javax.swing.JPanel {
                     .addGroup(pestRegionalLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fechaReg2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -609,7 +609,7 @@ public class DetallePartido extends javax.swing.JPanel {
                         .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
                             .addComponent(dni_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
                             .addGroup(pestLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
