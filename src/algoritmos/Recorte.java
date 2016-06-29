@@ -711,8 +711,7 @@ public class Recorte {
                    
                    }
 //                       System.out.println(numero);
-
-
+                       
                 ArrayList<String> nombres2 = extraerNombre(registros[i]);
 //                ImagePlus imp=new ImagePlus("let",nombres.get(0));
 //                imp.show();        
@@ -723,10 +722,7 @@ public class Recorte {
                 String nombre = "";
                 String apell = "";
                 String ap;
-
-
-
-
+                
                 ArrayList<String> nombresE=null;
                 nombresE=RevisaNombre(nombres2);
 //                for(int k=0;k<nombresE.size();k++){
