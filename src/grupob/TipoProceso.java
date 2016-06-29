@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -29,6 +31,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import model.Configuration;
 import model.Distrito;
 import model.Institucion;
 import model.Local;
@@ -66,6 +72,11 @@ public class TipoProceso extends javax.swing.JPanel {
         textConfGeneral.setText(Recorte.rutaGeneral);
         textConfHuellas.setText(Recorte.rutaHuella);
         textConfFirmas.setText(Recorte.rutaFirma);
+        /*
+        Recorte.rutaGeneral = FramePrincipal.rutaGeneral;
+        Recorte.rutaHuella = FramePrincipal.rutaHuella;
+        Recorte.rutaFirma = FramePrincipal.rutaFirma;*/
+        
         if(tipoNacional!=null && tipoNacional.getId()!=0){
             if(!tipoNacional.getFechaInicio2().after(dateActual)){
                 fechai1Nacional.setDate(tipoNacional.getFechaInicio1().getTime());
@@ -399,7 +410,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 addRowRegionalActionPerformed(evt);
             }
         });
-        jPanel13.add(addRowRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
+        jPanel13.add(addRowRegional, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 50, -1));
 
         jLabel27.setText("Fecha Inicio:");
         jPanel13.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
@@ -449,7 +460,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarRegionesActionPerformed(evt);
             }
         });
-        jPanel13.add(btnGuardarRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        jPanel13.add(btnGuardarRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, 90, -1));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel4.setText("Proceso de Votacion Regional");
@@ -478,7 +489,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 jButton28ActionPerformed(evt);
             }
         });
-        jPanel14.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
+        jPanel14.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 50, -1));
 
         jLabel11.setText("%");
         jPanel14.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
@@ -531,7 +542,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel14.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        jPanel14.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, 90, -1));
         jPanel14.add(textDistrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 230, -1));
 
         jLabel5.setText("Buscar por Nombre:");
@@ -567,7 +578,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnRegistrarLocalActionPerformed(evt);
             }
         });
-        PanelLocal.add(btnRegistrarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
+        PanelLocal.add(btnRegistrarLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 50, -1));
 
         jLabel13.setText("%");
         PanelLocal.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
@@ -600,7 +611,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarTablaLocalActionPerformed(evt);
             }
         });
-        PanelLocal.add(btnGuardarTablaLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        PanelLocal.add(btnGuardarTablaLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, 90, -1));
         PanelLocal.add(dpFechaInicio1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
         PanelLocal.add(dpFechaInicio2Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
         PanelLocal.add(dpFechaFin1Local, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
@@ -658,7 +669,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnAddInstitucionalActionPerformed(evt);
             }
         });
-        jPanelInstitucional.add(btnAddInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 40, -1));
+        jPanelInstitucional.add(btnAddInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 50, -1));
 
         jLabel15.setText("%");
         jPanelInstitucional.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
@@ -691,7 +702,7 @@ public class TipoProceso extends javax.swing.JPanel {
                 btnGuardarInstitucionalActionPerformed(evt);
             }
         });
-        jPanelInstitucional.add(btnGuardarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
+        jPanelInstitucional.add(btnGuardarInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, 90, -1));
         jPanelInstitucional.add(btn1FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
         jPanelInstitucional.add(btn2FIInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
         jPanelInstitucional.add(btn1FFInstitucional, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
@@ -1642,33 +1653,29 @@ DefaultTableModel model = (DefaultTableModel) tblLocal.getModel();
      private void generaConfig(String huellas, String firmas , String excel){
      
          
-         File file = new File("./config");
+         
+            File file = new File("./config");
          if(!file.exists())
              file.mkdir();
          
-         FileWriter fichero = null;
-        PrintWriter pw = null;
-        try
-        {
+         
+         Configuration conf  = new Configuration();
+         conf.setRutaGeneral(excel);
+         conf.setRutaFirmas(firmas);
+         conf.setRutaHuellas(huellas);
+         
+        try {
+            JAXBContext context =    JAXBContext.newInstance(Configuration.class);
+            Marshaller marshaller  = context.createMarshaller();
             
-           
-            fichero = new FileWriter("./config/conf.txt");
-            pw = new PrintWriter(fichero);
-
-              pw.println("dir_huellas: " + huellas );
-              
-              pw.println("dir_firmas: " +  firmas);
-              
-              pw.println("dir_excel: " + excel);
-              
-              
-              pw.close();
-              
-     fichero.close();
-        }catch(Exception ex){
-        
-        
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(conf, new File("./config/conf.xml"));
+            
+        } catch (JAXBException ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+         
      
      
      }

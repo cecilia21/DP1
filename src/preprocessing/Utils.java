@@ -59,12 +59,12 @@ public class Utils {
             if(files.length>3) return false;
             for(int i=0;i<files.length;i++){
                 String ext = FilenameUtils.getExtension(files[i].getName());
-                if(ext.compareTo("xlsx")==0) return true;
+                if(ext.compareTo("xlsx")==0 || ext.compareTo("xls")==0) return true;
             }
             return false;
         } else{
             String ext = FilenameUtils.getExtension(new File(ruta).getName());
-            if(ext.compareTo("xlsx")==0) return true;
+            if(ext.compareTo("xlsx")==0 || ext.compareTo("xls")==0) return true;
             return false;
         }
     }
