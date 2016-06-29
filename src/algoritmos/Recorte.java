@@ -394,6 +394,10 @@ public class Recorte {
                                      String no2=no+"I";                                     
                                       arrNomb.add(no2);
                             }
+                            if(nom3.compareTo("L")==0){ 
+                                     String no2=no+"E";                                     
+                                      arrNomb.add(no2);
+                            }
                             if(nom3.compareTo("UL")==0){ 
                                      nom3="L";
                             }
@@ -422,7 +426,6 @@ public class Recorte {
             }
             if(i==1) alto = letra.getHeight();
         }        
-//        System.out.println(nom);
 //        for(int k=0;k<arrNomb.size();k++){
 //            System.out.println(""+arrNomb.get(k));
 //        }
@@ -463,6 +466,9 @@ public class Recorte {
                             }
                 if(nom.compareTo("rxu")==0){ 
                                      nom="D";  
+                            } 
+                if(nom.compareTo("AU")==0){ 
+                                     nom="O";  
                             } 
               if(nom.compareTo("V")==0){ 
                                      String no2="D";                                     
@@ -573,6 +579,10 @@ public class Recorte {
                             }
                             if(nom3.compareTo("yxLJ")==0){ 
                                      nom3="D";
+                            }
+                            if(nom3.compareTo("L")==0){ 
+                                     String no2=no+"E";                                     
+                                      arrNomb.add(no2);
                             }
                             if(nom3.compareTo("")==0){ 
                                     String no2=no+"I";                                     
@@ -725,15 +735,15 @@ public class Recorte {
                 
                 ArrayList<String> nombresE=null;
                 nombresE=RevisaNombre(nombres2);
-//                for(int k=0;k<nombresE.size();k++){
-//                    System.out.println("N: "+nombresE.get(k));
-//                }      
-//                System.out.println("");
+////                for(int k=0;k<nombresE.size();k++){
+////                    System.out.println("N: "+nombresE.get(k));
+////                }      
+////                System.out.println("");
                 ArrayList<String> apellidosE=null;
                 apellidosE=RevisaApellido(apellidos2);
-//                for(int k=0;k<apellidosE.size();k++){
-//                    System.out.println("A: "+apellidosE.get(k));
-//                }
+////                for(int k=0;k<apellidosE.size();k++){
+////                    System.out.println("A: "+apellidosE.get(k));
+////                }
                 ArrayList<String> lDniOcrL=new ArrayList<String>();
                 ArrayList<String> lDniOcrLP=new ArrayList<String>();
                 lDniOcrL=nombresE;
@@ -745,12 +755,13 @@ public class Recorte {
                         lDniOcrLP.add(apellidosE.get(k));
                     }
                 }
-                for(int k=0;k<lDniOcrLP.size();k++){
-                    System.out.println(lDniOcrLP.get(k));
-                }
+                if(lDniOcrLP.size()==0)lDniOcrLP=lDniOcrL;
+//                for(int k=0;k<lDniOcrLP.size();k++){
+//                    System.out.println(lDniOcrLP.get(k));
+//                }
                 String numero2="";
                 if(lDniOcrLP.size()==1)numero2=lDniOcrLP.get(0);
-                
+//                
                 int ubigeo = 0;
                 if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
                 if(partido.getIdTipoProceso() == 2) ubigeo  = Manager.queryByIdRegion(partido.getIdRegion()).getUbigeo();
