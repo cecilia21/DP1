@@ -14,6 +14,13 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import model.Configuration;
 import model.PartidoPolitico;
 
 /**
@@ -22,7 +29,6 @@ import model.PartidoPolitico;
  */
 public class FramePrincipal extends javax.swing.JFrame {
 
-   
     /**
      * Creates new form FramePrincipal
      */
@@ -337,48 +343,57 @@ public class FramePrincipal extends javax.swing.JFrame {
     
       private  void  cargarConfiguracion(){
          
-      File archivo = new File ("./config/conf.txt");
+      File archivo = new File ("./config/conf.xml");
       
-       if(!archivo.exists()) generaConfig();      
-      Scanner s = null;
+       if(!archivo.exists()) generaConfig();     
+       
+       JAXBContext context;
         try {
-            s = new Scanner (archivo);
-           
-          int valor = 0;
+            context = JAXBContext.newInstance(Configuration.class);
+             Unmarshaller unmarshaller = context.createUnmarshaller();
+       
+       
+            Configuration conf = (Configuration) unmarshaller.unmarshal(archivo);
             
-            while(s.hasNextLine()){
+            Recorte.rutaGeneral = conf.getRutaGeneral();
+            Recorte.rutaHuella = conf.getRutaHuellas();
+            Recorte.rutaFirma = conf.getRutaFirmas();
             
-                String cadena =   s.nextLine();
-              
-              
-               if(cadena.contains(":")){
-                 
-                   String subcad[] = cadena.split(":");
-                   String ruta  = subcad[1].trim()+":"+subcad[2].trim();
-                   if (subcad[0].contains("huellas")) Recorte.rutaHuella = ruta; //temp.ruta = ruta; 
-                   if (subcad[0].contains("firmas")) Recorte.rutaFirma  = ruta; //temp.ruta1 = ruta;
-                   if (subcad[0].contains("excel")) Recorte.rutaGeneral = ruta; //temp.ruta2 = ruta;
-                          
-               }
- 
-            }
-         
-           
-        }catch(Exception ex){
-            
- 
+        } catch (JAXBException ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-
+            
+       
      
      }
       
       public void generaConfig(){
       
-             File file = new File("./config");
+          File file = new File("./config");
          if(!file.exists())
              file.mkdir();
          
+         
+         Configuration conf  = new Configuration();
+         conf.setRutaGeneral("/home/temp");
+         conf.setRutaFirmas("/home/temp");
+            conf.setRutaHuellas("/home/temp");
+         
+        try {
+            JAXBContext context =    JAXBContext.newInstance(Configuration.class);
+            Marshaller marshaller  = context.createMarshaller();
+            
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(conf, new File("./config/conf.xml"));
+
+            
+        } catch (JAXBException ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+
+         
+         /*
          FileWriter fichero = null;
         PrintWriter pw = null;
         try
@@ -403,7 +418,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         
         }
       
-      
+      */
       
       }
       

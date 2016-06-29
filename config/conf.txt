@@ -1,3 +1,0 @@
-dir_huellas: C:\Users\Raul\Desktop\RepoGrupoB\Huellas
-dir_firmas: C:\Users\Raul\Desktop\RepoGrupoB\Firmas
-dir_excel: C:\Users\Raul\Desktop\RepoGrupoB\b.rnv.xlsx

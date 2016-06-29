@@ -66,6 +66,11 @@ public class TipoProceso extends javax.swing.JPanel {
         textConfGeneral.setText(Recorte.rutaGeneral);
         textConfHuellas.setText(Recorte.rutaHuella);
         textConfFirmas.setText(Recorte.rutaFirma);
+        /*
+        Recorte.rutaGeneral = FramePrincipal.rutaGeneral;
+        Recorte.rutaHuella = FramePrincipal.rutaHuella;
+        Recorte.rutaFirma = FramePrincipal.rutaFirma;*/
+        
         if(tipoNacional!=null && tipoNacional.getId()!=0){
             if(!tipoNacional.getFechaInicio2().after(dateActual)){
                 fechai1Nacional.setDate(tipoNacional.getFechaInicio1().getTime());

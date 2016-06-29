@@ -55,9 +55,9 @@ public class Recorte {
     private static int registro_aprobado = 1;
     private static int registro_observado = 2;
     private static int registro_rechazado = 3;
-    public static String rutaGeneral="/temp";
-    public static String rutaHuella="/temp";
-    public static String rutaFirma="/temp";
+    public static String rutaGeneral="";
+    public static String rutaHuella="";
+    public static String rutaFirma="";
     
     public static BufferedImage extraerCuadroData(BufferedImage test){
         BufferedImage cuadro;
@@ -252,7 +252,7 @@ public class Recorte {
 //             imp.show();
         String nom="";
         Tesseract instance2 = new Tesseract();
-        instance2.setLanguage("+abc");
+        instance2.setLanguage("abc");
         instance2.setConfigs(Arrays.asList("letters"));
         ArrayList <String> arrNomb=new ArrayList<String>();
         BufferedImage nombre = extraerCuadritos(9+25,23,registro);
@@ -269,6 +269,14 @@ public class Recorte {
             BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
+            
+            try {
+                ImageIO.write(letra, "bmp", new File("./letra" + i+".bmp"));
+            } catch (IOException ex) {
+                Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
             if(arrNomb.isEmpty() && i==0){                
                 nom = instance2.doOCR(letra);
                 nom=nom.trim();
