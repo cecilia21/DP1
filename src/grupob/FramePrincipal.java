@@ -354,7 +354,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                if(cadena.contains(":")){
                  
                    String subcad[] = cadena.split(":");
-                   String ruta  = subcad[1].trim();
+                   String ruta  = subcad[1].trim()+":"+subcad[2].trim();
                    if (subcad[0].contains("huellas")) Recorte.rutaHuella = ruta; //temp.ruta = ruta; 
                    if (subcad[0].contains("firmas")) Recorte.rutaFirma  = ruta; //temp.ruta1 = ruta;
                    if (subcad[0].contains("excel")) Recorte.rutaGeneral = ruta; //temp.ruta2 = ruta;
