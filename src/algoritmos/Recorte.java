@@ -48,8 +48,8 @@ public class Recorte {
     private static int cantDni = 8;
     private static BufferedImage ImagenHuella=null;
     private static BufferedImage ImagenFirma=null;
-    private static double umbral1_firma = 0.65;
-    private static double umbral2_firma = 0.45;
+    private static double umbral1_firma = 0.25;
+    private static double umbral2_firma = 0.10;
     private static double umbral1_huella = 0.80;
     private static double umbral2_huella = 0.65;
     private static int registro_aprobado = 1;
@@ -269,13 +269,6 @@ public class Recorte {
             BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
-            
-            try {
-                ImageIO.write(letra, "bmp", new File("./letra" + i+".bmp"));
-            } catch (IOException ex) {
-                Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
             
             if(arrNomb.isEmpty() && i==0){                
                 nom = instance2.doOCR(letra);
@@ -782,8 +775,10 @@ public class Recorte {
                  int ubigeoPadron=buscarUbigeo(numero);
                 if(ubigeo==-1 || ubigeo==ubigeoPadron){
                     System.out.println("  Ubigeo Correcto");
+//                ImageIO.write(registros[i], "jpg", new File("C:\\Users\\Raul\\Desktop\\Registro.jpg"));
                 BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
                 BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
+//                ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\FirmaCeci.jpg"));
                 //Imagenes del repositorio
                 ImagenHuella=null;
                 ImagenFirma=null;
@@ -792,8 +787,16 @@ public class Recorte {
                 double porcentaje_firma, porcentaje_huella;
                 int esta=0;
                 if(ImagenHuella!=null && ImagenFirma!=null){
+//                  ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2.jpg"));                    ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2A.jpg"));
                     porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+//                    ImageIO.write(ImagenFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba1.jpg"));
+//                    ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2D.jpg"));
+                    
                     porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+                    
+//                    ImageIO.write(ImagenHuella, "jpg", new File("C:\\Users\\Raul\\Desktop\\Huella1.jpg"));
+//                    ImageIO.write(ImagenPadronHuella, "jpg", new File("C:\\Users\\Raul\\Desktop\\Huella2.jpg"));
+                    
                     int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
                     System.out.println("");
                     

@@ -40,7 +40,7 @@ public class Algoritmo_Firma2 {
             processedImage1=preproceso(originalImage1);
             extractionCharacteristic(processedImage1,vector1);
             //Image2
-            processedImage2=preproceso(originalImage2);
+            processedImage2=preproceso2(originalImage2);
             extractionCharacteristic(processedImage2,vector2);         
                                
             acumulado=0.0;
@@ -300,6 +300,61 @@ public class Algoritmo_Firma2 {
 
         
     }
+    
+    public static BufferedImage preproceso2(BufferedImage originalImage){
+        BufferedImage imageThinning=null;
+        try {
+            int imageHeight, imageWidth;
+            //extraemos altura y ancho inicial
+            imageHeight = originalImage.getHeight();
+            imageWidth = originalImage.getWidth();
+                    
+            // Empezamos con la binarizacion
+//            BufferedImage blackAndWhiteImg = binarization(originalImage);
+            
+            // Empezamos con el croppeado
+            BufferedImage cropped = cropper(originalImage, imageHeight, imageWidth);
+//            ImageIO.write(cropped, "jpg", new File("C:/Users/Raul/Desktop/Firmas/firma1crop.jpg"));           
+            
+            // Empezamos con el thinning
+            int[][] imgbin= new int[cropped.getWidth()][cropped.getHeight()];
+            int pix;
+            for(int i=0;i<cropped.getWidth();i++)
+                for(int j=0;j<cropped.getHeight();j++){
+                    pix=cropped.getRGB(i, j);
+                    if(pix==-1)
+                    imgbin[i][j]=0; 
+                    else {
+                        imgbin[i][j]=1;
+                        //System.out.println(""+pix);
+                    }
+                }
+            ThinningService ut = new ThinningService();
+            ut.doZhangSuenThinning(imgbin, true);
+                       
+            imageThinning = new BufferedImage(cropped.getWidth(), cropped.getHeight(),
+                          BufferedImage.TYPE_BYTE_BINARY);
+            for (int x = 0; x < cropped.getWidth(); x++) {
+                for (int y = 0; y < cropped.getHeight(); y++) {
+                    if (imgbin[x][y] == 1) {
+                        imageThinning.setRGB(x, y, Color.BLACK.getRGB());
+                     } else {
+                        imageThinning.setRGB(x, y, Color.WHITE.getRGB());
+                    }
+                }
+            }
+//            ImageIO.write(imageThinning, "jpg", new File("C:/Users/Raul/Desktop/Firmas/fimaThinning.jpg"));
+            return imageThinning;
+            
+        } catch (IOException ex) {
+            System.out.println("#FueLaVida");
+            Logger.getLogger(Algoritmos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return imageThinning;
+    }
+    
+    
+    
     
     public static BufferedImage preproceso(BufferedImage originalImage){
         BufferedImage imageThinning=null;
