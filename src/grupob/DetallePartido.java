@@ -173,7 +173,7 @@ public class DetallePartido extends javax.swing.JPanel {
         });
         pestNacional.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
 
-        jLabel8.setText("Cantidad de Adherentes faltantes: ");
+        jLabel8.setText("Cantidad de Adherentes Validos: ");
         pestNacional.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         jTextField5.setEditable(false);
@@ -1831,7 +1831,7 @@ public class DetallePartido extends javax.swing.JPanel {
     public class RegionModel extends AbstractTableModel{
 	ArrayList<String> regiones = null;	
         ArrayList<PartidoPolitico> partidos = null; 
-	String [] titles = {"Region","Estado","Cant Adhs Falt", "Validar nuevos", "Eliminar"};
+	String [] titles = {"Region","Estado","Cant Adhs Val", "Validar nuevos", "Eliminar"};
         Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, JButton.class,  JButton.class};
 		
         @Override

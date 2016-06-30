@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
-    <rutaGeneral>/home/temp</rutaGeneral>
-    <rutaHuellas>/home/temp</rutaHuellas>
-    <rutaFirmas>/home/temp</rutaFirmas>
+    <rutaGeneral>C:\Users\Raul\Desktop\GRUPO02\b.rnv.xlsx</rutaGeneral>
+    <rutaHuellas>C:\Users\Raul\Desktop\GRUPO02\Huellas</rutaHuellas>
+    <rutaFirmas>C:\Users\Raul\Desktop\GRUPO02\Firmas</rutaFirmas>
 </configuration>
