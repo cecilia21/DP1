@@ -850,40 +850,42 @@ public class DetallePartido extends javax.swing.JPanel {
                             Logger.getLogger(DetallePartido.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         if(resultado==-1) break;
-                            //Validar si ya estan en la base de datos
-                            ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
-                            int esta=0;
-                            for(int i=0;i<listaAdherente.size();i++){
-                                for(int j=0;j<lAdBD.size();j++){
-                                    if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
-                                        esta=1;
-                                        break;
-                                    }                            
-                                }
-                                if(esta==0)
-                                    listaAdherentef.add(listaAdherente.get(i));
-                                esta=0;
+                        
+                        //Validar si ya estan en la base de datos
+                        ArrayList<Adherente> lAdBD=Manager.queryAllAdherente();
+                        int esta=0;
+                        for(int i=0;i<listaAdherente.size();i++){
+                            for(int j=0;j<lAdBD.size();j++){
+                                if(listaAdherente.get(i).getDni().equals(lAdBD.get(j).getDni())){
+                                    esta=1;
+                                    break;
+                                }                            
                             }
-                            int cantValidos=0;
-                            int cantObservados=0;
-                            for(int i=0;i<listaAdherentef.size();i++){
-                                listaAdherentef.get(i).setJpg(file.getAbsolutePath());
-                                listaAdherentef.get(i).setIdPartido(partidos.get(0).getId());
-                                if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
-                                    cantValidos+=1;
-                                    cantValidosT+=1;
-                                }                        
-                                if(listaAdherentef.get(i).getEstado().equals("Observado")){
-                                    cantObservados+=1;
-                                    cantObservadosT+=1;
-                                }    
-                            }
-                            Manager.addListaAdherente(listaAdherentef); 
-                            cantRechazadosT+=(personaPadron-cantValidos-cantObservados);
-                            PartidoPolitico partPol=partidos.get(0); 
-                            partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
-                            Manager.updatePartido(partPol);  
+                            if(esta==0)
+                                listaAdherentef.add(listaAdherente.get(i));
+                            esta=0;
                         }
+                        int cantValidos=0;
+                        int cantObservados=0;
+                        for(int i=0;i<listaAdherentef.size();i++){
+                            listaAdherentef.get(i).setJpg(file.getAbsolutePath());
+                            listaAdherentef.get(i).setIdPartido(partidos.get(0).getId());
+                            if(listaAdherentef.get(i).getEstado().equals("Aprobado")){
+                                cantValidos+=1;
+                                cantValidosT+=1;
+                            }                        
+                            if(listaAdherentef.get(i).getEstado().equals("Observado")){
+                                cantObservados+=1;
+                                cantObservadosT+=1;
+                            }    
+                        }
+                        Manager.addListaAdherente(listaAdherentef); 
+                        cantRechazadosT+=(personaPadron-cantValidos-cantObservados);
+                        System.out.println(cantValidos + "/" + cantObservados + "/" + cantRechazadosT);
+                        PartidoPolitico partPol=partidos.get(0); 
+                        partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
+                        Manager.updatePartido(partPol);  
+                    }
                     if(resultado!=-1){
                         System.out.println("4");
                         showDetail(partidos.get(0)); 

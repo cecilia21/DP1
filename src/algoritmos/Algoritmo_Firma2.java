@@ -36,13 +36,29 @@ public class Algoritmo_Firma2 {
             double acumulado, porcentaje;
             int contador;
                         
+//        try {
+//            ImageIO.write(originalImage1, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba21.jpg"));
+//            ImageIO.write(originalImage2, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba22.jpg"));
+//        } catch (IOException ex) {
+//            Logger.getLogger(Algoritmo_Firma2.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+                        
             //Image1
             processedImage1=preproceso(originalImage1);
             extractionCharacteristic(processedImage1,vector1);
             //Image2
             processedImage2=preproceso2(originalImage2);
             extractionCharacteristic(processedImage2,vector2);         
-                               
+             
+            
+//        try {
+//            ImageIO.write(processedImage1, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2111.jpg"));
+//            ImageIO.write(processedImage2, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2211.jpg"));
+//        } catch (IOException ex) {
+//            Logger.getLogger(Algoritmo_Firma2.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//            
+            
             acumulado=0.0;
             contador=0;
 
@@ -75,9 +91,9 @@ public class Algoritmo_Firma2 {
 //            System.out.println("Porcentaje de similitud: "+ acumulado*100 +"% \n" + contador);
 //            System.out.print(acumulado*100 + ",");
             acumulado=acumulado*100;
-            if(75<acumulado)
+            if(50<acumulado)
                 System.out.println("Firma válida: " + acumulado);
-            else if(65<acumulado)
+            else if(35<acumulado)
                 System.out.println("Firma en revisión: " + acumulado);
             else
                 System.out.println("Firma no válida: " + acumulado);
