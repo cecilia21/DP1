@@ -247,7 +247,7 @@ public class Recorte {
         return result.getSubimage(0, 0, dni.getWidth(), alto+40);
     }
     
-    private static ArrayList<String> extraerNombre(BufferedImage registro) throws TesseractException{
+     private static ArrayList<String> extraerNombre(BufferedImage registro) throws TesseractException{
 //        ImagePlus imp=new ImagePlus("let",registro);
 //             imp.show();
         String nom="";
@@ -269,6 +269,13 @@ public class Recorte {
             BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
+            
+            try {
+                ImageIO.write(letra, "bmp", new File("./letra" + i+".bmp"));
+            } catch (IOException ex) {
+                Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             
             if(arrNomb.isEmpty() && i==0){                
                 nom = instance2.doOCR(letra);
@@ -386,6 +393,14 @@ public class Recorte {
                             }
                             if(nom3.compareTo("DZ")==0){ 
                                      nom3="A";
+                            }
+                            if(nom3.compareTo("U")==0){ 
+                                     String no2=no+"I";                                     
+                                      arrNomb.add(no2);
+                            }
+                            if(nom3.compareTo("H")==0){ 
+                                     String no2=no+"I";                                     
+                                      arrNomb.add(no2);
                             }
                             if(nom3.compareTo("P")==0){ 
                                      String no2=no+"D";                                     
@@ -581,6 +596,10 @@ public class Recorte {
                             if(nom3.compareTo("yxLJ")==0){ 
                                      nom3="D";
                             }
+                            if(nom3.compareTo("U")==0){ 
+                                     String no2=no+"I";                                     
+                                      arrNomb.add(no2);
+                            }
                             if(nom3.compareTo("L")==0){ 
                                      String no2=no+"E";                                     
                                       arrNomb.add(no2);
@@ -620,7 +639,7 @@ public class Recorte {
 //        }
         return arrNomb;
     }
-     
+    
     private static int esCuadroBlanco(BufferedImage cuadro){
         cuadro = limpiarBordeImagen(cuadro,2,4);
         cuadro = removeNoisePoints(cuadro);
@@ -762,7 +781,7 @@ public class Recorte {
 //                    System.out.println(lDniOcrLP.get(k));
 //                }
                 String numero2="";
-                numero2=lDniOcrLP.get(0);
+                if(lDniOcrLP.size()>0)numero2=lDniOcrLP.get(0);
 //                
                 int ubigeo = 0;
                 if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
