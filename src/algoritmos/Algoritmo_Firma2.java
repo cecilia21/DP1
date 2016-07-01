@@ -91,9 +91,9 @@ public class Algoritmo_Firma2 {
 //            System.out.println("Porcentaje de similitud: "+ acumulado*100 +"% \n" + contador);
 //            System.out.print(acumulado*100 + ",");
             acumulado=acumulado*100;
-            if(50<acumulado)
+            if(34<acumulado)
                 System.out.println("Firma válida: " + acumulado);
-            else if(35<acumulado)
+            else if(30<acumulado)
                 System.out.println("Firma en revisión: " + acumulado);
             else
                 System.out.println("Firma no válida: " + acumulado);

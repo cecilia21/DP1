@@ -48,10 +48,10 @@ public class Recorte {
     private static int cantDni = 8;
     private static BufferedImage ImagenHuella=null;
     private static BufferedImage ImagenFirma=null;
-    private static double umbral1_firma = 0.50;
-    private static double umbral2_firma = 0.35;
-    private static double umbral1_huella = 0.80;
-    private static double umbral2_huella = 0.65;
+    private static double umbral1_firma = 0.34;
+    private static double umbral2_firma = 0.30;
+    private static double umbral1_huella = 0.60;
+    private static double umbral2_huella = 0.40;
     private static int registro_aprobado = 1;
     private static int registro_observado = 2;
     private static int registro_rechazado = 3;
@@ -685,36 +685,43 @@ public class Recorte {
             test= (BufferedImage) imp.getImage(); 
             int valido = Utils.validarPlanillon(test);
             if(valido==-1) return -2;
-            //Configuracion del Algoritmo OCR digitos
+       //Configuracion del Algoritmo OCR digitos
             ITesseract instance  = new Tesseract();
-            ArrayList<String> p = new ArrayList<>();
-            p.add("digits");
-            instance.setConfigs(p);
-            instance.setLanguage("digitosf"); 
-
+         ArrayList<String> p = new ArrayList<>();
+        p.add("digits");
+        instance.setConfigs(p);
+        instance.setLanguage("digitosf"); 
+            
             
             test = extraerCuadroData(test);
             BufferedImage[] registros = extraerRegistros(test);
             //lista de prueba
        
-            String numero;
+         String numero;
             for(int i=0;i<registros.length;i++){
                 int ancho = Math.round(registros[i].getWidth()*(float)0.02);
-
-                BufferedImage[] dni = extraerDni(registros[i]);
-                numero = "";
-                for(int k = 0;   k < dni.length ; k++){
-                    try {
-                        String  dig  =  instance.doOCR(dni[k]);
-                        dig = dig.trim();
-                        if(!dig.isEmpty())
-                            numero += dig.charAt(0);
-                        else 
-                            numero += "0";  // Los digitos no identificados  le coloca cero por defecto
-                    } catch (TesseractException ex) {
-                        Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                
+                       
+                     BufferedImage[] dni = extraerDni(registros[i]);
+                   numero = "";
+                   for(int k = 0;   k < dni.length ; k++){
+                       
+                try {
+                   
+                    String  dig  =  instance.doOCR(dni[k]);
+                    dig = dig.trim();
+                    if(!dig.isEmpty())
+                        numero += dig.charAt(0);
+                    else 
+                        numero += "0";  // Los digitos no identificados  le coloca cero por defecto
+                    
+                
+                } catch (TesseractException ex) {
+                    Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                       
+                   
+                   }
 //                       System.out.println(numero);
                        
                 ArrayList<String> nombres2 = extraerNombre(registros[i]);
@@ -755,7 +762,7 @@ public class Recorte {
 //                    System.out.println(lDniOcrLP.get(k));
 //                }
                 String numero2="";
-                if(lDniOcrLP.size()==1)numero2=lDniOcrLP.get(0);
+                numero2=lDniOcrLP.get(0);
 //                
                 int ubigeo = 0;
                 if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
@@ -766,43 +773,34 @@ public class Recorte {
 //                
                 
                 
-                int ubigeoPadron=buscarUbigeo(numero);
+                 int ubigeoPadron=buscarUbigeo(numero2);
                 if(ubigeo==-1 || ubigeo==ubigeoPadron){
                     System.out.println("  Ubigeo Correcto");
                 BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
-//                ImageIO.write(registros[i], "jpg", new File("C:\\Users\\Raul\\Desktop\\INCIOOOCECI.jpg"));
-                BufferedImage ImagenPadronFirma= extraerCuadritos(9+25+23,1,registros[i]);
-                ImagenPadronFirma = limpiarBordeImagen(ImagenPadronFirma,2,2);
-                //BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
-//                ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\INCIOOO.jpg"));
+                BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
                 //Imagenes del repositorio
                 ImagenHuella=null;
                 ImagenFirma=null;
-                buscarImagenes(numero);//modifica la imagen huella y imagen firma
-                if(ImagenHuella==null && ImagenFirma==null)buscarImagenes(numero2);
+                buscarImagenes(numero2);//modifica la imagen huella y imagen firma
+//               if(ImagenHuella==null && ImagenFirma==null)buscarImagenes(numero2);
                 double porcentaje_firma, porcentaje_huella;
                 int esta=0;
                 if(ImagenHuella!=null && ImagenFirma!=null){
-//                  ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2.jpg")); 
                     porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
-//                  ImageIO.write(ImagenFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba1.jpg"));
-//                  ImageIO.write(ImagenPadronFirma, "jpg", new File("C:\\Users\\Raul\\Desktop\\Prueba2D.jpg"));
-                    
                     porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
-                    
                     int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
                     System.out.println("");
                     
                     if(criterio!=registro_rechazado){
                         Adherente adherente= new Adherente();
-                        adherente.setDni(numero);
+                        adherente.setDni(numero2);
                         if(criterio==registro_aprobado)
                             adherente.setEstado("Aprobado");
                         if(criterio==registro_observado)
                             adherente.setEstado("Observado");
                         
                         for(int w=0;w<listaAdherente.size();w++){
-                            if(listaAdherente.get(w).getDni().equals(numero)){
+                            if(listaAdherente.get(w).getDni().equals(numero2)){
                                 esta=1;
                                 break;
                             }
@@ -813,10 +811,37 @@ public class Recorte {
                     
                 }
                 else
-                    System.out.println("No se encontro a las personas con DNI: " + numero);            
+                    System.out.println("No se encontro a las personas con DNI: " + numero2);            
                 }
             
             }
+//            
+//            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
+//            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
+//            BufferedImage[] dni = extraerDni(registros[0]);
+//            BufferedImage huella = extraerHuella(registros[0]);
+//            String numS=new String();
+//            for(int i=0;i<cantDni;i++){
+//                int num = OcrNumeros.obtenerNumero(dni[i]);
+//                numS+=num;
+//                //System.out.println("numero: "+num);
+//            }            
+//            numS="34576713";//Solo para probar q funcione
+//            System.out.println("DNI: " + numS);
+//            //Imagenes de los padrones, ceci en esta parte pones lo que extraes del padron
+//            BufferedImage ImagenPadronHuella=extraerHuella(registros[0]);
+//            BufferedImage ImagenPadronFirma=extraerFirma(registros[0]);
+//            //Imagenes del repositorio
+//            ImagenHuella=null;
+//            ImagenFirma=null;
+//            buscarImagenes(numS);//modifica la imagen huella y imagen firma
+//            if(ImagenHuella!=null && ImagenFirma!=null){
+//                Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+//                Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+//            }
+//            else
+//                System.out.println("No se encontro a las personas con DNI: " + numS);
+            
             
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
@@ -1112,11 +1137,12 @@ public class Recorte {
     }
     
     
-    private static void buscarImagenes(String dni){        
+private static void buscarImagenes(String dni){        
         ImagenHuella=null;
         ImagenFirma=null;
         String dn = null;
         double d=-1;
+        if (tryParseInt(dni)) { 
         int nd=Integer.parseInt(dni);
        try {
 //                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
@@ -1207,7 +1233,16 @@ public class Recorte {
        } catch (IOException ex) {
            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
        }    
-       
+        }
+    }
+    
+    public static boolean tryParseInt(String value) {  
+     try {  
+         Integer.parseInt(value);  
+         return true;  
+      } catch (NumberFormatException e) {  
+         return false;  
+      }  
     }
 }
 

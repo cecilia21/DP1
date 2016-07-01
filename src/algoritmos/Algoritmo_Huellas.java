@@ -204,8 +204,8 @@ public class Algoritmo_Huellas {
         int n1=0;
         for(int i=0;i<to;i++){
             for(int j=0;j<tt;j++){
-                if((arro[0][i]<=arrt[0][j]+6)||(arro[0][i]>=(arrt[0][j]-6))){
-                    if(((arro[1][i]<=arrt[1][j]+6)||(arro[1][i]>=(arrt[1][j]-6)))&&(arro[2][i]==arrt[2][j])){
+                if((arro[0][i]<=arrt[0][j]+30)&&(arro[0][i]>=(arrt[0][j]-30))){
+                    if(((arro[1][i]<=arrt[1][j]+30)&&(arro[1][i]>=(arrt[1][j]-30)))&&(arro[2][i]==arrt[2][j])){
                         n1++;
                         break;
                     }
@@ -337,6 +337,7 @@ public class Algoritmo_Huellas {
                     Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
                 }
              }
+            if(huellaComparar!=null && huellaOriginal!=null){
             huellaCompararE=huellaComparar;
 //            ImagePlus im=new ImagePlus("huella original",huellaOriginalE);
 //                im.show();
@@ -365,12 +366,13 @@ public class Algoritmo_Huellas {
 //                im2.show();
                 por=CompareMinize(huellaOriginalE,huellaCompararE);
             }
+            }
         }  
 //        System.out.println(""+por);
         por=por*100;
-        if(80<por)
+        if(60<por)
                 System.out.println("Huella válida: " + por);
-        else if(65<por)
+        else if(40<por)
                 System.out.println("Huella revisión: " + por);
         else
                 System.out.println("Huella no válida: " + por);
