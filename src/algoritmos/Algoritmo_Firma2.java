@@ -5,6 +5,7 @@
  */
 package algoritmos;
 
+import static algoritmos.Algoritmo_Huellas.readImage;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +19,7 @@ import javax.imageio.ImageIO;
 import dyimagefx.*;
 import dyimagefx.morph.Skeletonization;
 import java.awt.Color;
+import java.io.FileInputStream;
 import preprocessing.ThinningService;
 
 /**
@@ -62,44 +64,60 @@ public class Algoritmo_Firma2 {
             acumulado=0.0;
             contador=0;
 
-            if(vector1[3]<0 && vector2[3]<0){
-                vector1[3]=vector1[3]*(-1);
-                vector2[3]=vector2[3]*(-1);
-            }
-                  
+            if(vector1[3]<0) vector1[3]=vector1[3]*(-1);
+            if (vector2[3]<0)vector2[3]=vector2[3]*(-1);
+            
             for(int i=0;i<5;i++){
-                if(vector1[i]!=0 && vector2[i]!=0){                            
+                if(i==3){
+                    porcentaje=Math.abs(vector1[i]-vector2[i]);
+                    if(porcentaje<12){
+                        if(porcentaje<7)
+                            acumulado+=(1.0*2.0);
+                        else if(porcentaje<9)
+                                acumulado+=(0.75*2.0);
+                        else if(porcentaje<10)
+                                acumulado+=(0.65*2.0);
+                        else if(porcentaje<11)
+                                acumulado+=(0.4*2.0);
+                        contador+=2;
+                    }
+                    else{
+                        if(porcentaje<13)
+                            acumulado+=(0.25*4.0);
+                        contador+=4;
+                    }
+                    
+                }
+                else{
                     if(vector1[i]>vector2[i]){
-                        porcentaje=vector2[i]/vector1[i];
-                        if(porcentaje>0)
-                            acumulado+=porcentaje;
-        //                        System.out.println(vector2[i]/vector1[i]);
+                            porcentaje=vector2[i]/vector1[i];
+                            if(porcentaje>0)
+                                acumulado+=porcentaje;  
                     }
                     else if(vector1[i]==vector2[i]){
                         acumulado+=1;   
                     }
                     else{
                         porcentaje=(vector1[i]-(vector2[i]-vector1[i]))/vector1[i];
-                        if(porcentaje>0 && ((vector1[i] * vector2[i] )>0))
+                        if(porcentaje>0 && ((vector1[i] * vector2[i] )>0)){
                             acumulado+=porcentaje;     
-//                        System.out.println((vector1[i]-(vector2[i]-vector1[i]))/vector1[i]);
+                        }
                     }
-                    contador++;                           
-                }                   
+                    contador++;        	
+                }
+
             }
-            acumulado=acumulado/contador;
-//            System.out.println("Porcentaje de similitud: "+ acumulado*100 +"% \n" + contador);
-//            System.out.print(acumulado*100 + ",");
-            acumulado=acumulado*100;
-            if(34<acumulado)
-                System.out.println("Firma válida: " + acumulado);
-            else if(30<acumulado)
-                System.out.println("Firma en revisión: " + acumulado);
+            acumulado=acumulado/(contador);
+            acumulado=acumulado*100.0;
+            if(55<acumulado)
+                System.out.println("Firma válida");
+            else if(45<acumulado)
+                System.out.println("Firma observada");
             else
-                System.out.println("Firma no válida: " + acumulado);
+                System.out.println("Firma rechazada");
 //                System.out.println();               
                           
-        return acumulado/100;
+        return acumulado/100.0;
     }
     
     
@@ -108,8 +126,8 @@ public class Algoritmo_Firma2 {
 
         try {
             //Lectura de Imagen
-            File file1 = new File("C:/Users/Raul/Desktop/f025.jpg");           
-            File file2 = new File("C:/Users/Raul/Desktop/firma.jpg");
+            File file1 = new File("C:\\Users\\Raul\\Desktop\\GRUPO02\\Firmas/Bfi002.jpg");           
+            File file2 = new File("C:\\Users\\Raul\\Desktop\\GRUPO02\\Firmas/Bfi005.jpg");
                         
             double [] vector1 = new double[5];
             double [] vector2 = new double[5];
@@ -117,46 +135,59 @@ public class Algoritmo_Firma2 {
             double acumulado, porcentaje;
             int contador;
                         
+           
             //Image1
-            originalImage1 = ImageIO.read(file1);
+            
+            originalImage1 = readImage(new FileInputStream(file1));
             processedImage1=preproceso(originalImage1);
             extractionCharacteristic(processedImage1,vector1);
             //Image2
-            originalImage2 = ImageIO.read(file2);
+            originalImage2 =  readImage(new FileInputStream(file2));
             processedImage2=preproceso(originalImage2);
             extractionCharacteristic(processedImage2,vector2);         
                                
             acumulado=0.0;
             contador=0;
 
-            if(vector1[3]<0 && vector2[3]<0){
-                vector1[3]=vector1[3]*(-1);
-                vector2[3]=vector2[3]*(-1);
-            }
-                  
+            if(vector1[3]<0) vector1[3]=vector1[3]*(-1);
+            if (vector2[3]<0)vector2[3]=vector2[3]*(-1);
+            
             for(int i=0;i<5;i++){
-                if(vector1[i]!=0 && vector2[i]!=0){                            
+                if(i==3){
+                    porcentaje=Math.abs(vector1[i]-vector2[i]);
+                    if(porcentaje<1)
+                            acumulado+=(1.0*4.0);
+                    else if(porcentaje<2)
+                            acumulado+=(0.5*4.0);
+                    else if(porcentaje<3)
+                            acumulado+=(0.25*4.0);
+                    else
+                            acumulado+=0;
+                    contador+=4;
+                }
+                else{
                     if(vector1[i]>vector2[i]){
-                        porcentaje=vector2[i]/vector1[i];
-                        if(porcentaje>0)
-                            acumulado+=porcentaje;
-        //                        System.out.println(vector2[i]/vector1[i]);
+                            porcentaje=vector2[i]/vector1[i];
+                            if(porcentaje>0)
+                                acumulado+=porcentaje;  
                     }
                     else if(vector1[i]==vector2[i]){
                         acumulado+=1;   
                     }
                     else{
                         porcentaje=(vector1[i]-(vector2[i]-vector1[i]))/vector1[i];
-                        if(porcentaje>0 && ((vector1[i] * vector2[i] )>0))
+                        if(porcentaje>0 && ((vector1[i] * vector2[i] )>0)){
                             acumulado+=porcentaje;     
-//                        System.out.println((vector1[i]-(vector2[i]-vector1[i]))/vector1[i]);
+                        }
                     }
-                    contador++;                           
-                }                   
+                    contador++;        	
+                }
+
             }
-            acumulado=acumulado/contador;
+            acumulado=acumulado/(contador);
 //            System.out.println("Porcentaje de similitud: "+ acumulado*100 +"% \n" + contador);
             System.out.print(acumulado*100 + ",");
+            acumulado*=100;
             if(75<acumulado)
                 System.out.print("Firma válida");
             else
@@ -248,7 +279,7 @@ public class Algoritmo_Firma2 {
         int point_x_l,point_y_l,point_x_r,point_y_r;
         for(int y=0;y<char1_H;y++){
             for(int x=0;x<char2_W;x++)
-                if (processedImage.getRGB(x, y) == Color.WHITE.getRGB()){
+                if (processedImage.getRGB(x, y) == Color.BLACK.getRGB()){
                     if(x<(char2_W/2.0)){
                         acumx_l+=x;
                         acumy_l+=y;
@@ -279,7 +310,7 @@ public class Algoritmo_Firma2 {
         int point_x_F,point_x_M,point_x_L;
         for(int y=0;y<char1_H;y++){
             for(int x=0;x<char2_W;x++)
-                if (processedImage.getRGB(x, y) == Color.WHITE.getRGB()){
+                if (processedImage.getRGB(x, y) == Color.black.getRGB()){
                     if(x<(char2_W/3.0)){
                         acumx_F+=x;
                         contador_F+=1;

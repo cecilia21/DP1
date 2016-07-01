@@ -48,9 +48,9 @@ public class Recorte {
     private static int cantDni = 8;
     private static BufferedImage ImagenHuella=null;
     private static BufferedImage ImagenFirma=null;
-    private static double umbral1_firma = 0.34;
-    private static double umbral2_firma = 0.30;
-    private static double umbral1_huella = 0.60;
+    private static double umbral1_firma = 0.55;
+    private static double umbral2_firma = 0.45;
+    private static double umbral1_huella = 0.65;
     private static double umbral2_huella = 0.40;
     private static int registro_aprobado = 1;
     private static int registro_observado = 2;
@@ -269,14 +269,7 @@ public class Recorte {
             BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
             letra = limpiarBordeImagen(letra,2,4);
             letra = removeNoisePoints(letra);
-            
-            try {
-                ImageIO.write(letra, "bmp", new File("./letra" + i+".bmp"));
-            } catch (IOException ex) {
-                Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
+                        
             if(arrNomb.isEmpty() && i==0){                
                 nom = instance2.doOCR(letra);
                 nom=nom.trim();
@@ -781,86 +774,60 @@ public class Recorte {
 //                    System.out.println(lDniOcrLP.get(k));
 //                }
                 String numero2="";
-                if(lDniOcrLP.size()>0)numero2=lDniOcrLP.get(0);
-//                
-                int ubigeo = 0;
-                if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
-                if(partido.getIdTipoProceso() == 2) ubigeo  = Manager.queryByIdRegion(partido.getIdRegion()).getUbigeo();
-                if(partido.getIdTipoProceso() == 3) ubigeo  = Manager.queryByIdDistrito(partido.getIdDistrito()).getUbigeo();
-                if(partido.getIdTipoProceso() == 4) ubigeo  = Manager.queryLocalById(partido.getIdLocal()).getUbigeo();
-                if(partido.getIdTipoProceso() == 5) ubigeo  = Manager.queryInstitucionById(partido.getIdInstitucion()).getUbigeo();
-//                
-                
-                
-                 int ubigeoPadron=buscarUbigeo(numero2);
-                if(ubigeo==-1 || ubigeo==ubigeoPadron){
-                    System.out.println("  Ubigeo Correcto");
-                BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
-                BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
-                //Imagenes del repositorio
-                ImagenHuella=null;
-                ImagenFirma=null;
-                buscarImagenes(numero2);//modifica la imagen huella y imagen firma
-//               if(ImagenHuella==null && ImagenFirma==null)buscarImagenes(numero2);
-                double porcentaje_firma, porcentaje_huella;
-                int esta=0;
-                if(ImagenHuella!=null && ImagenFirma!=null){
-                    porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
-                    porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
-                    int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
-                    System.out.println("");
-                    
-                    if(criterio!=registro_rechazado){
-                        Adherente adherente= new Adherente();
-                        adherente.setDni(numero2);
-                        if(criterio==registro_aprobado)
-                            adherente.setEstado("Aprobado");
-                        if(criterio==registro_observado)
-                            adherente.setEstado("Observado");
-                        
-                        for(int w=0;w<listaAdherente.size();w++){
-                            if(listaAdherente.get(w).getDni().equals(numero2)){
-                                esta=1;
-                                break;
+                if(lDniOcrLP.size()>0){
+                    numero2=lDniOcrLP.get(0);
+                    System.out.println(numero2);
+                    int ubigeo = 0;
+                    if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
+                    if(partido.getIdTipoProceso() == 2) ubigeo  = Manager.queryByIdRegion(partido.getIdRegion()).getUbigeo();
+                    if(partido.getIdTipoProceso() == 3) ubigeo  = Manager.queryByIdDistrito(partido.getIdDistrito()).getUbigeo();
+                    if(partido.getIdTipoProceso() == 4) ubigeo  = Manager.queryLocalById(partido.getIdLocal()).getUbigeo();
+                    if(partido.getIdTipoProceso() == 5) ubigeo  = Manager.queryInstitucionById(partido.getIdInstitucion()).getUbigeo();
+                    int ubigeoPadron=buscarUbigeo(numero2);
+                    if(ubigeo==-1 || ubigeo==ubigeoPadron){
+                        System.out.println("  Ubigeo Correcto");
+                    BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
+                    BufferedImage ImagenPadronFirma=extraerFirma(registros[i]);
+                    //Imagenes del repositorio
+                    ImagenHuella=null;
+                    ImagenFirma=null;
+                    buscarImagenes(numero2);//modifica la imagen huella y imagen firma
+    //               if(ImagenHuella==null && ImagenFirma==null)buscarImagenes(numero2);
+                    double porcentaje_firma, porcentaje_huella;
+                    int esta=0;
+                    if(ImagenHuella!=null && ImagenFirma!=null){
+                        porcentaje_firma = Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
+                        porcentaje_huella = Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
+                        int criterio = validarAprobacion(porcentaje_firma, porcentaje_huella);
+                        System.out.println("");
+
+                        if(criterio!=registro_rechazado){
+                            Adherente adherente= new Adherente();
+                            adherente.setDni(numero2);
+                            if(criterio==registro_aprobado)
+                                adherente.setEstado("Aprobado");
+                            if(criterio==registro_observado)
+                                adherente.setEstado("Observado");
+
+                            for(int w=0;w<listaAdherente.size();w++){
+                                if(listaAdherente.get(w).getDni().equals(numero2)){
+                                    esta=1;
+                                    break;
+                                }
                             }
-                        }
-                        if(esta==0)
-                            listaAdherente.add(adherente);
-                    }                   
-                    
+                            if(esta==0)
+                                listaAdherente.add(adherente);
+                        }                   
+
+                    }
+                    else
+                        System.out.println("No se encontro a las personas con DNI: " + numero2);            
+                    }
                 }
-                else
-                    System.out.println("No se encontro a las personas con DNI: " + numero2);            
+                else{
+                    System.out.println("No se encontro el DNI: ");
                 }
-            
             }
-//            
-//            int ancho = Math.round(registros[0].getWidth()*(float)0.02);
-//            BufferedImage numero1 = test.getSubimage(0, 0, ancho, registros[0].getHeight());    
-//            BufferedImage[] dni = extraerDni(registros[0]);
-//            BufferedImage huella = extraerHuella(registros[0]);
-//            String numS=new String();
-//            for(int i=0;i<cantDni;i++){
-//                int num = OcrNumeros.obtenerNumero(dni[i]);
-//                numS+=num;
-//                //System.out.println("numero: "+num);
-//            }            
-//            numS="34576713";//Solo para probar q funcione
-//            System.out.println("DNI: " + numS);
-//            //Imagenes de los padrones, ceci en esta parte pones lo que extraes del padron
-//            BufferedImage ImagenPadronHuella=extraerHuella(registros[0]);
-//            BufferedImage ImagenPadronFirma=extraerFirma(registros[0]);
-//            //Imagenes del repositorio
-//            ImagenHuella=null;
-//            ImagenFirma=null;
-//            buscarImagenes(numS);//modifica la imagen huella y imagen firma
-//            if(ImagenHuella!=null && ImagenFirma!=null){
-//                Algoritmo_Firma2.validarFirma(ImagenFirma, ImagenPadronFirma);
-//                Algoritmo_Huellas.VerificaHuella(ImagenHuella, ImagenPadronHuella);//No se para que ramon utiliza esta variable
-//            }
-//            else
-//                System.out.println("No se encontro a las personas con DNI: " + numS);
-            
             
         } catch (IOException ex) {
             Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);

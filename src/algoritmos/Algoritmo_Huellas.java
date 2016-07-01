@@ -102,18 +102,17 @@ public class Algoritmo_Huellas {
         buffered1.getGraphics().drawImage(or, 0, 0 , null);
         return buffered1;
     }
-    
     private static double CompareMinize(BufferedImage ori,BufferedImage tes){  
         double por=0,pc,pp;
         int cbo=0,cbt=0,cto=0,ctt=0,to=0,tt=0;
         int height = ori.getHeight();
         int width = ori.getWidth();
         int maxmo=height*width;        
-        int [][] arro=new int[3][maxmo]; 
+        int [][] arro=new int[4][maxmo]; 
         int height2 = tes.getHeight();
         int width2 = tes.getWidth();
         int maxmt=height2*width2;  
-        int [][] arrt=new int[3][maxmt]; 
+        int [][] arrt=new int[4][maxmt]; 
         
         int a=0,b=0,c=0,d=0,e=0,f=0,g=0,h=0;      
         for(int y = 0; y < height; y++) {                
@@ -141,6 +140,14 @@ public class Algoritmo_Huellas {
                         arro[0][to]=y;
                         arro[1][to]=x;
                         arro[2][to]=0;
+                        if(a==1)arro[3][tt]=225;
+                        if(b==1)arro[3][tt]=180;
+                        if(c==1)arro[3][tt]=135;
+                        if(d==1)arro[3][tt]=270;
+                        if(e==1)arro[3][tt]=90;
+                        if(f==1)arro[3][tt]=315;
+                        if(g==1)arro[3][tt]=0;
+                        if(h==1)arro[3][tt]=45;
                         to++;
                         cto++;
                     }
@@ -148,6 +155,14 @@ public class Algoritmo_Huellas {
                         arro[0][to]=y;
                         arro[1][to]=x;
                         arro[2][to]=1;
+                        if(a==1)arro[3][tt]=225;
+                        if(b==1)arro[3][tt]=180;
+                        if(c==1)arro[3][tt]=135;
+                        if(d==1)arro[3][tt]=270;
+                        if(e==1)arro[3][tt]=90;
+                        if(f==1)arro[3][tt]=315;
+                        if(g==1)arro[3][tt]=0;
+                        if(h==1)arro[3][tt]=45;
                         to++;
                         cbo++;
                     }
@@ -176,11 +191,19 @@ public class Algoritmo_Huellas {
                     else g=0;  
                     if(x<width2-1 && y<height2-1)if(tes.getRGB(x+1,y+1)!=-1)h=1;                            
                     else h=0; 
-                    cn=a+b+c+d+e+f+g+h;    
+                    cn=a+b+c+d+e+f+g+h;   
                     if(cn==1){
                         arrt[0][tt]=y;
                         arrt[1][tt]=x;
                         arrt[2][tt]=0;
+                        if(a==1)arrt[3][tt]=225;
+                        if(b==1)arrt[3][tt]=180;
+                        if(c==1)arrt[3][tt]=135;
+                        if(d==1)arrt[3][tt]=270;
+                        if(e==1)arrt[3][tt]=90;
+                        if(f==1)arrt[3][tt]=315;
+                        if(g==1)arrt[3][tt]=0;
+                        if(h==1)arrt[3][tt]=45;
                         tt++;
                         ctt++;
                     }
@@ -188,13 +211,21 @@ public class Algoritmo_Huellas {
                         arrt[0][tt]=y;
                         arrt[1][tt]=x;
                         arrt[2][tt]=1;
+                        if(a==1)arrt[3][tt]=225;
+                        if(b==1)arrt[3][tt]=180;
+                        if(c==1)arrt[3][tt]=135;
+                        if(d==1)arrt[3][tt]=270;
+                        if(e==1)arrt[3][tt]=90;
+                        if(f==1)arrt[3][tt]=315;
+                        if(g==1)arrt[3][tt]=0;
+                        if(h==1)arrt[3][tt]=45;
                         tt++;
                         cbt++;
                     }
                 }                 
             }
         }
-        double p1=0,p2=0,p3=0;
+        double p1=0,p2=0,p3=0,p4=0;
         if(cbt>cbo){
             p1=(double)(cbt-cbo)/cbt;
         }
@@ -202,23 +233,26 @@ public class Algoritmo_Huellas {
         if(ctt>cto)p2=(double)(ctt-cto)/ctt;
         else p2=(double)(cto-ctt)/cto;
         int n1=0;
+        int n2=0;
+        int lim=19;
         for(int i=0;i<to;i++){
             for(int j=0;j<tt;j++){
-                if((arro[0][i]<=arrt[0][j]+30)&&(arro[0][i]>=(arrt[0][j]-30))){
-                    if(((arro[1][i]<=arrt[1][j]+30)&&(arro[1][i]>=(arrt[1][j]-30)))&&(arro[2][i]==arrt[2][j])){
-                        n1++;
+                if((arro[0][i]<=arrt[0][j]+lim)&&(arro[0][i]>=(arrt[0][j]-lim))){
+                    if(((arro[1][i]<=arrt[1][j]+lim)&&(arro[1][i]>=(arrt[1][j]-lim)))&&(arro[2][i]==arrt[2][j])&&(arro[3][i]==arrt[3][j])){
+                        if(arro[2][i]==0)n1++;
+                        if(arro[2][i]==1)n2++;
                         break;
                     }
                 }
             }
         }
-        p3=(double)(to-n1)/to;
-        
-        por=(p1+p2+8*(p3))/10;
+        p3=(double)(cto-n1)/cto;
+        p4=(double)(cbo-n2)/cbo;
+        por=(p1+p2+3*(p3)+4*p4)/10;
 //        por=(10*(p3))/10;
         return (1-por);
     }
-
+    
     public static BufferedImage rotate(BufferedImage image, double angle) {
     double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
     int w = image.getWidth(), h = image.getHeight();
@@ -370,12 +404,12 @@ public class Algoritmo_Huellas {
         }  
 //        System.out.println(""+por);
         por=por*100;
-        if(60<por)
-                System.out.println("Huella válida: " + por);
+        if(65<por)
+                System.out.println("Huella válida" );
         else if(40<por)
-                System.out.println("Huella revisión: " + por);
+                System.out.println("Huella revisión" );
         else
-                System.out.println("Huella no válida: " + por);
+                System.out.println("Huella no válida" );
         return por/100;
     }
 

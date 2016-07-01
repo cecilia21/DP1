@@ -1194,7 +1194,7 @@ public class DetallePartido extends javax.swing.JPanel {
                 };
                 File[] files = selectedFile.listFiles(textFilter);
                 PartidoPolitico p = localesModel.partidos.get(row);
-                int cant_votantes = Manager.queryByNameRegion(regionesModel.regiones.get(row)).get(0).getCantidadVotantesRegistrados();
+                int cant_votantes = Manager.queryLocalByName(regionesModel.regiones.get(row)).get(0).getCantidadVotantesRegistrados();
                 float porc = Manager.queryTipoProcesoByName("Local").getPorcentajeMinimo();
                 if(p.getCantidadRegistrosValidos()>=(cant_votantes*porc)){
                     JOptionPane.showMessageDialog(null, "Este partido ya cuenta con todos los adherentes necesarios");
@@ -1303,7 +1303,7 @@ public class DetallePartido extends javax.swing.JPanel {
                 };
                 File[] files = selectedFile.listFiles(textFilter);
                 PartidoPolitico p = institucionesModel.partidos.get(row);
-                int cant_votantes = Manager.queryByNameRegion(regionesModel.regiones.get(row)).get(0).getCantidadVotantesRegistrados();
+                int cant_votantes = Manager.queryByNameInstitucion(regionesModel.regiones.get(row)).get(0).getCantidadVotantesRegistrados();
                 float porc = Manager.queryTipoProcesoByName("Institucional").getPorcentajeMinimo();
                 if(p.getCantidadRegistrosValidos()>=(cant_votantes*porc)){
                     JOptionPane.showMessageDialog(null, "Este partido ya cuenta con todos los adherentes necesarios");
