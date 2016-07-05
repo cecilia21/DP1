@@ -173,7 +173,7 @@ public class RegistrarPartido extends javax.swing.JPanel {
             if(indice == 4){
                 ArrayList<Institucion> inst = Manager.queryAllInstitucion();
                 for(int i=0;i<inst.size();i++)
-                    registro_lugar.addItem(inst.get(i));
+                    registro_lugar.addItem(inst.get(i).getNombre());
             }
         }
         else{
