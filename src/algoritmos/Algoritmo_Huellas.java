@@ -280,6 +280,10 @@ public class Algoritmo_Huellas {
         return readImage(new FileInputStream(file));
     }
 
+    public static BufferedImage readImage2(File file) throws IOException
+    {
+        return readImagePng(new FileInputStream(file));
+    }
     
     public static BufferedImage readImage(InputStream stream) throws IOException
     {
@@ -318,7 +322,46 @@ public class Algoritmo_Huellas {
         }
         return result;
     }
+       
+        public static BufferedImage readImagePng(InputStream stream) throws IOException
+    {
+        Iterator<ImageReader> imageReaders = 
+            ImageIO.getImageReadersBySuffix("png");
+        ImageReader imageReader = imageReaders.next();
+        ImageInputStream iis = 
+            ImageIO.createImageInputStream(stream);
+        imageReader.setInput(iis, true, true);
+        Raster raster = imageReader.readRaster(0, null);
+        int w = raster.getWidth();
+        int h = raster.getHeight();
 
+        BufferedImage result = 
+            new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        int rgb[] = new int[3];
+        int pixel[] = new int[3];
+        for (int x=0; x<w; x++)
+        {
+            for (int y=0; y<h; y++)
+            {
+                raster.getPixel(x, y, pixel);
+                int Y = pixel[0];
+                int CR = pixel[1];
+                int CB = pixel[2];
+                toRGB(Y, CB, CR, rgb);
+                int r = rgb[0];
+                int g = rgb[1];
+                int b = rgb[2];
+                int bgr = 
+                    ((b & 0xFF) << 16) | 
+                    ((g & 0xFF) <<  8) | 
+                     (r & 0xFF);
+                result.setRGB(x, y, bgr);
+            }
+        }
+        return result;
+    }
+
+    
     public static void toRGB(int y, int cb, int cr, int rgb[])
     {
         float Y = y / 255.0f;
@@ -367,6 +410,14 @@ public class Algoritmo_Huellas {
                 huellaComparar=rotate(huellaComparar,1.57);
                 try {
                     huellaComparar = cropper(huellaComparar);
+                } catch (IOException ex) {
+                    Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
+            if(huellaOriginal.getWidth()>huellaOriginal.getHeight()){
+                huellaOriginal=rotate(huellaOriginal,1.57);
+                try {
+                    huellaOriginal = cropper(huellaOriginal);
                 } catch (IOException ex) {
                     Logger.getLogger(Algoritmo_Huellas.class.getName()).log(Level.SEVERE, null, ex);
                 }
