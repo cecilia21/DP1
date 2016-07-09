@@ -71,6 +71,15 @@ public class Recorte {
                 break;
             }
         }
+        for(int i=test.getHeight()-5;i>test.getHeight()/2;i--){
+            int[] linea= new int[test.getWidth()];
+            for(int j=0;j<test.getWidth();j++)
+                linea[j]=test.getRGB(j, i);
+            if(esLineaNegra(linea)){
+                test=test.getSubimage(0, 0, test.getWidth(), i);
+                break;
+            }
+        }
         for(int i=5;i<test.getWidth()/4;i++){
             int[] linea=new int[test.getHeight()];
             for(int j=0;j<test.getHeight();j++)
@@ -89,15 +98,7 @@ public class Recorte {
                 break;
             }
         }
-        for(int i=test.getHeight()-5;i>test.getHeight()/2;i--){
-            int[] linea= new int[test.getWidth()];
-            for(int j=0;j<test.getWidth();j++)
-                linea[j]=test.getRGB(j, i);
-            if(esLineaNegra(linea)){
-                test=test.getSubimage(0, 0, test.getWidth(), i);
-                break;
-            }
-        }
+        
             int blancos = 1;
             int fila = 0;
             boolean ant_negra = false;
