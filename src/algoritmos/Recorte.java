@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import model.Adherente;
 import model.PartidoPolitico;
+import static net.sourceforge.tess4j.ITessAPI.TessPageSegMode.PSM_SINGLE_CHAR;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -633,6 +634,149 @@ public class Recorte {
         return arrNomb;
     }
     
+        
+     private static ArrayList<String> extraerNombre2(BufferedImage registro) throws TesseractException{
+//        ImagePlus imp=new ImagePlus("let",registro);
+//             imp.show();
+        String nom="";
+        Tesseract instance2 = new Tesseract();
+        instance2.setLanguage("abc");
+        instance2.setConfigs(Arrays.asList("letters"));
+        instance2.setPageSegMode(PSM_SINGLE_CHAR);
+        ArrayList <String> arrNomb=new ArrayList<String>();
+        BufferedImage nombre = extraerCuadritos(9+25,23,registro);
+        if(nombre==null)return arrNomb;
+        BufferedImage result = new BufferedImage(
+                       nombre.getWidth(), nombre.getHeight(), //work these out
+                       BufferedImage.TYPE_INT_RGB);
+        for(int i=0;i<result.getHeight();i++) for(int j=0;j<result.getWidth();j++) result.setRGB(j, i, -1);
+        Graphics g = result.getGraphics();
+        int alto = result.getHeight();
+        ArrayList<BufferedImage> nombres = new ArrayList<BufferedImage>();
+        int cuadroAnt =-1;
+        int iniX =0; int finX =0;
+        for(int i=0;i<23;i++){
+            BufferedImage letra = extraerCuadritos(9+25+i,1,registro);
+            letra = limpiarBordeImagen(letra,2,4);
+            letra = removeNoisePoints(letra);
+            if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
+                if(cuadroAnt+1==i){
+                    iniX = i*nombre.getWidth()/25;
+                    finX = 0;
+                }
+                finX +=nombre.getWidth()/25;
+                letra = cropper(letra);         
+                nom = instance2.doOCR(letra);
+                nom=nom.trim();
+                nom=nom.replaceAll("\n","");
+                nom=nom.replaceAll(" ",""); 
+                if(nom=="")nom="*";
+                int lon=arrNomb.size();                
+                if(i!=0){
+                for(int k=0;k<lon;k++){
+                            String no=arrNomb.get(k);
+                            no+=nom;
+                            arrNomb.set(k, no);  
+                    }
+                }else{
+                    arrNomb.add(nom);
+                }
+                
+            }else{
+                int lon2=arrNomb.size();
+                for(int k=0;k<lon2;k++){
+                    String no2=arrNomb.get(k);
+                    no2+=" ";
+                    arrNomb.set(k, no2);
+                }
+                if(i>1 && i!=cuadroAnt+1){
+                    BufferedImage app = result.getSubimage(iniX, 0, finX, alto+40);
+                    nombres.add(app);
+                }
+                cuadroAnt = i;
+            }
+            if(i==1) alto = letra.getHeight();
+        }        
+//        for(int k=0;k<arrNomb.size();k++){
+//            System.out.println(""+arrNomb.get(k));
+//        }
+        return arrNomb;
+    }
+ 
+        
+    private static ArrayList<String> extraerApellidos2(BufferedImage registro) throws TesseractException{
+        BufferedImage nombre = extraerCuadritos(9,25,registro);
+        String nom="";
+        Tesseract instance2 = new Tesseract();
+        instance2.setLanguage("spa+abc");
+        instance2.setConfigs(Arrays.asList("letters"));
+        instance2.setPageSegMode(PSM_SINGLE_CHAR);
+        ArrayList <String> arrNomb=new ArrayList<String>();
+        BufferedImage result = new BufferedImage(
+                       nombre.getWidth(), nombre.getHeight(), //work these out
+                       BufferedImage.TYPE_INT_RGB);
+        for(int i=0;i<result.getHeight();i++) for(int j=0;j<result.getWidth();j++) result.setRGB(j, i, -1);
+        Graphics g = result.getGraphics();
+        int alto = result.getHeight();
+        ArrayList<BufferedImage> apellidos = new ArrayList<BufferedImage>();
+        int cuadroAnt =-1;
+        int iniX =0; int finX =0;
+        for(int i=0;i<25;i++){            
+            BufferedImage letra = extraerCuadritos(9+i,1,registro);
+//            ImagePlus imp=new ImagePlus("let",letra);
+//             imp.show();
+            letra = limpiarBordeImagen(letra,2,4);
+            letra = removeNoisePoints(letra);
+            if(esCuadroBlanco(letra)==0){ //si no es cuadro blanco
+                if(cuadroAnt+1==i){
+                    iniX = i*nombre.getWidth()/25;
+                    finX = 0;
+                }
+                finX +=nombre.getWidth()/25;
+//                ImagePlus imp3=new ImagePlus("let",letra);
+//                imp3.show();
+                letra = cropper(letra);                
+//                g.drawImage(letra, i*nombre.getWidth()/25, 20, null);
+//                ImagePlus imp2=new ImagePlus("let",letra);
+//                imp2.show();
+                
+                nom = instance2.doOCR(letra);
+                nom=nom.trim();
+                nom=nom.replaceAll("\n","");
+                nom=nom.replaceAll(" ",""); 
+                if(nom=="")nom="*";
+                int lon=arrNomb.size();
+                if(i!=0){
+                for(int k=0;k<lon;k++){
+                            String no=arrNomb.get(k);
+                            no+=nom;
+                            arrNomb.set(k, no);  
+                    }
+                }else{
+                    arrNomb.add(nom);
+                }
+            }else{
+                int lon2=arrNomb.size();
+                for(int k=0;k<lon2;k++){
+                    String no2=arrNomb.get(k);
+                    no2+=" ";
+                    arrNomb.set(k, no2);
+                }
+                if(i>1 && i!=cuadroAnt+1){
+                    BufferedImage app = result.getSubimage(iniX, 0, finX, alto+40);
+                    apellidos.add(app);
+                }
+                cuadroAnt = i;
+            }
+            if(i==1) alto = letra.getHeight();
+        }
+//        for(int k=0;k<arrNomb.size();k++){
+//            System.out.println(""+arrNomb.get(k));
+//        }
+        return arrNomb;
+    }
+     
+    
     private static int esCuadroBlanco(BufferedImage cuadro){
         cuadro = limpiarBordeImagen(cuadro,2,4);
         cuadro = removeNoisePoints(cuadro);
@@ -654,7 +798,7 @@ public class Recorte {
         boolean huella_rechazada = p_huella<umbral2_huella;
         if(firma_valida && huella_valida) return registro_aprobado;
         
-        if (firma_valida && huella_observada) return registro_observado;
+        if (firma_valida && huella_observada) return registro_aprobado;
         if (firma_observada && huella_valida) return registro_observado;
         if (firma_observada && huella_observada) return registro_observado;
         if (nombre_coincide && firma_rechazada && huella_valida) return registro_observado;
@@ -687,9 +831,11 @@ public class Recorte {
         }
         //validar formato del jpg
         BufferedImage test;
+        String numero2;
         int inicioX, inicioY, finX, finY;
         try {
             test = ImageIO.read(file);
+//            test = Algoritmo_Huellas.readImage(file);
             //validar formato imagen
 //            test = binarization(test);
             ImagePlus imp=new ImagePlus("Nuevo",test);
@@ -703,7 +849,7 @@ public class Recorte {
         p.add("digits");
         instance.setConfigs(p);
         instance.setLanguage("digitosf"); 
-            
+        instance.setPageSegMode(PSM_SINGLE_CHAR);    
             
             test = extraerCuadroData(test);
             BufferedImage[] registros = extraerRegistros(test);
@@ -722,6 +868,7 @@ public class Recorte {
                    
                     String  dig  =  instance.doOCR(dni[k]);
                     dig = dig.trim();
+//                    numero += dig;
                     if(!dig.isEmpty())
                         numero += dig.charAt(0);
                     else 
@@ -730,60 +877,75 @@ public class Recorte {
                 
                 } catch (TesseractException ex) {
                     Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                       
-                   
+                }                   
                    }
-//                       System.out.println(numero);
-                       
-                ArrayList<String> nombres2 = extraerNombre(registros[i]);
-//                ImagePlus imp=new ImagePlus("let",nombres.get(0));
-//                imp.show();        
-                ArrayList<String> apellidos2 = extraerApellidos(registros[i]);
-                //Configuracion del OCR de Letras
-                Tesseract instance2 = new Tesseract();
-                instance2.setLanguage("spa");
-                String nombre = "";
-                String apell = "";
-                String ap;
+
+                   if(numero.compareTo("00000000")!=0){
+                ArrayList<String> lstDni=buscarDni(numero);    
+//                for(int k=0;k<lstDni.size();k++){
+//                    System.out.println(lstDni.get(k));
+//                }                    
+//                System.out.println("");
+//                System.out.println("");
+                ArrayList<String> nombres2=new ArrayList<String>();
+                nombres2 = extraerNombre2(registros[i]);
+                String nombre="";
+                if(!nombres2.isEmpty())nombre=nombres2.get(0);
+////                ImagePlus imp=new ImagePlus("let",nombres.get(0));
+////                imp.show();        
+                ArrayList<String> apellidos2=new ArrayList<String>();
+                apellidos2 = extraerApellidos2(registros[i]);
+                String apellido="";
+                if(!apellidos2.isEmpty())apellido=apellidos2.get(0);
                 
-                ArrayList<String> nombresE=null;
-                nombresE=RevisaNombre(nombres2);
-////                for(int k=0;k<nombresE.size();k++){
-////                    System.out.println("N: "+nombresE.get(k));
-////                }      
-////                System.out.println("");
-                ArrayList<String> apellidosE=null;
-                apellidosE=RevisaApellido(apellidos2);
-////                for(int k=0;k<apellidosE.size();k++){
-////                    System.out.println("A: "+apellidosE.get(k));
-////                }
-                ArrayList<String> lDniOcrL=new ArrayList<String>();
-                ArrayList<String> lDniOcrLP=new ArrayList<String>();
-                lDniOcrL=nombresE;
-                for(int k=0;k<apellidosE.size();k++){
-                    if(!lDniOcrL.contains(apellidosE.get(k))){
-                        lDniOcrL.add(apellidosE.get(k));
-                    }
-                    else{
-                        lDniOcrLP.add(apellidosE.get(k));
-                    }
-                }
-                if(lDniOcrLP.size()==0)lDniOcrLP=lDniOcrL;
-//                for(int k=0;k<lDniOcrLP.size();k++){
-//                    System.out.println(lDniOcrLP.get(k));
+//                //Configuracion del OCR de Letras
+//                Tesseract instance2 = new Tesseract();
+//                instance2.setLanguage("spa");
+//                String nombre = "";
+//                String apell = "";
+//                String ap;
+//                
+                ArrayList<String> nombresE=new ArrayList<String>();
+                if(nombre!="")nombresE=RevisaNombre2(nombre);
+//                for(int k=0;k<nombresE.size();k++){
+//                    System.out.println("N: "+nombresE.get(k));
+//                }      
+                System.out.println("");
+                ArrayList<String> apellidosE=new ArrayList<String>();
+                if(apellido!="")apellidosE=RevisaApellido2(apellido);                
+//                for(int k=0;k<apellidosE.size();k++){
+//                    System.out.println("A: "+apellidosE.get(k));
 //                }
-                String numero2="";
-                if(lDniOcrLP.size()>0){
-                    numero2=lDniOcrLP.get(0);
-                    System.out.println(numero2);
+                numero2=SeleccionaDni(lstDni,nombresE,apellidosE);
+                   }else numero2=numero;
+                System.out.println(numero2);
+//                ArrayList<String> lDniOcrL=new ArrayList<String>();
+//                ArrayList<String> lDniOcrLP=new ArrayList<String>();
+//                lDniOcrL=nombresE;
+//                for(int k=0;k<apellidosE.size();k++){
+//                    if(!lDniOcrL.contains(apellidosE.get(k))){
+//                        lDniOcrL.add(apellidosE.get(k));
+//                    }
+//                    else{
+//                        lDniOcrLP.add(apellidosE.get(k));
+//                    }
+//                }
+//                if(lDniOcrLP.size()==0)lDniOcrLP=lDniOcrL;
+////                for(int k=0;k<lDniOcrLP.size();k++){
+////                    System.out.println(lDniOcrLP.get(k));
+////                }
+//                String numero2="";
+//                if(lDniOcrLP.size()>0){
+//                    numero2=lDniOcrLP.get(0);
+//                    System.out.println(numero2);
                     int ubigeo = 0;
                     if(partido.getIdTipoProceso() == 1) ubigeo  = -1;
                     if(partido.getIdTipoProceso() == 2) ubigeo  = Manager.queryByIdRegion(partido.getIdRegion()).getUbigeo();
                     if(partido.getIdTipoProceso() == 3) ubigeo  = Manager.queryByIdDistrito(partido.getIdDistrito()).getUbigeo();
                     if(partido.getIdTipoProceso() == 4) ubigeo  = Manager.queryLocalById(partido.getIdLocal()).getUbigeo();
                     if(partido.getIdTipoProceso() == 5) ubigeo  = Manager.queryInstitucionById(partido.getIdInstitucion()).getUbigeo();
-                    int ubigeoPadron=buscarUbigeo(numero2);
+                    int ubigeoPadron=-1;
+                    if(ubigeo!=-1)ubigeoPadron=buscarUbigeo(numero2);
                     if(ubigeo==-1 || ubigeo==ubigeoPadron){
                         System.out.println("  Ubigeo Correcto");
                     BufferedImage ImagenPadronHuella=extraerHuella(registros[i]);
@@ -823,10 +985,10 @@ public class Recorte {
                     else
                         System.out.println("No se encontro a las personas con DNI: " + numero2);            
                     }
-                }
-                else{
-                    System.out.println("No se encontro el DNI: ");
-                }
+//                }
+//                else{
+//                    System.out.println("No se encontro el DNI: ");
+//                }
             }
             
         } catch (IOException ex) {
@@ -964,11 +1126,75 @@ public class Recorte {
     
    // }
     
+    private static ArrayList<String> buscarDni(String dni){    
+        String dn = null;
+        ArrayList<String> lstDni=new ArrayList<String>();
+        double d=-1;
+        int nd=Integer.parseInt(dni);
+        int ubigeo=0,max=0;
+       try {           
+//                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+			while (cells.hasNext())
+			{
+				cell=(XSSFCell) cells.next();
+                                if(i==2)
+                                {
+                                    d=cell.getNumericCellValue();
+                                    int num=(int) d;
+                                    dn=num+"";
+                                    int v=comparaString(dn,dni);
+                                    if(v>max){
+                                        lstDni=new ArrayList<String>();
+                                        lstDni.add(dn);
+                                        max=v;
+                                    }else if(v==max){
+                                        lstDni.add(dn);
+                                    }
+                                    break;
+                                }                                
+                                i++;
+                                
+			}                       
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }    
+       return lstDni;
+    }
+    
+    private static int comparaString(String dn,String dni){
+        int mat=0;
+        for(int i=0;i<dni.length();i++){
+            char c=dni.charAt(i);
+            char d;
+            if(dn.length()>i)d=dn.charAt(i);
+            else break;
+            if(d==c)mat++;
+        }
+        return mat;
+    }
+    
     private static int buscarUbigeo(String dni){    
         String dn = null;
         double d=-1;
-        int nd=Integer.parseInt(dni);
         int ubigeo=0;
+        if (tryParseInt(dni)) { 
+        int nd=Integer.parseInt(dni);        
        try {           
 //                InputStream ExcelFileToRead = new FileInputStream("C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/registro.nacional.v.1.xlsx");
                 InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
@@ -1010,9 +1236,161 @@ public class Recorte {
        } catch (IOException ex) {
            Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
        }    
+        }
        return ubigeo;
     }
 
+    private static ArrayList<String> RevisaNombre2(String nombre){
+        ArrayList<String> nombresE=new ArrayList<String>();
+        ArrayList<String> dniE=new ArrayList<String>();
+        int gd=0;
+        int max=0;
+        try {           
+                //InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+                        gd=0;
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+                        int v=0;
+			while (cells.hasNext())
+			{                           
+				cell=(XSSFCell) cells.next();
+                                if(i==0)
+                                {
+                                    String dh=cell.getStringCellValue();
+                                    v=comparaString(dh,nombre);
+                                }
+                                if(i==2){
+                                    double d2=cell.getNumericCellValue();
+                                    int num=(int) d2;
+                                    String dn=num+"";
+                                    if(v>max){
+                                        dniE=new ArrayList<String>();
+                                        dniE.add(dn);
+                                        max=v;
+                                    }else if(v==max){
+                                        dniE.add(dn);
+                                    }
+                                    break;
+                                }
+                                i++;
+			}                       
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }        
+        return dniE;
+    }
+ 
+     private static ArrayList<String> RevisaApellido2(String apellido){
+        ArrayList<String> nombresE=new ArrayList<String>();
+        ArrayList<String> dniE=new ArrayList<String>();
+        int gd=0;
+        int max=0;
+        try {           
+                //InputStream ExcelFileToRead = new FileInputStream("D:/repositorio/GRUPO02/b.rnv.xlsx");
+                InputStream ExcelFileToRead = new FileInputStream(Recorte.rutaGeneral);
+                XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow row; 
+		XSSFCell cell;
+		Iterator rows = sheet.rowIterator();
+                row=(XSSFRow) rows.next();
+                while (rows.hasNext())
+		{
+                        gd=0;
+			row=(XSSFRow) rows.next();
+			Iterator cells = row.cellIterator();
+                        int i=0;
+                        int v=0;
+			while (cells.hasNext())
+			{
+				cell=(XSSFCell) cells.next();
+                                if(i==1)
+                                {
+                                    String dh=cell.getStringCellValue();
+                                    v=comparaString(dh,apellido);
+                                }
+                                if(i==2){
+                                    double d2=cell.getNumericCellValue();
+                                    int num=(int) d2;
+                                    String dn=num+"";
+                                    if(v>max){
+                                        dniE=new ArrayList<String>();
+                                        dniE.add(dn);
+                                        max=v;
+                                    }else if(v==max){
+                                        dniE.add(dn);
+                                    }
+                                    break;
+                                }
+                                i++;
+			}                       
+                        i=0;
+		}
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(Recorte.class.getName()).log(Level.SEVERE, null, ex);
+       }        
+        return dniE;
+    }
+    
+    private static String SeleccionaDni(ArrayList<String> l1,ArrayList<String> l2,ArrayList<String> l3){
+        String dni="";
+        if(l1.size()>=l2.size()&&l1.size()>=l3.size()){
+            for(int i=0;i<l1.size();i++){
+                if(l2.contains(l1.get(i))&&l3.contains(l1.get(i))){
+                    dni=l1.get(i);
+                    break;
+                }
+            }            
+            if(dni!="")return dni;
+        }
+        if(l2.size()>=l1.size()&&l2.size()>=l3.size()){
+            for(int i=0;i<l2.size();i++){
+                if(l1.contains(l2.get(i))&&l3.contains(l2.get(i))){
+                    dni=l2.get(i);
+                    break;
+                }
+            } 
+            if(dni!="")return dni;
+        }
+        if(l3.size()>=l1.size()&&l3.size()>=l2.size()){
+            for(int i=0;i<l3.size();i++){
+                if(l1.contains(l3.get(i))&&l2.contains(l3.get(i))){
+                    dni=l3.get(i);
+                    break;
+                }
+            } 
+            if(dni!="")return dni;
+        }
+        if(l1.size()==1){
+            dni=l1.get(0);
+            if(dni!="")return dni;
+        }
+        if(l2.size()==1){
+            dni=l2.get(0);
+            if(dni!="")return dni;
+        }
+        if(l3.size()==1){
+            dni=l3.get(0);
+            if(dni!="")return dni;
+        }
+        return dni;
+    }
     
     private static ArrayList<String> RevisaNombre(ArrayList<String> arrNomb){
         ArrayList<String> nombresE=new ArrayList<String>();
@@ -1163,9 +1541,21 @@ private static void buscarImagenes(String dni){
                                             String dh=cell.getStringCellValue();
                                             String dr=null;
                                             dr=Recorte.rutaHuella+"/"+dh+".jpg";
+//                                            dr=Recorte.rutaHuella+"/"+dh;
                                             File file = new File(dr);
+                                            if(!file.exists()){
+                                                dr=Recorte.rutaHuella+"/"+dh+".png";
+                                                file = new File(dr);
+                                                if(!file.exists()){
+                                                    dr=Recorte.rutaHuella+"/"+dh+".jpg.png";
+                                                    file = new File(dr);
+                                                }
+                                                ImagenHuella= ImageIO.read(file);
+                                            }else{
+                                                ImagenHuella= Algoritmo_Huellas.readImage(file);
+                                            }
 //                                            ImagenHuella= ImageIO.read(file);
-                                            ImagenHuella= Algoritmo_Huellas.readImage(file);
+                                            
                                             salir=1;  
                                         }
                                         
@@ -1199,8 +1589,20 @@ private static void buscarImagenes(String dni){
                                             String dr=null;
 //                                            dr="C:/Users/Raul/Desktop/inf226.2016.1._06.proyecto/firmas.jpg/"+dh+".jpg";
                                             dr=Recorte.rutaFirma+"/"+dh+".jpg";
+//                                            dr=Recorte.rutaFirma+"/"+dh;
                                             File file = new File(dr);
-                                            ImagenFirma= Algoritmo_Huellas.readImage(file);
+                                            if(!file.exists()){
+                                                dr=Recorte.rutaFirma+"/"+dh+".png";
+                                                file = new File(dr);
+                                                if(!file.exists()){
+                                                    dr=Recorte.rutaFirma+"/"+dh+".jpg.png";
+                                                    file = new File(dr);
+                                                }
+                                                ImagenFirma= ImageIO.read(file);
+                                            }else{
+                                                ImagenFirma= Algoritmo_Huellas.readImage(file);
+                                            }
+                                            
 //                                            ImagenFirma= ImageIO.read(file);
                                             salir=1;
                                             

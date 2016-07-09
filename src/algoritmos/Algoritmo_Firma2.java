@@ -47,6 +47,7 @@ public class Algoritmo_Firma2 {
                         
             //Image1
             processedImage1=preproceso(originalImage1);
+            if(processedImage1==null)return 0;
             extractionCharacteristic(processedImage1,vector1);
             //Image2
             processedImage2=preproceso2(originalImage2);
@@ -419,6 +420,7 @@ public class Algoritmo_Firma2 {
 //            ImageIO.write(cropped, "jpg", new File("C:/Users/Raul/Desktop/Firmas/firma1crop.jpg"));           
             
             // Empezamos con el thinning
+            if(cropped==null)return null;
             int[][] imgbin= new int[cropped.getWidth()][cropped.getHeight()];
             int pix;
             for(int i=0;i<cropped.getWidth();i++)
@@ -501,6 +503,7 @@ public class Algoritmo_Firma2 {
         }
         
         // create a cropped image from the original image
+        if(endY==0 || endX==0 || (endX-startX<=0)|| (endY-startY<=0))return null;
         BufferedImage croppedImage = img.getSubimage(startX, startY, endX-startX, endY-startY);
         
         return croppedImage;

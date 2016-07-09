@@ -74,12 +74,12 @@ public class Utils {
         if(new File(imagen).isDirectory()){
             File[] files = new File(imagen).listFiles();
             if(files.length<cantRegistros) return false;
-            int cantJPgs = 0;
-            for(int i=0;i<files.length;i++){
-                String ext = FilenameUtils.getExtension(files[i].getName());
-                if(ext.compareTo("jpg")==0) cantJPgs++;
-            }
-            if(cantJPgs<cantRegistros) return false;
+//            int cantJPgs = 0;
+//            for(int i=0;i<files.length;i++){
+//                String ext = FilenameUtils.getExtension(files[i].getName());
+//                if(ext.compareTo("jpg")==0) cantJPgs++;
+//            }
+//            if(cantJPgs<cantRegistros) return false;
             return true;
         }
         return false;
