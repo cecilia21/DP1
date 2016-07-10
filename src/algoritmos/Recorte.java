@@ -800,7 +800,7 @@ public class Recorte {
         if(firma_valida && huella_valida) return registro_aprobado;
         
         if (firma_valida && huella_observada) return registro_aprobado;
-        if (firma_observada && huella_valida) return registro_observado;
+        if (firma_observada && huella_valida) return registro_aprobado;
         if (firma_observada && huella_observada) return registro_observado;
         if (nombre_coincide && firma_rechazada && huella_valida) return registro_observado;
         if (nombre_coincide && firma_valida && huella_rechazada) return registro_observado;

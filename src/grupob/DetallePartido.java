@@ -840,6 +840,8 @@ public class DetallePartido extends javax.swing.JPanel {
                 if(files.length<1){
                     JOptionPane.showMessageDialog(null, "Carpeta vacía, seleccione otra.");
                 } else{
+                    //Tiempo
+                    long startTime = System.currentTimeMillis();                    
                     for (File file : files) {
                         ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                         ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
@@ -886,14 +888,17 @@ public class DetallePartido extends javax.swing.JPanel {
                         partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
                         Manager.updatePartido(partPol);  
                     }
+                    long endTime = System.currentTimeMillis();
                     if(resultado!=-1){
-                        System.out.println("4");
+                        System.out.println("FIN");                        
+                        System.out.println("That took " + (endTime - startTime) + " milliseconds");                        
                         showDetail(partidos.get(0)); 
                         Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
                         dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
                         dialog.setLocationRelativeTo(null);
                         dialog.setVisible(true);
                     }
+                    
                 }
             }
         }
