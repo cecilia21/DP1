@@ -1006,6 +1006,8 @@ public class DetallePartido extends javax.swing.JPanel {
                     int cantRechazadosT=0;
                     int cantObservadosT=0;
                     int resultado=-1;
+                    //Tiempo
+                    long startTime = System.currentTimeMillis(); 
                     for (File file : files) {
                         ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                         ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
@@ -1049,7 +1051,10 @@ public class DetallePartido extends javax.swing.JPanel {
                         partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
                         Manager.updatePartido(partPol);  
                     }
+                    long endTime = System.currentTimeMillis();
                     if(resultado!=-1){
+                        System.out.println("FIN");                        
+                        System.out.println("That took " + (endTime - startTime) + " milliseconds");  
                         showDetail(p); 
                         Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
                         dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
@@ -1099,6 +1104,8 @@ public class DetallePartido extends javax.swing.JPanel {
                     int cantRechazadosT=0;
                     int cantObservadosT=0;
                     int resultado=-1;
+                    //Tiempo
+                    long startTime = System.currentTimeMillis(); 
                     for (File file : files) {
                         ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                         ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
@@ -1157,7 +1164,10 @@ public class DetallePartido extends javax.swing.JPanel {
                         partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
                         Manager.updatePartido(partPol);  
                     }
+                    long endTime = System.currentTimeMillis();
                     if(resultado!=-1){
+                        System.out.println("FIN");                        
+                        System.out.println("That took " + (endTime - startTime) + " milliseconds");  
                         showDetail(p); 
                         Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
                         dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
@@ -1208,6 +1218,8 @@ public class DetallePartido extends javax.swing.JPanel {
                     int cantRechazadosT=0;
                     int cantObservadosT=0;
                     int resultado=-1;
+                    //Tiempo
+                    long startTime = System.currentTimeMillis(); 
                     for (File file : files) {
                         ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                         ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
@@ -1266,7 +1278,10 @@ public class DetallePartido extends javax.swing.JPanel {
                         partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
                         Manager.updatePartido(partPol);  
                     }
+                    long endTime = System.currentTimeMillis();
                     if(resultado!=-1){
+                        System.out.println("FIN");                        
+                        System.out.println("That took " + (endTime - startTime) + " milliseconds");  
                         showDetail(p); 
                         Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
                         dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
@@ -1317,6 +1332,8 @@ public class DetallePartido extends javax.swing.JPanel {
                     int cantRechazadosT=0;
                     int cantObservadosT=0;
                     int resultado = -1;
+                    //Tiempo
+                    long startTime = System.currentTimeMillis(); 
                     for (File file : files) {
                         ArrayList<Adherente> listaAdherente=new ArrayList<Adherente>();
                         ArrayList<Adherente> listaAdherentef=new ArrayList<Adherente>();
@@ -1375,7 +1392,10 @@ public class DetallePartido extends javax.swing.JPanel {
                         partPol.setCantidadRegistrosValidos(partPol.getCantidadRegistrosValidos()+cantValidos);
                         Manager.updatePartido(partPol);  
                     }
+                    long endTime = System.currentTimeMillis();
                     if(resultado!=-1){
+                        System.out.println("FIN");                        
+                        System.out.println("That took " + (endTime - startTime) + " milliseconds");  
                         showDetail(p); 
                         Terminado2 dialog = new Terminado2(new javax.swing.JFrame(), true);
                         dialog.llenarDatos(cantValidosT, cantRechazadosT, cantObservadosT);
