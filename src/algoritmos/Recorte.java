@@ -1551,6 +1551,10 @@ private static void buscarImagenes(String dni){
                                                     dr=Recorte.rutaHuella+"/"+dh+".jpg.png";
                                                     file = new File(dr);
                                                 }
+                                                    if(!file.exists()){
+                                                    dr=Recorte.rutaHuella+"/"+dh+".JPG";
+                                                    file = new File(dr);
+                                                }
                                                 ImagenHuella= ImageIO.read(file);
                                             }else{
                                                 ImagenHuella= Algoritmo_Huellas.readImage(file);
@@ -1599,6 +1603,12 @@ private static void buscarImagenes(String dni){
                                                     dr=Recorte.rutaFirma+"/"+dh+".jpg.png";
                                                     file = new File(dr);
                                                 }
+                                       
+                                                    if(!file.exists()){
+                                                    dr=Recorte.rutaHuella+"/"+dh+".JPG";
+                                                    file = new File(dr);
+                                                    }
+                                                    
                                                 ImagenFirma= ImageIO.read(file);
                                             }else{
                                                 ImagenFirma= Algoritmo_Huellas.readImage(file);
